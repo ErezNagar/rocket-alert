@@ -1,21 +1,39 @@
 {
-  "name": "alert-client",
+  "name": "code-red",
   "version": "0.1.0",
-  "private": true,
+  "description": "A 'code red' rocket alerts in Israel",
+  "author": "Erez Nagar (erez.nagar@gmail.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ErezNagar/code-red"
+  },
+  "keywords": [
+    "code red",
+    "rockets",
+    "alerts"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "date-fns": "^2.22.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "wretch": "^1.7.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "preversion": "npm test",
+    "version": "npm run build && git add *",
+    "postversion": "git push && git push --tags && rm -rf build"
   },
   "eslintConfig": {
     "extends": [
