@@ -1,7 +1,7 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
 
-const alerts = wretch("https://ra-agg.kipodopik.com/api/public/alerts/");
+const api = wretch("https://ra-agg.kipodopik.com/api/public/alerts/");
 
 const AlertClient = {
   /*
@@ -10,7 +10,7 @@ const AlertClient = {
    *  @param {string} to    to date, exclusive
    *  @return {object}
    */
-  getTotalAlertsByDay: (from?: string, to?: string, api = alerts): any => {
+  getTotalAlertsByDay: (from: string, to: string): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }
@@ -37,7 +37,7 @@ const AlertClient = {
    *  @param {string} to    to date, exclusive
    *  @return {object}
    */
-  getTotalAlerts: (from: string, to: string, api = alerts): any => {
+  getTotalAlerts: (from: string, to: string): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }

@@ -1,13 +1,30 @@
 import AlertClient from "../alert_client";
 
+jest.mock("wretch", () => {
+  const catchFn = () => {
+    return "catch";
+  };
+  const json = () => {
+    return Promise.resolve({
+      success: true,
+      error: null,
+      payload: [{ timeStamp: "2021-05-10", alerts: 225 }],
+    });
+  };
+  const get = () => ({ json });
+  const query = (query) => ({ get });
+  const url = (url) => ({ query });
+  return () => ({ url });
+});
+
 const DATE_RANGE = {
-  from: "2021-05-01",
-  to: "2021-06-01",
+  from: "2021-05-10",
+  to: "2021-05-10",
 };
 
 describe("AlertClient", () => {
   describe("getTotalAlertsByDay", () => {
-    test("should throw when 'from' is invalid", async () => {
+    it("should throw when 'from' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlertsByDay(null, DATE_RANGE.to).catch(
         (error) => expect(error).toMatchObject(new Error("Invalid Date: from"))
@@ -16,7 +33,7 @@ describe("AlertClient", () => {
         expect(error).toMatchObject(new Error("Invalid Date: from"))
       );
     });
-    test("should throw when 'to' is invalid", async () => {
+    it("should throw when 'to' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlertsByDay(DATE_RANGE.from, null).catch(
         (error) => expect(error).toMatchObject(new Error("Invalid Date: to"))
@@ -25,9 +42,23 @@ describe("AlertClient", () => {
         (error) => expect(error).toMatchObject(new Error("Invalid Date: to"))
       );
     });
+    it("should return a valid response", async () => {
+      expect.assertions(1);
+      await AlertClient.getTotalAlertsByDay(
+        DATE_RANGE.from,
+        DATE_RANGE.to
+      ).then((res) => {
+        expect(res).toMatchObject({
+          success: true,
+          error: null,
+          payload: [{ timeStamp: "2021-05-10", alerts: 225 }],
+        });
+      });
+    });
   });
+
   describe("getTotalAlerts", () => {
-    test("should throw when 'from' is invalid", async () => {
+    it("should throw when 'from' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlerts(null, DATE_RANGE.to).catch((error) =>
         expect(error).toMatchObject(new Error("Invalid Date: from"))
@@ -36,7 +67,7 @@ describe("AlertClient", () => {
         expect(error).toMatchObject(new Error("Invalid Date: from"))
       );
     });
-    test("should throw when 'to' is invalid", async () => {
+    it("should throw when 'to' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlerts(DATE_RANGE.from, null).catch((error) =>
         expect(error).toMatchObject(new Error("Invalid Date: to"))
