@@ -1,17 +1,18 @@
 {
   "name": "code-red",
   "version": "0.1.0",
-  "description": "A 'code red' rocket alerts in Israel",
+  "description": "Real-time rocket alerts in Israel",
   "author": "Erez Nagar (erez.nagar@gmail.com)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ErezNagar/code-red"
+    "url": "https://github.com/ErezNagar/rocket-alert"
   },
   "keywords": [
-    "code red",
     "rockets",
-    "alerts"
+    "alerts",
+    "codered",
+    "israel"
   ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.13.0",
@@ -25,6 +26,7 @@
     "wretch": "^1.7.4"
   },
   "devDependencies": {
+    "antd": "^4.16.12",
     "typescript": "^4.3.2"
   },
   "scripts": {

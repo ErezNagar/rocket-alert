@@ -1,7 +1,7 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
 
-const api = wretch("https://ra-agg.kipodopik.com/api/public/alerts/");
+const api = wretch("https://ra-agg.kipodopik.com/api/v1/alerts");
 
 const AlertClient = {
   /*

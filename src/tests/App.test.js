@@ -1,4 +1,4 @@
-import AlertClient from "../alert_client";
+import AlertClient from "../rocket_alert_client";
 
 jest.mock("wretch", () => {
   const catchFn = () => {

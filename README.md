@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://github.com/ErezNagar/code-red/workflows/build-and-test/badge.svg)
 
-A 'Code Red' app showing rocket alerts Israel.
+Real-time rocket alerts in Israel.
 
 ## CHANGELOG
 

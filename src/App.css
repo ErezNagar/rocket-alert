@@ -1,10 +1,185 @@
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@import "~antd/dist/antd.css";
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Muli, serif;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+.pageContainer {
+  background: #f4f6f7;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s opacity;
+}
+
+.pageContainer.active {
+  opacity: 1;
+}
+
+/* Sticky Header */
+.sticky-header {
+  position: fixed;
+  display: flex;
+  top: 0;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4em;
+  align-items: center;
+  color: white;
+  background-color: #f5222d;
+  background: linear-gradient(135deg, #ff4d4f, #a8071a);
+  z-index: 1;
+  transform: translateY(-100%);
+  transition: 0.2s transform;
+}
+
+.sticky-header.active {
+  transform: translateY(0);
+}
+
+.sticky-header .left-container {
+  display: flex;
+  align-items: center;
+}
+
+.sticky-header .ant-statistic-content-value-int {
+  color: white;
+}
+
+.sticky-header .title {
+  font-size: 3.5em;
+}
+.sticky-header .alerts {
+  font-size: 1.5em;
+  margin: 0 1em;
+}
+
+.sticky-header .right-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Header */
+.header {
+  height: 80vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #f5222d;
+  background: linear-gradient(135deg, #ff4d4f, #a8071a);
+  text-align: center;
+}
+.hero {
+  height: 40vh;
+  background-color: #f4f6f7;
+  text-align: center;
+}
+
+.top h1 {
   color: white;
+  font-size: 4em;
+}
+.top h2 {
+  color: #ffb1b1;
+  padding: 0;
+}
+
+/* Tile Hero */
+.tile-hero {
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 3em;
+}
+
+.tile-hero h3 {
+  color: white;
+}
+
+.tile-hero .ant-statistic-content-value-int {
+  font-size: 6em;
+  color: white;
+}
+.share a {
+  color: white;
+}
+
+/* Section */
+.section {
+  display: block;
+  padding: 3em 1em;
+}
+
+.section h2 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 2em;
+}
+
+/* Tile */
+.tile {
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 5px;
+}
+.tile .subtitle {
+  color: gray;
+}
+.tile .loading-basic {
+  padding: 6px 0;
+}
+.tile .loading-average {
+  padding: 33px 0;
+}
+.tile .alerts .ant-statistic-content-value-int {
+  color: red;
+}
+.tile .average-container {
+  line-height: 3em;
+  padding-top: 15px;
+}
+.tile .separator {
+  color: transparent;
+  height: 100%;
+  margin-top: 15px;
+  margin-left: 10px;
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.faq {
+  min-height: 50vh;
+  background-color: white;
+}
+
+footer {
+  min-height: 50vh;
+  background-color: #5c0011;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
 }
