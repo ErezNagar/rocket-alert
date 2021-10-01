@@ -10,6 +10,7 @@ h1,
 h2,
 h3 {
   margin: 0;
+  color: inherit;
 }
 .pageContainer {
   background: #f4f6f7;
@@ -65,6 +66,69 @@ h3 {
   align-items: center;
 }
 
+/* Alert Mode Header */
+.alert-mode-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 80vh;
+  /* background-color: #f5222d; */
+  /* background-color: #dc1e28; */
+  background-color: #a8071a;
+  background: linear-gradient(90deg, #ff4d4f, #a8071a 60%);
+}
+
+.alert-mode-header .ant-row {
+  width: 100%;
+}
+
+.alert-mode-header .title {
+  text-align: center;
+}
+
+.alert-mode-header .title h1 {
+  font-size: 7vh;
+}
+
+.alert-mode-header .title h2 {
+  color: #ffb1b1;
+  padding: 0;
+}
+
+.alert-mode-header .alerts {
+  height: 60vh;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  font-size: 2.2vh;
+  padding-top: 0.5em;
+}
+.alert-mode-header .alerts:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(
+    180deg,
+    rgba(168, 7, 26, 0) 0%,
+    rgba(168, 7, 26, 0) 60%,
+    rgba(168, 7, 26, 0.85) 70%,
+    rgba(168, 7, 26, 1) 80%
+  );
+}
+
+.alert-mode-header .alert-item {
+  padding: 0.25em 0;
+}
+
+.alert-mode-header .alert-item .pin-icon {
+  width: 16px;
+  margin: 0 0.5em;
+}
+
 /* Header */
 .header {
   height: 80vh;
@@ -83,7 +147,7 @@ h3 {
 
 .top h1 {
   color: white;
-  font-size: 4em;
+  font-size: 7vh;
 }
 .top h2 {
   color: #ffb1b1;
@@ -103,7 +167,7 @@ h3 {
 }
 
 .tile-hero .ant-statistic-content-value-int {
-  font-size: 6em;
+  font-size: 20vh;
   color: white;
 }
 .share a {
@@ -164,6 +228,33 @@ footer {
   background-color: #5c0011;
 }
 
+@media only screen and (max-device-width: 768px) {
+  .tile-hero .ant-statistic-content-value-int {
+    font-size: 10vh;
+  }
+  .alert-mode-header .live-alerts-container {
+    text-align: center;
+  }
+  .alert-mode-header .alerts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+    font-size: 2.2vh;
+    padding-top: 0.5em;
+  }
+}
+
+@keyframes moveIn {
+  0% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -180,6 +271,6 @@ footer {
   }
   100% {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(3px);
   }
 }

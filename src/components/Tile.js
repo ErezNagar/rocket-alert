@@ -5,7 +5,7 @@ import { Row, Col, Statistic, Spin } from "antd";
 import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import FadeIn from "./FadeIn";
 
-const TileLoading = ({ showAverage }) => (
+const LoadingTile = ({ showAverage }) => (
   <Row
     gutter={[8]}
     justify="center"
@@ -20,6 +20,13 @@ const TileLoading = ({ showAverage }) => (
     </Col>
   </Row>
 );
+
+LoadingTile.propTypes = {
+  showAverage: PropTypes.bool,
+};
+LoadingTile.defaultProps = {
+  showAverage: false,
+};
 
 export default class Tile extends React.Component {
   static propTypes = {
@@ -94,7 +101,7 @@ export default class Tile extends React.Component {
             <h3>{this.props.title}</h3>
             <div className="subtitle">{this.props.subtitle}</div>
             <div>
-              {this.state.isLoading && <TileLoading {...this.props} />}
+              {this.state.isLoading && <LoadingTile {...this.props} />}
               {hasData && this.props.showAverage && (
                 <Row
                   gutter={[8]}
