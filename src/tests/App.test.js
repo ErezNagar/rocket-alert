@@ -76,5 +76,18 @@ describe("AlertClient", () => {
         expect(error).toMatchObject(new Error("Invalid Date: to"))
       );
     });
+
+    it("should return a valid response", async () => {
+      expect.assertions(1);
+      await AlertClient.getTotalAlerts(DATE_RANGE.from, DATE_RANGE.to).then(
+        (res) => {
+          expect(res).toMatchObject({
+            success: true,
+            error: null,
+            payload: [{ timeStamp: "2021-05-10", alerts: 225 }],
+          });
+        }
+      );
+    });
   });
 });
