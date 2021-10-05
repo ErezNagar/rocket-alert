@@ -17,18 +17,7 @@ const AlertClient = {
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return (
-      api
-        .url("/daily")
-        .query({ from, to })
-        .get()
-        //   .badRequest((error) => console.log(error.status))
-        .json()
-        .catch((error) => {
-          console.log({ error });
-          return null;
-        })
-    );
+    return api.url("/daily").query({ from, to }).get().json();
   },
 
   /*
@@ -44,18 +33,7 @@ const AlertClient = {
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return (
-      api
-        .url("/total")
-        .query({ from, to })
-        .get()
-        //   .badRequest((error) => console.log(error.status))
-        .json()
-        .catch((error) => {
-          console.log({ error });
-          return null;
-        })
-    );
+    return api.url("/total").query({ from, to }).get().json();
   },
 };
 

@@ -28,6 +28,26 @@ LoadingTile.defaultProps = {
   showAverage: false,
 };
 
+const HeroTile = ({ isLoading, title, alerts }) => (
+  <div className="tile-hero">
+    <FadeIn show={!isLoading} fadeInOnly>
+      <Statistic value={alerts} />
+    </FadeIn>
+    <h3>{title}</h3>
+  </div>
+);
+
+HeroTile.propTypes = {
+  isLoading: PropTypes.bool,
+  title: PropTypes.string,
+  alerts: PropTypes.number,
+};
+HeroTile.defaultProps = {
+  isLoading: false,
+  title: "",
+  alerts: 0,
+};
+
 export default class Tile extends React.Component {
   static propTypes = {
     isHeroTile: PropTypes.bool,
@@ -52,50 +72,43 @@ export default class Tile extends React.Component {
   state = { isLoading: true, isError: false, alerts: null };
 
   componentDidMount() {
+    this.getAlerts();
+  }
+
+  getAlerts = () => {
     this.props.alertsClient
       .getTotalAlerts(this.props.fromDate, this.props.toDate)
       .then((res) => {
         if (this.props.isHeroTile) {
           this.setState({ alerts: 7325, isLoading: false });
         } else {
+          if (this.props.showAverage) {
+            const duration = differenceInDays(
+              new Date(this.props.toDate),
+              new Date(this.props.fromDate)
+            );
+            this.setState({
+              average: Math.round(res.payload / duration),
+            });
+          }
           setTimeout(() => {
             this.setState({ alerts: res.payload, isLoading: false });
           }, Math.floor(Math.random() * 4) * 1000);
         }
       })
       .catch((error) => {
-        this.setState({ isLoading: false, isError: true });
-        console.error("error", error);
+        console.error(error);
+        this.setState({ isError: true });
       });
-  }
+  };
 
   render() {
-    const diffInDays =
-      this.props.title === "Operation Protective Edge" ||
-      this.props.title === "Operation Black Belt" ||
-      this.props.title === "Operation Guardian of the Walls"
-        ? differenceInDays(
-            new Date(this.props.toDate),
-            new Date(this.props.fromDate)
-          )
-        : null;
-
-    const avg =
-      diffInDays && this.state.alerts
-        ? Math.round(this.state.alerts / diffInDays)
-        : null;
-
     const hasData = !this.state.isLoading && !this.state.isError;
 
     return (
       <>
         {this.props.isHeroTile ? (
-          <div className="tile-hero">
-            <FadeIn show={!this.state.isLoading} fadeInOnly>
-              <Statistic value={this.state.alerts} />
-            </FadeIn>
-            <h3>{this.props.title}</h3>
-          </div>
+          <HeroTile />
         ) : (
           <div className="tile">
             <h3>{this.props.title}</h3>
@@ -120,7 +133,7 @@ export default class Tile extends React.Component {
                   <Col>
                     <div className="average">
                       <FadeIn show={!this.state.isLoading} fadeInOnly>
-                        <Statistic value={avg} />
+                        <Statistic value={this.state.average} />
                       </FadeIn>
                     </div>
                     <div>Avg/Day</div>

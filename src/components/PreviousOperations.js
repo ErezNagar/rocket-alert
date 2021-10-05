@@ -31,7 +31,7 @@ const PreviousOperations = (props) => (
           fromDate={"2014-07-08"}
           toDate={"2014-08-26"}
           alertsClient={props.alertsClient}
-          showAverage={props.showAverage}
+          showAverage
         />
       </Col>
       <Col xs={24} sm={12} md={8} lg={6}>
@@ -41,7 +41,7 @@ const PreviousOperations = (props) => (
           fromDate={"2019-11-12"}
           toDate={"2019-11-16"}
           alertsClient={props.alertsClient}
-          showAverage={props.showAverage}
+          showAverage
         />
       </Col>
       <Col xs={24} sm={12} md={8} lg={6}>
@@ -51,7 +51,7 @@ const PreviousOperations = (props) => (
           fromDate={"2021-05-10"}
           toDate={"2021-05-21"}
           alertsClient={props.alertsClient}
-          showAverage={props.showAverage}
+          showAverage
         />
       </Col>
     </Row>
