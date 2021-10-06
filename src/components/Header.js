@@ -7,7 +7,6 @@ const Header = (props) => (
     <div className="top">
       <h1>Rocket Alerts</h1>
       <h2>Real-time rocket alerts in Israel</h2>
-      <h3>{props.randrandomStringom}</h3>
     </div>
     <Tile
       isHeroTile
@@ -36,13 +35,11 @@ const Header = (props) => (
 );
 
 Header.propTypes = {
-  randomString: PropTypes.string,
   getYesterday() {},
   alertClient: PropTypes.object.isRequired,
 };
 
 Header.defaultProps = {
-  randomString: "",
   getYesterday: () => {},
 };
 

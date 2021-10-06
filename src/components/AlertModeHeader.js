@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
 import Tile from "./Tile";
 import LiveAlerts from "./LiveAlerts";
-import { TwitterOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 
 const AlertModeHeader = (props) => (
-  <header className="alert-mode-header">
+  <header className="header alert-mode">
     <Row>
       <Col xs={24} sm={15} lg={15}>
         <div className="title">
@@ -28,13 +27,11 @@ const AlertModeHeader = (props) => (
 );
 
 AlertModeHeader.propTypes = {
-  randomString: PropTypes.string,
   getYesterday() {},
   alertClient: PropTypes.object.isRequired,
 };
 
 AlertModeHeader.defaultProps = {
-  randomString: "",
   getYesterday: () => {},
 };
 

@@ -5,6 +5,7 @@ import Tile from "./components/Tile";
 import Header from "./components/Header";
 import AlertModeHeader from "./components/AlertModeHeader";
 import StickyHeader from "./components/StickyHeader";
+import AlertModeStickyHeader from "./components/AlertModeStickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import Map from "./components/Map";
 import Footer from "./components/Footer";
@@ -16,6 +17,7 @@ import {
   getMonthBack,
   getYearBack,
 } from "./date_helper";
+import queryString from "query-string";
 
 class App extends React.Component {
   state = {
@@ -23,19 +25,33 @@ class App extends React.Component {
     showStickyHeader: false,
     startfadeInEffect: false,
     randomString: "test",
-    isAlertMode: true,
+    isAlertMode: false,
   };
 
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
+    const isAlertMode = this.getAppMode();
     this.setState({
       startfadeInEffect: true,
+      isAlertMode,
     });
   }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
+
+  getAppMode = () => {
+    const query = queryString.parse(window.location.search);
+    const queryKeys = Object.keys(query);
+    if (queryKeys.length !== 1) {
+      return false;
+    }
+    return queryKeys[0].toLowerCase() === "mode" &&
+      query[queryKeys[0]] === "alert"
+      ? true
+      : false;
+  };
 
   handleScroll = (e) => {
     const vh80 = window.innerHeight * 0.8;
@@ -60,14 +76,13 @@ class App extends React.Component {
             randomString={this.state.randomString}
           />
         ) : (
-          <Header
-            getYesterday={getYesterday}
-            alertClient={AlertClient}
-            randomString={this.state.randomString}
-          />
+          <Header getYesterday={getYesterday} alertClient={AlertClient} />
         )}
-        {this.state.showStickyHeader && (
-          <StickyHeader randomString={this.state.randomString} />
+        {this.state.showStickyHeader && this.state.isAlertMode && (
+          <AlertModeStickyHeader />
+        )}
+        {this.state.showStickyHeader && !this.state.isAlertMode && (
+          <StickyHeader />
         )}
 
         <section className="section">

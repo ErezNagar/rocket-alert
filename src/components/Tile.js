@@ -78,6 +78,18 @@ export default class Tile extends React.Component {
   getAlerts = () => {
     this.props.alertsClient
       .getTotalAlerts(this.props.fromDate, this.props.toDate)
+      /*
+        error: null
+        payload: 7325
+        success: true
+      */
+      // .getTotalAlertsByDay(this.props.fromDate, this.props.fromDate)
+      /*
+      [{
+        alerts: 37
+        timeStamp: "2014-07-24"
+      }]
+      */
       .then((res) => {
         if (this.props.isHeroTile) {
           this.setState({ alerts: 7325, isLoading: false });
@@ -108,7 +120,7 @@ export default class Tile extends React.Component {
     return (
       <>
         {this.props.isHeroTile ? (
-          <HeroTile />
+          <HeroTile alerts={7325} />
         ) : (
           <div className="tile">
             <h3>{this.props.title}</h3>
