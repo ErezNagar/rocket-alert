@@ -1,23 +1,17 @@
 import React from "react";
 import "./App.css";
-import { Row, Col } from "antd";
-import Tile from "./components/Tile";
 import Header from "./components/Header";
 import AlertModeHeader from "./components/AlertModeHeader";
 import StickyHeader from "./components/StickyHeader";
 import AlertModeStickyHeader from "./components/AlertModeStickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
+import PreviousStats from "./components/PreviousStats";
 import Map from "./components/Map";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
-import {
-  getYesterday,
-  getWeekBack,
-  getMonthBack,
-  getYearBack,
-} from "./date_helper";
 import queryString from "query-string";
+import { getYesterday } from "./date_helper";
 
 class App extends React.Component {
   state = {
@@ -85,46 +79,10 @@ class App extends React.Component {
           <StickyHeader />
         )}
 
-        <section className="section">
-          <h2>.</h2>
-          <Row gutter={[24, 24]}>
-            <Col xs={24} sm={12} md={8} lg={6}>
-              <Tile
-                title={"Yesterday"}
-                subtitle={getYesterday()}
-                fromDate={getYesterday()}
-                alertsClient={AlertClient}
-              />
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={6}>
-              <Tile
-                title={"Past Week"}
-                subtitle={`Since ${getWeekBack()}`}
-                fromDate={getWeekBack()}
-                alertsClient={AlertClient}
-              />
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={6}>
-              <Tile
-                title={"Past Month"}
-                subtitle={`Since ${getMonthBack()}`}
-                fromDate={getMonthBack()}
-                alertsClient={AlertClient}
-              />
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={6}>
-              <Tile
-                title={"Past Year"}
-                subtitle={`Since ${getYearBack()}`}
-                fromDate={getYearBack()}
-                alertsClient={AlertClient}
-              />
-            </Col>
-          </Row>
-        </section>
+        <PreviousStats alertsClient={AlertClient} />
+        <Map />
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
         <PreviousOperations alertsClient={AlertClient} />
-        <Map />
         <FAQ />
         <Footer />
       </div>
