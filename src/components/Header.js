@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import Tile from "./Tile";
 import { TwitterOutlined } from "@ant-design/icons";
+import logo from "../logo.svg";
 
 const Header = (props) => (
   <header className="header">
     <div className="top">
-      <h1>Rocket Alerts</h1>
+      <img className="logo" src={logo} alt="" />
       <h2>Real-time rocket alerts in Israel</h2>
     </div>
     <Tile

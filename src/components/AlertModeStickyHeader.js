@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import FadeInOut from "./FadeInOut";
 import { TwitterOutlined } from "@ant-design/icons";
 import { Statistic } from "antd";
+import logo from "../logo.svg";
 
 class AlertModeStickyHeader extends React.Component {
   static propTypes = {};
@@ -45,7 +46,9 @@ class AlertModeStickyHeader extends React.Component {
     return (
       <header className="sticky-header alert-mode active">
         <div className="left-container">
-          <div className="title">Ra</div>
+          <div>
+            <img className="logo" src={logo} alt="" />
+          </div>
           <div className="alerts">
             <Statistic value={7325} />
           </div>

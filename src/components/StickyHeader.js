@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TwitterOutlined } from "@ant-design/icons";
 import { Statistic } from "antd";
+import logo from "../logo.svg";
 
 class StickyHeader extends React.Component {
   static propTypes = {};
@@ -14,7 +15,9 @@ class StickyHeader extends React.Component {
     return (
       <header className="sticky-header active">
         <div className="left-container">
-          <div className="title">Ra</div>
+          <div>
+            <img className="logo" src={logo} alt="" />
+          </div>
           <div className="alerts">
             <Statistic value={7325} />
           </div>
