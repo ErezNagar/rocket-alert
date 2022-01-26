@@ -1,7 +1,8 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
 
-const api = wretch("https://ra-agg.kipodopik.com/api/v1/alerts");
+const SERVER_URL = "https://ra-agg.kipodopik.com/api/v1/alerts";
+const api = wretch(SERVER_URL);
 
 const AlertClient = {
   /*
@@ -35,6 +36,14 @@ const AlertClient = {
     }
     return api.url("/total").query({ from, to }).get().json();
   },
+
+  /*
+   *  Opens a persistent connection for interfacing with the server-sent events
+   *  @param {string} url   url of the event source
+   *  @return {EventSource} the EventSource instance
+   */
+  getRealTimeAlertEventSource: (url = `${SERVER_URL}/real-time`) =>
+    new EventSource(url),
 };
 
 export default AlertClient;

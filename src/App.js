@@ -12,30 +12,25 @@ import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
 import queryString from "query-string";
 import { getYesterday } from "./date_helper";
+import wretch from "wretch";
 
 class App extends React.Component {
   state = {
     alerts: {},
     showStickyHeader: false,
     startfadeInEffect: false,
-    randomString: "test",
     isAlertMode: false,
+    realTimeAlert: null,
   };
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-    const isAlertMode = this.getAppMode();
-    this.setState({
-      startfadeInEffect: true,
-      isAlertMode,
-    });
-  }
+  alertEventSource = null;
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  getAppMode = () => {
+  /*
+   * Returns whether the app is in Alert mode.
+   * App is in Alert mode when there are active, real-time, alerts,
+   * or when using mode=alert queryString in dev
+   */
+  isAppInAlertMode = () => {
     const query = queryString.parse(window.location.search);
     const queryKeys = Object.keys(query);
     if (queryKeys.length !== 1) {
@@ -46,6 +41,45 @@ class App extends React.Component {
       ? true
       : false;
   };
+
+  componentDidMount() {
+    // this.setRealTimeAlerts();
+
+    window.addEventListener("scroll", this.handleScroll);
+    this.setState({
+      startfadeInEffect: true,
+      isAlertMode: this.isAppInAlertMode(),
+    });
+  }
+
+  setRealTimeAlerts = () => {
+    this.alertEventSource = AlertClient.getRealTimeAlertEventSource();
+    this.alertEventSource.onopen = () => {
+      console.log("Connection to server opened");
+    };
+    this.alertEventSource.addEventListener("message", (e) => {
+      // console.log("alert", e.data);
+      this.setState({ realTimeAlert: JSON.parse(e.data) });
+    });
+    this.alertEventSource.onerror = function () {
+      console.log("EventSource failed.");
+    };
+
+    setInterval(() => {
+      wretch(
+        "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1,test2"
+        // "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1"
+      )
+        .post()
+        .res()
+        .catch((e) => console.log("e", e));
+    }, 10000);
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+    if (this.alertEventSource) this.alertEventSource.close();
+  }
 
   handleScroll = (e) => {
     const vh80 = window.innerHeight * 0.8;
@@ -67,13 +101,12 @@ class App extends React.Component {
           <AlertModeHeader
             getYesterday={getYesterday}
             alertClient={AlertClient}
-            randomString={this.state.randomString}
           />
         ) : (
           <Header getYesterday={getYesterday} alertClient={AlertClient} />
         )}
         {this.state.showStickyHeader && this.state.isAlertMode && (
-          <AlertModeStickyHeader />
+          <AlertModeStickyHeader realTimeAlert={this.state.realTimeAlert} />
         )}
         {this.state.showStickyHeader && !this.state.isAlertMode && (
           <StickyHeader />

@@ -12,7 +12,6 @@ class AlertModeStickyHeader extends React.Component {
 
   state = {
     shouldRefresh: false,
-    location: "",
     locations: [
       "Nahal Oz",
       "Nativ Haasara",
@@ -21,26 +20,70 @@ class AlertModeStickyHeader extends React.Component {
       "Mefalsim",
       "Tkuma",
     ],
+    alertQueue: [],
+    alertQueueInterval: null,
   };
+
+  alertQueue = [
+    "test 1",
+    "test 2",
+    "test 3",
+    "test 4",
+    "test 5",
+    "test 6",
+    "test 7",
+    "test 8",
+    "test 9",
+    "test 10",
+    "test 11",
+    "test 12",
+    "test 13",
+    "test 14",
+    "test 15",
+  ];
 
   componentDidMount() {
-    let i = 0;
-    setInterval(() => {
-      this.refreshLocation(this.state.locations[i++]);
-      if (i === this.state.locations.length) {
-        i = 0;
+    const alertQueueInterval = setInterval(() => {
+      if (this.alertQueue.length > 0) {
+        this.showAlert();
       }
-    }, 2500);
+    }, 3000); //display time + transition time
+    this.setState({ alertQueueInterval });
   }
 
-  refreshLocation = (location) => {
+  componentDidUpdate(prevProps) {
+    // if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
+    //   this.refreshAlert(this.props.realTimeAlert);
+    // }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.alertQueueInterval);
+  }
+
+  showAlert = () => {
+    const alert = this.alertQueue.shift();
+    console.log("new alert:", `${alert}`);
+    this.setState({
+      shouldRefresh: true,
+      alert,
+    });
     setTimeout(() => {
-      this.setState({ location, shouldRefresh: true });
-      setTimeout(() => {
-        this.setState({ shouldRefresh: false });
-      }, 2000);
-    }, 1);
+      this.setState({ shouldRefresh: false });
+    }, 2000);
   };
+
+  // refreshAlert = (alert) => {
+  //   this.alertQueue.push(`${alert.name} ${this.alertQueue.length + 1}`);
+  //   console.log("new alert:", `${alert.name} ${this.alertQueue.length}`);
+  //   this.setState({
+  //     // alertQueue: { ...this.alertQueue },
+  //     shouldRefresh: true,
+  //   });
+  //   setTimeout(() => {
+  //     this.setState({ shouldRefresh: false });
+  //   }, 2000);
+  // };
 
   render() {
     return (
@@ -54,7 +97,7 @@ class AlertModeStickyHeader extends React.Component {
           </div>
           <div>
             <FadeInOut show={this.state.shouldRefresh}>
-              {`Rocket alert: ${this.state.location}`}
+              {`Rocket alert: ${this.state.alert}`}
             </FadeInOut>
           </div>
         </div>
