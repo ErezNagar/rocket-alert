@@ -1,3 +1,5 @@
+import Util from "./util";
+
 // Display time + total transition time;
 const THROTTLE = 3000;
 
@@ -21,18 +23,24 @@ const RealTimeAlertManager = {
     RealTimeAlertManager.alertEventSource =
       alertClient.getRealTimeAlertEventSource();
     RealTimeAlertManager.alertEventSource.onopen = () => {
-      console.log("Connection to server opened");
+      if (Util.isDev()) {
+        console.log("Connection to server opened");
+      }
       RealTimeAlertManager.processAlert(cb);
     };
     RealTimeAlertManager.alertEventSource.addEventListener("message", (e) => {
-      console.log("Incoming alert: ", e.data);
+      if (Util.isDev()) {
+        console.log("Incoming alert: ", e.data);
+      }
       if (RealTimeAlertManager.alertQueue.length === MAX_QUEUE_SIZE) {
         RealTimeAlertManager.alertQueue.shift();
       }
       RealTimeAlertManager.alertQueue.push(e.data);
     });
     RealTimeAlertManager.alertEventSource.onerror = () => {
-      console.log("EventSource failed.");
+      if (Util.isDev()) {
+        console.log("EventSource failed.");
+      }
     };
   },
 
