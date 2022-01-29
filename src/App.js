@@ -10,6 +10,7 @@ import Map from "./components/Map";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
+import RealTimeAlertManager from "./realtime_alert_manager";
 import queryString from "query-string";
 import { getYesterday } from "./date_helper";
 import wretch from "wretch";
@@ -43,7 +44,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    // this.setRealTimeAlerts();
+    this.setRealTimeAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
@@ -53,32 +54,27 @@ class App extends React.Component {
   }
 
   setRealTimeAlerts = () => {
-    this.alertEventSource = AlertClient.getRealTimeAlertEventSource();
-    this.alertEventSource.onopen = () => {
-      console.log("Connection to server opened");
-    };
-    this.alertEventSource.addEventListener("message", (e) => {
-      // console.log("alert", e.data);
-      this.setState({ realTimeAlert: JSON.parse(e.data) });
+    RealTimeAlertManager.setRealTimeAlerts(AlertClient, (alert) => {
+      // console.log("alert", JSON.parse(alert).timeStamp);
+      console.log("alert", alert);
+      // this.setState({ realTimeAlert: JSON.parse(alert) });
     });
-    this.alertEventSource.onerror = function () {
-      console.log("EventSource failed.");
-    };
 
-    setInterval(() => {
-      wretch(
-        "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1,test2"
-        // "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1"
-      )
-        .post()
-        .res()
-        .catch((e) => console.log("e", e));
-    }, 10000);
+    // Mock incoming alerts by hitting the server
+    // setInterval(() => {
+    //   wretch(
+    //     "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1,test2"
+    //     // "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1"
+    //   )
+    //     .post()
+    //     .res()
+    //     .catch((e) => console.log("e", e));
+    // }, 250);
   };
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
-    if (this.alertEventSource) this.alertEventSource.close();
+    RealTimeAlertManager.stopRealTimeAlerts();
   }
 
   handleScroll = (e) => {
