@@ -15,6 +15,7 @@ import queryString from "query-string";
 import { getYesterday } from "./date_helper";
 import wretch from "wretch";
 
+let counter = 0;
 class App extends React.Component {
   state = {
     alerts: {},
@@ -44,7 +45,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.setRealTimeAlerts();
+    this.startRealTimeAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
@@ -53,23 +54,22 @@ class App extends React.Component {
     });
   }
 
-  setRealTimeAlerts = () => {
-    RealTimeAlertManager.setRealTimeAlerts(AlertClient, (alert) => {
+  startRealTimeAlerts = () => {
+    RealTimeAlertManager.startRealTimeAlerts(AlertClient, (alert) => {
       // console.log("alert", JSON.parse(alert).timeStamp);
-      console.log("alert", alert);
-      // this.setState({ realTimeAlert: JSON.parse(alert) });
+      console.log("Processing alert", alert);
+      this.setState({ realTimeAlert: JSON.parse(alert) });
     });
 
     // Mock incoming alerts by hitting the server
     // setInterval(() => {
     //   wretch(
-    //     "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1,test2"
-    //     // "https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test1"
+    //     `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test${++counter}`
     //   )
     //     .post()
     //     .res()
     //     .catch((e) => console.log("e", e));
-    // }, 250);
+    // }, 1000);
   };
 
   componentWillUnmount() {

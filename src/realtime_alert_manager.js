@@ -17,7 +17,7 @@ const RealTimeAlertManager = {
    *  @param {object}   alertClient The alert client
    *  @param {func}     cb          Callback function to process incoming alerts
    */
-  setRealTimeAlerts: (alertClient, cb) => {
+  startRealTimeAlerts: (alertClient, cb) => {
     RealTimeAlertManager.alertEventSource =
       alertClient.getRealTimeAlertEventSource();
     RealTimeAlertManager.alertEventSource.onopen = () => {
@@ -25,15 +25,11 @@ const RealTimeAlertManager = {
       RealTimeAlertManager.processAlert(cb);
     };
     RealTimeAlertManager.alertEventSource.addEventListener("message", (e) => {
-      // console.log("Incoming alert: ", e.data);
-      console.log("Incoming alert: ", RealTimeAlertManager.alertQueue.length);
+      console.log("Incoming alert: ", e.data);
       if (RealTimeAlertManager.alertQueue.length === MAX_QUEUE_SIZE) {
         RealTimeAlertManager.alertQueue.shift();
       }
-      // RealTimeAlertManager.alertQueue.push(e.data);
-      RealTimeAlertManager.alertQueue.push(
-        RealTimeAlertManager.alertQueue.length + 1
-      );
+      RealTimeAlertManager.alertQueue.push(e.data);
     });
     RealTimeAlertManager.alertEventSource.onerror = () => {
       console.log("EventSource failed.");
@@ -43,6 +39,7 @@ const RealTimeAlertManager = {
   /*
    * Processes an alert from the queue in intervals of THROTTLE ms,
    * until there are no more alerts left in the queue
+   *  @param {func} cb  Callback function to process incoming alerts
    */
   processAlert: (cb) => {
     RealTimeAlertManager.alertInterval = setInterval(() => {
