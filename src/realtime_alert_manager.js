@@ -52,7 +52,9 @@ const RealTimeAlertManager = {
   processAlert: (cb) => {
     RealTimeAlertManager.alertInterval = setInterval(() => {
       if (RealTimeAlertManager.alertQueue.length > 0) {
-        cb(RealTimeAlertManager.alertQueue.shift());
+        const alert = RealTimeAlertManager.alertQueue.shift();
+        const isLastAlert = RealTimeAlertManager.alertQueue.length === 0;
+        cb(alert, isLastAlert);
       }
     }, THROTTLE);
   },

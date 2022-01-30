@@ -29,11 +29,9 @@ class App extends React.Component {
   alertEventSource = null;
 
   /*
-   * Returns whether the app is in Alert mode.
-   * App is in Alert mode when there are active, real-time, alerts,
-   * or when using mode=alert queryString in dev
+   * Checks whether the Alert Mode query string is set. Dev only.
    */
-  isAppInAlertMode = () => {
+  isAlertModeQueryString = () => {
     const query = queryString.parse(window.location.search);
     const queryKeys = Object.keys(query);
     if (queryKeys.length !== 1) {
@@ -47,24 +45,39 @@ class App extends React.Component {
 
   componentDidMount() {
     this.startRealTimeAlerts();
+    this.mockIncomingAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
       startfadeInEffect: true,
-      isAlertMode: this.isAppInAlertMode(),
+      isAlertMode: this.isAlertModeQueryString(),
     });
   }
 
   startRealTimeAlerts = () => {
-    RealTimeAlertManager.startRealTimeAlerts(AlertClient, (alert) => {
-      if (Util.isDev()) {
-        console.log("Processing alert", alert);
+    RealTimeAlertManager.startRealTimeAlerts(
+      AlertClient,
+      (alert, isLastAlert) => {
+        if (Util.isDev()) {
+          console.log("Processing alert", alert);
+        }
+        this.setState({
+          realTimeAlert: JSON.parse(alert),
+          isAlertMode: isLastAlert ? false : true,
+        });
       }
-      this.setState({ realTimeAlert: JSON.parse(alert) });
-    });
+    );
+  };
 
-    // Mock incoming alerts by hitting the server
-    if (Util.isDev()) {
+  /*
+   * Mock incoming alerts by hitting the server.
+   * Wait 5 seconds before initiating requests. After which, call the server in intervals
+   */
+  mockIncomingAlerts = (_) => {
+    if (!Util.isDev()) {
+      return;
+    }
+    setTimeout(() => {
       setInterval(() => {
         wretch(
           `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test${++counter}`
@@ -73,7 +86,7 @@ class App extends React.Component {
           .res()
           .catch((e) => console.log("e", e));
       }, 1000);
-    }
+    }, 5000);
   };
 
   componentWillUnmount() {

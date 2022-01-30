@@ -21,7 +21,6 @@ class AlertModeStickyHeader extends React.Component {
       "Tkuma",
     ],
     alertQueue: [],
-    alertQueueInterval: null,
     alert: {},
   };
 
@@ -31,10 +30,6 @@ class AlertModeStickyHeader extends React.Component {
     if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
       this.showAlert(this.props.realTimeAlert);
     }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.alertQueueInterval);
   }
 
   showAlert = (alert) => {
