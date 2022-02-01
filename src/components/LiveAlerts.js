@@ -26,6 +26,7 @@ class LiveAlerts extends React.Component {
 
   componentDidMount() {
     let i = 0;
+    // TODO: Clear interval
     setInterval(() => {
       this.showNewAlert(this.state.incomingAlerts[i++]);
       if (i === this.state.incomingAlerts.length) {

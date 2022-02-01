@@ -15,6 +15,7 @@ import queryString from "query-string";
 import { getYesterday } from "./date_helper";
 import wretch from "wretch";
 
+let counter = 0;
 class App extends React.Component {
   state = {
     alerts: {},
@@ -69,22 +70,20 @@ class App extends React.Component {
 
   /*
    * Mock incoming alerts by hitting the server.
-   * Wait 5 seconds before initiating requests. After which, call the server in intervals
+   * Wait 3 seconds before initiating requests. After which, call the server in intervals
    */
-  mockIncomingAlerts = (_) => {
+  mockIncomingAlerts = () => {
     if (!Util.isDev()) {
       return;
     }
-    setTimeout(() => {
-      // setInterval(() => {
-      //   wretch(
-      //     `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test${++counter}`
-      //   )
-      //     .post()
-      //     .res()
-      //     .catch((e) => console.log("e", e));
-      // }, 1000);
-    }, 5000);
+    setInterval(() => {
+      wretch(
+        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test${++counter}`
+      )
+        .post()
+        .res()
+        .catch((e) => console.log("e", e));
+    }, 3000);
   };
 
   componentWillUnmount() {
@@ -123,7 +122,7 @@ class App extends React.Component {
         />
 
         <PreviousStats alertsClient={AlertClient} />
-        <Map />
+        {/* <Map /> */}
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
