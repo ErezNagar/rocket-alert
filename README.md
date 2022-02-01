@@ -3,7 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://github.com/ErezNagar/code-red/workflows/build-and-test/badge.svg)
 
-Real-time rocket alerts in Israel.
+Real-time rocket alerts in Israel:
+https://ereznagar.github.io/rocket-alert/
 
 ## CHANGELOG
 
