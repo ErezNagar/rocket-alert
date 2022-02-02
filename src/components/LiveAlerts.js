@@ -1,7 +1,7 @@
 import React from "react";
 import MoveIn from "./MoveIn";
 import pinIcon from "../pinicon.svg";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 class LiveAlerts extends React.Component {
   state = {

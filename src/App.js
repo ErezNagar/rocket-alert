@@ -5,7 +5,7 @@ import AlertModeHeader from "./components/AlertModeHeader";
 import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import PreviousStats from "./components/PreviousStats";
-import Map from "./components/Map";
+// import Map from "./components/Map";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
