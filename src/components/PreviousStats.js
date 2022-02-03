@@ -3,9 +3,9 @@ import { Row, Col } from "antd";
 import Tile from "./Tile";
 import {
   getYesterday,
-  getWeekBack,
-  getMonthBack,
-  getYearBack,
+  getPastWeek,
+  getPastMonth,
+  getPastYear,
 } from "../date_helper";
 
 const PreviousStats = (props) => (
@@ -23,24 +23,24 @@ const PreviousStats = (props) => (
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Week"}
-          subtitle={`Since ${getWeekBack()}`}
-          fromDate={getWeekBack()}
+          subtitle={`Since ${getPastWeek()}`}
+          fromDate={getPastWeek()}
           alertsClient={props.alertsClient}
         />
       </Col>
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Month"}
-          subtitle={`Since ${getMonthBack()}`}
-          fromDate={getMonthBack()}
+          subtitle={`Since ${getPastMonth()}`}
+          fromDate={getPastMonth()}
           alertsClient={props.alertsClient}
         />
       </Col>
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Year"}
-          subtitle={`Since ${getYearBack()}`}
-          fromDate={getYearBack()}
+          subtitle={`Since ${getPastYear()}`}
+          fromDate={getPastYear()}
           alertsClient={props.alertsClient}
         />
       </Col>

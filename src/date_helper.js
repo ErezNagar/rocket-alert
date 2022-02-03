@@ -24,17 +24,17 @@ export const getYesterday = () => {
   return format(yesterday);
 };
 
-export const getWeekBack = () => {
+export const getPastWeek = () => {
   const weekBack = subWeeks(new Date(), 1);
   return format(weekBack);
 };
 
-export const getMonthBack = () => {
+export const getPastMonth = () => {
   const monthBack = subMonths(new Date(), 1);
   return format(monthBack);
 };
 
-export const getYearBack = () => {
+export const getPastYear = () => {
   const yearBack = subYears(new Date(), 1);
   return format(yearBack);
 };

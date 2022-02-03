@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../logo.svg";
-import { getWeekBack, getToday } from "../date_helper";
+import { getPastWeek, getToday } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import AlertClient from "../rocket_alert_client";
 import FadeIn from "./FadeIn";
@@ -10,9 +10,9 @@ import { Statistic, Spin } from "antd";
 
 const today = getToday();
 // const today = "2021-05-20";
-const week = getWeekBack();
+const week = getPastWeek();
 // const week = "2021-05-13";
-const month = getWeekBack();
+const month = getPastWeek();
 // const month = "2021-04-13";
 
 class Header extends React.Component {
