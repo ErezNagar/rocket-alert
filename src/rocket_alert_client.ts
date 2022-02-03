@@ -8,7 +8,7 @@ const AlertClient = {
   /*
    *  Gets total alert count by day for the given date range
    *  @param {string} from  from date, inclusive
-   *  @param {string} to    to date, exclusive
+   *  @param {string} to    to date, inclusive
    *  @return {object}
    */
   getTotalAlertsByDay: (from: string, to: string): any => {
@@ -24,7 +24,7 @@ const AlertClient = {
   /*
    *  Gets total alert count for the given date range
    *  @param {string} from  from date, inclusive
-   *  @param {string} to    to date, exclusive
+   *  @param {string} to    to date, inclusive
    *  @return {object}
    */
   getTotalAlerts: (from: string, to: string): any => {

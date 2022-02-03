@@ -157,8 +157,11 @@ h3 {
   text-align: center;
 }
 
+.top {
+  height: 15vh;
+}
+
 .top h2 {
-  /* color: #ffb1b1; */
   color: #ffccc7;
 }
 
@@ -166,19 +169,27 @@ h3 {
  * Tile Hero
  */
 .tile-hero {
-  padding: 10px;
   text-align: center;
   margin: 0 auto;
   margin-bottom: 3em;
+  color: white;
 }
 
 .tile-hero h3 {
   color: white;
+  font-size: 30px;
 }
 
 .tile-hero .ant-statistic-content-value-int {
-  font-size: 20vh;
+  font-size: 15vh;
   color: white;
+  height: 24vh;
+}
+.tile-hero .summary-text {
+  font-size: 20px;
+}
+.share {
+  margin-top: 15vh;
 }
 .share a {
   color: white;

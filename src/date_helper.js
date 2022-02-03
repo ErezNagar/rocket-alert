@@ -14,6 +14,11 @@ const format = (date) =>
     representation: "date",
   });
 
+export const getToday = () => {
+  const today = subDays(new Date(), 0);
+  return format(today);
+};
+
 export const getYesterday = () => {
   const yesterday = subDays(new Date(), 1);
   return format(yesterday);

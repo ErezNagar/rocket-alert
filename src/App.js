@@ -43,8 +43,8 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.startRealTimeAlerts();
-    this.mockIncomingAlerts();
+    // this.startRealTimeAlerts();
+    // this.mockIncomingAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
