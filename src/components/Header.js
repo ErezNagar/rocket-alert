@@ -16,6 +16,63 @@ const week = getPastWeek();
 const month = getPastWeek();
 // const month = "2021-04-13";
 
+const HeaderContent = ({
+  alertSummaryTitle,
+  alertSummaryText,
+  alertSummaryCount,
+}) => (
+  <>
+    {alertSummaryCount > 0 && (
+      <FadeIn show={true} fadeInOnly>
+        <Statistic value={alertSummaryCount} />
+      </FadeIn>
+    )}
+    <h3>{alertSummaryTitle}</h3>
+    <div className="summary-text">{alertSummaryText}</div>
+  </>
+);
+
+HeaderContent.propTypes = {
+  alertSummaryTitle: PropTypes.string,
+  alertSummaryText: PropTypes.string,
+  alertSummaryCount: PropTypes.number,
+};
+HeaderContent.defaultProps = {
+  alertSummaryTitle: "",
+  alertSummaryText: {},
+  alertSummaryCount: 0,
+};
+
+const AlertModeHeaderContent = ({ shouldRefresh, alert, todayAlertCount }) => (
+  <>
+    <h3>Rocket alert</h3>
+    <div className="alert">
+      <FadeInOut show={shouldRefresh}>{alert.name}</FadeInOut>
+    </div>
+    {todayAlertCount > 0 && (
+      <>
+        <div className="alert-summary-count">
+          <FadeIn show={true} fadeInOnly>
+            <Statistic value={todayAlertCount} />
+          </FadeIn>
+        </div>
+        <div className="alert-summary-text">{"Rocket alerts today"}</div>
+      </>
+    )}
+  </>
+);
+
+AlertModeHeaderContent.propTypes = {
+  shouldRefresh: PropTypes.bool,
+  alert: PropTypes.object,
+  alertSummaryCount: PropTypes.number,
+};
+AlertModeHeaderContent.defaultProps = {
+  shouldRefresh: false,
+  alert: {},
+  alertSummaryCount: 0,
+};
+
 class Header extends React.Component {
   state = {
     alerts: {},
@@ -156,38 +213,21 @@ class Header extends React.Component {
           <img className="logo" src={logo} alt="" />
           <h2>Real-time rocket alerts in Israel</h2>
         </div>
-        {this.props.isAlertMode ? (
-          <div className="header-content">
-            <h3>Rocket alert</h3>
-            <div className="alert">
-              <FadeInOut show={this.state.shouldRefresh}>
-                {this.props.realTimeAlert.name}
-              </FadeInOut>
-            </div>
-            {this.state.alertSummaryCount === 0 && (
-              <>
-                <div className="alert-summary-count">
-                  <FadeIn show={true} fadeInOnly>
-                    <Statistic value={23} />
-                  </FadeIn>
-                </div>
-                <div className="alert-summary-text">
-                  {"Rocket alerts today"}
-                </div>
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="header-content">
-            {this.state.alertSummaryCount > 0 && (
-              <FadeIn show={true} fadeInOnly>
-                <Statistic value={this.state.alertSummaryCount} />
-              </FadeIn>
-            )}
-            <h3>{this.state.alertSummaryTitle}</h3>
-            <div className="summary-text">{this.state.alertSummaryText}</div>
-          </div>
-        )}
+        <div className="header-content">
+          {this.props.isAlertMode ? (
+            <AlertModeHeaderContent
+              shouldRefresh={this.state.shouldRefresh}
+              alert={this.props.realTimeAlert}
+              todayAlertCount={this.state.todayAlertCount}
+            />
+          ) : (
+            <HeaderContent
+              alertSummaryTitle={this.state.alertSummaryTitle}
+              alertSummaryText={this.state.alertSummaryText}
+              alertSummaryCount={this.state.alertSummaryCount}
+            />
+          )}
+        </div>
         <div className="header-bottom">
           <a
             href="https://twitter.com/intent/tweet?button_hashtag=RocketAlert&ref_src=twsrc%5Etfw"
