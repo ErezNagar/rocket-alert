@@ -106,18 +106,11 @@ class App extends React.Component {
             : "pageContainer"
         }
       >
-        {/* {this.state.isAlertMode ? (
-          <AlertModeHeader
-            getYesterday={getYesterday}
-            alertClient={AlertClient}
-          />
-        ) : ( */}
         <Header
           alertClient={AlertClient}
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
         />
-        {/* )} */}
         <StickyHeader
           showStickyHeader={this.state.showStickyHeader}
           isAlertMode={this.state.isAlertMode}

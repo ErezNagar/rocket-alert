@@ -4,7 +4,6 @@ import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../logo.svg";
 import { getPastWeek, getToday } from "../date_helper";
 import { differenceInMonths } from "date-fns";
-import AlertClient from "../rocket_alert_client";
 import FadeIn from "./FadeIn";
 import { Statistic, Spin } from "antd";
 import FadeInOut from "./FadeInOut";
@@ -74,6 +73,17 @@ AlertModeHeaderContent.defaultProps = {
 };
 
 class Header extends React.Component {
+  static propTypes = {
+    alertClient: PropTypes.object.isRequired,
+    isAlertMode: PropTypes.bool,
+    realTimeAlert: PropTypes.object,
+  };
+
+  static defaultProps = {
+    isAlertMode: false,
+    realTimeAlert: {},
+  };
+
   state = {
     alerts: {},
     todayAlertCount: 0,
@@ -86,10 +96,11 @@ class Header extends React.Component {
     shouldRefresh: false,
   };
 
-  getAlerts = (from, to) => AlertClient.getTotalAlerts(from, to);
+  getAlerts = (alertClient, from, to) => alertClient.getTotalAlerts(from, to);
 
-  getAlertsToday = () => {
-    AlertClient.getTotalAlerts(today, today)
+  getAlertsToday = (alertClient) => {
+    alertClient
+      .getTotalAlerts(today, today)
       .then((res) => {
         console.log("today", res.payload);
         this.setState({ todayAlertCount: res.payload });
@@ -100,8 +111,9 @@ class Header extends React.Component {
       });
   };
 
-  getAlertsWeek = () => {
-    AlertClient.getTotalAlerts(week, today)
+  getAlertsWeek = (alertClient) => {
+    alertClient
+      .getTotalAlerts(week, today)
       .then((res) => {
         console.log("week", res.payload);
         this.setState({ weekAlertCount: res.payload });
@@ -112,8 +124,9 @@ class Header extends React.Component {
       });
   };
 
-  getAlertsMonth = () => {
-    AlertClient.getTotalAlerts(month, today)
+  getAlertsMonth = (alertClient) => {
+    alertClient
+      .getTotalAlerts(month, today)
       .then((res) => {
         console.log("month", res.payload);
         this.setState({ monthAlertCount: res.payload });
@@ -125,12 +138,13 @@ class Header extends React.Component {
   };
 
   componentDidMount() {
+    const alertClient = this.props.alertClient;
     Promise.all([
       // TODO: Update range to account for overlaps
-      this.getAlerts(today, today),
-      // this.getAlerts(week, null),
-      this.getAlerts(week, today),
-      this.getAlerts(month, today),
+      this.getAlerts(alertClient, today, today),
+      // this.getAlerts(alertClient, week, null),
+      this.getAlerts(alertClient, week, today),
+      this.getAlerts(alertClient, month, today),
     ])
       .then((values) => {
         this.setState(
