@@ -7,6 +7,7 @@ import { differenceInMonths } from "date-fns";
 import AlertClient from "../rocket_alert_client";
 import FadeIn from "./FadeIn";
 import { Statistic, Spin } from "antd";
+import FadeInOut from "./FadeInOut";
 
 const today = getToday();
 // const today = "2021-05-20";
@@ -25,6 +26,7 @@ class Header extends React.Component {
     alertSummaryTitle: "",
     alertSummaryText: "",
     isLoading: true,
+    shouldRefresh: false,
   };
 
   getAlerts = (from, to) => AlertClient.getTotalAlerts(from, to);
@@ -130,25 +132,63 @@ class Header extends React.Component {
     this.setState({ alertSummaryCount, alertSummaryTitle, alertSummaryText });
   };
 
+  componentDidUpdate(prevProps) {
+    if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
+      this.refreshAlert(this.props.realTimeAlert);
+    }
+  }
+
+  refreshAlert = () => {
+    this.setState({
+      shouldRefresh: true,
+    });
+    setTimeout(() => {
+      this.setState({ shouldRefresh: false });
+    }, 2000);
+  };
+
   render() {
     return (
-      <header className="header">
-        <div className="top">
+      <header
+        className={this.props.isAlertMode ? "header alert-mode" : "header"}
+      >
+        <div className="header-top">
           <img className="logo" src={logo} alt="" />
           <h2>Real-time rocket alerts in Israel</h2>
         </div>
-        <div className="tile-hero">
-          {this.state.alertSummaryCount === 0 ? (
-            <div className="ant-statistic-content-value-int"></div>
-          ) : (
-            <FadeIn show={true} fadeInOnly>
-              <Statistic value={this.state.alertSummaryCount} />
-            </FadeIn>
-          )}
-          <h3>{this.state.alertSummaryTitle}</h3>
-          <div className="summary-text">{this.state.alertSummaryText}</div>
-        </div>
-        <div className="share">
+        {this.props.isAlertMode ? (
+          <div className="header-content">
+            <h3>Rocket alert</h3>
+            <div className="alert">
+              <FadeInOut show={this.state.shouldRefresh}>
+                {this.props.realTimeAlert.name}
+              </FadeInOut>
+            </div>
+            {this.state.alertSummaryCount === 0 && (
+              <>
+                <div className="alert-summary-count">
+                  <FadeIn show={true} fadeInOnly>
+                    <Statistic value={23} />
+                  </FadeIn>
+                </div>
+                <div className="alert-summary-text">
+                  {"Rocket alerts today"}
+                </div>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="header-content">
+            {this.state.alertSummaryCount > 0 && (
+              <FadeIn show={true} fadeInOnly>
+                <Statistic value={this.state.alertSummaryCount} />
+              </FadeIn>
+            )}
+            <h3>{this.state.alertSummaryTitle}</h3>
+            <div className="summary-text">{this.state.alertSummaryText}</div>
+          </div>
+        )}
+        <div className="header-bottom">
           <a
             href="https://twitter.com/intent/tweet?button_hashtag=RocketAlert&ref_src=twsrc%5Etfw"
             data-show-count="false"
@@ -170,12 +210,12 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  getYesterday() {},
+  // getYesterday() {},
   alertClient: PropTypes.object.isRequired,
 };
 
 Header.defaultProps = {
-  getYesterday: () => {},
+  // getYesterday: () => {},
 };
 
 export default Header;

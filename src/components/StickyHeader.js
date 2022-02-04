@@ -24,11 +24,11 @@ class AlertModeStickyHeader extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
-      this.showAlert(this.props.realTimeAlert);
+      this.refreshAlert(this.props.realTimeAlert);
     }
   }
 
-  showAlert = (alert) => {
+  refreshAlert = () => {
     this.setState({
       shouldRefresh: true,
     });

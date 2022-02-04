@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import Header from "./components/Header";
-import AlertModeHeader from "./components/AlertModeHeader";
 import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import PreviousStats from "./components/PreviousStats";
@@ -43,8 +42,8 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    // this.startRealTimeAlerts();
-    // this.mockIncomingAlerts();
+    this.startRealTimeAlerts();
+    this.mockIncomingAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
@@ -76,14 +75,14 @@ class App extends React.Component {
     if (!Util.isDev()) {
       return;
     }
-    setInterval(() => {
-      wretch(
-        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test${++counter}`
-      )
-        .post()
-        .res()
-        .catch((e) => console.log("e", e));
-    }, 3000);
+    // setInterval(() => {
+    //   wretch(
+    //     `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test${++counter}`
+    //   )
+    //     .post()
+    //     .res()
+    //     .catch((e) => console.log("e", e));
+    // }, 1000);
   };
 
   componentWillUnmount() {
@@ -107,14 +106,18 @@ class App extends React.Component {
             : "pageContainer"
         }
       >
-        {this.state.isAlertMode ? (
+        {/* {this.state.isAlertMode ? (
           <AlertModeHeader
             getYesterday={getYesterday}
             alertClient={AlertClient}
           />
-        ) : (
-          <Header getYesterday={getYesterday} alertClient={AlertClient} />
-        )}
+        ) : ( */}
+        <Header
+          alertClient={AlertClient}
+          isAlertMode={this.state.isAlertMode}
+          realTimeAlert={this.state.realTimeAlert}
+        />
+        {/* )} */}
         <StickyHeader
           showStickyHeader={this.state.showStickyHeader}
           isAlertMode={this.state.isAlertMode}
