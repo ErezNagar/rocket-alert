@@ -73,17 +73,6 @@ AlertModeHeaderContent.defaultProps = {
 };
 
 class Header extends React.Component {
-  static propTypes = {
-    alertClient: PropTypes.object.isRequired,
-    isAlertMode: PropTypes.bool,
-    realTimeAlert: PropTypes.object,
-  };
-
-  static defaultProps = {
-    isAlertMode: false,
-    realTimeAlert: {},
-  };
-
   state = {
     alerts: {},
     todayAlertCount: 0,
@@ -264,12 +253,14 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  // getYesterday() {},
   alertClient: PropTypes.object.isRequired,
+  isAlertMode: PropTypes.bool,
+  realTimeAlert: PropTypes.object,
 };
 
 Header.defaultProps = {
-  // getYesterday: () => {},
+  isAlertMode: false,
+  realTimeAlert: {},
 };
 
 export default Header;
