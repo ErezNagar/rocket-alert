@@ -5,19 +5,7 @@ import { TwitterOutlined } from "@ant-design/icons";
 // import { Statistic } from "antd";
 import logo from "../logo.svg";
 
-class AlertModeStickyHeader extends React.Component {
-  static propTypes = {
-    showStickyHeader: PropTypes.bool,
-    isAlertMode: PropTypes.bool,
-    realTimeAlert: PropTypes.object,
-  };
-
-  static defaultProps = {
-    showStickyHeader: false,
-    isAlertMode: false,
-    realTimeAlert: {},
-  };
-
+class StickyHeader extends React.Component {
   state = {
     shouldRefresh: false,
   };
@@ -73,4 +61,16 @@ class AlertModeStickyHeader extends React.Component {
   }
 }
 
-export default AlertModeStickyHeader;
+StickyHeader.propTypes = {
+  showStickyHeader: PropTypes.bool,
+  isAlertMode: PropTypes.bool,
+  realTimeAlert: PropTypes.object,
+};
+
+StickyHeader.defaultProps = {
+  showStickyHeader: false,
+  isAlertMode: false,
+  realTimeAlert: {},
+};
+
+export default StickyHeader;
