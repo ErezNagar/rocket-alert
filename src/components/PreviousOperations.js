@@ -4,7 +4,7 @@ import Tile from "./Tile";
 
 const PreviousOperations = (props) => (
   <section className="section">
-    <h2>Previous operations</h2>
+    <h2>Previous conflicts</h2>
     <Row gutter={[24, 24]}>
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
