@@ -20,7 +20,11 @@ class App extends React.Component {
     alerts: {},
     showStickyHeader: false,
     startfadeInEffect: false,
+    // Whether query string alert mode param is set
+    isAlertModeOverride: false,
+    // Whether the app currently receives incoming alerts
     isAlertMode: false,
+    // The alert boject
     realTimeAlert: null,
   };
 
@@ -42,17 +46,18 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.startRealTimeAlerts();
-    this.mockIncomingAlerts();
+    this.startListeningToRealTimeAlerts();
+    if (this.isAlertModeQueryString()) {
+      this.mockIncomingAlerts();
+    }
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
       startfadeInEffect: true,
-      isAlertMode: this.isAlertModeQueryString(),
     });
   }
 
-  startRealTimeAlerts = () => {
+  startListeningToRealTimeAlerts = () => {
     RealTimeAlertManager.startRealTimeAlerts(
       AlertClient,
       (alert, isLastAlert) => {
@@ -68,21 +73,18 @@ class App extends React.Component {
   };
 
   /*
-   * Mock incoming alerts by hitting the server.
-   * Wait 3 seconds before initiating requests. After which, call the server in intervals
+   * Mocks incoming alerts by hitting the server.
+   * Waits 2 seconds before initiating requests. After which, call the server in intervals
    */
   mockIncomingAlerts = () => {
-    if (!Util.isDev()) {
-      return;
-    }
     // setInterval(() => {
     //   wretch(
-    //     `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=test${++counter}`
+    //     `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=alert ${++counter}`
     //   )
     //     .post()
     //     .res()
     //     .catch((e) => console.log("e", e));
-    // }, 1000);
+    // }, 2000);
   };
 
   componentWillUnmount() {
