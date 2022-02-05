@@ -77,14 +77,14 @@ class App extends React.Component {
    * Waits 2 seconds before initiating requests. After which, call the server in intervals
    */
   mockIncomingAlerts = () => {
-    // setInterval(() => {
-    //   wretch(
-    //     `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=alert ${++counter}`
-    //   )
-    //     .post()
-    //     .res()
-    //     .catch((e) => console.log("e", e));
-    // }, 2000);
+    setInterval(() => {
+      wretch(
+        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=alert ${++counter}`
+      )
+        .post()
+        .res()
+        .catch((e) => console.log("e", e));
+    }, 2000);
   };
 
   componentWillUnmount() {
