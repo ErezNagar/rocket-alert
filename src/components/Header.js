@@ -82,54 +82,15 @@ class Header extends React.Component {
     alertSummaryTitle: "",
     alertSummaryText: "",
     isLoading: true,
+    isError: false,
     shouldRefresh: false,
   };
 
   getAlerts = (alertClient, from, to) => alertClient.getTotalAlerts(from, to);
 
-  getAlertsToday = (alertClient) => {
-    alertClient
-      .getTotalAlerts(today, today)
-      .then((res) => {
-        console.log("today", res.payload);
-        this.setState({ todayAlertCount: res.payload });
-      })
-      .catch((error) => {
-        console.error(error);
-        // this.setState({ isError: true });
-      });
-  };
-
-  getAlertsWeek = (alertClient) => {
-    alertClient
-      .getTotalAlerts(week, today)
-      .then((res) => {
-        console.log("week", res.payload);
-        this.setState({ weekAlertCount: res.payload });
-      })
-      .catch((error) => {
-        console.error(error);
-        // this.setState({ isError: true });
-      });
-  };
-
-  getAlertsMonth = (alertClient) => {
-    alertClient
-      .getTotalAlerts(month, today)
-      .then((res) => {
-        console.log("month", res.payload);
-        this.setState({ monthAlertCount: res.payload });
-      })
-      .catch((error) => {
-        console.error(error);
-        // this.setState({ isError: true });
-      });
-  };
-
   componentDidMount() {
     const alertClient = this.props.alertClient;
     Promise.all([
-      // TODO: Update range to account for overlaps
       this.getAlerts(alertClient, today, today),
       // this.getAlerts(alertClient, week, null),
       this.getAlerts(alertClient, week, today),
@@ -149,8 +110,7 @@ class Header extends React.Component {
       })
       .catch((error) => {
         console.error(error);
-        // TODO: fallback gracefuly
-        // this.setState({ isError: true });
+        this.setState({ isError: true });
       });
   }
 
@@ -217,18 +177,22 @@ class Header extends React.Component {
           <h2>Real-time rocket alerts in Israel</h2>
         </div>
         <div className="header-content">
-          {this.props.isAlertMode ? (
+          {!this.state.isError && this.props.isAlertMode && (
             <AlertModeHeaderContent
               shouldRefresh={this.state.shouldRefresh}
               alert={this.props.realTimeAlert}
               todayAlertCount={this.state.todayAlertCount}
             />
-          ) : (
+          )}
+          {!this.state.isError && !this.props.isAlertMode && (
             <HeaderContent
               alertSummaryTitle={this.state.alertSummaryTitle}
               alertSummaryText={this.state.alertSummaryText}
               alertSummaryCount={this.state.alertSummaryCount}
             />
+          )}
+          {this.state.isError && (
+            <h3 className="error">Data is currently unavailable</h3>
           )}
         </div>
         <div className="header-bottom">

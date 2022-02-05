@@ -165,6 +165,13 @@ h3 {
 }
 
 /*
+ * Header Bottom
+*/
+.error {
+  opacity: 0.5;
+}
+
+/*
  * Section
  */
 .section {
