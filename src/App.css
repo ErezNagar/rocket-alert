@@ -223,27 +223,26 @@ footer {
 }
 
 @media only screen and (max-device-width: 768px) {
+  .logo {
+    width: 200px;
+    padding-bottom: 1em;
+  }
+
   /*
    * Sticky Header
    */
   .sticky-header {
     padding: 0 2em 0 1em;
   }
+
+  .sticky-header .logo {
+    width: 100px;
+    padding: 0;
+  }
+
   .header-content .ant-statistic-content-value-int {
     font-size: 10vh;
   }
-  /* .alert-mode-header .live-alerts-container {
-    text-align: center;
-  }
-  .alert-mode-header .alerts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 20vh;
-    font-size: 2.2vh;
-    padding-top: 0.5em;
-  } */
 }
 
 @keyframes moveIn {

@@ -171,13 +171,13 @@ class Header extends React.Component {
           alertSummaryText += `,\nand a total of ${this.state.monthAlertCount} in the past month`;
         }
       } else if (this.state.monthAlertCount > 0) {
-        alertSummaryText = `.\nIn the past month, there were ${this.state.monthAlertCount} rocket alerts`;
+        alertSummaryText = `In the past month, there were ${this.state.monthAlertCount} rocket alerts`;
       }
     } else if (this.state.weekAlertCount > 0) {
       alertSummaryCount = this.state.weekAlertCount;
       alertSummaryTitle = `Rocket alerts in the last week`;
       if (this.state.monthAlertCount > 0) {
-        alertSummaryText += `.\nIn the past month, there were ${this.state.monthAlertCount} rocket alerts`;
+        alertSummaryText += `In the past month, there were ${this.state.monthAlertCount} rocket alerts`;
       }
     } else if (this.state.monthAlertCount > 0) {
       alertSummaryCount = this.state.monthAlertCount;
