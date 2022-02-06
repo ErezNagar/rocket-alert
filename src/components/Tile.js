@@ -86,7 +86,7 @@ export default class Tile extends React.Component {
       })
       .catch((error) => {
         console.error(error);
-        this.setState({ isError: true });
+        this.setState({ isError: true, isLoading: false });
       });
   };
 
@@ -134,7 +134,7 @@ export default class Tile extends React.Component {
                   this.props.showAverage ? "loading-average" : "loading-basic"
                 }
               />
-              {" Error"}
+              {" Data unavailable"}
             </FadeIn>
           )}
         </div>
