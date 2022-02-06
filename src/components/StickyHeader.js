@@ -40,10 +40,9 @@ class StickyHeader extends React.Component {
     return (
       <header className={this.setStickyHeaderStyle()}>
         <div className="left-container">
-          <div>
-            <img className="logo" src={logo} alt="" />
-          </div>
-          <div className="alerts">{/* <Statistic value={7325} /> */}</div>
+          <img className="logo" src={logo} alt="" />
+        </div>
+        <div className="alerts">
           {this.props.isAlertMode && this.props.realTimeAlert && (
             <div>
               <FadeInOut show={this.state.shouldRefresh}>
