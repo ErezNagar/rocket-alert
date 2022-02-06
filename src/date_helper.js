@@ -15,7 +15,7 @@ export const isoFormat = (date) =>
     representation: "date",
   });
 
-export const displayFormat = (date) => format(date, "MMM d yyyy");
+export const displayFormat = (date) => format(date, "MMM d, yyyy");
 
 export const getToday = () => subDays(new Date(), 0);
 
