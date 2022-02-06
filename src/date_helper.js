@@ -7,49 +7,29 @@ import {
   startOfMonth,
   startOfYear,
   formatISO,
+  format,
 } from "date-fns";
 
-const format = (date) =>
+export const isoFormat = (date) =>
   formatISO(date, {
     representation: "date",
   });
 
-export const getToday = () => {
-  const today = subDays(new Date(), 0);
-  return format(today);
-};
+export const displayFormat = (date) => format(date, "MMM d yyyy");
 
-export const getYesterday = () => {
-  const yesterday = subDays(new Date(), 1);
-  return format(yesterday);
-};
+export const getToday = () => subDays(new Date(), 0);
 
-export const getPastWeek = () => {
-  const weekBack = subWeeks(new Date(), 1);
-  return format(weekBack);
-};
+export const getYesterday = () => subDays(new Date(), 1);
 
-export const getPastMonth = () => {
-  const monthBack = subMonths(new Date(), 1);
-  return format(monthBack);
-};
+export const getPastWeek = () => subWeeks(new Date(), 1);
 
-export const getPastYear = () => {
-  const yearBack = subYears(new Date(), 1);
-  return format(yearBack);
-};
+export const getPastMonth = () => subMonths(new Date(), 1);
 
-export const getBeginningOfWeek = () => {
-  // Week starts on Sunday
-  const beginning = startOfWeek(new Date());
-  return format(beginning);
-};
+export const getPastYear = () => subYears(new Date(), 1);
 
-export const getBeginningOfMonth = () => {
-  const beginning = startOfMonth(new Date());
-  return format(beginning);
-};
-export const getBeginningOfYear = () => {
-  const beginning = startOfYear(new Date());
-  return format(beginning);
-};
+// Week starts on Sunday
+export const getBeginningOfWeek = () => startOfWeek(new Date());
+
+export const getBeginningOfMonth = () => startOfMonth(new Date());
+
+export const getBeginningOfYear = () => startOfYear(new Date());

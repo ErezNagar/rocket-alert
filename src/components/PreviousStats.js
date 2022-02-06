@@ -6,16 +6,16 @@ import {
   getPastWeek,
   getPastMonth,
   getPastYear,
+  displayFormat,
 } from "../date_helper";
 
 const PreviousStats = (props) => (
   <section className="section">
-    <h2>.</h2>
     <Row gutter={[24, 24]}>
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Yesterday"}
-          subtitle={getYesterday()}
+          subtitle={displayFormat(getYesterday())}
           fromDate={getYesterday()}
           alertsClient={props.alertsClient}
         />
@@ -23,7 +23,7 @@ const PreviousStats = (props) => (
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Week"}
-          subtitle={`Since ${getPastWeek()}`}
+          subtitle={`Since ${displayFormat(getPastWeek())}`}
           fromDate={getPastWeek()}
           alertsClient={props.alertsClient}
         />
@@ -31,7 +31,7 @@ const PreviousStats = (props) => (
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Month"}
-          subtitle={`Since ${getPastMonth()}`}
+          subtitle={`Since ${displayFormat(getPastMonth())}`}
           fromDate={getPastMonth()}
           alertsClient={props.alertsClient}
         />
@@ -39,7 +39,7 @@ const PreviousStats = (props) => (
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Year"}
-          subtitle={`Since ${getPastYear()}`}
+          subtitle={`Since ${displayFormat(getPastYear())}`}
           fromDate={getPastYear()}
           alertsClient={props.alertsClient}
         />

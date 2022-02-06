@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { formatISO, differenceInDays } from "date-fns";
+import { differenceInDays } from "date-fns";
 import { Row, Col, Statistic, Spin } from "antd";
 import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import FadeIn from "./FadeIn";
+import { isoFormat } from "../date_helper";
 
 const LoadingTile = ({ showAverage }) => (
   <Row
@@ -32,8 +33,8 @@ export default class Tile extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
-    fromDate: PropTypes.string.isRequired,
-    toDate: PropTypes.string,
+    fromDate: PropTypes.instanceOf(Date).isRequired,
+    toDate: PropTypes.instanceOf(Date),
     alertsClient: PropTypes.object.isRequired,
     showAverage: PropTypes.bool,
   };
@@ -41,9 +42,7 @@ export default class Tile extends React.Component {
   static defaultProps = {
     title: "",
     subtitle: "",
-    toDate: formatISO(new Date(), {
-      representation: "date",
-    }),
+    toDate: new Date(),
     showAverage: false,
   };
 
@@ -55,7 +54,10 @@ export default class Tile extends React.Component {
 
   getAlerts = () => {
     this.props.alertsClient
-      .getTotalAlerts(this.props.fromDate, this.props.toDate)
+      .getTotalAlerts(
+        isoFormat(this.props.fromDate),
+        isoFormat(this.props.toDate)
+      )
       /*
         error: null
         payload: 7325

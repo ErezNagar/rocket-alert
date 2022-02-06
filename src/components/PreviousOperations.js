@@ -10,8 +10,8 @@ const PreviousOperations = (props) => (
         <Tile
           title={"Operation Guardian of the Walls"}
           subtitle={"10 May 2021 - 21 May 2021"}
-          fromDate={"2021-05-10"}
-          toDate={"2021-05-21"}
+          fromDate={new Date("2021-05-10")}
+          toDate={new Date("2021-05-21")}
           alertsClient={props.alertsClient}
           showAverage
         />
@@ -21,8 +21,8 @@ const PreviousOperations = (props) => (
         <Tile
           title={"Operation Black Belt"}
           subtitle={"12 Nov 2019 - 16 Nov 2019"}
-          fromDate={"2019-11-12"}
-          toDate={"2019-11-16"}
+          fromDate={new Date("2019-11-12")}
+          toDate={new Date("2019-11-16")}
           alertsClient={props.alertsClient}
           showAverage
         />
@@ -31,8 +31,8 @@ const PreviousOperations = (props) => (
         <Tile
           title={"Operation Protective Edge"}
           subtitle={"8 July 2014 - 26 Aug 2014"}
-          fromDate={"2014-07-08"}
-          toDate={"2014-08-26"}
+          fromDate={new Date("2014-07-08")}
+          toDate={new Date("2014-08-26")}
           alertsClient={props.alertsClient}
           showAverage
         />
@@ -41,8 +41,8 @@ const PreviousOperations = (props) => (
         <Tile
           title={"Operation Pillar of Defense"}
           subtitle={"14 Nov 2012 - 21 Nov 2012"}
-          fromDate={"2012-11-14"}
-          toDate={"2012-11-21"}
+          fromDate={new Date("2012-11-14")}
+          toDate={new Date("2012-11-21")}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -50,8 +50,8 @@ const PreviousOperations = (props) => (
         <Tile
           title={"Operation Cast Lead"}
           subtitle={"27 Dec 2008 - 18 Jan 2009"}
-          fromDate={"2008-12-27"}
-          toDate={"2009-01-18"}
+          fromDate={new Date("2008-12-27")}
+          toDate={new Date("2009-01-18")}
           alertsClient={props.alertsClient}
         />
       </Col>
