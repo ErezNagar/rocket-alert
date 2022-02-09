@@ -2,17 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../logo.svg";
-import { getPastWeek, getToday } from "../date_helper";
+import { getPastWeek, getToday, isoFormat } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import { Statistic, Spin } from "antd";
 import FadeInOut from "./FadeInOut";
 
-const today = getToday();
+const today = isoFormat(getToday());
 // const today = "2021-05-20";
-const week = getPastWeek();
+const week = isoFormat(getPastWeek());
 // const week = "2021-05-13";
-const month = getPastWeek();
+const month = isoFormat(getPastWeek());
 // const month = "2021-04-13";
 
 const HeaderContent = ({
@@ -38,7 +38,7 @@ HeaderContent.propTypes = {
 };
 HeaderContent.defaultProps = {
   alertSummaryTitle: "",
-  alertSummaryText: {},
+  alertSummaryText: "",
   alertSummaryCount: 0,
 };
 
@@ -145,7 +145,7 @@ class Header extends React.Component {
     } else {
       const monthsAgo = differenceInMonths(
         new Date(today),
-        new Date("2021-07-16")
+        new Date("2021-08-02")
       );
       alertSummaryTitle = `Last rocket alert was ${monthsAgo} months ago`;
     }
