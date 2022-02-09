@@ -23,7 +23,7 @@ const FAQ = () => (
       </p>
     </div>
     <div>
-      <p className="question-title">Where are these rockets targeted?</p>
+      <p className="question-title">What are these rockets targeting?</p>
       <p className="question-answer">
         Whether launched from Gaza or South Lebanon, these rockets are launched
         indiscriminately at Israeli towns and cities, deliberatly targeting
@@ -31,7 +31,7 @@ const FAQ = () => (
       </p>
     </div>
     <div>
-      <p className="question-title">Does Israel retaliate/respond?</p>
+      <p className="question-title">Does Israel respond?</p>
       <p className="question-answer">
         In addition to protecting its civilians via a combination of bomb
         shelters and the deployment of the Iron Dome system, Israel typically
@@ -53,9 +53,9 @@ const FAQ = () => (
     <div>
       <p className="question-title">Do rockets ever hit Israel?</p>
       <p className="question-answer">
-        Yes. While Iron Dome intercepts about 90% of rocekts aim at Israeli
+        Yes. While Iron Dome intercepts about 90% of rockets aimed at Israeli
         population, rockets still penetrate the defense system and hit
-        residential areas{" "}
+        residential areas, including homes and schools.
       </p>
     </div>
   </section>
