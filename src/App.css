@@ -93,6 +93,7 @@ h3 {
   flex-direction: column;
   background-color: #5c0011;
   text-align: center;
+  padding: 0 1em;
   transition: background-color 1s linear;
 }
 
