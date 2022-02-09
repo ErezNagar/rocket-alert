@@ -6,16 +6,18 @@ const FAQ = () => (
     <div>
       <p className="question-title">Where are these rockets launched from?</p>
       <p className="question-answer">
-        Mostly from the Gaza Strip, although sometimes there are rockets
-        launched from South Lebanon or Syria.
+        Mostly from the{" "}
+        <a href="https://en.wikipedia.org/wiki/Gaza_Strip">Gaza Strip</a>,
+        although sometimes there are rockets launched from South Lebanon or
+        Syria.
       </p>
     </div>
     <div>
       <p className="question-title">Who is shooting these rockets?</p>
       <p className="question-answer">
-        Palestinian factions, namely{" "}
+        Palestinian factions from Gaza, namely{" "}
         <a hreg="https://www.dni.gov/nctc/groups/hamas.html">Hamas</a> and
-        Islamic Jihad terror organizations from Gaza, and{" "}
+        Islamic Jihad terror organizations, as well as{" "}
         <a href="https://www.dni.gov/nctc/groups/hizballah.html">Hezbollah</a>{" "}
         terror organization based in South Lebanon.
       </p>

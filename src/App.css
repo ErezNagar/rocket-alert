@@ -221,9 +221,25 @@ h3 {
   border-left: 1px solid rgba(0, 0, 0, 0.3);
 }
 
+/*
+ * FAQ
+ */
 .faq {
-  min-height: 50vh;
   background-color: white;
+  padding: 2em;
+}
+
+.faq p {
+  margin: 0;
+}
+
+.faq .question-title {
+  font-size: 1.75em;
+}
+
+.faq .question-answer {
+  font-size: 1.25em;
+  margin-bottom: 2em;
 }
 
 footer {
