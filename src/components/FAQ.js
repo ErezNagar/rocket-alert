@@ -58,6 +58,28 @@ const FAQ = () => (
         residential areas, including homes and schools.
       </p>
     </div>
+    <div>
+      <p className="question-title">Where does the alert data come from?</p>
+      <p className="question-answer">
+        We use the IDF's{" "}
+        <a href="https://en.wikipedia.org/wiki/Home_Front_Command">
+          Home Front Command
+        </a>{" "}
+        (Pikud HaOref) unofficial rocket alert API, which allows you to easily
+        query for active rocket alerts. We aggregate and analyze the information
+        to show historical data
+      </p>
+    </div>
+    <div>
+      <p className="question-title">How reliable is the data?</p>
+      <p className="question-answer">
+        The real-time rocket alerts we show are queried directly from the Home
+        Front Command's API, which is connected to the IDF's{" "}
+        <a href="https://en.wikipedia.org/wiki/Red_Color">Red Color</a>{" "}
+        early-warning system. In most cases, it would take just a few seconds
+        for a real-time alert going off in Israel to show up.
+      </p>
+    </div>
   </section>
 );
 
