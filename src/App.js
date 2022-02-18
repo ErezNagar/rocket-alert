@@ -79,7 +79,8 @@ class App extends React.Component {
   mockIncomingAlerts = () => {
     setInterval(() => {
       wretch(
-        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=alert ${++counter}`
+        // `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=alert ${++counter}`
+        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=עתלית`
       )
         .post()
         .res()

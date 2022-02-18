@@ -46,7 +46,9 @@ const AlertModeHeaderContent = ({ shouldRefresh, alert, todayAlertCount }) => (
   <>
     <h3>Rocket alert</h3>
     <div className="alert">
-      <FadeInOut show={shouldRefresh}>{alert.name}</FadeInOut>
+      <FadeInOut show={shouldRefresh}>
+        {alert.englishName || alert.name}
+      </FadeInOut>
     </div>
     {todayAlertCount > 0 && (
       <>

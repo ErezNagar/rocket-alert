@@ -37,16 +37,19 @@ class StickyHeader extends React.Component {
   };
 
   render() {
+    const { isAlertMode, realTimeAlert } = this.props;
     return (
       <header className={this.setStickyHeaderStyle()}>
         <div className="left-container">
           <img className="logo" src={logo} alt="" />
         </div>
         <div className="alerts">
-          {this.props.isAlertMode && this.props.realTimeAlert && (
+          {isAlertMode && realTimeAlert && (
             <div>
               <FadeInOut show={this.state.shouldRefresh}>
-                {`Rocket alert: ${this.props.realTimeAlert.name}`}
+                {`Rocket alert: ${
+                  realTimeAlert.englishName || realTimeAlert.name
+                }`}
               </FadeInOut>
             </div>
           )}
