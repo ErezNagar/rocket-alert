@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../logo.svg";
-import { getPastWeek, getToday, isoFormat } from "../date_helper";
+import { getPastMonth, getPastWeek, getToday, isoFormat } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import { Statistic, Spin } from "antd";
@@ -12,7 +12,7 @@ const today = isoFormat(getToday());
 // const today = "2021-05-20";
 const week = isoFormat(getPastWeek());
 // const week = "2021-05-13";
-const month = isoFormat(getPastWeek());
+const month = isoFormat(getPastMonth());
 // const month = "2021-04-13";
 
 const HeaderContent = ({
