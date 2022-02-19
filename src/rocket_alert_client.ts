@@ -38,6 +38,12 @@ const AlertClient = {
   },
 
   /*
+   *  Gets the date and location most recent alert
+   *  @return {object}
+   */
+  getMostRecentAlert: (): any => api.url("/latest").get().json(),
+
+  /*
    *  Opens a persistent connection for interfacing with the server-sent events
    *  @param {string} url   url of the event source
    *  @return {EventSource} the EventSource instance

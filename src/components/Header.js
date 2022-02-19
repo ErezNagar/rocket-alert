@@ -148,11 +148,20 @@ class Header extends React.Component {
       alertSummaryCount = this.state.monthAlertCount;
       alertSummaryTitle = `Rocket alerts in the last month`;
     } else {
-      const monthsAgo = differenceInMonths(
-        new Date(today),
-        new Date("2021-08-02")
-      );
-      alertSummaryTitle = `Last rocket alert was ${monthsAgo} months ago`;
+      this.props.alertClient
+        .getMostRecentAlert()
+        .then((res) => {
+          if (res.success) {
+            const monthsAgo = differenceInMonths(
+              new Date(today),
+              new Date(res.payload.date)
+            );
+            alertSummaryTitle = `Last rocket alert was ${monthsAgo} months ago`;
+          }
+        })
+        .catch((err) => {
+          console.error("Error getMostRecentAlert()", err);
+        });
     }
     this.setState({ alertSummaryCount, alertSummaryTitle, alertSummaryText });
   };
