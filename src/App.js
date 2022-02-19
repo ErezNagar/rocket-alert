@@ -84,7 +84,7 @@ class App extends React.Component {
       )
         .post()
         .res()
-        .catch((e) => console.log("e", e));
+        .catch((e) => console.error("Error", e));
     }, 2000);
   };
 

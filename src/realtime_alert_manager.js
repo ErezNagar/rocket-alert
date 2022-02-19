@@ -39,7 +39,7 @@ const RealTimeAlertManager = {
     });
     RealTimeAlertManager.alertEventSource.onerror = () => {
       if (Util.isDev()) {
-        console.log("EventSource failed.");
+        console.error("EventSource failed.");
       }
     };
   },
