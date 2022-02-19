@@ -88,15 +88,13 @@ class Header extends React.Component {
     shouldRefresh: false,
   };
 
-  getAlerts = (alertClient, from, to) => alertClient.getTotalAlerts(from, to);
-
   componentDidMount() {
     const alertClient = this.props.alertClient;
     Promise.all([
-      this.getAlerts(alertClient, today, today),
-      // this.getAlerts(alertClient, week, null),
-      this.getAlerts(alertClient, week, today),
-      this.getAlerts(alertClient, month, today),
+      alertClient.getTotalAlerts(today, today),
+      // alertClient.getTotalAlerts(week, null),
+      alertClient.getTotalAlerts(week, today),
+      alertClient.getTotalAlerts(month, today),
     ])
       .then((values) => {
         this.setState(
