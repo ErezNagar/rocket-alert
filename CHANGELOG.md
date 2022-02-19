@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.7.0](https://github.com/ErezNagar/code-red/releases/tag/v0.5.2) - 18/02/2022
+
+Added new endpoint getMostRecentAlert() to alert client
+Updated alert summary in header to include most recent alert
+
 ## [0.6.0](https://github.com/ErezNagar/code-red/releases/tag/v0.5.2) - 08/02/2022
 
 Added FAQ section
