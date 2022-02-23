@@ -38,23 +38,25 @@ const PreviousOperations = (props) => (
           />
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
-          {/* 1506 */}
           <Tile
             title={"Operation Pillar of Defense"}
             subtitle={"Nov 14, 2012 - Nov 21, 2012"}
             fromDate={new Date("2012-11-14")}
             toDate={new Date("2012-11-21")}
-            alertsClient={props.alertsClient}
+            alertCount={1506}
+            isStatic
+            showAverage
           />
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
-          {/* 575 */}
           <Tile
             title={"Operation Cast Lead"}
             subtitle={"Dec 27, 2008 - Jan 18, 2009"}
             fromDate={new Date("2008-12-27")}
             toDate={new Date("2009-01-18")}
-            alertsClient={props.alertsClient}
+            alertCount={575}
+            isStatic
+            showAverage
           />
         </Col>
       </Row>

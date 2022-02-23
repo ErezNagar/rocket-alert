@@ -35,21 +35,37 @@ export default class Tile extends React.Component {
     subtitle: PropTypes.string,
     fromDate: PropTypes.instanceOf(Date).isRequired,
     toDate: PropTypes.instanceOf(Date),
-    alertsClient: PropTypes.object.isRequired,
+    alertsClient: PropTypes.object,
     showAverage: PropTypes.bool,
+    // "Static" tile uses alertCount instead of making a request to the server
+    isStatic: PropTypes.bool,
+    alertCount: PropTypes.number,
   };
 
   static defaultProps = {
     title: "",
     subtitle: "",
     toDate: new Date(),
+    alertsClient: {},
     showAverage: false,
+    isStatic: false,
+    alertCount: 0,
   };
 
-  state = { isLoading: true, isError: false, alerts: null };
+  state = { isLoading: true, isError: false, alerts: null, average: 0 };
 
   componentDidMount() {
-    this.getAlerts();
+    if (this.props.isStatic) {
+      this.setState({
+        alerts: this.props.alertCount,
+        isLoading: false,
+        average: this.props.showAverage
+          ? this.getAverage(this.props.alertCount)
+          : 0,
+      });
+    } else {
+      this.getAlerts();
+    }
   }
 
   getAlerts = () => {
@@ -72,12 +88,8 @@ export default class Tile extends React.Component {
       */
       .then((res) => {
         if (this.props.showAverage) {
-          const duration = differenceInDays(
-            new Date(this.props.toDate),
-            new Date(this.props.fromDate)
-          );
           this.setState({
-            average: Math.round(res.payload / duration),
+            average: this.getAverage(res.payload),
           });
         }
         setTimeout(() => {
@@ -88,6 +100,14 @@ export default class Tile extends React.Component {
         console.error(error);
         this.setState({ isError: true, isLoading: false });
       });
+  };
+
+  getAverage = (total) => {
+    const duration = differenceInDays(
+      new Date(this.props.toDate),
+      new Date(this.props.fromDate)
+    );
+    return Math.round(total / duration);
   };
 
   render() {
