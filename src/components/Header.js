@@ -5,7 +5,7 @@ import logo from "../logo.svg";
 import { getPastMonth, getPastWeek, getToday, isoFormat } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
-import { Statistic, Spin } from "antd";
+import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 
 const today = isoFormat(getToday());

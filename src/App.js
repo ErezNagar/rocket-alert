@@ -11,10 +11,8 @@ import AlertClient from "./rocket_alert_client";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import queryString from "query-string";
-import { getYesterday } from "./date_helper";
 import wretch from "wretch";
 
-let counter = 0;
 class App extends React.Component {
   state = {
     alerts: {},
@@ -79,7 +77,6 @@ class App extends React.Component {
   mockIncomingAlerts = () => {
     setInterval(() => {
       wretch(
-        // `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=alert ${++counter}`
         `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=עתלית`
       )
         .post()
