@@ -117,7 +117,7 @@ class Header extends React.Component {
   /* Sets rocket alert summary in a simple, "human readable" form.
    * Prioritize recent alerts over old ones.
    */
-  setAlertSummary = () => {
+  setAlertSummary = async () => {
     let alertSummaryTitle = "";
     let alertSummaryText = "";
     let alertSummaryCount = 0;
@@ -146,7 +146,7 @@ class Header extends React.Component {
       alertSummaryCount = this.state.monthAlertCount;
       alertSummaryTitle = `Rocket alerts in the last month`;
     } else {
-      this.props.alertClient
+      await this.props.alertClient
         .getMostRecentAlert()
         .then((res) => {
           if (res.success) {
@@ -154,7 +154,12 @@ class Header extends React.Component {
               new Date(today),
               new Date(res.payload.date)
             );
-            alertSummaryTitle = `Last rocket alert was ${monthsAgo} months ago`;
+            if (monthsAgo === 1) {
+              alertSummaryTitle = `Last rocket alert was a month ago`;
+            }
+            if (monthsAgo > 1) {
+              alertSummaryTitle = `Last rocket alert was ${monthsAgo} months ago`;
+            }
           }
         })
         .catch((err) => {
