@@ -2,7 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../logo.svg";
-import { getPastMonth, getPastWeek, getToday, isoFormat } from "../date_helper";
+import {
+  getPastMonth,
+  getPastWeek,
+  getToday,
+  getYesterday,
+  isoFormat,
+} from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import { Statistic } from "antd";
@@ -10,6 +16,7 @@ import FadeInOut from "./FadeInOut";
 
 const today = isoFormat(getToday());
 // const today = "2021-05-20";
+const yesterday = isoFormat(getYesterday());
 const week = isoFormat(getPastWeek());
 // const week = "2021-05-13";
 const month = isoFormat(getPastMonth());
@@ -78,6 +85,7 @@ class Header extends React.Component {
   state = {
     alerts: {},
     todayAlertCount: 0,
+    yesterdayAlertCount: 0,
     weekAlertCount: 0,
     monthAlertCount: 0,
     alertSummaryCount: 0,
@@ -92,16 +100,17 @@ class Header extends React.Component {
     const alertClient = this.props.alertClient;
     Promise.all([
       alertClient.getTotalAlerts(today, today),
-      // alertClient.getTotalAlerts(week, null),
+      alertClient.getTotalAlerts(yesterday, today),
       alertClient.getTotalAlerts(week, today),
       alertClient.getTotalAlerts(month, today),
     ])
       .then((values) => {
         this.setState(
           {
-            todayAlertCount: values[0].payload,
-            weekAlertCount: values[1].payload,
-            monthAlertCount: values[2].payload,
+            todayAlertCount: values[0].success ? values[0].payload : 0,
+            yesterdayAlertCount: values[1].success ? values[1].payload : 0,
+            weekAlertCount: values[2].success ? values[2].payload : 0,
+            monthAlertCount: values[3].success ? values[3].payload : 0,
           },
           () => {
             this.setAlertSummary();
@@ -125,13 +134,36 @@ class Header extends React.Component {
     if (this.state.todayAlertCount > 0) {
       alertSummaryCount = this.state.todayAlertCount;
       alertSummaryTitle = `Rocket alerts today`;
-      if (this.state.weekAlertCount > 0) {
+
+      if (this.state.yesterdayAlertCount > 0) {
+        alertSummaryText = `Yesteray, there were ${this.state.yesterdayAlertCount} rocket alerts`;
+        if (
+          this.state.weekAlertCount > 0 &&
+          this.state.yesterdayAlertCount !== this.state.weekAlertCount
+        ) {
+          alertSummaryText += `,\nand a total of ${this.state.weekAlertCount} in the past week`;
+        } else if (
+          this.state.monthAlertCount > 0 &&
+          this.state.weekAlertCount !== this.state.monthAlertCount
+        ) {
+          alertSummaryText += `,\nand a total of ${this.state.monthAlertCount} in the past month`;
+        }
+      } else if (this.state.weekAlertCount > 0) {
         alertSummaryText = `Last week, there were ${this.state.weekAlertCount} rocket alerts`;
         if (this.state.monthAlertCount > 0) {
           alertSummaryText += `,\nand a total of ${this.state.monthAlertCount} in the past month`;
         }
       } else if (this.state.monthAlertCount > 0) {
         alertSummaryText = `In the past month, there were ${this.state.monthAlertCount} rocket alerts`;
+      }
+    } else if (this.state.yesterdayAlertCount > 0) {
+      alertSummaryCount = this.state.yesterdayAlertCount;
+      alertSummaryTitle = `Rocket alerts yesterday`;
+      if (
+        this.state.weekAlertCount > 0 &&
+        this.state.weekAlertCount !== this.state.yesterdayAlertCount
+      ) {
+        alertSummaryText += `In the past week, there were ${this.state.weekAlertCount} rocket alerts`;
       }
     } else if (this.state.weekAlertCount > 0) {
       alertSummaryCount = this.state.weekAlertCount;
