@@ -23,11 +23,6 @@ h3 {
   opacity: 1;
 }
 
-.logo {
-  width: 300px;
-  padding-bottom: 1em;
-}
-
 /*
  * Sticky Header
  */
@@ -95,14 +90,21 @@ h3 {
   text-align: center;
   padding: 0 1em;
   transition: background-color 1s linear;
+  overflow-y: hidden;
 }
 
 .header-top {
   margin: 5vh 0;
 }
 
+.header-top .logo {
+  width: 35vh;
+  padding-bottom: 1em;
+}
+
 .header-top h2 {
   color: #ffccc7;
+  font-size: 2.7vh;
 }
 
 /*
@@ -125,7 +127,7 @@ h3 {
 }
 
 .header-content h3 {
-  font-size: 36px;
+  font-size: 4vh;
 }
 
 .header-content .ant-statistic-content-value-int {
@@ -135,7 +137,7 @@ h3 {
 }
 
 .header-content .summary-text {
-  font-size: 20px;
+  font-size: 2.5vh;
 }
 
 /*
