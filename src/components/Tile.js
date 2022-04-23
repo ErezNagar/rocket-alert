@@ -92,9 +92,7 @@ export default class Tile extends React.Component {
             average: this.getAverage(res.payload),
           });
         }
-        setTimeout(() => {
-          this.setState({ alerts: res.payload, isLoading: false });
-        }, Math.floor(Math.random() * 4) * 1000);
+        this.setState({ alerts: res.payload, isLoading: false });
       })
       .catch((error) => {
         console.error(error);
