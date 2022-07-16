@@ -99,10 +99,10 @@ class Header extends React.Component {
   componentDidMount() {
     const alertClient = this.props.alertClient;
     Promise.all([
-      alertClient.getTotalAlerts(today, today),
-      alertClient.getTotalAlerts(yesterday, today),
-      alertClient.getTotalAlerts(week, today),
-      alertClient.getTotalAlerts(month, today),
+      alertClient.getTotalAlerts(today),
+      alertClient.getTotalAlerts(yesterday),
+      alertClient.getTotalAlerts(week),
+      alertClient.getTotalAlerts(month),
     ])
       .then((values) => {
         this.setState(
