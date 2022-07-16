@@ -7,8 +7,14 @@ const FAQ = () => (
       <p className="question-title">Where are these rockets launched from?</p>
       <p className="question-answer">
         Mostly from the{" "}
-        <a href="https://en.wikipedia.org/wiki/Gaza_Strip">Gaza Strip</a>,
-        although sometimes there are rockets launched from South Lebanon or
+        <a
+          href="https://en.wikipedia.org/wiki/Gaza_Strip"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Gaza Strip
+        </a>
+        , although sometimes there are rockets launched from South Lebanon or
         Syria.
       </p>
     </div>
@@ -16,9 +22,21 @@ const FAQ = () => (
       <p className="question-title">Who is shooting these rockets?</p>
       <p className="question-answer">
         Palestinian factions from Gaza, namely{" "}
-        <a hreg="https://www.dni.gov/nctc/groups/hamas.html">Hamas</a> and
-        Islamic Jihad terror organizations, as well as{" "}
-        <a href="https://www.dni.gov/nctc/groups/hizballah.html">Hezbollah</a>{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Hamas"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Hamas
+        </a>{" "}
+        and Islamic Jihad terror organizations, as well as{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Hezbollah"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Hezbollah
+        </a>{" "}
         terror organization based in South Lebanon.
       </p>
     </div>
@@ -43,7 +61,11 @@ const FAQ = () => (
       <p className="question-title">What is Iron Dome</p>
       <p className="question-answer">
         The{" "}
-        <a href="https://en.wikipedia.org/wiki/Iron_Dome">
+        <a
+          href="https://en.wikipedia.org/wiki/Iron_Dome"
+          target="_blank"
+          rel="noreferrer"
+        >
           Iron Dome Aerial Defense System
         </a>{" "}
         is an Israeli air defense system desgined to intercept and destroy
@@ -62,7 +84,11 @@ const FAQ = () => (
       <p className="question-title">Where does the alert data come from?</p>
       <p className="question-answer">
         We use the IDF's{" "}
-        <a href="https://en.wikipedia.org/wiki/Home_Front_Command">
+        <a
+          href="https://en.wikipedia.org/wiki/Home_Front_Command"
+          target="_blank"
+          rel="noreferrer"
+        >
           Home Front Command
         </a>{" "}
         (Pikud HaOref) unofficial rocket alert API, which allows you to easily
@@ -75,7 +101,13 @@ const FAQ = () => (
       <p className="question-answer">
         The real-time rocket alerts we show are queried directly from the Home
         Front Command's API, which is connected to the IDF's{" "}
-        <a href="https://en.wikipedia.org/wiki/Red_Color">Red Color</a>{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Red_Color"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Red Color
+        </a>{" "}
         early-warning system. In most cases, it would take just a few seconds
         for a real-time alert going off in Israel to show up.
       </p>
