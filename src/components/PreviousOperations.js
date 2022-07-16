@@ -62,8 +62,15 @@ const PreviousOperations = (props) => (
       </Row>
     </section>
     <section className="section">
-      <h2>Rocket alerts in previous Years</h2>
+      <h2>Rocket alerts in previous years</h2>
       <Row gutter={[24, 24]}>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Tile
+            title={"2022"}
+            fromDate={new Date("2022-01-01")}
+            alertsClient={props.alertsClient}
+          />
+        </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
           <Tile
             title={"2021"}
