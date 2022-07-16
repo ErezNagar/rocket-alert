@@ -1,17 +1,19 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
+import { getToday, isoFormat } from "./date_helper";
 
 const SERVER_URL = "https://ra-agg.kipodopik.com/api/v1/alerts";
 const api = wretch(SERVER_URL);
+const today = isoFormat(getToday());
 
 const AlertClient = {
   /*
    *  Gets total alert count by day for the given date range
    *  @param {string} from  from date, inclusive
-   *  @param {string} to    to date, inclusive
+   *  @param {string} to    to date, inclusive. Defaults to today
    *  @return {object}
    */
-  getTotalAlertsByDay: (from: string, to: string): any => {
+  getTotalAlertsByDay: (from: string, to: string = today): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }
@@ -24,10 +26,10 @@ const AlertClient = {
   /*
    *  Gets total alert count for the given date range
    *  @param {string} from  from date, inclusive
-   *  @param {string} to    to date, inclusive
+   *  @param {string} to    to date, inclusive. Defaults to today
    *  @return {object}
    */
-  getTotalAlerts: (from: string, to: string): any => {
+  getTotalAlerts: (from: string, to: string = today): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }
