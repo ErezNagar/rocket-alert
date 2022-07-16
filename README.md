@@ -4,7 +4,7 @@
 ![](https://github.com/ErezNagar/code-red/workflows/build-and-test/badge.svg)
 
 Real-time rocket alerts in Israel:
-https://ereznagar.github.io/rocket-alert/
+http://rocketalert.live/
 
 ## CHANGELOG
 
