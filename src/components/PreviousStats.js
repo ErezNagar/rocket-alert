@@ -17,6 +17,7 @@ const PreviousStats = (props) => (
           title={"Yesterday"}
           subtitle={displayFormat(getYesterday())}
           fromDate={getYesterday()}
+          toDate={getYesterday()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -25,6 +26,7 @@ const PreviousStats = (props) => (
           title={"Past Week"}
           subtitle={`Since ${displayFormat(getPastWeek())}`}
           fromDate={getPastWeek()}
+          toDate={getYesterday()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -33,6 +35,7 @@ const PreviousStats = (props) => (
           title={"Past Month"}
           subtitle={`Since ${displayFormat(getPastMonth())}`}
           fromDate={getPastMonth()}
+          toDate={getYesterday()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -41,6 +44,7 @@ const PreviousStats = (props) => (
           title={"Past Year"}
           subtitle={`Since ${displayFormat(getPastYear())}`}
           fromDate={getPastYear()}
+          toDate={getYesterday()}
           alertsClient={props.alertsClient}
         />
       </Col>

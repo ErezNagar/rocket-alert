@@ -9,7 +9,7 @@ import {
   getYesterday,
   isoFormat,
 } from "../date_helper";
-import { differenceInMonths } from "date-fns";
+import { format, differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
@@ -51,10 +51,11 @@ HeaderContent.defaultProps = {
 
 const AlertModeHeaderContent = ({ shouldRefresh, alert, todayAlertCount }) => (
   <>
-    <h3>Rocket alert</h3>
+    <h3>Rocket alert Now</h3>
     <div className="alert">
       <FadeInOut show={shouldRefresh}>
-        {alert.englishName || alert.name}
+        {format(new Date(alert.timeStamp), "h:mm a")}:
+        {alert.englishName || alert.name}`
       </FadeInOut>
     </div>
     {todayAlertCount > 0 && (
@@ -100,9 +101,9 @@ class Header extends React.Component {
     const alertClient = this.props.alertClient;
     Promise.all([
       alertClient.getTotalAlerts(today),
-      alertClient.getTotalAlerts(yesterday),
-      alertClient.getTotalAlerts(week),
-      alertClient.getTotalAlerts(month),
+      alertClient.getTotalAlerts(yesterday, yesterday),
+      alertClient.getTotalAlerts(week, yesterday),
+      alertClient.getTotalAlerts(month, yesterday),
     ])
       .then((values) => {
         this.setState(
