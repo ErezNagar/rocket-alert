@@ -13,6 +13,7 @@ import { format, differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
+import Util from "../util";
 
 const today = isoFormat(getToday());
 // const today = "2021-05-20";
@@ -54,8 +55,7 @@ const AlertModeHeaderContent = ({ shouldRefresh, alert, todayAlertCount }) => (
     <h3>Rocket alert</h3>
     <div className="alert">
       <FadeInOut show={shouldRefresh}>
-        {format(new Date(alert.timeStamp), "HH:mm")}
-        {": "}
+        {format(new Date(alert.timeStamp), "HH:mm")}{" "}
         {alert.englishName || alert.name}
       </FadeInOut>
     </div>
@@ -215,7 +215,7 @@ class Header extends React.Component {
     });
     setTimeout(() => {
       this.setState({ shouldRefresh: false });
-    }, 5800);
+    }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
   };
 
   render() {

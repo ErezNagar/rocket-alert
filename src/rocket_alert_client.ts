@@ -37,6 +37,9 @@ const AlertClient = {
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
         return alerts.slice(-MAX_RECENT_ALERTS);
+      })
+      .catch((e) => {
+        console.log("e", e);
       });
   },
 

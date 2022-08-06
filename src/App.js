@@ -13,8 +13,8 @@ import AlertClient from "./rocket_alert_client";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import queryString from "query-string";
-// import { subDays, format } from "date-fns";
-// import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
+import { subDays, format, parse } from "date-fns";
+import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
 
 class App extends React.Component {
   state = {
@@ -79,7 +79,7 @@ class App extends React.Component {
         this.setState({
           isAlertMode: false,
         });
-      }, 5000);
+      }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
     }
   };
 
@@ -88,28 +88,46 @@ class App extends React.Component {
    * If no alerts in the past 24 hours, returns null.
    * Calculates the server time to get query for the latest data, in case the client is behind
    */
-  // getRecentAlerts = () => {
-  //   const israelDateTime = formatInTimeZone(
-  //     new Date(),
-  //     "Asia/Jerusalem",
-  //     "yyyy-MM-dd HH:mm"
-  //   );
-  //   const israelDateTimeUTC = zonedTimeToUtc(
-  //     israelDateTime,
-  //     Intl.DateTimeFormat().resolvedOptions().timeZone
-  //   );
-  //   const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
-  //   const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
+  getRecentAlerts = () => {
+    const israelDateTime = formatInTimeZone(
+      new Date(),
+      "Asia/Jerusalem",
+      "yyyy-MM-dd HH:mm"
+    );
+    const israelDateTimeUTC = zonedTimeToUtc(
+      israelDateTime,
+      Intl.DateTimeFormat().resolvedOptions().timeZone
+    );
+    const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
+    const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
 
-  //   AlertClient.getRecentAlerts(serverYesterday, serverToday).then(
-  //     (recentAlerts) => {
-  //       if (!recentAlerts) {
-  //         return;
-  //       }
-  //       this.setState({ recentAlerts: recentAlerts.reverse() });
-  //     }
-  //   );
-  // };
+    AlertClient.getRecentAlerts(serverYesterday, serverToday).then(
+      (recentAlerts) => {
+        if (!recentAlerts) {
+          return;
+        }
+        console.log("recentAlerts", recentAlerts);
+        recentAlerts.map((alert) => {
+          const parsedTimestamp = parse(
+            alert.timeStamp,
+            "yyyy/MM/dd HH:mm:ss",
+            new Date()
+          );
+          const zoned = zonedTimeToUtc(
+            parsedTimestamp,
+            Intl.DateTimeFormat().resolvedOptions().timeZone
+          );
+          return {
+            name: "test",
+            timeStamp: zoned,
+          };
+        });
+        console.log("recentAlerts", recentAlerts);
+
+        this.setState({ recentAlerts: recentAlerts.reverse() });
+      }
+    );
+  };
 
   /*
    * Mocks alerts in the client without hitting the server

@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
-import { format } from "date-fns";
 
 const RecentAlerts = (props) => (
   <section className="section recentAlerts">
@@ -13,7 +12,7 @@ const RecentAlerts = (props) => (
         key={`${alert.englishName}_${idx}`}
       >
         <Col className="textRight" span={12}>
-          {format(new Date(alert.timeStamp), "HH:mm")}
+          {alert.timeStamp}
         </Col>
         <Col className="textLeft" span={12}>
           {alert.englishName || alert.name}

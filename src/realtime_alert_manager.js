@@ -1,8 +1,5 @@
 import Util from "./util";
 
-// Display time + total transition time;
-const THROTTLE = 5000;
-
 /* Keep max of 30 most recent alerts.
  * In case of a single, relatively short barrage, this will most likely capture all or most of the alerts.
  * In case of multiple, long barrages, we'll onnly keep the MAX_QUEUE_SIZE most recent alerts,
@@ -50,13 +47,17 @@ const RealTimeAlertManager = {
    *  @param {func} cb  Callback function to process incoming alerts
    */
   processAlert: (cb) => {
+    // Set an interval only once
+    if (RealTimeAlertManager.alertInterval) {
+      return;
+    }
     RealTimeAlertManager.alertInterval = setInterval(() => {
       if (RealTimeAlertManager.alertQueue.length > 0) {
         const alert = RealTimeAlertManager.alertQueue.shift();
         const isLastAlert = RealTimeAlertManager.alertQueue.length === 0;
         cb(alert, isLastAlert);
       }
-    }, THROTTLE);
+    }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
   },
 
   /*
