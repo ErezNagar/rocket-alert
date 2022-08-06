@@ -13,7 +13,7 @@ import AlertClient from "./rocket_alert_client";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import queryString from "query-string";
-import { subDays, format, parse } from "date-fns";
+import { subDays, format, parse, parseISO } from "date-fns";
 import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
 
 class App extends React.Component {
@@ -55,7 +55,7 @@ class App extends React.Component {
       // this.mockClientAlerts();
     }
 
-    // this.getRecentAlerts();
+    this.getRecentAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
@@ -86,41 +86,23 @@ class App extends React.Component {
    * Calculates the server time to get query for the latest data, in case the client is behind
    */
   getRecentAlerts = () => {
-    const israelDateTime = formatInTimeZone(
-      new Date(),
-      "Asia/Jerusalem",
-      "yyyy-MM-dd HH:mm"
-    );
-    const israelDateTimeUTC = zonedTimeToUtc(
-      israelDateTime,
-      Intl.DateTimeFormat().resolvedOptions().timeZone
-    );
-    const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
-    const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
+    // const israelDateTime = formatInTimeZone(
+    //   new Date(),
+    //   "Asia/Jerusalem",
+    //   "yyyy-MM-dd HH:mm"
+    // );
+    // const israelDateTimeUTC = zonedTimeToUtc(
+    //   israelDateTime,
+    //   Intl.DateTimeFormat().resolvedOptions().timeZone
+    // );
+    // const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
+    // const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
 
-    AlertClient.getRecentAlerts(serverYesterday, serverToday).then(
+    AlertClient.getRecentAlerts("2022-08-06", "2022-08-06").then(
       (recentAlerts) => {
         if (!recentAlerts) {
           return;
         }
-        console.log("recentAlerts", recentAlerts);
-        recentAlerts.map((alert) => {
-          const parsedTimestamp = parse(
-            alert.timeStamp,
-            "yyyy/MM/dd HH:mm:ss",
-            new Date()
-          );
-          const zoned = zonedTimeToUtc(
-            parsedTimestamp,
-            Intl.DateTimeFormat().resolvedOptions().timeZone
-          );
-          return {
-            name: "test",
-            timeStamp: zoned,
-          };
-        });
-        console.log("recentAlerts", recentAlerts);
-
         this.setState({ recentAlerts: recentAlerts.reverse() });
       }
     );
@@ -174,12 +156,12 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
         />
 
-        {/* {this.state.recentAlerts.length > 0 && (
+        {this.state.recentAlerts.length > 0 && (
           <RecentAlerts
             alertsClient={AlertClient}
             recentAlerts={this.state.recentAlerts}
           />
-        )} */}
+        )}
         {/* <CurrentOperation alertsClient={AlertClient} /> */}
         <PreviousStats alertsClient={AlertClient} />
         {/* <Map /> */}

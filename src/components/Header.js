@@ -9,8 +9,9 @@ import {
   getYesterday,
   isoFormat,
 } from "../date_helper";
-import { parseISO, format, differenceInMonths } from "date-fns";
+import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
+import FormattedTimeAlert from "./FormattedTimeAlert";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
@@ -50,13 +51,12 @@ HeaderContent.defaultProps = {
   alertSummaryCount: 0,
 };
 
-const AlertModeHeaderContent = ({ shouldRefresh, alert, todayAlertCount }) => (
+const AlertModeHeaderContent = ({ shouldRefresh, alert }) => (
   <>
     <h3>Rocket alert</h3>
     <div className="alert">
       <FadeInOut show={shouldRefresh}>
-        {format(parseISO(alert.timeStamp), "HH:mm")}{" "}
-        {alert.englishName || alert.name}
+        <FormattedTimeAlert alert={alert} /> {alert.englishName || alert.name}
       </FadeInOut>
     </div>
   </>

@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FadeInOut from "./FadeInOut";
+import FormattedTimeAlert from "./FormattedTimeAlert";
 import { TwitterOutlined } from "@ant-design/icons";
-// import { Statistic } from "antd";
 import logo from "../logo.svg";
 import Util from "../util";
-import { parseISO, format } from "date-fns";
 
 class StickyHeader extends React.Component {
   state = {
@@ -47,12 +46,10 @@ class StickyHeader extends React.Component {
         </div>
         <div className="alerts">
           {isAlertMode && realTimeAlert && (
-            <div>
-              <FadeInOut show={this.state.shouldRefresh}>
-                {format(parseISO(realTimeAlert.timeStamp), "HH:mm")}{" "}
-                {realTimeAlert.englishName || realTimeAlert.name}
-              </FadeInOut>
-            </div>
+            <FadeInOut show={this.state.shouldRefresh}>
+              <FormattedTimeAlert alert={realTimeAlert} />{" "}
+              {realTimeAlert.englishName || realTimeAlert.name}
+            </FadeInOut>
           )}
         </div>
         <div className="right-container">
