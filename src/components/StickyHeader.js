@@ -4,6 +4,7 @@ import FadeInOut from "./FadeInOut";
 import { TwitterOutlined } from "@ant-design/icons";
 // import { Statistic } from "antd";
 import logo from "../logo.svg";
+import Util from "../util";
 
 class StickyHeader extends React.Component {
   state = {
@@ -22,7 +23,7 @@ class StickyHeader extends React.Component {
     });
     setTimeout(() => {
       this.setState({ shouldRefresh: false });
-    }, 2000);
+    }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
   };
 
   setStickyHeaderStyle = () => {
