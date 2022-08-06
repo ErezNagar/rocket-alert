@@ -1,6 +1,7 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
 import { getToday, isoFormat } from "./date_helper";
+import Util from "./util";
 
 const SERVER_URL = "https://ra-agg.kipodopik.com/api/v1/alerts";
 const api = wretch(SERVER_URL);
@@ -90,8 +91,11 @@ const AlertClient = {
    *  @param {string} url   url of the event source
    *  @return {EventSource} the EventSource instance
    */
-  getRealTimeAlertEventSource: (url = `${SERVER_URL}/real-time-test`) =>
-    new EventSource(url),
+  getRealTimeAlertEventSource: (
+    url = Util.isDev()
+      ? `${SERVER_URL}/real-time-test`
+      : `${SERVER_URL}/real-time`
+  ) => new EventSource(url),
 };
 
 export default AlertClient;
