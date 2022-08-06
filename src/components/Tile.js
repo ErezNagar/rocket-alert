@@ -74,18 +74,6 @@ export default class Tile extends React.Component {
         isoFormat(this.props.fromDate),
         isoFormat(this.props.toDate)
       )
-      /*
-        error: null
-        payload: 7325
-        success: true
-      */
-      // .getTotalAlertsByDay(this.props.fromDate, this.props.fromDate)
-      /*
-      [{
-        alerts: 37
-        timeStamp: "2014-07-24"
-      }]
-      */
       .then((res) => {
         if (this.props.showAverage) {
           this.setState({
@@ -101,11 +89,17 @@ export default class Tile extends React.Component {
   };
 
   getAverage = (total) => {
-    const duration = differenceInDays(
+    if (this.props.title === "Operation Breaking Dawn") {
+      console.log(this.props.fromDate, this.props.toDate);
+    }
+    const dayCount = differenceInDays(
       new Date(this.props.toDate),
       new Date(this.props.fromDate)
     );
-    return Math.round(total / duration);
+    if (this.props.title === "Operation Breaking Dawn") {
+      console.log(dayCount);
+    }
+    return Math.round(total / dayCount);
   };
 
   render() {

@@ -9,7 +9,7 @@ const CurrentOperation = (props) => (
         <Tile
           title={"Operation Breaking Dawn"}
           subtitle={"Started Aug 5"}
-          fromDate={new Date("2022-08-05 00:00")}
+          fromDate={new Date("2022-08-05T00:00")}
           alertsClient={props.alertsClient}
           showAverage
         />
