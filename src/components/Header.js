@@ -9,7 +9,7 @@ import {
   getYesterday,
   isoFormat,
 } from "../date_helper";
-import { format, differenceInMonths } from "date-fns";
+import { parseISO, format, differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
@@ -55,7 +55,7 @@ const AlertModeHeaderContent = ({ shouldRefresh, alert, todayAlertCount }) => (
     <h3>Rocket alert</h3>
     <div className="alert">
       <FadeInOut show={shouldRefresh}>
-        {/* {format(new Date(alert.timeStamp), "HH:mm")}{" "} */}
+        {format(parseISO(alert.timeStamp), "HH:mm")}{" "}
         {alert.englishName || alert.name}
       </FadeInOut>
     </div>
