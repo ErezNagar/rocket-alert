@@ -13,7 +13,7 @@ import AlertClient from "./rocket_alert_client";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import queryString from "query-string";
-import { subDays, format, parse, parseISO } from "date-fns";
+import { subDays, format } from "date-fns";
 import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
 
 class App extends React.Component {
@@ -86,19 +86,20 @@ class App extends React.Component {
    * Calculates the server time to get query for the latest data, in case the client is behind
    */
   getRecentAlerts = () => {
-    // const israelDateTime = formatInTimeZone(
-    //   new Date(),
-    //   "Asia/Jerusalem",
-    //   "yyyy-MM-dd HH:mm"
-    // );
-    // const israelDateTimeUTC = zonedTimeToUtc(
-    //   israelDateTime,
-    //   Intl.DateTimeFormat().resolvedOptions().timeZone
-    // );
-    // const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
-    // const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
+    const israelTimeZone = formatInTimeZone(
+      new Date(),
+      "Asia/Jerusalem",
+      "yyyy-MM-dd HH:mm"
+    );
+    const israelTimeZoneUTC = zonedTimeToUtc(
+      israelTimeZone,
+      Intl.DateTimeFormat().resolvedOptions().timeZone
+    );
+    const yesterdayIsraelTimeZone = subDays(israelTimeZoneUTC, 1);
+    const yesterdayFormatted = format(yesterdayIsraelTimeZone, "yyyy-MM-dd");
+    const todayFormatted = format(israelTimeZoneUTC, "yyyy-MM-dd");
 
-    AlertClient.getRecentAlerts("2022-08-06", "2022-08-06").then(
+    AlertClient.getRecentAlerts(yesterdayFormatted, todayFormatted).then(
       (recentAlerts) => {
         if (!recentAlerts) {
           return;
@@ -162,7 +163,7 @@ class App extends React.Component {
             recentAlerts={this.state.recentAlerts}
           />
         )}
-        {/* <CurrentOperation alertsClient={AlertClient} /> */}
+        <CurrentOperation alertsClient={AlertClient} />
         <PreviousStats alertsClient={AlertClient} />
         {/* <Map /> */}
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}

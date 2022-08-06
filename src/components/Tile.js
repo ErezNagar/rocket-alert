@@ -89,16 +89,10 @@ export default class Tile extends React.Component {
   };
 
   getAverage = (total) => {
-    if (this.props.title === "Operation Breaking Dawn") {
-      console.log(this.props.fromDate, this.props.toDate);
-    }
     const dayCount = differenceInDays(
       new Date(this.props.toDate),
       new Date(this.props.fromDate)
     );
-    if (this.props.title === "Operation Breaking Dawn") {
-      console.log(dayCount);
-    }
     return Math.round(total / dayCount);
   };
 
