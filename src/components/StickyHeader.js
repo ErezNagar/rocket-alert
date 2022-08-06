@@ -5,6 +5,7 @@ import { TwitterOutlined } from "@ant-design/icons";
 // import { Statistic } from "antd";
 import logo from "../logo.svg";
 import Util from "../util";
+import { parseISO, format } from "date-fns";
 
 class StickyHeader extends React.Component {
   state = {
@@ -48,9 +49,8 @@ class StickyHeader extends React.Component {
           {isAlertMode && realTimeAlert && (
             <div>
               <FadeInOut show={this.state.shouldRefresh}>
-                {`Rocket alert: ${
-                  realTimeAlert.englishName || realTimeAlert.name
-                }`}
+                {format(parseISO(realTimeAlert.timeStamp), "HH:mm")}{" "}
+                {realTimeAlert.englishName || realTimeAlert.name}
               </FadeInOut>
             </div>
           )}
