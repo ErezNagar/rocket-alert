@@ -16,7 +16,13 @@ const RecentAlerts = (props) => (
           <FormattedTimeAlert alert={alert} />
         </Col>
         <Col className="textLeft" span={12}>
-          {alert.englishName || alert.name}
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${alert.lat},${alert.lon}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {alert.englishName || alert.name}
+          </a>
         </Col>
       </Row>
     ))}

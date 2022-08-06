@@ -198,7 +198,10 @@ h3 {
   font-size: 1.25em;
   text-align: right;
 }
-
+.section.recentAlerts a {
+  color: inherit;
+  text-decoration: underline;
+}
 .section.currentOperation {
   text-align: center;
   background-color: #5c0011;
