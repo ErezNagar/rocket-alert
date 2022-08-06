@@ -13,9 +13,8 @@ import AlertClient from "./rocket_alert_client";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import queryString from "query-string";
-import wretch from "wretch";
-import { subDays, format } from "date-fns";
-import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
+// import { subDays, format } from "date-fns";
+// import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
 
 class App extends React.Component {
   state = {
@@ -53,11 +52,10 @@ class App extends React.Component {
   componentDidMount() {
     RealTimeAlertManager.startRealTimeAlerts(AlertClient, this.processAlert);
     if (Util.isDev() && this.isAlertModeQueryString()) {
-      // this.mockIncomeServerAlerts();
-      this.mockClientAlerts();
+      // this.mockClientAlerts();
     }
 
-    this.getRecentAlerts();
+    // this.getRecentAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
@@ -90,43 +88,28 @@ class App extends React.Component {
    * If no alerts in the past 24 hours, returns null.
    * Calculates the server time to get query for the latest data, in case the client is behind
    */
-  getRecentAlerts = () => {
-    const israelDateTime = formatInTimeZone(
-      new Date(),
-      "Asia/Jerusalem",
-      "yyyy-MM-dd HH:mm"
-    );
-    const israelDateTimeUTC = zonedTimeToUtc(
-      israelDateTime,
-      Intl.DateTimeFormat().resolvedOptions().timeZone
-    );
-    const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
-    const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
+  // getRecentAlerts = () => {
+  //   const israelDateTime = formatInTimeZone(
+  //     new Date(),
+  //     "Asia/Jerusalem",
+  //     "yyyy-MM-dd HH:mm"
+  //   );
+  //   const israelDateTimeUTC = zonedTimeToUtc(
+  //     israelDateTime,
+  //     Intl.DateTimeFormat().resolvedOptions().timeZone
+  //   );
+  //   const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
+  //   const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
 
-    AlertClient.getRecentAlerts(serverYesterday, serverToday).then(
-      (recentAlerts) => {
-        if (!recentAlerts) {
-          return;
-        }
-        this.setState({ recentAlerts: recentAlerts.reverse() });
-      }
-    );
-  };
-
-  /*
-   * Mocks incoming alerts by hitting the server.
-   * Waits 2 seconds before initiating requests. After which, call the server in intervals
-   */
-  mockIncomeServerAlerts = () => {
-    setInterval(() => {
-      wretch(
-        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=Sderot`
-      )
-        .post()
-        .res()
-        .catch((e) => console.error("Error", e));
-    }, 2000);
-  };
+  //   AlertClient.getRecentAlerts(serverYesterday, serverToday).then(
+  //     (recentAlerts) => {
+  //       if (!recentAlerts) {
+  //         return;
+  //       }
+  //       this.setState({ recentAlerts: recentAlerts.reverse() });
+  //     }
+  //   );
+  // };
 
   /*
    * Mocks alerts in the client without hitting the server
@@ -176,12 +159,12 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
         />
 
-        {this.state.recentAlerts.length > 0 && (
+        {/* {this.state.recentAlerts.length > 0 && (
           <RecentAlerts
             alertsClient={AlertClient}
             recentAlerts={this.state.recentAlerts}
           />
-        )}
+        )} */}
         {/* <CurrentOperation alertsClient={AlertClient} /> */}
         <PreviousStats alertsClient={AlertClient} />
         {/* <Map /> */}

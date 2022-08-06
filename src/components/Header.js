@@ -215,7 +215,7 @@ class Header extends React.Component {
     });
     setTimeout(() => {
       this.setState({ shouldRefresh: false });
-    }, 2000);
+    }, 5800);
   };
 
   render() {
