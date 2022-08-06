@@ -67,9 +67,6 @@ class App extends React.Component {
    * Processes a single alert by showing it in the UI
    */
   processAlert = (alert, isLastAlert) => {
-    if (Util.isDev()) {
-      console.log("Processing alert", alert);
-    }
     this.setState({
       realTimeAlert: JSON.parse(alert),
       isAlertMode: true,

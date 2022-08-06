@@ -151,10 +151,6 @@ h3 {
   font-size: 20px;
 }
 
-.header-content .alert-summary-count .ant-statistic-content-value-int {
-  font-size: 8vh;
-}
-
 .header-content .alert-summary-text {
   font-size: 24px;
 }

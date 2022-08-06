@@ -90,7 +90,7 @@ const AlertClient = {
    *  @param {string} url   url of the event source
    *  @return {EventSource} the EventSource instance
    */
-  getRealTimeAlertEventSource: (url = `${SERVER_URL}/real-time`) =>
+  getRealTimeAlertEventSource: (url = `${SERVER_URL}/real-time-test`) =>
     new EventSource(url),
 };
 

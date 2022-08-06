@@ -55,20 +55,10 @@ const AlertModeHeaderContent = ({ shouldRefresh, alert, todayAlertCount }) => (
     <h3>Rocket alert</h3>
     <div className="alert">
       <FadeInOut show={shouldRefresh}>
-        {format(new Date(alert.timeStamp), "HH:mm")}{" "}
+        {/* {format(new Date(alert.timeStamp), "HH:mm")}{" "} */}
         {alert.englishName || alert.name}
       </FadeInOut>
     </div>
-    {todayAlertCount > 0 && (
-      <>
-        <div className="alert-summary-count">
-          <FadeIn show={true} fadeInOnly>
-            <Statistic value={todayAlertCount} />
-          </FadeIn>
-        </div>
-        <div className="alert-summary-text">{"Rocket alerts today"}</div>
-      </>
-    )}
   </>
 );
 
