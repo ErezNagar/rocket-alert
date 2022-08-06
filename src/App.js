@@ -44,9 +44,10 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.startListeningToRealTimeAlerts();
-    if (this.isAlertModeQueryString()) {
-      this.mockIncomingAlerts();
+    RealTimeAlertManager.startRealTimeAlerts(AlertClient, this.processAlert);
+    if (Util.isDev() && this.isAlertModeQueryString()) {
+      // this.mockIncomeServerAlerts();
+      this.mockClientAlerts();
     }
 
     window.addEventListener("scroll", this.handleScroll);
@@ -55,34 +56,55 @@ class App extends React.Component {
     });
   }
 
-  startListeningToRealTimeAlerts = () => {
-    RealTimeAlertManager.startRealTimeAlerts(
-      AlertClient,
-      (alert, isLastAlert) => {
-        if (Util.isDev()) {
-          console.log("Processing alert", alert);
-        }
+  /*
+   * Processes a single alert by showing it in the UI
+   */
+  processAlert = (alert, isLastAlert) => {
+    if (Util.isDev()) {
+      console.log("Processing alert", alert);
+    }
+    this.setState({
+      realTimeAlert: JSON.parse(alert),
+      isAlertMode: true,
+    });
+    if (isLastAlert) {
+      setTimeout(() => {
         this.setState({
-          realTimeAlert: JSON.parse(alert),
-          isAlertMode: isLastAlert ? false : true,
+          isAlertMode: false,
         });
-      }
-    );
+      }, 3000);
+    }
   };
 
   /*
    * Mocks incoming alerts by hitting the server.
    * Waits 2 seconds before initiating requests. After which, call the server in intervals
    */
-  mockIncomingAlerts = () => {
+  mockIncomeServerAlerts = () => {
     setInterval(() => {
       wretch(
-        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=עתלית`
+        `https://ra-agg.kipodopik.com/api/v1/alerts/real-time?token=BHHWEIP221a547&data=Sderot`
       )
         .post()
         .res()
         .catch((e) => console.error("Error", e));
     }, 2000);
+  };
+
+  /*
+   * Mocks alerts in the client without hitting the server
+   */
+  mockClientAlerts = () => {
+    RealTimeAlertManager.alertQueue.push(
+      JSON.stringify({
+        name: "Sderot 1",
+        englishName: null,
+        lat: null,
+        lon: null,
+        timeStamp: "2022-08-05 23:18:05",
+      })
+    );
+    RealTimeAlertManager.processAlert(this.processAlert);
   };
 
   componentWillUnmount() {
