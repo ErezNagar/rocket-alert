@@ -1,12 +1,12 @@
 import Util from "./util";
 
 // Display time + total transition time;
-const THROTTLE = 3000;
+const THROTTLE = 5000;
 
 /* Keep max of 30 most recent alerts.
  * In case of a single, relatively short barrage, this will most likely capture all or most of the alerts.
  * In case of multiple, long barrages, we'll onnly keep the MAX_QUEUE_SIZE most recent alerts,
- * which will allow us THROTTLE * MAX_QUEUE_SIZE = 90 seconds to show all alerts
+ * which will allow us THROTTLE * MAX_QUEUE_SIZE = 150 seconds to show all alerts
  */
 const MAX_QUEUE_SIZE = 30;
 const RealTimeAlertManager = {

@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import PreviousStats from "./components/PreviousStats";
+import RecentAlerts from "./components/RecentAlerts";
+import CurrentOperation from "./components/CurrentOperation";
 // import Map from "./components/Map";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
@@ -12,6 +14,8 @@ import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import queryString from "query-string";
 import wretch from "wretch";
+import { subDays, format } from "date-fns";
+import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
 
 class App extends React.Component {
   state = {
@@ -24,6 +28,9 @@ class App extends React.Component {
     isAlertMode: false,
     // The alert boject
     realTimeAlert: null,
+    // Most recent alerts
+    // TODO: to show when there's currently an operation
+    recentAlerts: [],
   };
 
   alertEventSource = null;
@@ -50,6 +57,8 @@ class App extends React.Component {
       this.mockClientAlerts();
     }
 
+    this.getRecentAlerts();
+
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
       startfadeInEffect: true,
@@ -72,8 +81,36 @@ class App extends React.Component {
         this.setState({
           isAlertMode: false,
         });
-      }, 3000);
+      }, 5000);
     }
+  };
+
+  /*
+   * Gets the most recent alerts from the past 24 hours.
+   * If no alerts in the past 24 hours, returns null.
+   * Calculates the server time to get query for the latest data, in case the client is behind
+   */
+  getRecentAlerts = () => {
+    const israelDateTime = formatInTimeZone(
+      new Date(),
+      "Asia/Jerusalem",
+      "yyyy-MM-dd HH:mm"
+    );
+    const israelDateTimeUTC = zonedTimeToUtc(
+      israelDateTime,
+      Intl.DateTimeFormat().resolvedOptions().timeZone
+    );
+    const serverToday = format(israelDateTimeUTC, "yyyy-MM-dd");
+    const serverYesterday = format(subDays(israelDateTimeUTC, 1), "yyyy-MM-dd");
+
+    AlertClient.getRecentAlerts(serverYesterday, serverToday).then(
+      (recentAlerts) => {
+        if (!recentAlerts) {
+          return;
+        }
+        this.setState({ recentAlerts: recentAlerts.reverse() });
+      }
+    );
   };
 
   /*
@@ -139,6 +176,13 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
         />
 
+        {this.state.recentAlerts.length > 0 && (
+          <RecentAlerts
+            alertsClient={AlertClient}
+            recentAlerts={this.state.recentAlerts}
+          />
+        )}
+        <CurrentOperation alertsClient={AlertClient} />
         <PreviousStats alertsClient={AlertClient} />
         {/* <Map /> */}
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}

@@ -190,6 +190,24 @@ h3 {
   font-size: 2em;
 }
 
+.section.recentAlerts {
+  text-align: center;
+  background-color: white;
+}
+.section.recentAlerts .textLeft {
+  font-size: 1.25em;
+  text-align: left;
+}
+.section.recentAlerts .textRight {
+  font-size: 1.25em;
+  text-align: right;
+}
+
+.section.currentOperation {
+  text-align: center;
+  background-color: #5c0011;
+}
+
 /*
  * Tile
  */
