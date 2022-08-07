@@ -17,12 +17,9 @@ import FadeInOut from "./FadeInOut";
 import Util from "../util";
 
 const today = isoFormat(getToday());
-// const today = "2021-05-20";
 const yesterday = isoFormat(getYesterday());
 const week = isoFormat(getPastWeek());
-// const week = "2021-05-13";
 const month = isoFormat(getPastMonth());
-// const month = "2021-04-13";
 
 const HeaderContent = ({
   alertSummaryTitle,
@@ -93,8 +90,8 @@ class Header extends React.Component {
     Promise.all([
       alertClient.getTotalAlerts(today),
       alertClient.getTotalAlerts(yesterday, yesterday),
-      alertClient.getTotalAlerts(week, yesterday),
-      alertClient.getTotalAlerts(month, yesterday),
+      alertClient.getTotalAlerts(week, today),
+      alertClient.getTotalAlerts(month, today),
     ])
       .then((values) => {
         this.setState(

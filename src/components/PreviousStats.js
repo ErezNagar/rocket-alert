@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
 import {
+  getToday,
   getYesterday,
   getPastWeek,
   getPastMonth,
@@ -26,7 +27,7 @@ const PreviousStats = (props) => (
           title={"Past Week"}
           subtitle={`Since ${displayFormat(getPastWeek())}`}
           fromDate={getPastWeek()}
-          toDate={getYesterday()}
+          toDate={getToday()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -35,7 +36,7 @@ const PreviousStats = (props) => (
           title={"Past Month"}
           subtitle={`Since ${displayFormat(getPastMonth())}`}
           fromDate={getPastMonth()}
-          toDate={getYesterday()}
+          toDate={getToday()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -44,7 +45,7 @@ const PreviousStats = (props) => (
           title={"Past Year"}
           subtitle={`Since ${displayFormat(getPastYear())}`}
           fromDate={getPastYear()}
-          toDate={getYesterday()}
+          toDate={getToday()}
           alertsClient={props.alertsClient}
         />
       </Col>
