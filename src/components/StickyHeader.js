@@ -53,8 +53,13 @@ class StickyHeader extends React.Component {
           )}
         </div>
         <div className="right-container">
-          <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
-          #RocketAlerts
+          <a
+            href={`https://twitter.com/share?text=Rocket alert in Israel!&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
+          </a>
         </div>
       </header>
     );

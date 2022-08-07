@@ -80,6 +80,7 @@ class Header extends React.Component {
     alertSummaryCount: 0,
     alertSummaryTitle: "",
     alertSummaryText: "",
+    twitterShareText: "",
     isLoading: true,
     isError: false,
     shouldRefresh: false,
@@ -125,7 +126,7 @@ class Header extends React.Component {
       alertSummaryTitle = `Rocket alerts today`;
 
       if (this.state.yesterdayAlertCount > 0) {
-        alertSummaryText = `Yesteray, there were ${this.state.yesterdayAlertCount} rocket alerts`;
+        alertSummaryText = `Yesterday, there were ${this.state.yesterdayAlertCount} rocket alerts`;
         if (
           this.state.weekAlertCount > 0 &&
           this.state.yesterdayAlertCount !== this.state.weekAlertCount
@@ -187,7 +188,12 @@ class Header extends React.Component {
           console.error("Error getMostRecentAlert()", err);
         });
     }
-    this.setState({ alertSummaryCount, alertSummaryTitle, alertSummaryText });
+    this.setState({
+      alertSummaryCount,
+      alertSummaryTitle,
+      alertSummaryText,
+      twitterShareText: `Rocket Alert in Israel!                                                             ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}`,
+    });
   };
 
   componentDidUpdate(prevProps) {
@@ -235,18 +241,14 @@ class Header extends React.Component {
         </div>
         <div className="header-bottom">
           <a
-            href="https://twitter.com/intent/tweet?button_hashtag=RocketAlert&ref_src=twsrc%5Etfw"
-            data-show-count="false"
-            data-text="custom share text"
-            data-url="https://dev.twitter.com/web/tweet-button"
-            data-hashtags="example,demo"
-            data-via="twitterdev"
-            data-related="twitterapi,twitter"
+            href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+            target="_blank"
+            rel="noreferrer"
           >
             <div>
-              <TwitterOutlined style={{ fontSize: "20px", color: "white" }} />
+              <TwitterOutlined style={{ fontSize: "30px", color: "white" }} />
             </div>
-            <div>#RocketAlert</div>
+            <div>Share</div>
           </a>
         </div>
       </header>

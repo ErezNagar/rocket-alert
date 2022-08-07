@@ -79,6 +79,10 @@ h3 {
   align-items: center;
 }
 
+.sticky-header .right-container a {
+  color: white;
+}
+
 /*
  * Header
  */
