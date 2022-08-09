@@ -12,7 +12,6 @@ import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
-import queryString from "query-string";
 import { subDays, format } from "date-fns";
 import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
 
@@ -34,24 +33,9 @@ class App extends React.Component {
 
   alertEventSource = null;
 
-  /*
-   * Checks whether the Alert Mode query string is set. Dev only.
-   */
-  isAlertModeQueryString = () => {
-    const query = queryString.parse(window.location.search);
-    const queryKeys = Object.keys(query);
-    if (queryKeys.length !== 1) {
-      return false;
-    }
-    return queryKeys[0].toLowerCase() === "mode" &&
-      query[queryKeys[0]] === "alert"
-      ? true
-      : false;
-  };
-
   componentDidMount() {
     RealTimeAlertManager.startRealTimeAlerts(AlertClient, this.processAlert);
-    if (Util.isDev() && this.isAlertModeQueryString()) {
+    if (Util.isDev() && Util.isAlertModeQueryString()) {
       // this.mockClientAlerts();
     }
 
