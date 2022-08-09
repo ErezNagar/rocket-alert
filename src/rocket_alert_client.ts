@@ -30,7 +30,7 @@ const AlertClient = {
       .get()
       .json()
       .then((res) => {
-        if (!res.success) {
+        if (!res.success || res.payload?.length === 0) {
           return null;
         }
         const alerts =
