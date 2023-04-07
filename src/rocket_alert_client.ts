@@ -92,7 +92,7 @@ const AlertClient = {
    *  @return {EventSource} the EventSource instance
    */
   getRealTimeAlertEventSource: (
-    url = Util.isDev() && Util.isAlertModeQueryString()
+    url = Util.isAlertModeQueryString()
       ? `${SERVER_URL}/real-time-test`
       : `${SERVER_URL}/real-time`
   ) => new EventSource(url),

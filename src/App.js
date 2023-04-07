@@ -36,7 +36,7 @@ class App extends React.Component {
   componentDidMount() {
     RealTimeAlertManager.startRealTimeAlerts(AlertClient, this.processAlert);
     if (Util.isDev() && Util.isAlertModeQueryString()) {
-      // this.mockClientAlerts();
+      this.mockClientAlerts();
     }
 
     this.getRecentAlerts();
@@ -103,7 +103,7 @@ class App extends React.Component {
         englishName: null,
         lat: null,
         lon: null,
-        timeStamp: "2022-08-05 23:18:05",
+        timeStamp: "2022-08-05 23:19:05",
       })
     );
     RealTimeAlertManager.processAlert(this.processAlert);
