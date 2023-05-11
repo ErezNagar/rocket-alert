@@ -16,11 +16,6 @@ import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
 
-const today = isoFormat(getToday());
-const yesterday = isoFormat(getYesterday());
-const week = isoFormat(getPastWeek());
-const month = isoFormat(getPastMonth());
-
 const HeaderContent = ({
   alertSummaryTitle,
   alertSummaryText,
@@ -73,10 +68,6 @@ AlertModeHeaderContent.defaultProps = {
 class Header extends React.Component {
   state = {
     alerts: {},
-    todayAlertCount: 0,
-    yesterdayAlertCount: 0,
-    weekAlertCount: 0,
-    monthAlertCount: 0,
     alertSummaryCount: 0,
     alertSummaryTitle: "",
     alertSummaryText: "",
@@ -88,23 +79,27 @@ class Header extends React.Component {
 
   componentDidMount() {
     const alertClient = this.props.alertClient;
+    const today = isoFormat(getToday());
+    const yesterday = isoFormat(getYesterday());
+    const pastWeek = isoFormat(getPastWeek());
+    const pastMonth = isoFormat(getPastMonth());
+
     Promise.all([
       alertClient.getTotalAlerts(today),
       alertClient.getTotalAlerts(yesterday, yesterday),
-      alertClient.getTotalAlerts(week, today),
-      alertClient.getTotalAlerts(month, today),
+      alertClient.getTotalAlerts(pastWeek, today),
+      alertClient.getTotalAlerts(pastMonth, today),
     ])
       .then((values) => {
-        this.setState(
-          {
-            todayAlertCount: values[0].success ? values[0].payload : 0,
-            yesterdayAlertCount: values[1].success ? values[1].payload : 0,
-            weekAlertCount: values[2].success ? values[2].payload : 0,
-            monthAlertCount: values[3].success ? values[3].payload : 0,
-          },
-          () => {
-            this.setAlertSummary();
-          }
+        const todayAlertCount = values[0].success ? values[0].payload : 0;
+        const yesterdayAlertCount = values[1].success ? values[1].payload : 0;
+        const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
+        const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
+        this.setAlertSummary(
+          todayAlertCount,
+          yesterdayAlertCount,
+          pastWeekAlertCount,
+          pastMonthAlertCount
         );
       })
       .catch((error) => {
@@ -114,64 +109,70 @@ class Header extends React.Component {
   }
 
   /* Sets rocket alert summary in a simple, "human readable" form.
-   * Prioritize recent alerts over old ones.
+   * Prioritizes recent alerts over old ones.
    */
-  setAlertSummary = async () => {
+  setAlertSummary = async (
+    todayAlertCount,
+    yesterdayAlertCount,
+    pastWeekAlertCount,
+    pastMonthAlertCount
+  ) => {
     let alertSummaryTitle = "";
     let alertSummaryText = "";
     let alertSummaryCount = 0;
 
-    if (this.state.todayAlertCount > 0) {
-      alertSummaryCount = this.state.todayAlertCount;
+    if (todayAlertCount > 0) {
+      alertSummaryCount = todayAlertCount;
       alertSummaryTitle = `Rocket alerts today`;
 
-      if (this.state.yesterdayAlertCount > 0) {
-        alertSummaryText = `Yesterday, there were ${this.state.yesterdayAlertCount} rocket alerts`;
+      if (yesterdayAlertCount > 0) {
+        alertSummaryText = `Yesterday, there were ${yesterdayAlertCount} rocket alerts`;
         if (
-          this.state.weekAlertCount > 0 &&
-          this.state.yesterdayAlertCount !== this.state.weekAlertCount
+          pastWeekAlertCount > 0 &&
+          yesterdayAlertCount !== pastWeekAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${this.state.weekAlertCount} in the past week`;
+          alertSummaryText += `,\nand a total of ${pastWeekAlertCount} in the past week`;
         } else if (
-          this.state.monthAlertCount > 0 &&
-          this.state.weekAlertCount !== this.state.monthAlertCount
+          pastMonthAlertCount > 0 &&
+          pastWeekAlertCount !== pastMonthAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${this.state.monthAlertCount} in the past month`;
+          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
         }
-      } else if (this.state.weekAlertCount > 0) {
-        alertSummaryText = `Last week, there were ${this.state.weekAlertCount} rocket alerts`;
-        if (this.state.monthAlertCount > 0) {
-          alertSummaryText += `,\nand a total of ${this.state.monthAlertCount} in the past month`;
+      } else if (pastWeekAlertCount > 0) {
+        alertSummaryText = `In the last week, there were ${pastWeekAlertCount} rocket alerts`;
+        if (pastMonthAlertCount > 0) {
+          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
         }
-      } else if (this.state.monthAlertCount > 0) {
-        alertSummaryText = `In the past month, there were ${this.state.monthAlertCount} rocket alerts`;
+      } else if (pastMonthAlertCount > 0) {
+        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} rocket alerts`;
       }
-    } else if (this.state.yesterdayAlertCount > 0) {
-      alertSummaryCount = this.state.yesterdayAlertCount;
+    } else if (yesterdayAlertCount > 0) {
+      alertSummaryCount = yesterdayAlertCount;
       alertSummaryTitle = `Rocket alerts yesterday`;
       if (
-        this.state.weekAlertCount > 0 &&
-        this.state.weekAlertCount !== this.state.yesterdayAlertCount
+        pastWeekAlertCount > 0 &&
+        pastWeekAlertCount !== yesterdayAlertCount
       ) {
-        alertSummaryText += `In the past week, there were ${this.state.weekAlertCount} rocket alerts`;
+        alertSummaryText += `In the past week, there were ${pastWeekAlertCount} rocket alerts`;
       }
-    } else if (this.state.weekAlertCount > 0) {
-      alertSummaryCount = this.state.weekAlertCount;
+    } else if (pastWeekAlertCount > 0) {
+      alertSummaryCount = pastWeekAlertCount;
       alertSummaryTitle = `Rocket alerts in the last week`;
       if (
-        this.state.monthAlertCount > 0 &&
-        this.state.monthAlertCount !== this.state.weekAlertCount
+        pastMonthAlertCount > 0 &&
+        pastMonthAlertCount !== pastWeekAlertCount
       ) {
-        alertSummaryText += `In the past month, there were ${this.state.monthAlertCount} rocket alerts`;
+        alertSummaryText += `In the past month, there were ${pastMonthAlertCount} rocket alerts`;
       }
-    } else if (this.state.monthAlertCount > 0) {
-      alertSummaryCount = this.state.monthAlertCount;
+    } else if (pastMonthAlertCount > 0) {
+      alertSummaryCount = pastMonthAlertCount;
       alertSummaryTitle = `Rocket alerts in the last month`;
     } else {
       await this.props.alertClient
         .getMostRecentAlert()
         .then((res) => {
           if (res.success) {
+            const today = isoFormat(getToday());
             const monthsAgo = differenceInMonths(
               new Date(today),
               new Date(res.payload.date)
