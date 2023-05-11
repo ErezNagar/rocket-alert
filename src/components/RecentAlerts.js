@@ -4,7 +4,7 @@ import FormattedTimeAlert from "./FormattedTimeAlert";
 
 const RecentAlerts = (props) => (
   <section className="section recentAlerts">
-    <h2>{"Recent alerts"}</h2>
+    <h2>{"Most Recent alerts"}</h2>
 
     {props.recentAlerts.map((alert, idx) => (
       <Row
