@@ -10,14 +10,14 @@ const MAX_RECENT_ALERTS = 15;
 
 const AlertClient = {
   /*
-   *  Gets the MAX_RECENT_ALERTS most recent alerts of the past 24 hours
-   *  If server time is tomorrow, we concat the 2 arrays of alerts.
+   *  Gets the MAX_RECENT_ALERTS most recent alerts in the past 24 hours
+   *  If server time is tomorrow, concats the 2 arrays of alerts.
    *
    *  @param {string} from  from date, inclusive. Defaults to today
    *  @param {string} to    to date, inclusive. Defaults to today
    *  @return {object}
    */
-  getRecentAlerts: (from: string, to: string): any => {
+  getMostRecentAlerts: (from: string, to: string): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }
@@ -79,7 +79,7 @@ const AlertClient = {
   },
 
   /*
-   *  Gets the date and location most recent alert
+   *  Gets the date and location of the most recent alert
    *
    *  @return {object}
    */

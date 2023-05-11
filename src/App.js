@@ -27,7 +27,6 @@ class App extends React.Component {
     // The alert boject
     realTimeAlert: null,
     // Most recent alerts
-    // TODO: to show when there's currently an operation
     recentAlerts: [],
   };
 
@@ -39,7 +38,7 @@ class App extends React.Component {
       this.mockClientAlerts();
     }
 
-    this.getRecentAlerts();
+    this.getMostRecentAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
     this.setState({
@@ -65,11 +64,11 @@ class App extends React.Component {
   };
 
   /*
-   * Gets the most recent alerts from the past 24 hours.
-   * If no alerts in the past 24 hours, returns null.
+   * Gets the alerts from the past 24 hours.
+   * If there are no alerts in the past 24 hours, returns null.
    * Calculates the server time to get query for the latest data, in case the client is behind
    */
-  getRecentAlerts = () => {
+  getMostRecentAlerts = () => {
     const israelTimeZone = formatInTimeZone(
       new Date(),
       "Asia/Jerusalem",
@@ -83,7 +82,7 @@ class App extends React.Component {
     const yesterdayFormatted = format(yesterdayIsraelTimeZone, "yyyy-MM-dd");
     const todayFormatted = format(israelTimeZoneUTC, "yyyy-MM-dd");
 
-    AlertClient.getRecentAlerts(yesterdayFormatted, todayFormatted).then(
+    AlertClient.getMostRecentAlerts(yesterdayFormatted, todayFormatted).then(
       (recentAlerts) => {
         if (!recentAlerts) {
           return;
