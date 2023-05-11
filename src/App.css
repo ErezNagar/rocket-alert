@@ -210,6 +210,9 @@ h3 {
   text-align: center;
   background-color: #5c0011;
 }
+.section.currentOperation h2 {
+  color: white;
+}
 
 /*
  * Tile

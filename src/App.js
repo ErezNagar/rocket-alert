@@ -147,7 +147,7 @@ class App extends React.Component {
             recentAlerts={this.state.recentAlerts}
           />
         )}
-        {/* <CurrentOperation alertsClient={AlertClient} /> */}
+        <CurrentOperation alertsClient={AlertClient} />
         <PreviousStats alertsClient={AlertClient} />
         {/* <Map /> */}
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
