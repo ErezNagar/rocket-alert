@@ -6,13 +6,13 @@ import queryString from "query-string";
 const REAL_TIME_ALERT_TRANSITION_DURATION = 400;
 
 /*
- * The interval in milliseconds in which real-time alerts are processed from the alert queue
- * Display time + total transition time;
+ * The interval in milliseconds in which real-time alerts are read from the alert queue
+ * Set to display time + total transition time;
  */
-const REAL_TIME_ALERT_THROTTLE_DURATION = 5000;
+const REAL_TIME_ALERT_THROTTLE_DURATION = 7000;
 
 /*
- * The duration in milliseconds in which a real-time alert is displayed, not including css transition time
+ * The duration in milliseconds in which a real-time alert is shown, not including css transition time
  */
 const REAL_TIME_ALERT_DISPLAY_DURATION =
   REAL_TIME_ALERT_THROTTLE_DURATION - REAL_TIME_ALERT_TRANSITION_DURATION * 2;

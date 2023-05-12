@@ -46,22 +46,10 @@ class App extends React.Component {
     });
   }
 
-  /*
-   * Processes a single alert by showing it in the UI
-   */
-  processAlert = (alert, isLastAlert) => {
-    this.setState({
-      realTimeAlert: JSON.parse(alert),
-      isAlertMode: true,
-    });
-    if (isLastAlert) {
-      setTimeout(() => {
-        this.setState({
-          isAlertMode: false,
-        });
-      }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
-    }
-  };
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+    RealTimeAlertManager.stopRealTimeAlerts();
+  }
 
   /*
    * Gets the alerts from the past 24 hours.
@@ -105,13 +93,35 @@ class App extends React.Component {
         timeStamp: "2022-08-05 23:19:05",
       })
     );
+    RealTimeAlertManager.alertQueue.push(
+      JSON.stringify({
+        name: "Sderot 2",
+        englishName: null,
+        lat: null,
+        lon: null,
+        timeStamp: "2022-08-05 23:19:05",
+      })
+    );
+
     RealTimeAlertManager.processAlert(this.processAlert);
   };
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-    RealTimeAlertManager.stopRealTimeAlerts();
-  }
+  /*
+   * Processes a single alert by showing it in the UI
+   */
+  processAlert = (alert, isLastAlert) => {
+    this.setState({
+      realTimeAlert: JSON.parse(alert),
+      isAlertMode: true,
+    });
+    if (isLastAlert) {
+      setTimeout(() => {
+        this.setState({
+          isAlertMode: false,
+        });
+      }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
+    }
+  };
 
   handleScroll = (e) => {
     const vh80 = window.innerHeight * 0.8;
