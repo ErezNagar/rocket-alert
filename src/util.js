@@ -18,6 +18,11 @@ const REAL_TIME_ALERT_DISPLAY_DURATION =
   REAL_TIME_ALERT_THROTTLE_DURATION - REAL_TIME_ALERT_TRANSITION_DURATION * 2;
 
 /*
+ * The interval in milliseconds between each header alert summary data request. Set to 1 hour.
+ */
+const HEADER_ALERT_SUMMARY_REFRESH_INTERVAL = 3600000;
+
+/*
  * Checks whether the Alert Mode query string is set. Dev only.
  */
 const isAlertModeQueryString = () => {
@@ -38,6 +43,7 @@ const Util = {
   REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
+  HEADER_ALERT_SUMMARY_REFRESH_INTERVAL,
 };
 
 export default Util;

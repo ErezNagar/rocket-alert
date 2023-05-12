@@ -78,6 +78,22 @@ class Header extends React.Component {
   };
 
   componentDidMount() {
+    this.getHeaderData();
+    // Refresh header data every HEADER_ALERT_SUMMARY_REFRESH_INTERVAL
+    this.headerDataRefreshInterval = setInterval(() => {
+      this.getHeaderData();
+    }, Util.HEADER_ALERT_SUMMARY_REFRESH_INTERVAL);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.headerDataRefreshInterval);
+  }
+
+  /*
+   * Queries the server every Gets all relevant alert data needed for the header alert summary.
+   *
+   */
+  getHeaderData() {
     const alertClient = this.props.alertClient;
     const today = isoFormat(getToday());
     const yesterday = isoFormat(getYesterday());
