@@ -11,7 +11,6 @@ import {
 } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
-import FormattedAlertTime from "./FormattedAlertTime";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
