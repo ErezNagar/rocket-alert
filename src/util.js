@@ -37,9 +37,26 @@ const isAlertModeQueryString = () => {
     : false;
 };
 
+const isLocalStorageAvailable = () => {
+  if (typeof localStorage === "undefined") {
+    return false;
+  }
+
+  // localStorage is defined, check if it's not turned off
+  const test = "test";
+  try {
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
+  isLocalStorageAvailable,
   REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,

@@ -2,10 +2,11 @@ import Util from "./util";
 
 /* Keep max of 30 most recent alerts.
  * In case of a single, relatively short barrage, this will most likely capture all or most of the alerts.
- * In case of multiple, long barrages, we'll onnly keep the MAX_QUEUE_SIZE most recent alerts,
- * which will allow us THROTTLE * MAX_QUEUE_SIZE = 150 seconds to show all alerts
+ * In case of multiple, long barrages, we'll only keep the MAX_QUEUE_SIZE most recent alerts,
+ * which will allow us Util.REAL_TIME_ALERT_THROTTLE_DURATION * MAX_QUEUE_SIZE = 150 seconds to show all alerts, one after another
  */
 const MAX_QUEUE_SIZE = 30;
+
 const RealTimeAlertManager = {
   alertEventSource: null,
   alertInterval: null,
@@ -34,9 +35,9 @@ const RealTimeAlertManager = {
   },
 
   /*
-   * Processes an alert from the queue in intervals of THROTTLE ms,
+   * Pulls real-time alerts from the queue in intervals of Util.REAL_TIME_ALERT_THROTTLE_DURATION ms,
    * until there are no more alerts left in the queue
-   *  @param {func} cb  Callback function to process incoming alerts
+   *  @param {func} cb  Callback function to process the alerts
    */
   processAlert: (cb) => {
     // Set an interval only once

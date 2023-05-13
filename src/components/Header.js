@@ -91,7 +91,6 @@ class Header extends React.Component {
 
   /*
    * Queries the server every Gets all relevant alert data needed for the header alert summary.
-   *
    */
   getHeaderData() {
     const alertClient = this.props.alertClient;
@@ -207,6 +206,14 @@ class Header extends React.Component {
           console.error("Error getMostRecentAlert()", err);
         });
     }
+
+    if (Util.isLocalStorageAvailable()) {
+      let locaRealTimeAlertCount = localStorage.getItem("alertCount");
+      if (locaRealTimeAlertCount) {
+        alertSummaryCount += +locaRealTimeAlertCount;
+      }
+    }
+
     this.setState({
       alertSummaryCount,
       alertSummaryTitle,
@@ -218,6 +225,7 @@ class Header extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
       this.refreshAlert(this.props.realTimeAlert);
+      this.updateCurrentAlertCount();
     }
   }
 
@@ -228,6 +236,14 @@ class Header extends React.Component {
     setTimeout(() => {
       this.setState({ shouldRefresh: false });
     }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
+  };
+
+  updateCurrentAlertCount = () => {
+    this.setState({ alertSummaryCount: this.state.alertSummaryCount + 1 });
+    if (Util.isLocalStorageAvailable()) {
+      let alertCount = localStorage.getItem("alertCount");
+      localStorage.setItem("alertCount", alertCount ? ++alertCount : 1);
+    }
   };
 
   render() {

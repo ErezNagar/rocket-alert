@@ -33,7 +33,7 @@ class App extends React.Component {
   alertEventSource = null;
 
   componentDidMount() {
-    RealTimeAlertManager.startRealTimeAlerts(AlertClient, this.processAlert);
+    RealTimeAlertManager.startRealTimeAlerts(AlertClient, this.processRealTimeAlert);
     if (Util.isDev() && Util.isAlertModeQueryString()) {
       this.mockClientAlerts();
     }
@@ -103,13 +103,13 @@ class App extends React.Component {
       })
     );
 
-    RealTimeAlertManager.processAlert(this.processAlert);
+    RealTimeAlertManager.processAlert(this.processRealTimeAlert);
   };
 
   /*
-   * Processes a single alert by showing it in the UI
+   * Processes a single real-time alert by showing it in the UI
    */
-  processAlert = (alert, isLastAlert) => {
+  processRealTimeAlert = (alert, isLastAlert) => {
     this.setState({
       realTimeAlert: JSON.parse(alert),
       isAlertMode: true,
