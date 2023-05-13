@@ -190,19 +190,19 @@ h3 {
   font-size: 2em;
 }
 
-.section.recentAlerts {
+.section.mostRecentAlerts {
   text-align: center;
   background-color: white;
 }
-.section.recentAlerts .textLeft {
+.section.mostRecentAlerts .textLeft {
   font-size: 1.25em;
   text-align: left;
 }
-.section.recentAlerts .textRight {
+.section.mostRecentAlerts .textRight {
   font-size: 1.25em;
   text-align: right;
 }
-.section.recentAlerts a {
+.section.mostRecentAlerts a {
   color: inherit;
   text-decoration: underline;
 }

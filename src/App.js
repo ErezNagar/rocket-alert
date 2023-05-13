@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import PreviousStats from "./components/PreviousStats";
-import RecentAlerts from "./components/RecentAlerts";
+import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
 // import Map from "./components/Map";
 import Footer from "./components/Footer";
@@ -27,13 +27,16 @@ class App extends React.Component {
     // The alert boject
     realTimeAlert: null,
     // Most recent alerts
-    recentAlerts: [],
+    mostRecentAlerts: [],
   };
 
   alertEventSource = null;
 
   componentDidMount() {
-    RealTimeAlertManager.startRealTimeAlerts(AlertClient, this.processRealTimeAlert);
+    RealTimeAlertManager.startRealTimeAlerts(
+      AlertClient,
+      this.processRealTimeAlert
+    );
     if (Util.isDev() && Util.isAlertModeQueryString()) {
       this.mockClientAlerts();
     }
@@ -71,11 +74,11 @@ class App extends React.Component {
     const todayFormatted = format(israelTimeZoneUTC, "yyyy-MM-dd");
 
     AlertClient.getMostRecentAlerts(yesterdayFormatted, todayFormatted).then(
-      (recentAlerts) => {
-        if (!recentAlerts) {
+      (alerts) => {
+        if (!alerts) {
           return;
         }
-        this.setState({ recentAlerts: recentAlerts.reverse() });
+        this.setState({ mostRecentAlerts: alerts.reverse() });
       }
     );
   };
@@ -150,11 +153,8 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
         />
 
-        {this.state.recentAlerts.length > 0 && (
-          <RecentAlerts
-            alertsClient={AlertClient}
-            recentAlerts={this.state.recentAlerts}
-          />
+        {this.state.mostRecentAlerts.length > 0 && (
+          <MostRecentAlerts alerts={this.state.mostRecentAlerts} />
         )}
         <CurrentOperation alertsClient={AlertClient} />
         <PreviousStats alertsClient={AlertClient} />

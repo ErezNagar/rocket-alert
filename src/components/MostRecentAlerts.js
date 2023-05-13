@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import FormattedTimeAlert from "./FormattedTimeAlert";
 
-const RecentAlerts = (props) => (
-  <section className="section recentAlerts">
+const MostRecentAlerts = (props) => (
+  <section className="section mostRecentAlerts">
     <h2>{"Most recent alerts"}</h2>
 
-    {props.recentAlerts.map((alert, idx) => (
+    {props.alerts.map((alert, idx) => (
       <Row
         gutter={[24, 24]}
         justify="center"
@@ -29,8 +29,7 @@ const RecentAlerts = (props) => (
   </section>
 );
 
-RecentAlerts.propTypes = {
-  alertsClient: PropTypes.object.isRequired,
-  recentAlerts: PropTypes.array.isRequired,
+MostRecentAlerts.propTypes = {
+  alerts: PropTypes.array.isRequired,
 };
-export default RecentAlerts;
+export default MostRecentAlerts;
