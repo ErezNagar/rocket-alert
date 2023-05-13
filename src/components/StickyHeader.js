@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FadeInOut from "./FadeInOut";
-import FormattedTimeAlert from "./FormattedTimeAlert";
+import FormattedAlertTime from "./FormattedAlertTime";
 import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../logo.svg";
 import Util from "../util";
@@ -47,7 +47,7 @@ class StickyHeader extends React.Component {
         <div className="alerts">
           {isAlertMode && realTimeAlert && (
             <FadeInOut show={this.state.shouldRefresh}>
-              <FormattedTimeAlert alert={realTimeAlert} />{" "}
+              <FormattedAlertTime alert={realTimeAlert} />{" "}
               {realTimeAlert.englishName || realTimeAlert.name}
             </FadeInOut>
           )}

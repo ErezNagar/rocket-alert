@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
-import FormattedTimeAlert from "./FormattedTimeAlert";
+import FormattedAlertTime from "./FormattedAlertTime";
 
 const MostRecentAlerts = (props) => (
   <section className="section mostRecentAlerts">
@@ -13,7 +13,7 @@ const MostRecentAlerts = (props) => (
         key={`${alert.englishName}_${idx}`}
       >
         <Col className="textRight" span={12}>
-          <FormattedTimeAlert alert={alert} />
+          <FormattedAlertTime alert={alert} />
         </Col>
         <Col className="textLeft" span={12}>
           <a

@@ -11,7 +11,7 @@ import {
 } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
-import FormattedTimeAlert from "./FormattedTimeAlert";
+import FormattedAlertTime from "./FormattedAlertTime";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
@@ -49,7 +49,7 @@ const AlertModeHeaderContent = ({ shouldRefresh, alert }) => (
     <h3>Rocket alert</h3>
     <div className="alert">
       <FadeInOut show={shouldRefresh}>
-        <FormattedTimeAlert alert={alert} /> {alert.englishName || alert.name}
+        {alert.englishName || alert.name}
       </FadeInOut>
     </div>
   </>

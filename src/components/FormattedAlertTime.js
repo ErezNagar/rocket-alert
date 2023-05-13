@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { parseISO, format } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
 
-const FormattedTimeAlert = ({ alert, toLocalTime = true }) => (
+const FormattedAlertTime = ({ alert, toLocalTime = true }) => (
   <>
     {toLocalTime
       ? format(zonedTimeToUtc(alert.timeStamp, "Asia/Jerusalem"), "HH:mm")
@@ -11,7 +11,7 @@ const FormattedTimeAlert = ({ alert, toLocalTime = true }) => (
   </>
 );
 
-FormattedTimeAlert.propTypes = {
+FormattedAlertTime.propTypes = {
   alert: PropTypes.object.isRequired,
 };
-export default FormattedTimeAlert;
+export default FormattedAlertTime;
