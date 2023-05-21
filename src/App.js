@@ -156,7 +156,7 @@ class App extends React.Component {
         {this.state.mostRecentAlerts.length > 0 && (
           <MostRecentAlerts alerts={this.state.mostRecentAlerts} />
         )}
-        <CurrentOperation alertsClient={AlertClient} />
+        {/* <CurrentOperation alertsClient={AlertClient} /> */}
         <PreviousStats alertsClient={AlertClient} />
         {/* <Map /> */}
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
