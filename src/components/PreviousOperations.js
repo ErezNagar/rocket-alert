@@ -11,8 +11,8 @@ const PreviousOperations = (props) => (
           <Tile
             title={"Operation Shield and Arrow"}
             subtitle={"May 9 2023 - May 13 2023"}
-            fromDate={new Date("2023-05-09")}
-            toDate={new Date("2023-5-13")}
+            fromDate={new Date("2023-05-09T00:00")}
+            toDate={new Date("2023-05-13T00:00")}
             alertsClient={props.alertsClient}
             showAverage
           />
