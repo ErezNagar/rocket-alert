@@ -5,7 +5,7 @@ import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import PreviousStats from "./components/PreviousStats";
 import MostRecentAlerts from "./components/MostRecentAlerts";
-import CurrentOperation from "./components/CurrentOperation";
+// import CurrentOperation from "./components/CurrentOperation";
 // import Map from "./components/Map";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
