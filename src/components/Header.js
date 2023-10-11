@@ -104,6 +104,7 @@ class Header extends React.Component {
       alertClient.getTotalAlerts(yesterday, yesterday),
       alertClient.getTotalAlerts(pastWeek, today),
       alertClient.getTotalAlerts(pastMonth, today),
+      alertClient.getLastHourAlerts(),
     ])
       .then((values) => {
         const todayAlertCount = values[0].success ? values[0].payload : 0;

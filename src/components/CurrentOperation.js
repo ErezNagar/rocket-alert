@@ -8,9 +8,9 @@ const CurrentOperation = (props) => (
     <Row gutter={[24, 24]} justify={"center"}>
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
-          title={"Operation Shield and Arrow"}
-          // subtitle={"May 9 2023 - "}
-          fromDate={new Date("2023-05-09T00:00")}
+          title={"Operation Swords of Iron"}
+          // subtitle={"October 6 2023 - "}
+          fromDate={new Date("2023-10-06T00:00")}
           // toDate={new Date("2022-08-08T00:00")}
           alertsClient={props.alertsClient}
           showAverage
