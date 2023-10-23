@@ -6,7 +6,7 @@ import PreviousOperations from "./components/PreviousOperations";
 import PreviousStats from "./components/PreviousStats";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
-// import Map from "./components/Map";
+import Map from "./components/Map";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
@@ -154,11 +154,13 @@ class App extends React.Component {
         />
 
         {this.state.mostRecentAlerts.length > 0 && (
-          <MostRecentAlerts alerts={this.state.mostRecentAlerts} />
+          <>
+            <MostRecentAlerts alerts={this.state.mostRecentAlerts} />
+            <Map alerts={this.state.mostRecentAlerts} />
+          </>
         )}
         <CurrentOperation alertsClient={AlertClient} />
         <PreviousStats alertsClient={AlertClient} />
-        {/* <Map /> */}
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
