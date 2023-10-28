@@ -22,12 +22,15 @@ class Map extends React.Component {
 
     const processedIDs = [];
     this.props.alerts.forEach((alert) => {
-      if (processedIDs.includes(alert.name) || !alert.lat || !alert.lon) {
+      if (
+        processedIDs.includes(alert.name) ||
+        !alert.lat ||
+        !alert.lon ||
+        alert.englishName === "Gaya"
+      ) {
         return;
       }
-      if (alert.englishName !== "Gaya") {
-        processedIDs.push(alert.name);
-      }
+      processedIDs.push(alert.name);
 
       bounds.extend(new window.google.maps.LatLng(alert.lat, alert.lon));
 
