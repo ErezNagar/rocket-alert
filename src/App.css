@@ -279,7 +279,6 @@ h3 {
 }
 
 .section.location-distance .location-example {
-  /* color: #5c0011; */
   color: red;
   font-size: 1.5em;
 }
@@ -377,6 +376,12 @@ footer {
   }
   .section.location-distance .desktop {
     display: none;
+  }
+  .section.location-distance .title h2 {
+    font-size: 1.7em;
+  }
+  .section.location-distance .location-row h2 {
+    font-size: 1.7em;
   }
 }
 
