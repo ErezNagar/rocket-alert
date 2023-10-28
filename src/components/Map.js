@@ -25,7 +25,9 @@ class Map extends React.Component {
       if (processedIDs.includes(alert.name) || !alert.lat || !alert.lon) {
         return;
       }
-      processedIDs.push(alert.name);
+      if (alert.englishName !== "Gaya") {
+        processedIDs.push(alert.name);
+      }
 
       bounds.extend(new window.google.maps.LatLng(alert.lat, alert.lon));
 
