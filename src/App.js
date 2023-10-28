@@ -7,6 +7,7 @@ import PreviousStats from "./components/PreviousStats";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
 import Map from "./components/Map";
+import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
@@ -159,6 +160,7 @@ class App extends React.Component {
             <Map alerts={this.state.mostRecentAlerts} />
           </>
         )}
+        <LocationDistance />
         <CurrentOperation alertsClient={AlertClient} />
         <PreviousStats alertsClient={AlertClient} />
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}

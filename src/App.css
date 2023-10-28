@@ -214,9 +214,74 @@ h3 {
   color: white;
 }
 
+/*
+* Map
+*/
 .section.map {
   text-align: center;
   padding: 0;
+}
+
+.section .mapText {
+  padding: 1em 1em;
+}
+
+.section .mapText h3 {
+  font-size: 1.5em;
+}
+
+.section .mapText p {
+  margin-top: 1em;
+}
+
+/*
+* Location Distance
+*/
+
+.section.location-distance {
+  text-align: center;
+  padding: 0;
+}
+
+.section.location-distance .title {
+  color: white;
+  background-color: #5c0011;
+  padding: 3em 0;
+}
+
+.section.location-distance .title h2 {
+  padding: 0;
+  margin: 0;
+}
+
+.section.location-distance .content {
+  padding: 0 1em;
+}
+
+.section.location-distance .mobile {
+  display: none;
+}
+
+.section.location-distance .mobile .location-row:nth-child(even) {
+  background-color: white;
+}
+
+.section.location-distance .location-row {
+  padding: 2em 0;
+}
+
+.section.location-distance .location-row h2 {
+  margin-bottom: 0;
+}
+
+.section.location-distance .location-description {
+  font-size: 1.25em;
+}
+
+.section.location-distance .location-example {
+  /* color: #5c0011; */
+  color: red;
+  font-size: 1.5em;
 }
 
 /*
@@ -279,7 +344,7 @@ footer {
   background-color: #5c0011;
 }
 
-@media only screen and (max-device-width: 768px) {
+@media only screen and (max-width: 768px) {
   /*
    * Sticky Header
    */
@@ -302,6 +367,16 @@ footer {
 
   .header-content .ant-statistic-content-value-int {
     font-size: 10vh;
+  }
+
+  /*
+  * Location Distance
+  */
+  .section.location-distance .mobile {
+    display: block;
+  }
+  .section.location-distance .desktop {
+    display: none;
   }
 }
 

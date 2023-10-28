@@ -4,12 +4,12 @@ import Tile from "./Tile";
 
 const CurrentOperation = (props) => (
   <section className="section currentOperation">
-    <h2>Current conflict</h2>
+    <h2>Rocket alerts in current conflict</h2>
     <Row gutter={[24, 24]} justify={"center"}>
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Operation Swords of Iron"}
-          // subtitle={"October 6 2023 - "}
+          subtitle={"Since October 7, 2023"}
           fromDate={new Date("2023-10-06T00:00")}
           // toDate={new Date("2022-08-08T00:00")}
           alertsClient={props.alertsClient}

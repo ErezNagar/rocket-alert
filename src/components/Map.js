@@ -1,9 +1,6 @@
 import React from "react";
-// import polygons from "../polygons.json";
 
 class Map extends React.Component {
-  state = { showMapWithUserLocation: false };
-
   componentDidMount() {
     this.initMap();
   }
