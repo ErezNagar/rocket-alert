@@ -52,15 +52,17 @@ class StickyHeader extends React.Component {
             </FadeInOut>
           )}
         </div>
-        <div className="right-container">
-          <a
-            href={`https://twitter.com/share?text=Rocket alert in Israel!&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
-          </a>
-        </div>
+        {this.props.twitterShareText && (
+          <div className="right-container">
+            <a
+              href={`https://twitter.com/share?text=${this.props.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
+            </a>
+          </div>
+        )}
       </header>
     );
   }
@@ -70,12 +72,15 @@ StickyHeader.propTypes = {
   showStickyHeader: PropTypes.bool,
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
+  // Text to share on twitter. Generated in Header
+  twitterShareText: PropTypes.string,
 };
 
 StickyHeader.defaultProps = {
   showStickyHeader: false,
   isAlertMode: false,
   realTimeAlert: {},
+  twitterShareText: "",
 };
 
 export default StickyHeader;

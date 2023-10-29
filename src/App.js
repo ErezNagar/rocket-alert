@@ -29,6 +29,8 @@ class App extends React.Component {
     realTimeAlert: null,
     // Most recent alerts
     mostRecentAlerts: [],
+    // Text when sharing on twitter. Generated in Header
+    twitterShareText: "",
   };
 
   alertEventSource = null;
@@ -134,6 +136,10 @@ class App extends React.Component {
     });
   };
 
+  handleOnTwitterShareText = (twitterShareText) => {
+    this.setState({ twitterShareText });
+  };
+
   render() {
     return (
       <div
@@ -147,11 +153,13 @@ class App extends React.Component {
           alertClient={AlertClient}
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
+          onTwitterShareText={this.handleOnTwitterShareText}
         />
         <StickyHeader
           showStickyHeader={this.state.showStickyHeader}
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
+          twitterShareText={this.state.twitterShareText}
         />
 
         {this.state.mostRecentAlerts.length > 0 && (
@@ -166,7 +174,7 @@ class App extends React.Component {
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
-        <Footer />
+        <Footer twitterShareText={this.state.twitterShareText} />
       </div>
     );
   }

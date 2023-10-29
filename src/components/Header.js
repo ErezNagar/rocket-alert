@@ -82,19 +82,6 @@ class Header extends React.Component {
     alarm: null,
   };
 
-  handleOnAudioChange = (isAudioOn) => {
-    this.setState({ isAudioOn }, () => {
-      if (isAudioOn) {
-        if (!this.state.alarm) {
-          const alarm = new Audio(alarmAudio);
-          alarm.addEventListener("canplaythrough", (event) => {
-            this.setState({ alarm });
-          });
-        }
-      }
-    });
-  };
-
   componentDidMount() {
     this.getHeaderData();
     // Refresh header data every HEADER_ALERT_SUMMARY_REFRESH_INTERVAL
@@ -236,12 +223,14 @@ class Header extends React.Component {
     //   // }
     // }
 
+    const twitterShareText = `Rocket Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
     this.setState({
       alertSummaryCount,
       alertSummaryTitle,
       alertSummaryText,
-      twitterShareText: `Rocket Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`,
+      twitterShareText,
     });
+    this.props.onTwitterShareText(twitterShareText);
   };
 
   componentDidUpdate(prevProps) {
@@ -269,6 +258,19 @@ class Header extends React.Component {
     //   let alertCount = localStorage.getItem("alertCount");
     //   localStorage.setItem("alertCount", alertCount ? ++alertCount : 1);
     // }
+  };
+
+  handleOnAudioChange = (isAudioOn) => {
+    this.setState({ isAudioOn }, () => {
+      if (isAudioOn) {
+        if (!this.state.alarm) {
+          const alarm = new Audio(alarmAudio);
+          alarm.addEventListener("canplaythrough", (event) => {
+            this.setState({ alarm });
+          });
+        }
+      }
+    });
   };
 
   render() {
@@ -342,6 +344,7 @@ Header.propTypes = {
   alertClient: PropTypes.object.isRequired,
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
+  onTwitterShareText: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {

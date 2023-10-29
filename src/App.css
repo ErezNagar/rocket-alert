@@ -342,8 +342,16 @@ h3 {
 }
 
 footer {
-  min-height: 10vh;
+  height: 10vh;
+  padding-top: 3vh;
   background-color: #5c0011;
+}
+
+footer a {
+  color: white;
+}
+footer a:hover {
+  color: white;
 }
 
 @media only screen and (max-width: 768px) {
@@ -361,10 +369,6 @@ footer {
 
   .sticky-header .alerts {
     font-size: 1.2em;
-  }
-
-  .sticky-header .right-container {
-    display: none;
   }
 
   .header-content .ant-statistic-content-value-int {
