@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../logo.svg";
+import alarmAudio from "../alarm.mp3";
+import { Row, Col } from "antd";
 import {
   getPastMonth,
   getPastWeek,
@@ -11,6 +13,7 @@ import {
 } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
+import AudioControls from "./AudioControls";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
@@ -75,6 +78,21 @@ class Header extends React.Component {
     isLoading: true,
     isError: false,
     shouldRefresh: false,
+    isAudioOn: false,
+    alarm: null,
+  };
+
+  handleOnAudioChange = (isAudioOn) => {
+    this.setState({ isAudioOn }, () => {
+      if (isAudioOn) {
+        if (!this.state.alarm) {
+          const alarm = new Audio(alarmAudio);
+          alarm.addEventListener("canplaythrough", (event) => {
+            this.setState({ alarm });
+          });
+        }
+      }
+    });
   };
 
   componentDidMount() {
@@ -222,7 +240,7 @@ class Header extends React.Component {
       alertSummaryCount,
       alertSummaryTitle,
       alertSummaryText,
-      twitterShareText: `Rocket Alert in Israel!                                                             ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}`,
+      twitterShareText: `Rocket Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`,
     });
   };
 
@@ -237,6 +255,9 @@ class Header extends React.Component {
     this.setState({
       shouldRefresh: true,
     });
+    if (this.state.isAudioOn && this.state.alarm && this.state.alarm.paused) {
+      this.state.alarm.play();
+    }
     setTimeout(() => {
       this.setState({ shouldRefresh: false });
     }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
@@ -279,16 +300,28 @@ class Header extends React.Component {
           )}
         </div>
         <div className="header-bottom">
-          <a
-            href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div>
-              <TwitterOutlined style={{ fontSize: "30px", color: "white" }} />
-            </div>
-            <div>Share</div>
-          </a>
+          <Row gutter={[24, 24]} align="middle">
+            <Col span={2}>
+              <AudioControls
+                onAudioChange={this.handleOnAudioChange}
+                isAudioOn={this.state.isAudioOn}
+              />
+            </Col>
+            <Col span={20}>
+              <a
+                href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div>
+                  <TwitterOutlined
+                    style={{ fontSize: "30px", color: "white" }}
+                  />
+                </div>
+                <div>Share</div>
+              </a>
+            </Col>
+          </Row>
         </div>
       </header>
     );

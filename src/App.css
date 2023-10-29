@@ -169,9 +169,12 @@ h3 {
   color: white;
 }
 
-/*
- * Header Bottom
-*/
+.material-symbols-outlined {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
 .error {
   opacity: 0.5;
 }
@@ -366,6 +369,12 @@ footer {
 
   .header-content .ant-statistic-content-value-int {
     font-size: 10vh;
+  }
+  /*
+* Header Bottom
+*/
+  .material-symbols-outlined {
+    font-size: 16px;
   }
 
   /*
