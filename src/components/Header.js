@@ -308,18 +308,28 @@ class Header extends React.Component {
               />
             </Col>
             <Col span={20}>
-              <a
-                href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div>
-                  <TwitterOutlined
-                    style={{ fontSize: "30px", color: "white" }}
-                  />
-                </div>
-                <div>Share</div>
-              </a>
+              <Row>
+                <Col span={24}>
+                  <a
+                    href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <TwitterOutlined
+                      style={{ fontSize: "30px", color: "white" }}
+                    />
+                  </a>
+                </Col>
+                <Col span={24}>
+                  <a
+                    href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Share
+                  </a>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </div>
