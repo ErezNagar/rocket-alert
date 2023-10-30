@@ -77,7 +77,7 @@ const DesktopView = () => (
       <Col md={12}>
         <h2>70 km (44 miles) to Jerusalem</h2>
         <p className="location-description">Population of 980k (Metro: 1.3m)</p>
-        <div className="location-example"></div>
+        <div className="location-example">The length of Lake Geneva</div>
       </Col>
       <Col md={6}>
         <img
@@ -103,7 +103,9 @@ const DesktopView = () => (
       <Col md={12}>
         <h2>62 km (39 miles) to Tel Aviv</h2>
         <p className="location-description">Population of 470k (Metro: 4.2m)</p>
-        <div className="location-example"></div>
+        <div className="location-example">
+          The distance between San Francisco and San Jose
+        </div>
       </Col>
     </Row>
   </div>
@@ -184,6 +186,9 @@ const MobileView = () => (
           width="100%"
         ></img>
       </Col>
+      <Col>
+        <div className="location-example">The length of Lake Geneva</div>
+      </Col>
     </Row>
     <Row
       gutter={[24, 24]}
@@ -199,6 +204,11 @@ const MobileView = () => (
           alt="Distance from Gaza strip to Tel Aviv"
           width="100%"
         ></img>
+      </Col>
+      <Col>
+        <div className="location-example">
+          The distance between San Francisco and San Jose
+        </div>
       </Col>
     </Row>
   </div>
