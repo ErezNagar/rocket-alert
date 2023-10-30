@@ -18,8 +18,8 @@ jest.mock("wretch", () => {
 });
 
 const DATE_RANGE = {
-  from: "2021-05-10",
-  to: "2021-05-10",
+  from: new Date("2021-05-10"),
+  to: new Date("2021-05-10"),
 };
 
 describe("AlertClient", () => {
@@ -81,6 +81,7 @@ describe("AlertClient", () => {
       expect.assertions(1);
       await AlertClient.getTotalAlerts(DATE_RANGE.from, DATE_RANGE.to).then(
         (res) => {
+          console.log("res:", res);
           expect(res).toMatchObject({
             success: true,
             error: null,
