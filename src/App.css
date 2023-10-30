@@ -229,6 +229,9 @@ h3 {
   padding: 1em 1em;
 }
 
+.section .mapText h2 {
+  margin-top: 1em;
+}
 .section .mapText h3 {
   font-size: 1.5em;
 }

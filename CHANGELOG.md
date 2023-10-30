@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.0](https://github.com/ErezNagar/code-red/releases/tag/v1.4.0) - 10/30/2023
+
+Added:
+
+- A new map with user location and range of last rocket alert
+
 ## [1.3.0](https://github.com/ErezNagar/code-red/releases/tag/v1.3.0) - 10/30/2023
 
 Added:
