@@ -9,7 +9,6 @@ import {
   getPastWeek,
   getToday,
   getYesterday,
-  isoFormat,
 } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
@@ -17,6 +16,7 @@ import AudioControls from "./AudioControls";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
+
 // import compareAsc from "date-fns/compareAsc";
 
 const HeaderContent = ({
@@ -99,13 +99,13 @@ class Header extends React.Component {
    */
   getHeaderData() {
     const alertClient = this.props.alertClient;
-    const today = isoFormat(getToday());
-    const yesterday = isoFormat(getYesterday());
-    const pastWeek = isoFormat(getPastWeek());
-    const pastMonth = isoFormat(getPastMonth());
+    const today = getToday();
+    const yesterday = getYesterday();
+    const pastWeek = getPastWeek();
+    const pastMonth = getPastMonth();
 
     Promise.all([
-      alertClient.getTotalAlerts(today),
+      alertClient.getTotalAlerts(today, today),
       alertClient.getTotalAlerts(yesterday, yesterday),
       alertClient.getTotalAlerts(pastWeek, today),
       alertClient.getTotalAlerts(pastMonth, today),
@@ -128,7 +128,7 @@ class Header extends React.Component {
       });
   }
 
-  /* Sets rocket alert summary in a simple, "human readable" form.
+  /* Sets rocket alert summary text in a simple, human readable form.
    * Prioritizes recent alerts over old ones.
    */
   setAlertSummary = async (
@@ -194,7 +194,7 @@ class Header extends React.Component {
         .getMostRecentAlert()
         .then((res) => {
           if (res.success) {
-            const today = isoFormat(getToday());
+            const today = getToday();
             const monthsAgo = differenceInMonths(
               new Date(today),
               new Date(res.payload.date)

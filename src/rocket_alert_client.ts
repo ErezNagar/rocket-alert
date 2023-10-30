@@ -1,11 +1,10 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
-import { getToday, isoFormat } from "./date_helper";
+import { isoFormat } from "./date_helper";
 import Util from "./util";
 
 const SERVER_URL = "https://ra-agg.kipodopik.com/api/v1/alerts";
 const api = wretch(SERVER_URL);
-const today = isoFormat(getToday());
 const MAX_RECENT_ALERTS = 15;
 
 const AlertClient = {
@@ -13,8 +12,8 @@ const AlertClient = {
    *  Gets the MAX_RECENT_ALERTS most recent alerts in the past 24 hours
    *  If server time is tomorrow, concats the 2 arrays of alerts.
    *
-   *  @param {string} from  from date, inclusive. Defaults to today
-   *  @param {string} to    to date, inclusive. Defaults to today
+   *  @param {string} from  from date, inclusive.
+   *  @param {string} to    to date, inclusive.
    *  @return {object}
    */
   getMostRecentAlerts: (from: string, to: string): any => {
@@ -26,7 +25,7 @@ const AlertClient = {
     }
     return api
       .url("/details")
-      .query({ from, to })
+      .query({ from: isoFormat(from), to: isoFormat(to) })
       .get()
       .json()
       .then((res) => {
@@ -47,35 +46,43 @@ const AlertClient = {
   /*
    *  Gets total alert count by day for the given date range
    *
-   *  @param {string} from  from date, inclusive
-   *  @param {string} to    to date, inclusive. Defaults to today
+   *  @param {string} from  from date, inclusive.
+   *  @param {string} to    to date, inclusive.
    *  @return {object}
    */
-  getTotalAlertsByDay: (from: string, to: string = today): any => {
+  getTotalAlertsByDay: (from: string, to: string): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return api.url("/daily").query({ from, to }).get().json();
+    return api
+      .url("/daily")
+      .query({ from: isoFormat(from), to: isoFormat(to) })
+      .get()
+      .json();
   },
 
   /*
    *  Gets total alert count for the given date range
    *
-   *  @param {string} from  from date, inclusive
-   *  @param {string} to    to date, inclusive. Defaults to today
+   *  @param {string} from  from date, inclusive.
+   *  @param {string} to    to date, inclusive.
    *  @return {object}
    */
-  getTotalAlerts: (from: string, to: string = today): any => {
+  getTotalAlerts: (from: string, to: string): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return api.url("/total").query({ from, to }).get().json();
+    return api
+      .url("/total")
+      .query({ from: isoFormat(from), to: isoFormat(to) })
+      .get()
+      .json();
   },
 
   /*

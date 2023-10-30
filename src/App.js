@@ -13,8 +13,7 @@ import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
-import { subDays, format } from "date-fns";
-import { zonedTimeToUtc, formatInTimeZone } from "date-fns-tz";
+import { getToday, getYesterday } from "./date_helper";
 
 class App extends React.Component {
   state = {
@@ -58,25 +57,11 @@ class App extends React.Component {
   }
 
   /*
-   * Gets the alerts from the past 24 hours.
-   * If there are no alerts in the past 24 hours, returns null.
-   * Calculates the server time to get query for the latest data, in case the client is behind
+   * Gets the alerts from the past day, starting at 00:00.
+   * If there are no alerts, returns null.
    */
   getMostRecentAlerts = () => {
-    const israelTimeZone = formatInTimeZone(
-      new Date(),
-      "Asia/Jerusalem",
-      "yyyy-MM-dd HH:mm"
-    );
-    const israelTimeZoneUTC = zonedTimeToUtc(
-      israelTimeZone,
-      Intl.DateTimeFormat().resolvedOptions().timeZone
-    );
-    const yesterdayIsraelTimeZone = subDays(israelTimeZoneUTC, 1);
-    const yesterdayFormatted = format(yesterdayIsraelTimeZone, "yyyy-MM-dd");
-    const todayFormatted = format(israelTimeZoneUTC, "yyyy-MM-dd");
-
-    AlertClient.getMostRecentAlerts(yesterdayFormatted, todayFormatted).then(
+    AlertClient.getMostRecentAlerts(getYesterday(), getToday()).then(
       (alerts) => {
         if (!alerts) {
           return;
