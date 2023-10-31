@@ -27,12 +27,12 @@ class Map extends React.Component {
   };
   getMapZoomByDistance = (distance) => {
     const RANGE_TO_ZOOM_VALUE = {
-      10: 11.5,
-      20: 10.5,
-      30: 10,
-      40: 9.5,
-      50: 9.5,
-      120: 8,
+      10: 11,
+      20: 10,
+      30: 9.5,
+      40: 9,
+      50: 8.5,
+      120: 7.5,
     };
     return RANGE_TO_ZOOM_VALUE[distance];
   };
