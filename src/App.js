@@ -6,11 +6,13 @@ import PreviousOperations from "./components/PreviousOperations";
 import PreviousStats from "./components/PreviousStats";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
-import Map from "./components/Map";
+import RecentAlertsMap from "./components/RecentAlertsMap";
+import UserLocationMap from "./components/UserLocationMap";
 import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import AlertClient from "./rocket_alert_client";
+import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import { getToday, getYesterday } from "./date_helper";
@@ -162,10 +164,18 @@ class App extends React.Component {
         />
 
         {this.state.mostRecentAlerts.length > 0 && (
-          <>
-            <MostRecentAlerts alerts={this.state.mostRecentAlerts} />
-            <Map alerts={this.state.mostRecentAlerts} />
-          </>
+          <section className="section mostRecentAlerts">
+            <Row justify="space-around" align="middle">
+              <Col xs={24} lg={12}>
+                <MostRecentAlerts alerts={this.state.mostRecentAlerts} />
+              </Col>
+              <Col xs={24} lg={12}>
+                <RecentAlertsMap alerts={this.state.mostRecentAlerts} />
+              </Col>
+            </Row>
+            <UserLocationMap alerts={this.state.mostRecentAlerts} />
+            {/* <Map alerts={this.state.mostRecentAlerts} /> */}
+          </section>
         )}
         <LocationDistance />
         <CurrentOperation alertsClient={AlertClient} />

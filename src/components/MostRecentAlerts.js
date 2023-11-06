@@ -1,12 +1,10 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-
 import { Row, Col } from "antd";
 import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
 
 const MostRecentAlerts = (props) => (
-  <section className="section mostRecentAlerts">
+  <div className="container">
     <h2>{"Most recent alerts"}</h2>
 
     {props.alerts.map((alert, idx) => (
@@ -27,7 +25,7 @@ const MostRecentAlerts = (props) => (
         </Row>
       </FadeIn>
     ))}
-  </section>
+  </div>
 );
 
 MostRecentAlerts.propTypes = {

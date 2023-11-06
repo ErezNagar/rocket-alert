@@ -194,8 +194,13 @@ h3 {
 }
 
 .section.mostRecentAlerts {
+  padding: 0;
   text-align: center;
   background-color: white;
+}
+.section.mostRecentAlerts .container {
+  padding: 3em 0;
+  text-align: center;
 }
 .section.mostRecentAlerts .textLeft {
   font-size: 1.25em;
@@ -208,13 +213,6 @@ h3 {
 .section.mostRecentAlerts a {
   color: inherit;
   text-decoration: underline;
-}
-.section.currentOperation {
-  text-align: center;
-  background-color: #5c0011;
-}
-.section.currentOperation h2 {
-  color: white;
 }
 
 /*
@@ -238,6 +236,17 @@ h3 {
 
 .section .mapText p {
   margin-top: 1em;
+}
+
+/*
+* Map
+*/
+.section.currentOperation {
+  text-align: center;
+  background-color: #5c0011;
+}
+.section.currentOperation h2 {
+  color: white;
 }
 
 /*
