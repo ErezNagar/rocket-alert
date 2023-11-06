@@ -9,8 +9,8 @@ const MAX_RECENT_ALERTS = 15;
 
 const AlertClient = {
   /*
-   *  Gets the MAX_RECENT_ALERTS most recent alerts in the past 24 hours
-   *  If server time is tomorrow, concats the 2 arrays of alerts.
+   *  Gets the MAX_RECENT_ALERTS most recent alerts in the past 24 hours.
+   *  Most recent alert first.
    *
    *  @param {string} from  from date, inclusive.
    *  @param {string} to    to date, inclusive.
@@ -36,7 +36,7 @@ const AlertClient = {
           res?.payload?.length > 1
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
-        return alerts.slice(-MAX_RECENT_ALERTS);
+        return alerts.slice(-MAX_RECENT_ALERTS).reverse();
       })
       .catch((e) => {
         console.log("e", e);

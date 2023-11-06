@@ -57,7 +57,7 @@ class App extends React.Component {
   }
 
   /*
-   * Gets the alerts from the past day, starting at 00:00.
+   * Gets alerts from the past 24 hours, local time.
    * If there are no alerts, returns null.
    */
   getMostRecentAlerts = () => {
@@ -66,7 +66,7 @@ class App extends React.Component {
         if (!alerts) {
           return;
         }
-        this.setState({ mostRecentAlerts: alerts.reverse() });
+        this.setState({ mostRecentAlerts: alerts });
       }
     );
   };
@@ -77,20 +77,28 @@ class App extends React.Component {
   mockClientAlerts = () => {
     RealTimeAlertManager.alertQueue.push(
       JSON.stringify({
-        name: "Sderot 1",
+        name: "Test Sderot 1",
         englishName: null,
         lat: null,
         lon: null,
-        timeStamp: "2022-08-05 23:19:05",
+        taCityId: 123,
+        countdownSec: 15,
+        areaNameHe: "areaNameHe",
+        areaNameEn: "areaNameEn",
+        timeStamp: "2023-11-06 17:20:33",
       })
     );
     RealTimeAlertManager.alertQueue.push(
       JSON.stringify({
-        name: "Sderot 2",
+        name: "Test Sderot 2",
         englishName: null,
         lat: null,
         lon: null,
-        timeStamp: "2022-08-05 23:19:05",
+        taCityId: 123,
+        countdownSec: 15,
+        areaNameHe: "areaNameHe",
+        areaNameEn: "areaNameEn",
+        timeStamp: "2023-11-06 17:20:33",
       })
     );
 
@@ -101,9 +109,15 @@ class App extends React.Component {
    * Processes a single real-time alert by showing it in the UI
    */
   processRealTimeAlert = (alert, isLastAlert) => {
+    alert = JSON.parse(alert);
+    const newMostRecentAlerts = [...this.state.mostRecentAlerts];
+    newMostRecentAlerts.unshift(alert);
+    newMostRecentAlerts.pop();
+
     this.setState({
-      realTimeAlert: JSON.parse(alert),
+      realTimeAlert: alert,
       isAlertMode: true,
+      mostRecentAlerts: newMostRecentAlerts,
     });
     if (isLastAlert) {
       setTimeout(() => {
