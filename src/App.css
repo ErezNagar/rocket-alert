@@ -87,7 +87,7 @@ h3 {
  * Header
  */
 .header {
-  height: 80vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   background-color: #5c0011;

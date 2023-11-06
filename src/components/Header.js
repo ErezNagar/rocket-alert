@@ -17,8 +17,6 @@ import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
 
-// import compareAsc from "date-fns/compareAsc";
-
 const HeaderContent = ({
   alertSummaryTitle,
   alertSummaryText,
@@ -213,17 +211,6 @@ class Header extends React.Component {
         });
     }
 
-    // if (Util.isLocalStorageAvailable()) {
-    //   let alertTimestamp = localStorage.getItem("alertTimestamp");
-    //   // compare timestamp of last server query with timestamp of most recent ream-time alert
-    //   // if (compareAsc(new Date(), new Date(alertTimestamp)) === -1) {
-    //   let locaRealTimeAlertCount = localStorage.getItem("alertCount");
-    //   if (locaRealTimeAlertCount) {
-    //     alertSummaryCount += +locaRealTimeAlertCount;
-    //   }
-    //   // }
-    // }
-
     const twitterShareText = `Rocket Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
     this.setState({
       alertSummaryCount,
@@ -255,10 +242,6 @@ class Header extends React.Component {
 
   updateCurrentAlertCount = () => {
     this.setState({ alertSummaryCount: this.state.alertSummaryCount + 1 });
-    // if (Util.isLocalStorageAvailable()) {
-    //   let alertCount = localStorage.getItem("alertCount");
-    //   localStorage.setItem("alertCount", alertCount ? ++alertCount : 1);
-    // }
   };
 
   handleOnAudioChange = (isAudioOn) => {
