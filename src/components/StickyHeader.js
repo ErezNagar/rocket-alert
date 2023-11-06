@@ -47,7 +47,7 @@ class StickyHeader extends React.Component {
         <div className="alerts">
           {isAlertMode && realTimeAlert && (
             <FadeInOut show={this.state.shouldRefresh}>
-              <FormattedAlertTime alert={realTimeAlert} />{" "}
+              <FormattedAlertTime timeStamp={realTimeAlert.timeStamp} />{" "}
               {realTimeAlert.englishName || realTimeAlert.name}
             </FadeInOut>
           )}

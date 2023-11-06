@@ -6,7 +6,10 @@ import {
   formatISO,
   format,
 } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+
+export const convertToLocalTime = (date) =>
+  zonedTimeToUtc(date, "Asia/Jerusalem");
 
 export const convertToServerTime = (date) =>
   utcToZonedTime(date, "Asia/Jerusalem");
@@ -17,6 +20,8 @@ export const isoFormat = (date) =>
   });
 
 export const displayFormat = (date) => format(date, "MMM d, yyyy");
+
+export const alertTimeDisplayFormat = (date) => format(date, "HH:mm");
 
 export const getToday = () => new Date();
 

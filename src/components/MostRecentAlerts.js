@@ -13,7 +13,7 @@ const MostRecentAlerts = (props) => (
         key={`${alert.englishName}_${idx}`}
       >
         <Col className="textRight" span={12}>
-          <FormattedAlertTime alert={alert} />
+          <FormattedAlertTime timeStamp={alert.timeStamp} />
         </Col>
         <Col className="textLeft" span={12}>
           <a

@@ -1,17 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { parseISO, format } from "date-fns";
-import { zonedTimeToUtc } from "date-fns-tz";
+import { alertTimeDisplayFormat, convertToLocalTime } from "../date_helper.js";
 
-const FormattedAlertTime = ({ alert, toLocalTime = true }) => (
-  <>
-    {toLocalTime
-      ? format(zonedTimeToUtc(alert.timeStamp, "Asia/Jerusalem"), "HH:mm")
-      : format(parseISO(alert.timeStamp), "HH:mm")}
-  </>
+const FormattedAlertTime = ({ timeStamp }) => (
+  <>{alertTimeDisplayFormat(convertToLocalTime(timeStamp, "Asia/Jerusalem"))}</>
 );
 
 FormattedAlertTime.propTypes = {
-  alert: PropTypes.object.isRequired,
+  timeStamp: PropTypes.string.isRequired,
 };
 export default FormattedAlertTime;
