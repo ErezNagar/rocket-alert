@@ -14,7 +14,7 @@ class UserLocationMap extends React.Component {
   getDistanceByTimeToShelter = (timeToShelter) => {
     // https://upload.wikimedia.org/wikipedia/commons/d/d3/%D7%98%D7%95%D7%95%D7%97_%D7%99%D7%A8%D7%99_%D7%94%D7%A8%D7%A7%D7%98%D7%95%D7%AA_%D7%9E%D7%A8%D7%A6%D7%95%D7%A2%D7%AA_%D7%A2%D7%96%D7%94.png
     const TIME_TO_DISTANCE = {
-      0: 1,
+      0: 5,
       15: 10,
       30: 20,
       45: 30,
@@ -26,7 +26,7 @@ class UserLocationMap extends React.Component {
   };
   getMapZoomByDistance = (distance) => {
     const RANGE_TO_ZOOM_VALUE = {
-      1: 14,
+      5: 12,
       10: 11,
       20: 10,
       30: 9.5,
@@ -37,20 +37,17 @@ class UserLocationMap extends React.Component {
     return RANGE_TO_ZOOM_VALUE[distance];
   };
 
-  isGeolocationAvailable = () => (!navigator?.geolocation ? true : false);
+  isGeolocationAvailable = () => (navigator?.geolocation ? true : false);
 
   componentDidMount() {
     if (this.isGeolocationAvailable()) {
       this.initMapWithUserLocation();
-    } else {
-      console.log("no");
     }
   }
 
   async initMapWithUserLocation() {
-    //GO over all of the alerts!
-    // add logic for 0 seconds!
     const mostRecentAlert = this.props.alerts[0];
+    // countdownSec could be 0
     if (mostRecentAlert.countdownSec === null) {
       return;
     }
@@ -95,17 +92,10 @@ class UserLocationMap extends React.Component {
           radius: alertDistance * 1000,
         });
 
-        this.setState({
-          showMapWithUserLocation: true,
-          timeToShelterText: `You have ${mostRecentAlert.countdownSec} seconds to get to shelter!`,
-          alertExplanationText: `If this was happening in your area, this means a rocket targeting you was shot roughly ${alertDistance} km (${this.KMToMiles(
-            alertDistance
-          )} miles) away`,
-          timeToShelterShareText: `I'd have ${mostRecentAlert.countdownSec} seconds to get to shelter!`,
-          alertExplanationShareText: `If this was happening in MY area, this means a rocket targeting ME would've been shot roughly ${alertDistance} km (${this.KMToMiles(
-            alertDistance
-          )} miles) away`,
-        });
+        this.setAlertTextExplanation(
+          alertDistance,
+          mostRecentAlert.countdownSec
+        );
       },
       () => {
         console.log("Error getting geolocation position");
@@ -113,6 +103,44 @@ class UserLocationMap extends React.Component {
       }
     );
   }
+
+  setAlertTextExplanation = (alertDistance, timeToShelter) => {
+    const timeToShelterText =
+      alertDistance > 5
+        ? `You have ${timeToShelter} seconds to get to shelter!`
+        : `Get to shelter immediately!`;
+
+    const alertExplanationText =
+      alertDistance > 5
+        ? `If this was happening in your area, this means a rocket targeting you was shot roughly ${alertDistance} km (${this.KMToMiles(
+            alertDistance
+          )} miles) away`
+        : `If this was happening in your area, this means a rocket targeting you was shot less than 5 km (${this.KMToMiles(
+            alertDistance
+          )} miles) away`;
+
+    const timeToShelterShareText =
+      alertDistance > 5
+        ? `I'd have ${timeToShelter} seconds to get to shelter!`
+        : `I'd have to get to shelter immediately!`;
+
+    const alertExplanationShareText =
+      alertDistance > 5
+        ? `If this was happening in MY area, this means a rocket targeting me would've been shot roughly ${alertDistance} km (${this.KMToMiles(
+            alertDistance
+          )} miles) away`
+        : `If this was happening in MY area, this means a rocket targeting me would've been shot less than 5 km (${this.KMToMiles(
+            alertDistance
+          )} miles) away`;
+
+    this.setState({
+      showMapWithUserLocation: true,
+      timeToShelterText,
+      alertExplanationText,
+      timeToShelterShareText,
+      alertExplanationShareText,
+    });
+  };
 
   render() {
     return (
@@ -145,8 +173,9 @@ class UserLocationMap extends React.Component {
           </div>
         ) : (
           <div className="mapText">
-            <p>
-              Location services is disabled. Enable it for better experience.
+            <h2>How much time would you have to get to shelter?</h2>
+            <p className="enable-location">
+              Find out by enabling location services
             </p>
           </div>
         )}

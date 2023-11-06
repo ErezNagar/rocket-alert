@@ -237,9 +237,12 @@ h3 {
 .section .mapText p {
   margin-top: 1em;
 }
+.section .mapText .enable-location {
+  font-size: 1.25em;
+}
 
 /*
-* Map
+* Current Operation
 */
 .section.currentOperation {
   text-align: center;
