@@ -26,7 +26,7 @@ const HeaderContent = ({
 }) => (
   <>
     {alertSummaryCount > 0 && (
-      <FadeIn show={true} fadeInOnly>
+      <FadeIn show={true}>
         <Statistic value={alertSummaryCount} />
       </FadeIn>
     )}

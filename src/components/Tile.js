@@ -105,7 +105,7 @@ export default class Tile extends React.Component {
             <Row gutter={[8]} justify="center" className="average-container">
               <Col>
                 <div className="alerts">
-                  <FadeIn show={!this.state.isLoading} fadeInOnly>
+                  <FadeIn show={!this.state.isLoading}>
                     <Statistic value={this.state.alerts} />
                   </FadeIn>
                 </div>
@@ -114,7 +114,7 @@ export default class Tile extends React.Component {
               <Col className="separator">.</Col>
               <Col>
                 <div className="average">
-                  <FadeIn show={!this.state.isLoading} fadeInOnly>
+                  <FadeIn show={!this.state.isLoading}>
                     <Statistic value={this.state.average} />
                   </FadeIn>
                 </div>
@@ -124,13 +124,13 @@ export default class Tile extends React.Component {
           )}
           {hasData && !this.props.showAverage && (
             <div className="alerts">
-              <FadeIn show={!this.state.isLoading} fadeInOnly>
+              <FadeIn show={!this.state.isLoading}>
                 <Statistic value={this.state.alerts} />
               </FadeIn>
             </div>
           )}
           {this.state.isError && (
-            <FadeIn show={!this.state.isLoading} fadeInOnly>
+            <FadeIn show={!this.state.isLoading}>
               <ExclamationCircleOutlined
                 className={
                   this.props.showAverage ? "loading-average" : "loading-basic"
