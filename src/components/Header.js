@@ -5,10 +5,10 @@ import logo from "../logo.svg";
 import alarmAudio from "../alarm.mp3";
 import { Row, Col } from "antd";
 import {
-  getPastMonth,
-  getPastWeek,
   getToday,
   getYesterday,
+  getPastWeek,
+  getPastMonth,
 } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
@@ -95,7 +95,8 @@ class Header extends React.Component {
   }
 
   /*
-   * Queries the server every Gets all relevant alert data needed for the header alert summary.
+   * Queries the server to get alert data for the header alert summary.
+     Fetches today's, yesterday's, past week's and past month's data, in local time.
    */
   getHeaderData() {
     const alertClient = this.props.alertClient;
