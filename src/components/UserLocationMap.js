@@ -11,6 +11,14 @@ class UserLocationMap extends React.Component {
   };
 
   KMToMiles = (km) => Math.round(km * 0.621371 * 10) / 10;
+
+  metersToPixelsAtMaxZoom = (meters, latitude) =>
+    meters / 0.075 / Math.cos((latitude * Math.PI) / 180);
+
+  /*
+    Returns approx. distance from Gaza in KM based on
+    the number of seconds there are to find shelter
+  */
   getDistanceByTimeToShelter = (timeToShelter) => {
     // https://upload.wikimedia.org/wikipedia/commons/d/d3/%D7%98%D7%95%D7%95%D7%97_%D7%99%D7%A8%D7%99_%D7%94%D7%A8%D7%A7%D7%98%D7%95%D7%AA_%D7%9E%D7%A8%D7%A6%D7%95%D7%A2%D7%AA_%D7%A2%D7%96%D7%94.png
     const TIME_TO_DISTANCE = {
@@ -26,13 +34,13 @@ class UserLocationMap extends React.Component {
   };
   getMapZoomByDistance = (distance) => {
     const RANGE_TO_ZOOM_VALUE = {
-      5: 12,
-      10: 11,
-      20: 10,
-      30: 9.5,
-      40: 9,
-      50: 8.5,
-      120: 7.5,
+      5: 11.25,
+      10: 10.25,
+      20: 9.125,
+      30: 8.5,
+      40: 8,
+      50: 7.5,
+      120: 6.5,
     };
     return RANGE_TO_ZOOM_VALUE[distance];
   };
@@ -47,49 +55,79 @@ class UserLocationMap extends React.Component {
 
   async initMapWithUserLocation() {
     const mostRecentAlert = this.props.alerts[0];
-    // countdownSec could be 0
-    if (mostRecentAlert.countdownSec === null) {
+    if (!mostRecentAlert.countdownSec) {
       return;
     }
 
-    const { Map } = await window.google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await window.google.maps.importLibrary(
-      "marker"
-    );
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        // This needs to be first for Mapbox to render properly
+        this.setState({
+          showMapWithUserLocation: true,
+        });
         const pos = {
           lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          lon: position.coords.longitude,
         };
-
         const alertDistance = this.getDistanceByTimeToShelter(
           mostRecentAlert.countdownSec
         );
 
-        let map = new Map(document.getElementById("map2"), {
-          center: pos,
+        window.mapboxgl.accessToken =
+          "pk.eyJ1IjoiZXJlem5hZ2FyIiwiYSI6ImNsb2pmcXV4ZzFreXgyam8zdjdvdWtqMHMifQ.e2E4pq7dQZL7_YszHD25kA";
+        const map = new window.mapboxgl.Map({
+          container: "user_location_map",
+          style: "mapbox://styles/mapbox/dark-v11",
+          center: [pos.lon, pos.lat],
           zoom: this.getMapZoomByDistance(alertDistance),
-          disableDefaultUI: true,
-          mapId: "9690ba56c9bee260",
+          cooperativeGestures: true,
         });
 
-        new AdvancedMarkerElement({
-          map,
-          position: pos,
-        });
-        map.setCenter(pos);
+        map.scrollZoom.disable();
 
-        new window.google.maps.Circle({
-          strokeColor: "#FF0000",
-          strokeOpacity: 0.7,
-          strokeWeight: 2,
-          fillColor: "#FF0000",
-          fillOpacity: 0.3,
-          map,
-          center: pos,
-          radius: alertDistance * 1000,
+        map.on("load", () => {
+          // Add a marker
+          const el = document.createElement("div");
+          el.className = "map-marker";
+          new window.mapboxgl.Marker(el)
+            .setLngLat([pos.lon, pos.lat])
+            .addTo(map);
+
+          map.addSource("location_circle", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [
+                {
+                  type: "Feature",
+                  geometry: {
+                    type: "Point",
+                    coordinates: [pos.lon, pos.lat],
+                  },
+                },
+              ],
+            },
+          });
+
+          map.addLayer({
+            id: "circle",
+            type: "circle",
+            source: "location_circle",
+            paint: {
+              "circle-radius": {
+                stops: [
+                  [0, 0],
+                  [
+                    20,
+                    this.metersToPixelsAtMaxZoom(alertDistance * 1000, pos.lat),
+                  ],
+                ],
+                base: 2,
+              },
+              "circle-color": "#FF0000",
+              "circle-opacity": 0.3,
+            },
+          });
         });
 
         this.setAlertTextExplanation(
@@ -180,7 +218,7 @@ class UserLocationMap extends React.Component {
           </div>
         )}
         <div
-          id="map2"
+          id="user_location_map"
           style={{
             height: this.state.showMapWithUserLocation ? "65vh" : "0vh",
           }}

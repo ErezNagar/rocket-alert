@@ -15,53 +15,85 @@ class RecentAlertsMap extends React.Component {
   }
 
   async initMapWithAlertLocation() {
-    const { Map } = await window.google.maps.importLibrary("maps");
-    const map = new Map(document.getElementById("alerts_map"), {
-      disableDefaultUI: true,
-      mapId: "9690ba56c9bee260",
+    window.mapboxgl.accessToken =
+      "pk.eyJ1IjoiZXJlem5hZ2FyIiwiYSI6ImNsb2pmcXV4ZzFreXgyam8zdjdvdWtqMHMifQ.e2E4pq7dQZL7_YszHD25kA";
+    const map = new window.mapboxgl.Map({
+      container: "alerts_map",
+      style: "mapbox://styles/mapbox/dark-v11",
+      center: [this.props.alerts[0].lon, this.props.alerts[0].lat],
+      cooperativeGestures: true,
     });
-    const bounds = new window.google.maps.LatLngBounds();
 
-    const processedIDs = [];
-    this.props.alerts.forEach((alert) => {
-      if (
-        processedIDs.includes(alert.name) ||
-        !alert.lat ||
-        !alert.lon ||
-        alert.englishName === "Gaya"
-      ) {
-        return;
-      }
-      processedIDs.push(alert.name);
+    const geojson = {
+      type: "FeatureCollection",
+      features: [],
+    };
 
-      bounds.extend(new window.google.maps.LatLng(alert.lat, alert.lon));
+    map.on("load", () => {
+      const alertNames = [];
+      const bounds = new window.mapboxgl.LngLatBounds();
+      this.props.alerts.forEach((alert) => {
+        if (alertNames.includes(alert.name)) {
+          console.log("inclues", alert.name);
+          return;
+        }
+        alertNames.push(alert.name);
 
-      // Collect alert coordinates
-      const coords = polygons[alert.taCityId]?.map(([lat, lng]) => {
-        const point = new window.google.maps.LatLng(lat, lng);
-        bounds.extend(point);
-        return point;
+        bounds.extend([
+          ...polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat]),
+        ]);
+
+        geojson.features.push({
+          type: "Feature",
+          geometry: {
+            type: "Polygon",
+            coordinates: [
+              polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat]),
+            ],
+          },
+        });
+
+        // Add a marker
+        const el = document.createElement("div");
+        el.className = "map-marker";
+        new window.mapboxgl.Marker(el)
+          .setLngLat([alert.lon, alert.lat])
+          .addTo(map);
       });
 
-      // Set alert polygon
-      const polygon = new window.google.maps.Polygon({
-        paths: coords,
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.7,
-        strokeWeight: 2,
-        fillColor: "#FF0000",
-        fillOpacity: 0.3,
+      // Add a new layer to visualize the polygons.
+      map.addLayer({
+        id: `polygon1`,
+        type: "fill",
+        source: {
+          type: "geojson",
+          data: geojson,
+        },
+        paint: {
+          "fill-color": "red",
+          "fill-opacity": 0.3,
+        },
       });
-      polygon.setMap(map);
 
-      // Set alert marker
-      new window.google.maps.Marker({
-        position: new window.google.maps.LatLng(alert.lat, alert.lon),
-        map: map,
-        title: alert.englishName || alert.name,
+      // Add am outline around the polygon.
+      map.addLayer({
+        id: `outline1`,
+        type: "line",
+        source: {
+          type: "geojson",
+          data: geojson,
+        },
+        paint: {
+          "line-color": "red",
+          "line-width": 1,
+        },
+      });
+
+      map.fitBounds(bounds, {
+        padding: { top: 50, bottom: 170 },
+        animate: false,
       });
     });
-    map.fitBounds(bounds);
   }
 
   render() {

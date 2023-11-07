@@ -218,6 +218,12 @@ h3 {
 /*
 * Map
 */
+
+.map-marker {
+  background-image: url("marker.png");
+  width: 26px;
+  height: 37px;
+}
 .section.map {
   text-align: center;
   padding: 0;
