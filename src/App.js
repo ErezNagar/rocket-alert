@@ -174,7 +174,6 @@ class App extends React.Component {
               </Col>
             </Row>
             <UserLocationMap alerts={this.state.mostRecentAlerts} />
-            {/* <Map alerts={this.state.mostRecentAlerts} /> */}
           </section>
         )}
         <LocationDistance />
