@@ -16,7 +16,7 @@ class RecentAlertsMap extends React.Component {
 
   async initMapWithAlertLocation() {
     window.mapboxgl.accessToken =
-      "pk.eyJ1IjoiZXJlem5hZ2FyIiwiYSI6ImNsb2pmcXV4ZzFreXgyam8zdjdvdWtqMHMifQ.e2E4pq7dQZL7_YszHD25kA";
+      "pk.eyJ1IjoiZXJlem5hZ2FyIiwiYSI6ImNsb2xuYTU0ZzIwZ24ycm8xZmIwMHgxbXYifQ.oS710WfII6dJK6Js8h6NiQ";
     const map = new window.mapboxgl.Map({
       container: "alerts_map",
       style: "mapbox://styles/mapbox/dark-v11",
