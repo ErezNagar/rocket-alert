@@ -32,6 +32,8 @@ class App extends React.Component {
     mostRecentAlerts: [],
     // Text when sharing on twitter. Generated in Header
     twitterShareText: "",
+    // The location to focus on on the map
+    mapFocus: null,
   };
 
   alertEventSource = null;
@@ -141,6 +143,8 @@ class App extends React.Component {
     this.setState({ twitterShareText });
   };
 
+  handleOnAlertLocationClick = (alert) => this.setState({ mapFocus: alert });
+
   render() {
     return (
       <div
@@ -167,10 +171,16 @@ class App extends React.Component {
           <section className="section mostRecentAlerts">
             <Row justify="space-around" align="middle">
               <Col xs={24} lg={12}>
-                <MostRecentAlerts alerts={this.state.mostRecentAlerts} />
+                <MostRecentAlerts
+                  alerts={this.state.mostRecentAlerts}
+                  onAlertLocationClick={this.handleOnAlertLocationClick}
+                />
               </Col>
               <Col xs={24} lg={12}>
-                <RecentAlertsMap alerts={this.state.mostRecentAlerts} />
+                <RecentAlertsMap
+                  alerts={this.state.mostRecentAlerts}
+                  mapFocus={this.state.mapFocus}
+                />
               </Col>
             </Row>
             <UserLocationMap alerts={this.state.mostRecentAlerts} />

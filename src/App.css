@@ -201,18 +201,18 @@ h3 {
 .section.mostRecentAlerts .container {
   padding: 3em 0;
   text-align: center;
+  font-size: 1.25em;
 }
 .section.mostRecentAlerts .textLeft {
-  font-size: 1.25em;
   text-align: left;
 }
-.section.mostRecentAlerts .textRight {
-  font-size: 1.25em;
-  text-align: right;
-}
-.section.mostRecentAlerts a {
-  color: inherit;
+.section.mostRecentAlerts .location,
+.showAll {
+  cursor: pointer;
   text-decoration: underline;
+}
+.section.mostRecentAlerts .textRight {
+  text-align: right;
 }
 
 /*

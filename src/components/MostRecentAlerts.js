@@ -1,34 +1,59 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { Row, Col } from "antd";
 import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
 
-const MostRecentAlerts = (props) => (
-  <div className="container">
-    <h2>{"Most recent alerts"}</h2>
+const MostRecentAlerts = (props) => {
+  const [showResetFocus, setShowResetFocus] = useState(false);
 
-    {props.alerts.map((alert, idx) => (
-      <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
-        <Row gutter={[24, 24]} justify="center">
-          <Col className="textRight" span={12}>
-            <FormattedAlertTime timeStamp={alert.timeStamp} />
-          </Col>
-          <Col className="textLeft" span={12}>
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${alert.lat},${alert.lon}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {alert.englishName || alert.name}
-            </a>
-          </Col>
-        </Row>
-      </FadeIn>
-    ))}
-  </div>
-);
+  const handleAlertLocationClick = (alert) => {
+    setShowResetFocus(true);
+    props.onAlertLocationClick(alert);
+  };
+
+  const handleResetFocus = () => {
+    setShowResetFocus(false);
+    props.onAlertLocationClick("reset");
+  };
+
+  return (
+    <div className="container">
+      <h2>{"Most recent alerts"}</h2>
+
+      {props.alerts.map((alert, idx) => (
+        <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
+          <Row gutter={[24, 24]} justify="center">
+            <Col className="textRight" xs={6} sm={6} md={10}>
+              <FormattedAlertTime timeStamp={alert.timeStamp} />
+            </Col>
+            <Col className="textLeft" xs={15} sm={12} md={12}>
+              <span
+                className="location"
+                onClick={() => handleAlertLocationClick(alert)}
+              >
+                {alert.englishName || alert.name}
+              </span>
+            </Col>
+          </Row>
+        </FadeIn>
+      ))}
+      {showResetFocus && (
+        <div className="showAll" onClick={() => handleResetFocus()}>
+          Show All
+        </div>
+      )}
+    </div>
+  );
+};
 
 MostRecentAlerts.propTypes = {
   alerts: PropTypes.array.isRequired,
+  onAlertLocationClick: PropTypes.func,
 };
+
+MostRecentAlerts.defaultProps = {
+  recentAlertMapFocus() {},
+};
+
 export default MostRecentAlerts;

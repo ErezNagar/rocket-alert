@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.5.0](https://github.com/ErezNagar/code-red/releases/tag/v1.5.0) - 11/7/2023
+
+Added:
+
+- Ability to focus on a specific location on map
+
 ## [1.4.0](https://github.com/ErezNagar/code-red/releases/tag/v1.4.0) - 11/7/2023
 
 Added:

@@ -1,8 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import polygons from "../polygons.json";
 
 class RecentAlertsMap extends React.Component {
   state = {
+    map: null,
+    mapBounds: null,
     showMapWithUserLocation: false,
     timeToShelterText: "",
     timeToShelterShareText: "",
@@ -12,6 +16,12 @@ class RecentAlertsMap extends React.Component {
 
   componentDidMount() {
     this.initMapWithAlertLocation();
+  }
+
+  componentDidUpdate() {
+    if (this.props.mapFocus) {
+      this.updateMapFocus();
+    }
   }
 
   async initMapWithAlertLocation() {
@@ -34,14 +44,14 @@ class RecentAlertsMap extends React.Component {
       const bounds = new window.mapboxgl.LngLatBounds();
       this.props.alerts.forEach((alert) => {
         if (alertNames.includes(alert.name)) {
-          console.log("inclues", alert.name);
+          console.log("includes", alert.name);
           return;
         }
         alertNames.push(alert.name);
 
-        bounds.extend([
-          ...polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat]),
-        ]);
+        bounds.extend(
+          polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat])
+        );
 
         geojson.features.push({
           type: "Feature",
@@ -93,8 +103,27 @@ class RecentAlertsMap extends React.Component {
         padding: { top: 50, bottom: 170 },
         animate: false,
       });
+
+      this.setState({ map, mapBounds: bounds });
     });
   }
+
+  updateMapFocus = () => {
+    const alert = this.props.mapFocus;
+    if (alert === "reset") {
+      this.state.map.fitBounds(this.state.mapBounds, {
+        padding: { top: 50, bottom: 170 },
+        pitch: 0,
+        animate: true,
+      });
+    } else {
+      this.state.map.panTo([alert.lon, alert.lat], {
+        zoom: 13,
+        pitch: 50,
+        animate: true,
+      });
+    }
+  };
 
   render() {
     return (
@@ -104,5 +133,14 @@ class RecentAlertsMap extends React.Component {
     );
   }
 }
+
+RecentAlertsMap.propTypes = {
+  alerts: PropTypes.array.isRequired,
+  mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+};
+
+RecentAlertsMap.defaultProps = {
+  mapFocus: null,
+};
 
 export default RecentAlertsMap;
