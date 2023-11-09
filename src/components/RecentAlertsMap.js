@@ -44,7 +44,6 @@ class RecentAlertsMap extends React.Component {
       const bounds = new window.mapboxgl.LngLatBounds();
       this.props.alerts.forEach((alert) => {
         if (alertNames.includes(alert.name)) {
-          console.log("includes", alert.name);
           return;
         }
         alertNames.push(alert.name);
@@ -53,15 +52,17 @@ class RecentAlertsMap extends React.Component {
           polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat])
         );
 
-        geojson.features.push({
-          type: "Feature",
-          geometry: {
-            type: "Polygon",
-            coordinates: [
-              polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat]),
-            ],
-          },
-        });
+        if (alert.taCityId) {
+          geojson.features.push({
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              coordinates: [
+                polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat]),
+              ],
+            },
+          });
+        }
 
         // Add a marker
         const el = document.createElement("div");

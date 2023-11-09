@@ -54,10 +54,14 @@ class UserLocationMap extends React.Component {
   }
 
   async initMapWithUserLocation() {
-    const mostRecentAlert = this.props.alerts[0];
-    if (!mostRecentAlert.countdownSec) {
+    // Filters alerts with countdown data and use the first one
+    const alertsWithCountdown = this.props.alerts?.filter(
+      (alert) => alert.countdownSec === 0 || alert.countdownSec > 0
+    );
+    if (alertsWithCountdown.length === 0) {
       return;
     }
+    const alert = alertsWithCountdown[0];
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -70,7 +74,7 @@ class UserLocationMap extends React.Component {
           lon: position.coords.longitude,
         };
         const alertDistance = this.getDistanceByTimeToShelter(
-          mostRecentAlert.countdownSec
+          alert.countdownSec
         );
 
         window.mapboxgl.accessToken =
@@ -130,10 +134,7 @@ class UserLocationMap extends React.Component {
           });
         });
 
-        this.setAlertTextExplanation(
-          alertDistance,
-          mostRecentAlert.countdownSec
-        );
+        this.setAlertTextExplanation(alertDistance, alert.countdownSec);
       },
       () => {
         console.log("Error getting geolocation position");
