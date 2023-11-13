@@ -23,11 +23,11 @@ const MostRecentAlerts = (props) => {
 
       {props.alerts.map((alert, idx) => (
         <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
-          <Row gutter={[24, 24]} justify="center">
-            <Col className="textRight" xs={6} sm={6} md={10}>
+          <Row justify="center">
+            <Col className="textRight" xs={10} md={10}>
               <FormattedAlertTime timeStamp={alert.timeStamp} />
             </Col>
-            <Col className="textLeft" xs={15} sm={12} md={12}>
+            <Col className="textLeft" xs={12} md={12}>
               <span
                 className="location"
                 onClick={() => handleAlertLocationClick(alert)}

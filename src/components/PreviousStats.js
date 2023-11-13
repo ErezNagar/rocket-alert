@@ -6,13 +6,13 @@ import {
   getYesterday,
   getPastWeek,
   getPastMonth,
-  getPastYear,
+  // getPastYear,
   displayFormat,
 } from "../date_helper";
 
 const PreviousStats = (props) => (
   <section className="section">
-    <Row gutter={[24, 24]}>
+    <Row gutter={[24, 24]} justify={"center"}>
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Yesterday"}
@@ -40,7 +40,7 @@ const PreviousStats = (props) => (
           alertsClient={props.alertsClient}
         />
       </Col>
-      <Col xs={24} sm={12} md={8} lg={6}>
+      {/* <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Year"}
           subtitle={`Since ${displayFormat(getPastYear())}`}
@@ -48,7 +48,7 @@ const PreviousStats = (props) => (
           toDate={getToday()}
           alertsClient={props.alertsClient}
         />
-      </Col>
+      </Col> */}
     </Row>
   </section>
 );

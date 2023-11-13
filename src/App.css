@@ -213,6 +213,7 @@ h3 {
 }
 .section.mostRecentAlerts .textRight {
   text-align: right;
+  margin-right: 1em;
 }
 
 /*

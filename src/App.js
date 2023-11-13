@@ -187,8 +187,8 @@ class App extends React.Component {
           </section>
         )}
         <CurrentOperation alertsClient={AlertClient} />
-        <LocationDistance />
         <PreviousStats alertsClient={AlertClient} />
+        <LocationDistance />
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
