@@ -186,8 +186,8 @@ class App extends React.Component {
             <UserLocationMap alerts={this.state.mostRecentAlerts} />
           </section>
         )}
-        <LocationDistance />
         <CurrentOperation alertsClient={AlertClient} />
+        <LocationDistance />
         <PreviousStats alertsClient={AlertClient} />
         {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
         <PreviousOperations alertsClient={AlertClient} />

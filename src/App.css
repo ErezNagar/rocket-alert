@@ -250,12 +250,22 @@ h3 {
 /*
 * Current Operation
 */
-.section.currentOperation {
+.current-operation .currentOperationTile {
   text-align: center;
   background-color: #5c0011;
+  padding: 3em 1em;
 }
-.section.currentOperation h2 {
+.current-operation h2 {
   color: white;
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 2em;
+}
+.current-operation-graph {
+  padding: 3em 1em;
+}
+.current-operation-graph h2 {
+  color: black;
 }
 
 /*
