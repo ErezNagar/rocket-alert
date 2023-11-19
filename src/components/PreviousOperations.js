@@ -81,7 +81,7 @@ const PreviousOperations = (props) => (
         </Col>
       </Row>
     </section>
-    <section className="section">
+    {/* <section className="section">
       <h2>Rocket alerts in previous years</h2>
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} md={8} lg={6}>
@@ -156,7 +156,7 @@ const PreviousOperations = (props) => (
           />
         </Col>
       </Row>
-    </section>
+    </section> */}
   </>
 );
 
