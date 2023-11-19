@@ -133,7 +133,7 @@ class App extends React.Component {
   };
 
   handleScroll = (e) => {
-    const vh80 = window.innerHeight * 0.8;
+    const vh80 = window.innerHeight * 0.9;
     this.setState({
       showStickyHeader: window.scrollY > Math.floor(vh80) ? true : false,
     });
