@@ -189,7 +189,6 @@ class App extends React.Component {
         <CurrentOperation alertsClient={AlertClient} />
         <PreviousStats alertsClient={AlertClient} />
         <LocationDistance />
-        {/* Are these actually "verified" or official as for rocket launch (not alerts) data? */}
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
         <Footer twitterShareText={this.state.twitterShareText} />

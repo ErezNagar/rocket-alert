@@ -268,6 +268,16 @@ h3 {
 .current-operation-graph h2 {
   color: black;
 }
+.current-operation-graph .month-list {
+  text-align: center;
+}
+.month-button {
+  border-radius: 8px;
+}
+.month-button.selected {
+  color: white;
+  background-color: #5c0011;
+}
 
 /*
 * Location Distance

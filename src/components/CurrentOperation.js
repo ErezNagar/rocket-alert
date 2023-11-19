@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import Tile from "./Tile";
 import {
   getToday,
@@ -13,8 +13,11 @@ import { Column } from "@ant-design/plots";
 class CurrentOperation extends React.Component {
   state = {
     data: [],
-    showGraph: false,
+    showGraphByWeek: false,
+    showGraphByDay: false,
     graphConfig: null,
+    selectedMonth: null,
+    graph2Config: null,
   };
 
   componentDidMount() {
@@ -22,7 +25,8 @@ class CurrentOperation extends React.Component {
       if (!alertsPerDay || alertsPerDay.length === 0) {
         return;
       }
-      this.buildGraph(alertsPerDay);
+      this.buildAlertsByWeekGraph(alertsPerDay);
+      this.buildAlertsByDayGraph(alertsPerDay);
     });
   }
 
@@ -37,7 +41,7 @@ class CurrentOperation extends React.Component {
         return null;
       });
 
-  buildGraph = (alertsPerDay) => {
+  buildAlertsByWeekGraph = (alertsPerDay) => {
     let data = [];
     let weeklyAlertCount = 0;
     let weekDate = new Date(2023, 9, 7);
@@ -62,7 +66,7 @@ class CurrentOperation extends React.Component {
     });
 
     this.setState({
-      showGraph: true,
+      showGraphByWeek: true,
       graphConfig: {
         data,
         xField: "week",
@@ -97,6 +101,72 @@ class CurrentOperation extends React.Component {
     });
   };
 
+  buildAlertsByDayGraph = (alertsPerDay) => {
+    const data = { months: [] };
+    alertsPerDay.forEach(({ alerts, timeStamp }) => {
+      const [year, month, day] = timeStamp.split("-");
+      const date = new Date(year, month - 1, day);
+      // const monthName = date.toLocaleString("default", { month: "short" });
+      const monthName = date.toLocaleString("default", { month: "long" });
+      if (!data.months.includes(monthName)) {
+        data.months.push(monthName);
+        data[monthName] = [];
+      }
+      data[monthName].push({ day: dayOfMonthFormat(date), count: alerts });
+    });
+
+    const selectedMonth = data.months[data.months.length - 1];
+    this.setState({
+      showGraphByDay: true,
+      byDayData: data,
+      selectedMonth,
+      graph2Config: {
+        data: data[selectedMonth],
+        xField: "day",
+        yField: "count",
+        seriesField: "",
+        // columnWidthRatio: 0.5,
+        columnStyle: {
+          radius: [20, 20, 0, 0],
+        },
+        color: "#5c0011",
+        appendPadding: [30, 0, 0, 0],
+        label: {
+          position: "top",
+          autoHide: true,
+          autoRotate: true,
+          autoEllipsis: true,
+          style: {
+            fill: "black",
+            opacity: 1,
+            fontSize: 16,
+          },
+        },
+        xAxis: {
+          label: {
+            autoHide: true,
+            autoRotate: true,
+            style: {
+              fill: "black",
+              fontSize: 16,
+              intervalPadding: 10,
+            },
+          },
+        },
+        yAxis: false,
+      },
+    });
+  };
+
+  handleMonthClick = (month) => {
+    this.setState({
+      selectedMonth: month,
+      graph2Config: {
+        ...this.state.graph2Config,
+        data: this.state.byDayData[month],
+      },
+    });
+  };
   render() {
     return (
       <section className="current-operation">
@@ -115,10 +185,40 @@ class CurrentOperation extends React.Component {
             </Col>
           </Row>
         </div>
-        {this.state.showGraph && (
+        {(this.state.showGraphByWeek || this.state.showGraphByDay) && (
           <div className="current-operation-graph">
-            <h2>Rocket alerts by week since Oct 7</h2>
-            <Column {...this.state.graphConfig} />
+            <Row gutter={[24, 24]} justify={"center"}>
+              {this.state.showGraphByWeek && (
+                <Col span={24}>
+                  <h2>Alerts by week since Oct 7</h2>
+                  <Column {...this.state.graphConfig} />
+                </Col>
+              )}
+              {this.state.showGraphByDay && (
+                <Col span={24}>
+                  <h2>Alerts by day since Oct 7</h2>
+                  <Row justify={"center"} className={"month-list"}>
+                    {this.state.byDayData.months.map((month) => (
+                      <Col xs={24} md={3} lg={2} key={month}>
+                        <Button
+                          size="large"
+                          type="text"
+                          className={
+                            this.state.selectedMonth === month
+                              ? "month-button selected"
+                              : "month-button"
+                          }
+                          onClick={() => this.handleMonthClick(month)}
+                        >
+                          {month}
+                        </Button>
+                      </Col>
+                    ))}
+                  </Row>
+                  <Column {...this.state.graph2Config} />
+                </Col>
+              )}
+            </Row>
           </div>
         )}
       </section>

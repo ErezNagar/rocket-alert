@@ -5,37 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.5.0](https://github.com/ErezNagar/code-red/releases/tag/v1.5.0) - 11/7/2023
+## [1.6.0](https://github.com/ErezNagar/code-red/releases/tag/v1.6.0) - 18/11/2023
 
 Added:
 
-- Ability to focus on a specific location on map
+- Alerts graph by day
 
-## [1.4.0](https://github.com/ErezNagar/code-red/releases/tag/v1.4.0) - 11/7/2023
+## [1.5.0](https://github.com/ErezNagar/code-red/releases/tag/v1.5.0) - 7/11/2023
 
 Added:
 
 - Switched map service to use Mapbox
 
-## [1.4.0](https://github.com/ErezNagar/code-red/releases/tag/v1.4.0) - 10/30/2023
+## [1.4.0](https://github.com/ErezNagar/code-red/releases/tag/v1.4.0) - 30/11/2023
 
 Added:
 
 - A new map with user location and range of last rocket alert
 
-## [1.3.0](https://github.com/ErezNagar/code-red/releases/tag/v1.3.0) - 10/30/2023
+## [1.3.0](https://github.com/ErezNagar/code-red/releases/tag/v1.3.0) - 30/11/2023
 
 Added:
 
 - Map is now showing location area of most recent alert
 
-## [1.2.0](https://github.com/ErezNagar/code-red/releases/tag/v1.2.0) - 10/29/2023
+## [1.2.0](https://github.com/ErezNagar/code-red/releases/tag/v1.2.0) - 29/10/2023
 
 Added:
 
 - Alarm sound feature
 
-## [1.1.0](https://github.com/ErezNagar/code-red/releases/tag/v1.1.0) - 10/28/2023
+## [1.1.0](https://github.com/ErezNagar/code-red/releases/tag/v1.1.0) - 28/10/2023
 
 Added:
 
