@@ -81,11 +81,11 @@ class App extends React.Component {
   mockClientAlerts = () => {
     RealTimeAlertManager.alertQueue.push(
       JSON.stringify({
-        name: "Test Sderot 1",
+        name: "Test Eilat 1",
         englishName: null,
-        lat: null,
-        lon: null,
-        taCityId: 123,
+        lat: 29.6276236,
+        lon: 34.7892581,
+        taCityId: 4,
         countdownSec: 15,
         areaNameHe: "areaNameHe",
         areaNameEn: "areaNameEn",
@@ -94,11 +94,11 @@ class App extends React.Component {
     );
     RealTimeAlertManager.alertQueue.push(
       JSON.stringify({
-        name: "Test Sderot 2",
+        name: "Test Eilat 2",
         englishName: null,
-        lat: null,
-        lon: null,
-        taCityId: 123,
+        lat: 29.6276236,
+        lon: 34.7892581,
+        taCityId: 4,
         countdownSec: 15,
         areaNameHe: "areaNameHe",
         areaNameEn: "areaNameEn",
