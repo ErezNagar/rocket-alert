@@ -8,16 +8,17 @@ import {
   isWeekDifference,
   weekRangeFormat,
 } from "../date_helper";
-import { Column } from "@ant-design/plots";
+import { Column, Bar } from "@ant-design/plots";
 
 class CurrentOperation extends React.Component {
   state = {
     data: [],
     showGraphByWeek: false,
     showGraphByDay: false,
-    graphConfig: null,
+    graphByDayType: "Column",
+    graphByWeekConfig: null,
     selectedMonth: null,
-    graph2Config: null,
+    graphByDayConfig: null,
   };
 
   componentDidMount() {
@@ -28,7 +29,106 @@ class CurrentOperation extends React.Component {
       this.buildAlertsByWeekGraph(alertsPerDay);
       this.buildAlertsByDayGraph(alertsPerDay);
     });
+
+    window.addEventListener("resize", this.updateGraphType);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateGraphType);
+  }
+
+  updateGraphType = () => {
+    const columnConfig = {
+      xField: "day",
+      yField: "count",
+      seriesField: "",
+      columnStyle: {
+        radius: [20, 20, 0, 0],
+      },
+      maxColumnWidth: 40,
+      color: "#5c0011",
+      appendPadding: [50, 0, 10, 10],
+      autoFit: true,
+      label: {
+        position: "top",
+        autoHide: true,
+        autoRotate: true,
+        autoEllipsis: true,
+        style: {
+          fill: "black",
+          opacity: 1,
+          fontSize: 16,
+        },
+      },
+      xAxis: {
+        label: {
+          autoHide: true,
+          autoRotate: true,
+          style: {
+            fill: "black",
+            fontSize: 16,
+          },
+        },
+      },
+      yAxis: false,
+    };
+    const barConfig = {
+      xField: "count",
+      yField: "day",
+      barStyle: {
+        radius: [20, 20, 0, 0],
+      },
+      autoFit: false,
+      maxBarWidth: 20,
+      color: "#5c0011",
+      appendPadding: [30, 50, 0, 0],
+      label: {
+        position: "right",
+        autoHide: true,
+        autoRotate: true,
+        autoEllipsis: true,
+        style: {
+          fill: "black",
+          opacity: 1,
+          fontSize: 16,
+        },
+      },
+      yAxis: {
+        label: {
+          autoHide: false,
+          autoRotate: true,
+          style: {
+            fill: "black",
+            fontSize: 16,
+          },
+        },
+      },
+      xAxis: false,
+    };
+    const vw = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    );
+    const graphByDayType = vw >= 768 ? "Column" : "Bar";
+    const config = graphByDayType === "Column" ? columnConfig : barConfig;
+    if (graphByDayType === "Bar") {
+      if (this.state.graphByDayConfig.data.length <= 10) {
+        config.height = 200;
+      } else if (this.state.graphByDayConfig.data.length <= 20) {
+        config.height = config.height = 400;
+      } else {
+        config.height = config.height = 700;
+      }
+    }
+
+    this.setState({
+      graphByDayType,
+      graphByDayConfig: {
+        data: this.state.graphByDayConfig.data,
+        ...config,
+      },
+    });
+  };
 
   getTotalAlertsByDay = () =>
     this.props.alertsClient
@@ -67,7 +167,7 @@ class CurrentOperation extends React.Component {
 
     this.setState({
       showGraphByWeek: true,
-      graphConfig: {
+      graphByWeekConfig: {
         data,
         xField: "week",
         yField: "count",
@@ -116,53 +216,24 @@ class CurrentOperation extends React.Component {
     });
 
     const selectedMonth = data.months[data.months.length - 1];
+
     this.setState({
       showGraphByDay: true,
       byDayData: data,
       selectedMonth,
-      graph2Config: {
+      graphByDayConfig: {
         data: data[selectedMonth],
-        xField: "day",
-        yField: "count",
-        seriesField: "",
-        // columnWidthRatio: 0.5,
-        columnStyle: {
-          radius: [20, 20, 0, 0],
-        },
-        color: "#5c0011",
-        appendPadding: [30, 0, 0, 0],
-        label: {
-          position: "top",
-          autoHide: true,
-          autoRotate: true,
-          autoEllipsis: true,
-          style: {
-            fill: "black",
-            opacity: 1,
-            fontSize: 16,
-          },
-        },
-        xAxis: {
-          label: {
-            autoHide: true,
-            autoRotate: true,
-            style: {
-              fill: "black",
-              fontSize: 16,
-              intervalPadding: 10,
-            },
-          },
-        },
-        yAxis: false,
       },
     });
+
+    this.updateGraphType();
   };
 
   handleMonthClick = (month) => {
     this.setState({
       selectedMonth: month,
-      graph2Config: {
-        ...this.state.graph2Config,
+      graphByDayConfig: {
+        ...this.state.graphByDayConfig,
         data: this.state.byDayData[month],
       },
     });
@@ -191,7 +262,7 @@ class CurrentOperation extends React.Component {
               {this.state.showGraphByWeek && (
                 <Col span={24}>
                   <h2>Alerts by week since Oct 7</h2>
-                  <Column {...this.state.graphConfig} />
+                  <Column {...this.state.graphByWeekConfig} />
                 </Col>
               )}
               {this.state.showGraphByDay && (
@@ -215,7 +286,11 @@ class CurrentOperation extends React.Component {
                       </Col>
                     ))}
                   </Row>
-                  <Column {...this.state.graph2Config} />
+                  {this.state.graphByDayType === "Column" ? (
+                    <Column {...this.state.graphByDayConfig} />
+                  ) : (
+                    <Bar {...this.state.graphByDayConfig} />
+                  )}
                 </Col>
               )}
             </Row>
