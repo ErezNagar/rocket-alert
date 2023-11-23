@@ -1,9 +1,9 @@
 import { Row, Col } from "antd";
-import beeriDistance from "../beeri_distance.png";
-import nahalOzDistance from "../nahal_oz_distance.png";
-import ashkelonDistance from "../ashkelon_distance.png";
-import jerusalemDistance from "../jerusalem_distance.png";
-import telAvivDistance from "../tel_aviv_distance.png";
+import beeriDistance from "./assets/beeri_distance.png";
+import nahalOzDistance from "./assets/nahal_oz_distance.png";
+import ashkelonDistance from "./assets/ashkelon_distance.png";
+import jerusalemDistance from "./assets/jerusalem_distance.png";
+import telAvivDistance from "./assets/tel_aviv_distance.png";
 
 const DesktopView = () => (
   <div className="desktop">

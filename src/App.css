@@ -221,7 +221,7 @@ h3 {
 */
 
 .map-marker {
-  background-image: url("marker.png");
+  background-image: url("./assets/marker.png");
   width: 26px;
   height: 37px;
 }

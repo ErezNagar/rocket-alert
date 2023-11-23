@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import FadeInOut from "./FadeInOut";
 import FormattedAlertTime from "./FormattedAlertTime";
 import { TwitterOutlined } from "@ant-design/icons";
-import logo from "../logo.svg";
+import logo from "../assets/logo.svg";
 import Util from "../util";
 
 class StickyHeader extends React.Component {
