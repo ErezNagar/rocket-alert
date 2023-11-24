@@ -7,7 +7,10 @@ import FadeIn from "./FadeIn";
 const MostRecentAlerts = (props) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
-  const handleAlertLocationClick = (alert) => {
+  const handleAlertLocationClick = (alert, idx) => {
+    window.gtag("event", "alert_location_click", {
+      index: ++idx,
+    });
     setShowResetFocus(true);
     props.onAlertLocationClick(alert);
   };
@@ -30,7 +33,7 @@ const MostRecentAlerts = (props) => {
             <Col className="textLeft" xs={12} md={12}>
               <span
                 className="location"
-                onClick={() => handleAlertLocationClick(alert)}
+                onClick={() => handleAlertLocationClick(alert, idx)}
               >
                 {alert.englishName || alert.name}
               </span>

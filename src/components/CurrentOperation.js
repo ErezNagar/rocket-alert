@@ -230,6 +230,9 @@ class CurrentOperation extends React.Component {
   };
 
   handleMonthClick = (month) => {
+    window.gtag("event", "alert_by_day_graph_month_click", {
+      month,
+    });
     this.setState({
       selectedMonth: month,
       graphByDayConfig: {

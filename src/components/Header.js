@@ -245,6 +245,9 @@ class Header extends React.Component {
   };
 
   handleOnAudioChange = (isAudioOn) => {
+    window.gtag("event", "alarm_audio_click", {
+      isAudioOn,
+    });
     this.setState({ isAudioOn }, () => {
       if (isAudioOn) {
         if (!this.state.alarm) {
@@ -300,6 +303,11 @@ class Header extends React.Component {
                     href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => {
+                      window.gtag("event", "share_click", {
+                        method: "twitter_header",
+                      });
+                    }}
                   >
                     <TwitterOutlined
                       style={{ fontSize: "30px", color: "white" }}
@@ -311,6 +319,11 @@ class Header extends React.Component {
                     href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => {
+                      window.gtag("event", "share_click", {
+                        method: "twitter_header",
+                      });
+                    }}
                   >
                     Share
                   </a>
