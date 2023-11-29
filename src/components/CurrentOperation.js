@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Row, Col, Button } from "antd";
 import Tile from "./Tile";
+import { eachDayOfInterval, isSameDay } from "date-fns";
 import {
   getToday,
   dayOfMonthFormat,
@@ -202,17 +203,43 @@ class CurrentOperation extends React.Component {
   };
 
   buildAlertsByDayGraph = (alertsPerDay) => {
+    let dataIndex = 0;
     const data = { months: [] };
-    alertsPerDay.forEach(({ alerts, timeStamp }) => {
-      const [year, month, day] = timeStamp.split("-");
-      const date = new Date(year, month - 1, day);
-      // const monthName = date.toLocaleString("default", { month: "short" });
-      const monthName = date.toLocaleString("default", { month: "long" });
+    const datesInterval = eachDayOfInterval({
+      start: new Date("2023-10-07T00:00"),
+      end: getToday(),
+    });
+
+    datesInterval.forEach((dateInterval) => {
+      const monthName = dateInterval.toLocaleString("default", {
+        month: "long",
+      });
       if (!data.months.includes(monthName)) {
         data.months.push(monthName);
         data[monthName] = [];
       }
-      data[monthName].push({ day: dayOfMonthFormat(date), count: alerts });
+
+      if (dataIndex >= alertsPerDay.length) {
+        data[monthName].push({ day: dayOfMonthFormat(dateInterval), count: 0 });
+      } else {
+        const [year, month, day] = alertsPerDay[dataIndex].timeStamp.split("-");
+        const dateOfAlerts = new Date(year, month - 1, day);
+        /* If there's alert data for this dateInterval, use it
+           Otherwise, there's no alert data since alerts = 0
+        */
+        if (isSameDay(dateInterval, dateOfAlerts)) {
+          data[monthName].push({
+            day: dayOfMonthFormat(dateInterval),
+            count: alertsPerDay[dataIndex].alerts,
+          });
+          dataIndex = dataIndex + 1;
+        } else {
+          data[monthName].push({
+            day: dayOfMonthFormat(dateInterval),
+            count: 0,
+          });
+        }
+      }
     });
 
     const selectedMonth = data.months[data.months.length - 1];
