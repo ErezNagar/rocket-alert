@@ -68,7 +68,9 @@ class RecentAlertsMap extends React.Component {
       }
       alertNames.push(alert.name);
 
-      bounds.extend(polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat]));
+      polygons[alert.taCityId]?.forEach(([lat, lon]) => {
+        bounds.extend([lon, lat]);
+      });
 
       if (alert.taCityId) {
         geojson.features.push({
@@ -99,7 +101,6 @@ class RecentAlertsMap extends React.Component {
       features: [],
     };
     const bounds = this.drawMapMarkersAndPolygons(map, geojson);
-
     // Add a new layer to visualize the polygons.
     map.addLayer({
       id: `polygon1`,
