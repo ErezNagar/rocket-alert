@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { TwitterOutlined, MailOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
+import Tracking from "../tracking";
 
 const Footer = ({ twitterShareText }) => (
   <footer>
@@ -13,9 +14,7 @@ const Footer = ({ twitterShareText }) => (
               target="_blank"
               rel="noreferrer"
               onClick={() => {
-                window.gtag("event", "share_click", {
-                  method: "twitter_footer",
-                });
+                Tracking.shareFooterClick();
               }}
             >
               <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
@@ -27,9 +26,7 @@ const Footer = ({ twitterShareText }) => (
               target="_blank"
               rel="noreferrer"
               onClick={() => {
-                window.gtag("event", "share_click", {
-                  method: "twitter_footer",
-                });
+                Tracking.shareFooterClick();
               }}
             >
               Share

@@ -10,6 +10,7 @@ import {
   weekRangeFormat,
 } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
+import Tracking from "../tracking";
 
 class CurrentOperation extends React.Component {
   state = {
@@ -257,9 +258,7 @@ class CurrentOperation extends React.Component {
   };
 
   handleMonthClick = (month) => {
-    window.gtag("event", "alert_by_day_graph_month_click", {
-      month,
-    });
+    Tracking.graphMonthClick(month);
     this.setState({
       selectedMonth: month,
       graphByDayConfig: {

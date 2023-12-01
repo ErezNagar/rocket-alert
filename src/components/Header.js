@@ -16,6 +16,7 @@ import AudioControls from "./AudioControls";
 import { Statistic } from "antd";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
+import Tracking from "../tracking";
 
 const HeaderContent = ({
   alertSummaryTitle,
@@ -234,7 +235,7 @@ class Header extends React.Component {
     });
     if (this.state.isAudioOn && this.state.alarm && this.state.alarm.paused) {
       this.state.alarm.play();
-      window.gtag("event", "alarm_played");
+      Tracking.alarmPlayedEvent();
     }
     setTimeout(() => {
       this.setState({ shouldRefresh: false });
@@ -246,9 +247,7 @@ class Header extends React.Component {
   };
 
   handleOnAudioChange = (isAudioOn) => {
-    window.gtag("event", "alarm_audio_click", {
-      isAudioOn,
-    });
+    Tracking.alarmAudioClick(isAudioOn);
     this.setState({ isAudioOn }, () => {
       if (isAudioOn) {
         if (!this.state.alarm) {
@@ -305,9 +304,7 @@ class Header extends React.Component {
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => {
-                      window.gtag("event", "share_click", {
-                        method: "twitter_header",
-                      });
+                      Tracking.shareHeaderClick();
                     }}
                   >
                     <TwitterOutlined
@@ -321,9 +318,7 @@ class Header extends React.Component {
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => {
-                      window.gtag("event", "share_click", {
-                        method: "twitter_header",
-                      });
+                      Tracking.shareHeaderClick();
                     }}
                   >
                     Share

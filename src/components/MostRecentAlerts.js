@@ -3,14 +3,13 @@ import { useState } from "react";
 import { Row, Col } from "antd";
 import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
+import Tracking from "../tracking";
 
 const MostRecentAlerts = (props) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
   const handleAlertLocationClick = (alert, idx) => {
-    window.gtag("event", "alert_location_click", {
-      index: ++idx,
-    });
+    Tracking.alertLocationClick();
     setShowResetFocus(true);
     props.onAlertLocationClick(alert);
   };

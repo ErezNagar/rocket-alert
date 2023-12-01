@@ -4,6 +4,7 @@ import FadeInOut from "./FadeInOut";
 import FormattedAlertTime from "./FormattedAlertTime";
 import { TwitterOutlined } from "@ant-design/icons";
 import logo from "../assets/logo.svg";
+import Tracking from "../tracking";
 import Util from "../util";
 
 class StickyHeader extends React.Component {
@@ -59,10 +60,9 @@ class StickyHeader extends React.Component {
               target="_blank"
               rel="noreferrer"
               onClick={() => {
-                window.gtag("event", "share_click", {
-                  method: "twitter_sticky_header",
-                });
+                Tracking.shareStickyHeaderClick();
               }}
+              // onClick={Tracking.shareStickyHeaderClick}
             >
               <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
             </a>

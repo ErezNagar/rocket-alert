@@ -1,5 +1,6 @@
 import React from "react";
 import { TwitterOutlined } from "@ant-design/icons";
+import Tracking from "../tracking";
 
 class UserLocationMap extends React.Component {
   state = {
@@ -135,7 +136,7 @@ class UserLocationMap extends React.Component {
         });
 
         this.setAlertTextExplanation(alertDistance, alert.countdownSec);
-        window.gtag("event", "user_location_map_loaded");
+        Tracking.userLocationMapLoadedEvent();
       },
       () => {
         console.log("Error getting geolocation position");
@@ -197,9 +198,7 @@ class UserLocationMap extends React.Component {
                 rel="noreferrer"
                 style={{ color: "black" }}
                 onClick={() => {
-                  window.gtag("event", "share_click", {
-                    method: "twitter_user_location_map",
-                  });
+                  Tracking.shareUserLocationMapClick();
                 }}
               >
                 <TwitterOutlined style={{ fontSize: "30px", color: "black" }} />
@@ -211,9 +210,7 @@ class UserLocationMap extends React.Component {
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => {
-                    window.gtag("event", "share_click", {
-                      method: "twitter_user_location_map",
-                    });
+                    Tracking.shareUserLocationMapClick();
                   }}
                 >
                   Share this

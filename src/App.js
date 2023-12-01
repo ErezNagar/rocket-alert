@@ -15,6 +15,7 @@ import AlertClient from "./rocket_alert_client";
 import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
+import Tracking from "./tracking";
 import { getToday, getYesterday } from "./date_helper";
 
 class App extends React.Component {
@@ -131,7 +132,7 @@ class App extends React.Component {
       }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
     }
 
-    window.gtag("event", "alert_mode_on");
+    Tracking.alertModeOnEvent();
   };
 
   handleScroll = (e) => {
