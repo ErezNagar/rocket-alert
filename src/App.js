@@ -130,6 +130,8 @@ class App extends React.Component {
         });
       }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
     }
+
+    window.gtag("event", "alert_mode_on");
   };
 
   handleScroll = (e) => {

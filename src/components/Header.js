@@ -234,6 +234,7 @@ class Header extends React.Component {
     });
     if (this.state.isAudioOn && this.state.alarm && this.state.alarm.paused) {
       this.state.alarm.play();
+      window.gtag("event", "alarm_played");
     }
     setTimeout(() => {
       this.setState({ shouldRefresh: false });
