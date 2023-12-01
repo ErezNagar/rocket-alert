@@ -9,7 +9,7 @@ const MostRecentAlerts = (props) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
   const handleAlertLocationClick = (alert, idx) => {
-    Tracking.alertLocationClick();
+    Tracking.alertLocationClick(idx);
     setShowResetFocus(true);
     props.onAlertLocationClick(alert);
   };
