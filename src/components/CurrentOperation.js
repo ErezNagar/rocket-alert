@@ -21,6 +21,7 @@ class CurrentOperation extends React.Component {
     graphByWeekConfig: null,
     selectedMonth: null,
     graphByDayConfig: null,
+    isLoadingChart: false,
   };
 
   componentDidMount() {
@@ -32,14 +33,14 @@ class CurrentOperation extends React.Component {
       this.buildAlertsByDayGraph(alertsPerDay);
     });
 
-    window.addEventListener("resize", this.updateGraphType);
+    window.addEventListener("resize", this.updateGraphConfig);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateGraphType);
+    window.removeEventListener("resize", this.updateGraphConfig);
   }
 
-  updateGraphType = () => {
+  updateGraphConfig = () => {
     const columnConfig = {
       xField: "day",
       yField: "count",
@@ -107,6 +108,7 @@ class CurrentOperation extends React.Component {
       },
       xAxis: false,
     };
+
     const vw = Math.max(
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
@@ -123,12 +125,18 @@ class CurrentOperation extends React.Component {
       }
     }
 
-    this.setState({
-      graphByDayType,
-      graphByDayConfig: {
-        data: this.state.graphByDayConfig.data,
-        ...config,
-      },
+    // We need to "reset" graphByDayType for Ant Design chart to re-render properly
+    this.setState({ graphByDayType: null, isLoadingChart: true }, () => {
+      setTimeout(() => {
+        this.setState({
+          isLoadingChart: false,
+          graphByDayType,
+          graphByDayConfig: {
+            data: this.state.graphByDayConfig.data,
+            ...config,
+          },
+        });
+      }, 10);
     });
   };
 
@@ -254,18 +262,23 @@ class CurrentOperation extends React.Component {
       },
     });
 
-    this.updateGraphType();
+    this.updateGraphConfig();
   };
 
   handleMonthClick = (month) => {
     Tracking.graphMonthClick(month);
-    this.setState({
-      selectedMonth: month,
-      graphByDayConfig: {
-        ...this.state.graphByDayConfig,
-        data: this.state.byDayData[month],
+    this.setState(
+      {
+        selectedMonth: month,
+        graphByDayConfig: {
+          ...this.state.graphByDayConfig,
+          data: this.state.byDayData[month],
+        },
       },
-    });
+      () => {
+        this.updateGraphConfig();
+      }
+    );
   };
   render() {
     return (
@@ -315,9 +328,18 @@ class CurrentOperation extends React.Component {
                       </Col>
                     ))}
                   </Row>
-                  {this.state.graphByDayType === "Column" ? (
+                  {this.state.isLoadingChart && (
+                    <Row
+                      gutter={[24, 24]}
+                      justify={"center"}
+                      align={"middle"}
+                      className={"loading-chart"}
+                    ></Row>
+                  )}
+                  {this.state.graphByDayType === "Column" && (
                     <Column {...this.state.graphByDayConfig} />
-                  ) : (
+                  )}
+                  {this.state.graphByDayType === "Bar" && (
                     <Bar {...this.state.graphByDayConfig} />
                   )}
                 </Col>

@@ -279,6 +279,10 @@ h3 {
   background-color: #5c0011;
 }
 
+.loading-chart {
+  height: 400px;
+}
+
 /*
 * Location Distance
 */
