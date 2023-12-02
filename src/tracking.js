@@ -49,6 +49,24 @@ const Tracking = {
     track("event", "share_click", {
       method: "twitter_footer",
     }),
+
+  // Error
+  headerDataError: (err) =>
+    track("event", "header_getHeaderData_error", {
+      err,
+    }),
+  mostRecentAlertError: (err) =>
+    track("event", "header_getMostRecentAlert_error", {
+      err,
+    }),
+  totalAlertsByDayError: (err) =>
+    track("event", "currentOpeation_getTotalAlertsByDay_error", {
+      err,
+    }),
+  tileError: (err) =>
+    track("event", "tile_getAlerts_error", {
+      err,
+    }),
 };
 
 export default Tracking;

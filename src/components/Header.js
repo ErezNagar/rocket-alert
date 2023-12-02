@@ -123,6 +123,7 @@ class Header extends React.Component {
         );
       })
       .catch((error) => {
+        Tracking.headerDataError(error);
         console.error(error);
         this.setState({ isError: true });
       });
@@ -208,6 +209,7 @@ class Header extends React.Component {
           }
         })
         .catch((err) => {
+          Tracking.mostRecentAlertError(err);
           console.error("Error getMostRecentAlert()", err);
         });
     }

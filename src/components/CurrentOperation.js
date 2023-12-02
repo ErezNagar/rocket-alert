@@ -147,6 +147,7 @@ class CurrentOperation extends React.Component {
         return res.payload;
       })
       .catch((error) => {
+        Tracking.totalAlertsByDayError(error);
         console.error(error);
         return null;
       });
