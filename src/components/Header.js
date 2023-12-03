@@ -83,14 +83,6 @@ class Header extends React.Component {
 
   componentDidMount() {
     this.getHeaderData();
-    // Refresh header data every HEADER_ALERT_SUMMARY_REFRESH_INTERVAL
-    this.headerDataRefreshInterval = setInterval(() => {
-      this.getHeaderData();
-    }, Util.HEADER_ALERT_SUMMARY_REFRESH_INTERVAL);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.headerDataRefreshInterval);
   }
 
   /*
@@ -116,7 +108,7 @@ class Header extends React.Component {
         const yesterdayAlertCount = values[1].success ? values[1].payload : 0;
         const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
         const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
-        const realTimeAlertCacheCount = values[4] ? values[4] : 0;
+        const realTimeAlertCacheCount = values[4] ? values[4] : [];
         this.setAlertSummary(
           todayAlertCount + realTimeAlertCacheCount.length,
           yesterdayAlertCount,
