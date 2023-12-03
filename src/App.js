@@ -66,14 +66,26 @@ class App extends React.Component {
    * If there are no alerts, returns null.
    */
   getMostRecentAlerts = () => {
-    AlertClient.getMostRecentAlerts(getYesterday(), getToday()).then(
-      (alerts) => {
-        if (!alerts) {
+    Promise.all([
+      AlertClient.getMostRecentAlerts(getYesterday(), getToday()),
+      AlertClient.getRealTimeAlertCache(),
+    ])
+      .then((values) => {
+        const mostRecentAlerts = values[0];
+        const realTimeAlertCache = values[1];
+        if (!mostRecentAlerts || !realTimeAlertCache) {
           return;
         }
+        const alerts = mostRecentAlerts
+          .concat(realTimeAlertCache)
+          .slice(-15)
+          .reverse();
         this.setState({ mostRecentAlerts: alerts });
-      }
-    );
+      })
+      .catch((error) => {
+        console.error(error);
+        this.setState({ isError: true });
+      });
   };
 
   /*

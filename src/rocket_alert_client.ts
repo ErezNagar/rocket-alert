@@ -10,7 +10,6 @@ const MAX_RECENT_ALERTS = 15;
 const AlertClient = {
   /*
    *  Gets the MAX_RECENT_ALERTS most recent alerts in the past 24 hours.
-   *  Most recent alert first.
    *
    *  @param {string} from  from date, inclusive.
    *  @param {string} to    to date, inclusive.
@@ -29,14 +28,14 @@ const AlertClient = {
       .get()
       .json()
       .then((res) => {
-        if (!res.success || res.payload?.length === 0) {
+        if (!res.success) {
           return null;
         }
         const alerts =
           res?.payload?.length > 1
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
-        return alerts.slice(-MAX_RECENT_ALERTS).reverse();
+        return alerts.slice(-MAX_RECENT_ALERTS);
       })
       .catch((e) => {
         console.log("e", e);
@@ -62,6 +61,24 @@ const AlertClient = {
       .query({ from: isoFormat(from), to: isoFormat(to) })
       .get()
       .json();
+  },
+
+  /*
+   *  Gets all real time alerts that occurred since the last alert history sync
+   *
+   *  @return {object}
+   */
+  getRealTimeAlertCache: (): any => {
+    return api
+      .url("/real-time/cached")
+      .get()
+      .json()
+      .then((res) => {
+        if (!res.success) {
+          return null;
+        }
+        return res.payload;
+      });
   },
 
   /*

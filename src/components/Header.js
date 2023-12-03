@@ -109,14 +109,16 @@ class Header extends React.Component {
       alertClient.getTotalAlerts(yesterday, yesterday),
       alertClient.getTotalAlerts(pastWeek, today),
       alertClient.getTotalAlerts(pastMonth, today),
+      alertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
         const todayAlertCount = values[0].success ? values[0].payload : 0;
         const yesterdayAlertCount = values[1].success ? values[1].payload : 0;
         const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
         const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
+        const realTimeAlertCacheCount = values[4] ? values[4] : 0;
         this.setAlertSummary(
-          todayAlertCount,
+          todayAlertCount + realTimeAlertCacheCount.length,
           yesterdayAlertCount,
           pastWeekAlertCount,
           pastMonthAlertCount
