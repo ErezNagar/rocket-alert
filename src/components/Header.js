@@ -281,7 +281,7 @@ class Header extends React.Component {
             />
           )}
           {this.state.isError && (
-            <h3 className="error">Data is currently unavailable</h3>
+            <h3 className="error">Data currently unavailable</h3>
           )}
         </div>
         <div className="header-bottom">
