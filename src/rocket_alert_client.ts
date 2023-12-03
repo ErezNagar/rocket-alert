@@ -5,7 +5,6 @@ import Util from "./util";
 
 const SERVER_URL = "https://ra-agg.kipodopik.com/api/v1/alerts";
 const api = wretch(SERVER_URL);
-const MAX_RECENT_ALERTS = 15;
 
 const AlertClient = {
   /*
@@ -35,7 +34,7 @@ const AlertClient = {
           res?.payload?.length > 1
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
-        return alerts.slice(-MAX_RECENT_ALERTS);
+        return alerts.slice(-Util.MAX_RECENT_ALERTS);
       })
       .catch((e) => {
         console.log("e", e);

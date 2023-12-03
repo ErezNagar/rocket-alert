@@ -78,7 +78,7 @@ class App extends React.Component {
         }
         const alerts = mostRecentAlerts
           .concat(realTimeAlertCache)
-          .slice(-15)
+          .slice(-Util.MAX_RECENT_ALERTS)
           .reverse();
         this.setState({ mostRecentAlerts: alerts });
       })

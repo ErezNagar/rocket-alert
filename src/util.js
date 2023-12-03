@@ -23,6 +23,11 @@ const REAL_TIME_ALERT_DISPLAY_DURATION =
 const HEADER_ALERT_SUMMARY_REFRESH_INTERVAL = 3600000;
 
 /*
+ * The max amount of alerts to show in in Most Recent Alerts section
+ */
+const MAX_RECENT_ALERTS = 15;
+
+/*
  * Checks whether the Alert Mode query string is set. Dev only.
  */
 const isAlertModeQueryString = () => {
@@ -61,6 +66,7 @@ const Util = {
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
   HEADER_ALERT_SUMMARY_REFRESH_INTERVAL,
+  MAX_RECENT_ALERTS,
 };
 
 export default Util;
