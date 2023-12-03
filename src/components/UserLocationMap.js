@@ -197,9 +197,7 @@ class UserLocationMap extends React.Component {
                 target="_blank"
                 rel="noreferrer"
                 style={{ color: "black" }}
-                onClick={() => {
-                  Tracking.shareUserLocationMapClick();
-                }}
+                onClick={Tracking.shareUserLocationMapClick}
               >
                 <TwitterOutlined style={{ fontSize: "30px", color: "black" }} />
               </a>
@@ -209,9 +207,7 @@ class UserLocationMap extends React.Component {
                   href={`https://twitter.com/share?text=${this.state?.timeToShelterShareText} ${this.state?.alertExplanationShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => {
-                    Tracking.shareUserLocationMapClick();
-                  }}
+                  onClick={Tracking.shareUserLocationMapClick}
                 >
                   Share this
                 </a>

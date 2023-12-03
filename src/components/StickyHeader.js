@@ -59,10 +59,7 @@ class StickyHeader extends React.Component {
               href={`https://twitter.com/share?text=${this.props.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
               target="_blank"
               rel="noreferrer"
-              onClick={() => {
-                Tracking.shareStickyHeaderClick();
-              }}
-              // onClick={Tracking.shareStickyHeaderClick}
+              onClick={Tracking.shareStickyHeaderClick}
             >
               <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
             </a>

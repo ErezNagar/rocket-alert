@@ -299,9 +299,7 @@ class Header extends React.Component {
                     href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
                     target="_blank"
                     rel="noreferrer"
-                    onClick={() => {
-                      Tracking.shareHeaderClick();
-                    }}
+                    onClick={Tracking.shareHeaderClick}
                   >
                     <TwitterOutlined
                       style={{ fontSize: "30px", color: "white" }}
@@ -313,9 +311,7 @@ class Header extends React.Component {
                     href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
                     target="_blank"
                     rel="noreferrer"
-                    onClick={() => {
-                      Tracking.shareHeaderClick();
-                    }}
+                    onClick={Tracking.shareHeaderClick}
                   >
                     Share
                   </a>

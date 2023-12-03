@@ -13,9 +13,7 @@ const Footer = ({ twitterShareText }) => (
               href={`https://twitter.com/share?text=${twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
               target="_blank"
               rel="noreferrer"
-              onClick={() => {
-                Tracking.shareFooterClick();
-              }}
+              onClick={Tracking.shareFooterClick}
             >
               <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
             </a>
@@ -25,9 +23,7 @@ const Footer = ({ twitterShareText }) => (
               href={`https://twitter.com/share?text=${twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
               target="_blank"
               rel="noreferrer"
-              onClick={() => {
-                Tracking.shareFooterClick();
-              }}
+              onClick={Tracking.shareFooterClick}
             >
               Share
             </a>
