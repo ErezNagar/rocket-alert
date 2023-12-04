@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { alertTimeDisplayFormat, convertToLocalTime } from "../date_helper.js";
 
 const FormattedAlertTime = ({ timeStamp }) => (
-  <>{alertTimeDisplayFormat(convertToLocalTime(timeStamp, "Asia/Jerusalem"))}</>
+  <>{alertTimeDisplayFormat(convertToLocalTime(timeStamp))}</>
 );
 
 FormattedAlertTime.propTypes = {
