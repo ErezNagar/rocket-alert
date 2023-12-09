@@ -4,7 +4,7 @@
 import Util from "./util";
 
 const track = (type, name, options) => {
-  if (Util.isDev) {
+  if (Util.isDev()) {
     return;
   }
 
