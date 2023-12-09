@@ -61,4 +61,4 @@ MostRecentAlerts.defaultProps = {
   recentAlertMapFocus() {},
 };
 
-export default withIsVisibleHook(MostRecentAlerts);
+export default withIsVisibleHook(MostRecentAlerts, "MostRecentAlerts");

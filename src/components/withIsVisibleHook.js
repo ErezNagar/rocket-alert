@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import Util from "../util";
 import Tracking from "../tracking";
 
-const withIsVisibleHook = (Component) => (props) => {
+const withIsVisibleHook = (Component, componentName) => (props) => {
   const ref = useRef();
   const isVisible = Util.useIsVisible(ref);
 
   useEffect(() => {
     if (isVisible) {
-      Tracking.visibleEvent(Component.name);
+      Tracking.visibleEvent(componentName);
     }
   }, [isVisible]);
 

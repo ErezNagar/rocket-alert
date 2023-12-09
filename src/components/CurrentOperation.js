@@ -361,4 +361,4 @@ CurrentOperation.propTypes = {
   isIntersectingRef: PropTypes.object.isRequired,
 };
 
-export default withIsVisibleHook(CurrentOperation);
+export default withIsVisibleHook(CurrentOperation, "CurrentOperation");
