@@ -4,6 +4,7 @@ import { Row, Col } from "antd";
 import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
 import Tracking from "../tracking";
+import withIsVisibleHook from "./withIsVisibleHook";
 
 const MostRecentAlerts = (props) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
@@ -20,7 +21,7 @@ const MostRecentAlerts = (props) => {
   };
 
   return (
-    <div className="container">
+    <div ref={props.isIntersectingRef} className="container">
       <h2>{"Most recent alerts"}</h2>
 
       {props.alerts.map((alert, idx) => (
@@ -52,10 +53,12 @@ const MostRecentAlerts = (props) => {
 MostRecentAlerts.propTypes = {
   alerts: PropTypes.array.isRequired,
   onAlertLocationClick: PropTypes.func,
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
 };
 
 MostRecentAlerts.defaultProps = {
   recentAlertMapFocus() {},
 };
 
-export default MostRecentAlerts;
+export default withIsVisibleHook(MostRecentAlerts);

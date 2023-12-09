@@ -1,9 +1,12 @@
 import { Row, Col } from "antd";
+import Util from "../util";
+import { useEffect, useRef } from "react";
 import beeriDistance from "../assets/beeri_distance.png";
 import nahalOzDistance from "../assets/nahal_oz_distance.png";
 import ashkelonDistance from "../assets/ashkelon_distance.png";
 import jerusalemDistance from "../assets/jerusalem_distance.png";
 import telAvivDistance from "../assets/tel_aviv_distance.png";
+import Tracking from "../tracking";
 
 const DesktopView = () => (
   <div className="desktop">
@@ -214,17 +217,28 @@ const MobileView = () => (
   </div>
 );
 
-const LocationDistance = () => (
-  <section className="section location-distance">
-    <div className="title">
-      <h2>Terrorism is closer than you think</h2>
-    </div>
+const LocationDistance = () => {
+  const ref = useRef();
+  const isVisible = Util.useIsVisible(ref);
 
-    <div className="content">
-      <DesktopView />
-      <MobileView />
-    </div>
-  </section>
-);
+  useEffect(() => {
+    if (isVisible) {
+      Tracking.visibleEvent("locationDistance");
+    }
+  }, [isVisible]);
+
+  return (
+    <section ref={ref} className="section location-distance">
+      <div className="title">
+        <h2>Terrorism is closer than you think</h2>
+      </div>
+
+      <div className="content">
+        <DesktopView />
+        <MobileView />
+      </div>
+    </section>
+  );
+};
 
 export default LocationDistance;

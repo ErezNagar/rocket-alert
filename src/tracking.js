@@ -31,6 +31,7 @@ const Tracking = {
       isAudioOn,
     }),
   alarmPlayedEvent: () => track("event", "alarm_played"),
+  visibleEvent: (section) => track("event", "visible", { section }),
 
   // Twitter share
   shareHeaderClick: () =>

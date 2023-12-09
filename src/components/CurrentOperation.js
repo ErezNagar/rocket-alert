@@ -11,6 +11,7 @@ import {
 } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../tracking";
+import withIsVisibleHook from "./withIsVisibleHook";
 
 class CurrentOperation extends React.Component {
   state = {
@@ -281,9 +282,10 @@ class CurrentOperation extends React.Component {
       }
     );
   };
+
   render() {
     return (
-      <section className="current-operation">
+      <section ref={this.props.isIntersectingRef} className="current-operation">
         <div className="currentOperationTile">
           <h2>Rocket alerts in current conflict</h2>
           <Row gutter={[24, 24]} justify={"center"}>
@@ -355,5 +357,8 @@ class CurrentOperation extends React.Component {
 
 CurrentOperation.propTypes = {
   alertsClient: PropTypes.object.isRequired,
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
 };
-export default CurrentOperation;
+
+export default withIsVisibleHook(CurrentOperation);

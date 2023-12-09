@@ -1,4 +1,5 @@
 import queryString from "query-string";
+import { useEffect, useState } from "react";
 
 /*
  * The duration in milliseconds of the css transition for real-time alert
@@ -53,10 +54,34 @@ const isLocalStorageAvailable = () => {
   }
 };
 
+/*
+ * Custom hook for tracking when sections of the page are visible in the viewport
+ */
+const useIsVisible = (ref) => {
+  const [isIntersecting, setIntersecting] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIntersecting(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(ref.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [ref]);
+
+  return isIntersecting;
+};
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
   isLocalStorageAvailable,
+  useIsVisible,
   REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
