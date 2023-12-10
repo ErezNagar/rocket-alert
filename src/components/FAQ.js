@@ -34,7 +34,7 @@ const FAQ = () => {
       <div>
         <p className="question-title">Who is shooting these rockets?</p>
         <p className="question-answer">
-          Palestinian factions from Gaza, namely{" "}
+          Palestinian terror organizations from Gaza, namely{" "}
           <a
             href="https://en.wikipedia.org/wiki/Hamas"
             target="_blank"
@@ -42,7 +42,15 @@ const FAQ = () => {
           >
             Hamas
           </a>{" "}
-          and Islamic Jihad terror organizations, as well as{" "}
+          and{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/Palestinian_Islamic_Jihad"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Islamic Jihad
+          </a>
+          , as well as{" "}
           <a
             href="https://en.wikipedia.org/wiki/Hezbollah"
             target="_blank"
@@ -104,13 +112,13 @@ const FAQ = () => {
           >
             Home Front Command
           </a>{" "}
-          (Pikud HaOref) unofficial rocket alert API, which allows you to easily
-          query for active rocket alerts. We aggregate and analyze the
-          information to show historical data
+          (Pikud HaOref) unofficial rocket alert API, which allows us to easily
+          query for real-time rocket alerts. We aggregate the data and slice &
+          dice the information to provide historical data and other insights
         </p>
       </div>
       <div>
-        <p className="question-title">How reliable is the data?</p>
+        <p className="question-title">How reliable is your data?</p>
         <p className="question-answer">
           The real-time rocket alerts we show are queried directly from the Home
           Front Command's API, which is connected to the IDF's{" "}
@@ -121,8 +129,25 @@ const FAQ = () => {
           >
             Red Color
           </a>{" "}
-          early-warning system. In most cases, it would take just a few seconds
-          for a real-time alert going off in Israel to show up.
+          early-warning system. The Red Color system is Israel's official source
+          for rocket alerts which millions of Israelis rely on for their safety.
+          A real-time alert would show up on the website immediately after
+          there's an alert going off in Israel. In some cases, and depending on
+          your connection, it might take a few seconds for an alert going off in
+          Israel to show up.
+        </p>
+      </div>
+      <div>
+        <p className="question-title">
+          Does one alert represent a single rocket?
+        </p>
+        <p className="question-answer">
+          We only have data on the number of alerts, not on the number of
+          rockets being shot. A single rocket could trigger an alert in multiple
+          locations, dependeing on the proximity of those locations to each
+          other and the geographical size of those communities. An alert in a
+          specified location typically indicates at least one rocket shot
+          towards that location.
         </p>
       </div>
     </section>
