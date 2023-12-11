@@ -61,6 +61,9 @@ const useIsVisible = (ref) => {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
+    if (!ref || !ref.current) {
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIntersecting(entry.isIntersecting);
@@ -77,11 +80,30 @@ const useIsVisible = (ref) => {
   return isIntersecting;
 };
 
+/*
+ * Returns approx. distance from Gaza in KM based on
+ * the number of seconds there are to find shelter
+ */
+const getDistanceByTimeToShelter = (timeToShelter) => {
+  // https://upload.wikimedia.org/wikipedia/commons/d/d3/%D7%98%D7%95%D7%95%D7%97_%D7%99%D7%A8%D7%99_%D7%94%D7%A8%D7%A7%D7%98%D7%95%D7%AA_%D7%9E%D7%A8%D7%A6%D7%95%D7%A2%D7%AA_%D7%A2%D7%96%D7%94.png
+  const TIME_TO_DISTANCE = {
+    0: 5,
+    15: 10,
+    30: 20,
+    45: 30,
+    60: 40,
+    90: 50,
+    180: 120,
+  };
+  return TIME_TO_DISTANCE[timeToShelter];
+};
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
   isLocalStorageAvailable,
   useIsVisible,
+  getDistanceByTimeToShelter,
   REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,

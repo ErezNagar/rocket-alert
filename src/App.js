@@ -17,6 +17,7 @@ import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import Tracking from "./tracking";
 import { getToday, getYesterday } from "./date_helper";
+import TimeToShelter from "./components/TimeToShelter";
 
 class App extends React.Component {
   state = {
@@ -200,6 +201,7 @@ class App extends React.Component {
                 />
               </Col>
             </Row>
+            <TimeToShelter alerts={this.state.mostRecentAlerts} />
             <UserLocationMap alerts={this.state.mostRecentAlerts} />
           </section>
         )}

@@ -217,6 +217,24 @@ h3 {
 }
 
 /*
+* TimeToShelter
+*/
+.time-to-shelter {
+  padding: 1em 1em;
+}
+.time-to-shelter h2 {
+  margin-top: 1em;
+}
+.time-to-shelter h3 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+.time-to-shelter p {
+  margin-top: 1em;
+}
+
+/*
 * Map
 */
 
@@ -228,24 +246,6 @@ h3 {
 .section.map {
   text-align: center;
   padding: 0;
-}
-
-.section .mapText {
-  padding: 1em 1em;
-}
-
-.section .mapText h2 {
-  margin-top: 1em;
-}
-.section .mapText h3 {
-  font-size: 1.5em;
-}
-
-.section .mapText p {
-  margin-top: 1em;
-}
-.section .mapText .enable-location {
-  font-size: 1.25em;
 }
 
 /*

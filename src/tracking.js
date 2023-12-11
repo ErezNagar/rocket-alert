@@ -42,9 +42,9 @@ const Tracking = {
     track("event", "share_click", {
       method: "twitter_sticky_header",
     }),
-  shareUserLocationMapClick: () =>
+  shareTimetoShelterClick: () =>
     track("event", "share_click", {
-      method: "twitter_user_location_map",
+      method: "twitter_time_to_shelter",
     }),
   shareFooterClick: () =>
     track("event", "share_click", {
