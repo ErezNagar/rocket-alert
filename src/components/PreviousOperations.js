@@ -26,7 +26,8 @@ const PreviousOperations = (props) => {
               subtitle={"May 9 2023 - May 13 2023"}
               fromDate={new Date("2023-05-09T00:00")}
               toDate={new Date("2023-05-13T00:00")}
-              alertsClient={props.alertsClient}
+              alertCount={775}
+              isStatic
               showAverage
             />
           </Col>
@@ -36,7 +37,8 @@ const PreviousOperations = (props) => {
               subtitle={"Aug 5 2022 - Aug 7 2022"}
               fromDate={new Date("2022-08-05T00:00")}
               toDate={new Date("2022-08-07T00:00")}
-              alertsClient={props.alertsClient}
+              alertCount={754}
+              isStatic
               showAverage
             />
           </Col>
@@ -46,7 +48,8 @@ const PreviousOperations = (props) => {
               subtitle={"May 10, 2021 - May 21, 2021"}
               fromDate={new Date("2021-05-10")}
               toDate={new Date("2021-05-21")}
-              alertsClient={props.alertsClient}
+              alertCount={7000}
+              isStatic
               showAverage
             />
           </Col>
@@ -56,7 +59,8 @@ const PreviousOperations = (props) => {
               subtitle={"Nov 12, 2019 - Nov 16, 2019"}
               fromDate={new Date("2019-11-12")}
               toDate={new Date("2019-11-16")}
-              alertsClient={props.alertsClient}
+              alertCount={928}
+              isStatic
               showAverage
             />
           </Col>
@@ -66,7 +70,8 @@ const PreviousOperations = (props) => {
               subtitle={"July 8, 2014 - Aug 26, 2014"}
               fromDate={new Date("2014-07-08")}
               toDate={new Date("2014-08-26")}
-              alertsClient={props.alertsClient}
+              alertCount={12808}
+              isStatic
               showAverage
             />
           </Col>
