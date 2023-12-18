@@ -24,7 +24,7 @@ const RealTimeAlertManager = {
       RealTimeAlertManager.processAlert(cb);
     };
     RealTimeAlertManager.alertEventSource.addEventListener("message", (e) => {
-      if (e.data.name === "KEEP_ALIVE") {
+      if (JSON.parse(e.data).name === "KEEP_ALIVE") {
         return;
       }
       if (RealTimeAlertManager.alertQueue.length === MAX_QUEUE_SIZE) {
