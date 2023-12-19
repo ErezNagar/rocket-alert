@@ -13,7 +13,8 @@ import {
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import AudioControls from "./AudioControls";
-import { Statistic } from "antd";
+import { Statistic, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
 import Tracking from "../tracking";
@@ -22,15 +23,26 @@ const HeaderContent = ({
   alertSummaryTitle,
   alertSummaryText,
   alertSummaryCount,
+  isLoading,
 }) => (
   <>
-    {alertSummaryCount > 0 && (
-      <FadeIn show={true}>
-        <Statistic value={alertSummaryCount} />
-      </FadeIn>
+    {isLoading ? (
+      <Spin
+        indicator={
+          <LoadingOutlined style={{ fontSize: 36, color: "white" }} spin />
+        }
+      />
+    ) : (
+      <>
+        {alertSummaryCount > 0 && (
+          <FadeIn show={true}>
+            <Statistic value={alertSummaryCount} />
+          </FadeIn>
+        )}
+        <h3>{alertSummaryTitle}</h3>
+        <div className="summary-text">{alertSummaryText}</div>
+      </>
     )}
-    <h3>{alertSummaryTitle}</h3>
-    <div className="summary-text">{alertSummaryText}</div>
   </>
 );
 
@@ -38,6 +50,7 @@ HeaderContent.propTypes = {
   alertSummaryTitle: PropTypes.string,
   alertSummaryText: PropTypes.string,
   alertSummaryCount: PropTypes.number,
+  isLoading: PropTypes.bool.isRequired,
 };
 HeaderContent.defaultProps = {
   alertSummaryTitle: "",
@@ -59,12 +72,10 @@ const AlertModeHeaderContent = ({ shouldRefresh, alert }) => (
 AlertModeHeaderContent.propTypes = {
   shouldRefresh: PropTypes.bool,
   alert: PropTypes.object,
-  alertSummaryCount: PropTypes.number,
 };
 AlertModeHeaderContent.defaultProps = {
   shouldRefresh: false,
   alert: {},
-  alertSummaryCount: 0,
 };
 
 class Header extends React.Component {
@@ -119,7 +130,7 @@ class Header extends React.Component {
       .catch((error) => {
         Tracking.headerDataError(error);
         console.error(error);
-        this.setState({ isError: true });
+        this.setState({ isError: true, isLoading: false });
       });
   }
 
@@ -214,6 +225,7 @@ class Header extends React.Component {
       alertSummaryTitle,
       alertSummaryText,
       twitterShareText,
+      isLoading: false,
     });
     this.props.onTwitterShareText(twitterShareText);
   };
@@ -278,6 +290,7 @@ class Header extends React.Component {
               alertSummaryTitle={this.state.alertSummaryTitle}
               alertSummaryText={this.state.alertSummaryText}
               alertSummaryCount={this.state.alertSummaryCount}
+              isLoading={this.state.isLoading}
             />
           )}
           {this.state.isError && (
