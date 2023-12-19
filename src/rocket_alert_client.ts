@@ -3,7 +3,7 @@ import isValid from "date-fns/isValid";
 import { isoFormat } from "./date_helper";
 import Util from "./util";
 
-const SERVER_URL = "https://ra-agg.kpd.one/api/v1/alerts";
+const SERVER_URL = "https://agg.rocketalert.live/api/v1/alerts";
 const api = wretch(SERVER_URL);
 
 const AlertClient = {
