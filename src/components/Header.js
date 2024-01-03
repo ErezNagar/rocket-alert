@@ -6,7 +6,6 @@ import alarmAudio from "../assets/alarm.mp3";
 import { Row, Col } from "antd";
 import {
   getNow,
-  getToday,
   getStartOfToday,
   getStartOfYesterday,
   getEndOfYesterday,
@@ -108,7 +107,6 @@ class Header extends React.Component {
     const now = getNow();
 
     const startOfToday = getStartOfToday();
-    console.log("startOfToday", startOfToday);
     const startOfYesterday = getStartOfYesterday();
     const endOfYesterday = getEndOfYesterday();
     const pastWeek = getPastWeek();

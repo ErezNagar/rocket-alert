@@ -19,13 +19,8 @@ export const convertToServerTime = (date) =>
   utcToZonedTime(date, "Asia/Jerusalem");
 
 export const isoFormat = (date) => {
-  const timeAndOffset = formatISO(date, {
-    representation: "time",
-  });
-  const time = timeAndOffset.substring(0, timeAndOffset.length - 6);
-  return `${formatISO(date, {
-    representation: "date",
-  })}T${time}`;
+  const dateTimeISO = formatISO(date);
+  return dateTimeISO.substring(0, dateTimeISO.length - 6);
 };
 
 export const displayFormat = (date) => format(date, "MMM d, yyyy");
