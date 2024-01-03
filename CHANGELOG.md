@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.0](https://github.com/ErezNagar/code-red/releases/tag/v1.6.0) - 03/01/2024
+
+Added:
+
+- Use date with time for more granular data query
+
 ## [1.6.0](https://github.com/ErezNagar/code-red/releases/tag/v1.6.0) - 18/11/2023
 
 Added:

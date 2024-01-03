@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
 import {
-  getToday,
+  getNow,
   getYesterday,
+  getStartOfYesterday,
+  getEndOfYesterday,
   getPastWeek,
   getPastMonth,
   // getPastYear,
@@ -17,8 +19,8 @@ const PreviousStats = (props) => (
         <Tile
           title={"Yesterday"}
           subtitle={displayFormat(getYesterday())}
-          fromDate={getYesterday()}
-          toDate={getYesterday()}
+          fromDate={getStartOfYesterday()}
+          toDate={getEndOfYesterday()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -27,7 +29,7 @@ const PreviousStats = (props) => (
           title={"Past Week"}
           subtitle={`Since ${displayFormat(getPastWeek())}`}
           fromDate={getPastWeek()}
-          toDate={getToday()}
+          toDate={getNow()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -36,7 +38,7 @@ const PreviousStats = (props) => (
           title={"Past Month"}
           subtitle={`Since ${displayFormat(getPastMonth())}`}
           fromDate={getPastMonth()}
-          toDate={getToday()}
+          toDate={getNow()}
           alertsClient={props.alertsClient}
         />
       </Col>
@@ -45,7 +47,7 @@ const PreviousStats = (props) => (
           title={"Past Year"}
           subtitle={`Since ${displayFormat(getPastYear())}`}
           fromDate={getPastYear()}
-          toDate={getToday()}
+          toDate={getNow()}
           alertsClient={props.alertsClient}
         />
       </Col> */}

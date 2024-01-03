@@ -6,6 +6,9 @@ import {
   formatISO,
   format,
   differenceInWeeks,
+  startOfToday,
+  startOfYesterday,
+  endOfYesterday,
 } from "date-fns";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 
@@ -15,10 +18,15 @@ export const convertToLocalTime = (date) =>
 export const convertToServerTime = (date) =>
   utcToZonedTime(date, "Asia/Jerusalem");
 
-export const isoFormat = (date) =>
-  formatISO(date, {
-    representation: "date",
+export const isoFormat = (date) => {
+  const timeAndOffset = formatISO(date, {
+    representation: "time",
   });
+  const time = timeAndOffset.substring(0, timeAndOffset.length - 6);
+  return `${formatISO(date, {
+    representation: "date",
+  })}T${time}`;
+};
 
 export const displayFormat = (date) => format(date, "MMM d, yyyy");
 
@@ -34,7 +42,15 @@ export const isWeekDifference = (fromDate, toDate) => {
 export const weekRangeFormat = (fromDate, toDate) =>
   `${dayOfMonthFormat(fromDate)} - ${dayOfMonthFormat(subDays(toDate, 1))}`;
 
-export const getToday = () => new Date();
+export const getNow = () => new Date();
+
+export const getStartOfToday = () => startOfToday();
+
+export const getStartOfYesterday = () => startOfYesterday();
+
+export const getEndOfYesterday = () => endOfYesterday();
+
+export const get24HoursAgo = () => subDays(new Date(), 1);
 
 export const getYesterday = () => subDays(new Date(), 1);
 

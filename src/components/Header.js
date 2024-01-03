@@ -5,8 +5,11 @@ import logo from "../assets/logo.svg";
 import alarmAudio from "../assets/alarm.mp3";
 import { Row, Col } from "antd";
 import {
+  getNow,
   getToday,
-  getYesterday,
+  getStartOfToday,
+  getStartOfYesterday,
+  getEndOfYesterday,
   getPastWeek,
   getPastMonth,
 } from "../date_helper";
@@ -102,16 +105,20 @@ class Header extends React.Component {
    */
   getHeaderData() {
     const alertClient = this.props.alertClient;
-    const today = getToday();
-    const yesterday = getYesterday();
+    const now = getNow();
+
+    const startOfToday = getStartOfToday();
+    console.log("startOfToday", startOfToday);
+    const startOfYesterday = getStartOfYesterday();
+    const endOfYesterday = getEndOfYesterday();
     const pastWeek = getPastWeek();
     const pastMonth = getPastMonth();
 
     Promise.all([
-      alertClient.getTotalAlerts(today, today),
-      alertClient.getTotalAlerts(yesterday, yesterday),
-      alertClient.getTotalAlerts(pastWeek, today),
-      alertClient.getTotalAlerts(pastMonth, today),
+      alertClient.getTotalAlerts(startOfToday, now),
+      alertClient.getTotalAlerts(startOfYesterday, endOfYesterday),
+      alertClient.getTotalAlerts(pastWeek, now),
+      alertClient.getTotalAlerts(pastMonth, now),
       alertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
@@ -200,9 +207,9 @@ class Header extends React.Component {
         .getMostRecentAlert()
         .then((res) => {
           if (res.success) {
-            const today = getToday();
+            const now = getNow();
             const monthsAgo = differenceInMonths(
-              new Date(today),
+              new Date(now),
               new Date(res.payload.date)
             );
             if (monthsAgo === 1) {

@@ -16,7 +16,7 @@ import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Util from "./util";
 import Tracking from "./tracking";
-import { getToday, getYesterday } from "./date_helper";
+import { getNow, get24HoursAgo } from "./date_helper";
 import TimeToShelter from "./components/TimeToShelter";
 
 class App extends React.Component {
@@ -68,7 +68,7 @@ class App extends React.Component {
    */
   getMostRecentAlerts = () => {
     Promise.all([
-      AlertClient.getMostRecentAlerts(getYesterday(), getToday()),
+      AlertClient.getMostRecentAlerts(get24HoursAgo(), getNow()),
       AlertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {

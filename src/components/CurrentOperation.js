@@ -4,7 +4,7 @@ import { Row, Col, Button } from "antd";
 import Tile from "./Tile";
 import { eachDayOfInterval, isSameDay } from "date-fns";
 import {
-  getToday,
+  getNow,
   dayOfMonthFormat,
   isWeekDifference,
   weekRangeFormat,
@@ -143,7 +143,7 @@ class CurrentOperation extends React.Component {
 
   getTotalAlertsByDay = () =>
     this.props.alertsClient
-      .getTotalAlertsByDay(new Date("2023-10-07T00:00"), getToday())
+      .getTotalAlertsByDay(new Date("2023-10-06T17:00"), getNow())
       .then((res) => {
         return res.payload;
       })
@@ -173,7 +173,7 @@ class CurrentOperation extends React.Component {
     });
 
     data.push({
-      week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getToday())}`,
+      week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getNow())}`,
       count: weeklyAlertCount,
     });
 
@@ -218,7 +218,7 @@ class CurrentOperation extends React.Component {
     const data = { months: [] };
     const datesInterval = eachDayOfInterval({
       start: new Date("2023-10-07T00:00"),
-      end: getToday(),
+      end: getNow(),
     });
 
     datesInterval.forEach((dateInterval) => {
@@ -293,7 +293,7 @@ class CurrentOperation extends React.Component {
               <Tile
                 title={"Operation Swords of Iron"}
                 subtitle={"Since October 7, 2023"}
-                fromDate={new Date("2023-10-07T00:00")}
+                fromDate={new Date("2023-10-06T17:00")}
                 // toDate={new Date("2022-08-08T00:00")}
                 alertsClient={this.props.alertsClient}
                 showAverage

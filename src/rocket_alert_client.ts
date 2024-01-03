@@ -1,6 +1,6 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
-import { isoFormat } from "./date_helper";
+import { isoFormat, convertToServerTime } from "./date_helper";
 import Util from "./util";
 
 const SERVER_URL = "https://agg.rocketalert.live/api/v1/alerts";
@@ -23,7 +23,10 @@ const AlertClient = {
     }
     return api
       .url("/details")
-      .query({ from: isoFormat(from), to: isoFormat(to) })
+      .query({
+        from: isoFormat(convertToServerTime(from)),
+        to: isoFormat(convertToServerTime(to)),
+      })
       .get()
       .json()
       .then((res) => {
@@ -57,7 +60,10 @@ const AlertClient = {
     }
     return api
       .url("/daily")
-      .query({ from: isoFormat(from), to: isoFormat(to) })
+      .query({
+        from: isoFormat(convertToServerTime(from)),
+        to: isoFormat(convertToServerTime(to)),
+      })
       .get()
       .json();
   },
@@ -96,7 +102,10 @@ const AlertClient = {
     }
     return api
       .url("/total")
-      .query({ from: isoFormat(from), to: isoFormat(to) })
+      .query({
+        from: isoFormat(convertToServerTime(from)),
+        to: isoFormat(convertToServerTime(to)),
+      })
       .get()
       .json();
   },
