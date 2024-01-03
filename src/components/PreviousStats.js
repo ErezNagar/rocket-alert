@@ -3,9 +3,9 @@ import { Row, Col } from "antd";
 import Tile from "./Tile";
 import {
   getNow,
-  getYesterday,
-  getStartOfYesterday,
-  getEndOfYesterday,
+  // getYesterday,
+  // getStartOfYesterday,
+  // getEndOfYesterday,
   getPastWeek,
   getPastMonth,
   // getPastYear,
@@ -15,7 +15,7 @@ import {
 const PreviousStats = (props) => (
   <section className="section">
     <Row gutter={[24, 24]} justify={"center"}>
-      <Col xs={24} sm={12} md={8} lg={6}>
+      {/* <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Yesterday"}
           subtitle={displayFormat(getYesterday())}
@@ -23,7 +23,7 @@ const PreviousStats = (props) => (
           toDate={getEndOfYesterday()}
           alertsClient={props.alertsClient}
         />
-      </Col>
+      </Col> */}
       <Col xs={24} sm={12} md={8} lg={6}>
         <Tile
           title={"Past Week"}

@@ -5,6 +5,7 @@ import Tile from "./Tile";
 import { eachDayOfInterval, isSameDay } from "date-fns";
 import {
   getNow,
+  getYesterday,
   dayOfMonthFormat,
   isWeekDifference,
   weekRangeFormat,
@@ -218,7 +219,7 @@ class CurrentOperation extends React.Component {
     const data = { months: [] };
     const datesInterval = eachDayOfInterval({
       start: new Date("2023-10-07T00:00"),
-      end: getNow(),
+      end: getYesterday(),
     });
 
     datesInterval.forEach((dateInterval) => {
