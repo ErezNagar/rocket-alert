@@ -152,11 +152,6 @@ class Header extends React.Component {
     let alertSummaryText = "";
     let alertSummaryCount = 0;
 
-    todayAlertCount = 0;
-    yesterdayAlertCount = 0;
-    pastWeekAlertCount = 0;
-    pastMonthAlertCount = 0;
-
     if (todayAlertCount > 0) {
       alertSummaryCount = todayAlertCount;
       alertSummaryTitle = `Rocket alerts today`;
