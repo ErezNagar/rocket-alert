@@ -152,6 +152,11 @@ class Header extends React.Component {
     let alertSummaryText = "";
     let alertSummaryCount = 0;
 
+    todayAlertCount = 0;
+    yesterdayAlertCount = 0;
+    pastWeekAlertCount = 0;
+    pastMonthAlertCount = 0;
+
     if (todayAlertCount > 0) {
       alertSummaryCount = todayAlertCount;
       alertSummaryTitle = `Rocket alerts today`;
@@ -205,12 +210,11 @@ class Header extends React.Component {
         .getMostRecentAlert()
         .then((res) => {
           if (res.success) {
-            const now = getNow();
             const monthsAgo = differenceInMonths(
-              new Date(now),
+              getNow(),
               new Date(res.payload.date)
             );
-            if (monthsAgo === 1) {
+            if (monthsAgo <= 1) {
               alertSummaryTitle = `Last rocket alert was a month ago`;
             }
             if (monthsAgo > 1) {

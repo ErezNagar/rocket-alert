@@ -144,7 +144,7 @@ class CurrentOperation extends React.Component {
 
   getTotalAlertsByDay = () =>
     this.props.alertsClient
-      .getTotalAlertsByDay(new Date("2023-10-06T17:00"), getNow())
+      .getTotalAlertsByDay(new Date("2023-10-07"), getNow())
       .then((res) => {
         return res.payload;
       })
@@ -294,7 +294,7 @@ class CurrentOperation extends React.Component {
               <Tile
                 title={"Operation Swords of Iron"}
                 subtitle={"Since October 7, 2023"}
-                fromDate={new Date("2023-10-06T17:00")}
+                fromDate={new Date("2023-10-07")}
                 // toDate={new Date("2022-08-08T00:00")}
                 alertsClient={this.props.alertsClient}
                 showAverage
