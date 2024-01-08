@@ -79,7 +79,7 @@ const FAQ = () => {
         </p>
       </div>
       <div>
-        <p className="question-title">What is Iron Dome</p>
+        <p className="question-title">What is Iron Dome?</p>
         <p className="question-answer">
           The{" "}
           <a
