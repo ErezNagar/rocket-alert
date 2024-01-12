@@ -150,6 +150,14 @@ const FAQ = () => {
           towards that location.
         </p>
       </div>
+      <div>
+        <p className="question-title">How can I get more granluar data?</p>
+        <p className="question-answer">
+          We'd love to help! Feel free to{" "}
+          <a href={"mailto: rocketalertlive@gmail.com"}>contact us</a> with more
+          information on your speific use case.
+        </p>
+      </div>
     </section>
   );
 };
