@@ -339,7 +339,7 @@ class CurrentOperation extends React.Component {
                   <h2>Alerts by day since Oct 7</h2>
                   <Row justify={"center"} className={"month-list"}>
                     {this.state.byDayData.months.map((month) => (
-                      <Col xs={24} md={3} lg={2} key={month}>
+                      <Col xs={24} md={4} lg={3} key={month}>
                         <Button
                           size="large"
                           type="text"
