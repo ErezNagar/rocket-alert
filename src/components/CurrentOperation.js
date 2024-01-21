@@ -71,7 +71,7 @@ class CurrentOperation extends React.Component {
           autoRotate: true,
           style: {
             fill: "black",
-            fontSize: 16,
+            fontSize: 14,
           },
         },
       },
