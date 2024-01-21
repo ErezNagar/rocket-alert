@@ -7,7 +7,7 @@ import {
   getNow,
   getYesterday,
   dayOfMonthFormat,
-  isWeekDifference,
+  isBiWeeklyDifference,
   weekRangeFormat,
 } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
@@ -155,27 +155,50 @@ class CurrentOperation extends React.Component {
       });
 
   buildAlertsByWeekGraph = (alertsPerDay) => {
+    // Alerts By Month
+
+    // let data = [];
+    // let monthlyAlertCount = 0;
+    // let currentMonth = "10"; // Starting from October
+    // alertsPerDay.forEach(({ alerts, timeStamp }) => {
+    //   const [year, month, day] = timeStamp.split("-");
+    //   if (currentMonth !== month) {
+    //     data.push({
+    //       month: currentMonth,
+    //       count: monthlyAlertCount,
+    //     });
+    //     currentMonth = month;
+    //     monthlyAlertCount = 0;
+    //   }
+
+    //   monthlyAlertCount += alerts;
+    // });
+
+    // data.push({
+    //   month: currentMonth,
+    //   count: monthlyAlertCount,
+    // });
     let data = [];
-    let weeklyAlertCount = 0;
+    let biweeklyAlertCount = 0;
     let weekDate = new Date(2023, 9, 7);
     alertsPerDay.forEach(({ alerts, timeStamp }) => {
       const [year, month, day] = timeStamp.split("-");
       const date = new Date(year, month - 1, day);
-      if (isWeekDifference(weekDate, date)) {
+      if (isBiWeeklyDifference(weekDate, date)) {
         data.push({
           week: weekRangeFormat(weekDate, date),
-          count: weeklyAlertCount,
+          count: biweeklyAlertCount,
         });
         weekDate = date;
-        weeklyAlertCount = 0;
+        biweeklyAlertCount = 0;
       }
 
-      weeklyAlertCount += alerts;
+      biweeklyAlertCount += alerts;
     });
 
     data.push({
       week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getNow())}`,
-      count: weeklyAlertCount,
+      count: biweeklyAlertCount,
     });
 
     this.setState({
@@ -205,7 +228,7 @@ class CurrentOperation extends React.Component {
             autoRotate: true,
             style: {
               fill: "black",
-              fontSize: 16,
+              fontSize: 14,
             },
           },
         },
@@ -307,7 +330,7 @@ class CurrentOperation extends React.Component {
             <Row gutter={[24, 24]} justify={"center"}>
               {this.state.showGraphByWeek && (
                 <Col span={24}>
-                  <h2>Alerts by week since Oct 7</h2>
+                  <h2>Bi-weekly alerts since Oct 7</h2>
                   <Column {...this.state.graphByWeekConfig} />
                 </Col>
               )}

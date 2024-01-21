@@ -29,9 +29,9 @@ export const alertTimeDisplayFormat = (date) => format(date, "HH:mm");
 
 export const dayOfMonthFormat = (date) => format(date, "M/d");
 
-export const isWeekDifference = (fromDate, toDate) => {
+export const isBiWeeklyDifference = (fromDate, toDate) => {
   const diff = differenceInWeeks(fromDate, toDate);
-  return Math.abs(diff) === 1 ? true : false;
+  return Math.abs(diff) === 2 ? true : false;
 };
 
 export const weekRangeFormat = (fromDate, toDate) =>
