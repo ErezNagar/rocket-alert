@@ -6,7 +6,33 @@ import Util from "./util";
 const SERVER_URL = "https://agg.rocketalert.live/api/v1/alerts";
 const api = wretch(SERVER_URL);
 
+/*
+ *  Gets detailed alert data for alerts in the given date range
+ *
+ *  @param {string} from  from date, inclusive.
+ *  @param {string} to    to date, inclusive.
+ *  @return {object}
+ */
+const getDetailedAlerts = (from: string, to: string) => {
+  if (!from || !isValid(new Date(from))) {
+    return Promise.reject(new Error("Invalid Date: from"));
+  }
+  if (!to || !isValid(new Date(to))) {
+    return Promise.reject(new Error("Invalid Date: to"));
+  }
+  return api
+    .url("/details")
+    .query({
+      from: isoFormat(convertToServerTime(from)),
+      to: isoFormat(convertToServerTime(to)),
+    })
+    .get()
+    .json();
+};
+
 const AlertClient = {
+  getDetailedAlerts,
+
   /*
    *  Gets the MAX_RECENT_ALERTS most recent alerts in the past 24 hours.
    *
@@ -15,20 +41,7 @@ const AlertClient = {
    *  @return {object}
    */
   getMostRecentAlerts: (from: string, to: string): any => {
-    if (!from || !isValid(new Date(from))) {
-      return Promise.reject(new Error("Invalid Date: from"));
-    }
-    if (!to || !isValid(new Date(to))) {
-      return Promise.reject(new Error("Invalid Date: to"));
-    }
-    return api
-      .url("/details")
-      .query({
-        from: isoFormat(convertToServerTime(from)),
-        to: isoFormat(convertToServerTime(to)),
-      })
-      .get()
-      .json()
+    return getDetailedAlerts(from, to)
       .then((res) => {
         if (!res.success) {
           return null;

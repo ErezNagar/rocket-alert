@@ -19,20 +19,23 @@ class CurrentOperation extends React.Component {
     data: [],
     showGraphByWeek: false,
     showGraphByDay: false,
+    showGraphByOrigin: false,
     graphByDayType: "Column",
     graphByWeekConfig: null,
-    selectedMonth: null,
     graphByDayConfig: null,
+    graphByOriginConfig: null,
+    selectedMonth: null,
     isLoadingChart: false,
   };
 
   componentDidMount() {
-    this.getTotalAlertsByDay().then((alertsPerDay) => {
-      if (!alertsPerDay || alertsPerDay.length === 0) {
+    this.getDetailedAlerts().then((alerts) => {
+      if (!alerts || alerts.length === 0) {
         return;
       }
-      this.buildAlertsByWeekGraph(alertsPerDay);
-      this.buildAlertsByDayGraph(alertsPerDay);
+      this.buildAlertsByWeekGraph(alerts);
+      this.buildAlertsByDayGraph(alerts);
+      this.buildAlertsBySourceGraph(alerts);
     });
 
     window.addEventListener("resize", this.updateGraphConfig);
@@ -142,14 +145,14 @@ class CurrentOperation extends React.Component {
     });
   };
 
-  getTotalAlertsByDay = () =>
+  getDetailedAlerts = () =>
     this.props.alertsClient
-      .getTotalAlertsByDay(new Date("2023-10-07"), getNow())
+      .getDetailedAlerts(new Date("2023-10-07"), getNow())
       .then((res) => {
         return res.payload;
       })
       .catch((error) => {
-        Tracking.totalAlertsByDayError(error);
+        Tracking.detailedAlertsByDayError(error);
         console.error(error);
         return null;
       });
@@ -181,19 +184,19 @@ class CurrentOperation extends React.Component {
     let data = [];
     let biweeklyAlertCount = 0;
     let weekDate = new Date(2023, 9, 7);
-    alertsPerDay.forEach(({ alerts, timeStamp }) => {
-      const [year, month, day] = timeStamp.split("-");
-      const date = new Date(year, month - 1, day);
-      if (isBiWeeklyDifference(weekDate, date)) {
+    alertsPerDay.forEach(({ alerts, date }) => {
+      const [year, month, day] = date.split("-");
+      const theDate = new Date(year, month - 1, day);
+      if (isBiWeeklyDifference(weekDate, theDate)) {
         data.push({
-          week: weekRangeFormat(weekDate, date),
+          week: weekRangeFormat(weekDate, theDate),
           count: biweeklyAlertCount,
         });
-        weekDate = date;
+        weekDate = theDate;
         biweeklyAlertCount = 0;
       }
 
-      biweeklyAlertCount += alerts;
+      biweeklyAlertCount += alerts.length;
     });
 
     data.push({
@@ -257,7 +260,7 @@ class CurrentOperation extends React.Component {
       if (dataIndex >= alertsPerDay.length) {
         data[monthName].push({ day: dayOfMonthFormat(dateInterval), count: 0 });
       } else {
-        const [year, month, day] = alertsPerDay[dataIndex].timeStamp.split("-");
+        const [year, month, day] = alertsPerDay[dataIndex].date.split("-");
         const dateOfAlerts = new Date(year, month - 1, day);
         /* If there's alert data for this dateInterval, use it
            Otherwise, there's no alert data since alerts = 0
@@ -265,7 +268,7 @@ class CurrentOperation extends React.Component {
         if (isSameDay(dateInterval, dateOfAlerts)) {
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            count: alertsPerDay[dataIndex].alerts,
+            count: alertsPerDay[dataIndex].alerts.length,
           });
           dataIndex = dataIndex + 1;
         } else {
@@ -289,6 +292,125 @@ class CurrentOperation extends React.Component {
     });
 
     this.updateGraphConfig();
+  };
+
+  buildAlertsBySourceGraph = (alertsPerDay) => {
+    let data = [];
+    let originSouthCount = 0;
+    let originNorthCount = 0;
+    let weekDate = new Date(2023, 9, 7);
+    alertsPerDay.forEach(({ alerts, date }) => {
+      const [year, month, day] = date.split("-");
+      const theDate = new Date(year, month - 1, day);
+      if (isBiWeeklyDifference(weekDate, theDate)) {
+        data.push({
+          week: weekRangeFormat(weekDate, theDate),
+          count: originSouthCount,
+          origin: "Gaza / Hamas",
+        });
+        data.push({
+          week: weekRangeFormat(weekDate, theDate),
+          count: originNorthCount,
+          origin: "Southern Lebanon / Hezbollah",
+        });
+        weekDate = theDate;
+        originSouthCount = 0;
+        originNorthCount = 0;
+      }
+
+      let originSouth = 0;
+      let originNorth = 0;
+      alerts.forEach((alert) => {
+        if (
+          alert.areaNameEn === "Gaza Envelope" ||
+          alert.areaNameEn === "Western Negev" ||
+          alert.areaNameEn === "Southern Negev" ||
+          alert.areaNameEn === "Central Negev" ||
+          alert.areaNameEn === "Shfelat Yehuda" ||
+          alert.areaNameEn === "Shfela (Lowlands)" ||
+          alert.areaNameEn === "Judea" ||
+          alert.areaNameEn === "Lakhish" ||
+          alert.areaNameEn === "Western Lakhish" ||
+          alert.areaNameEn === "Dead Sea" ||
+          alert.areaNameEn === "Eilat" ||
+          alert.areaNameEn === "Arabah" ||
+          alert.areaNameEn === "Bika'a" ||
+          alert.areaNameEn === "Jerusalem" ||
+          alert.areaNameEn === "Yarkon" ||
+          alert.areaNameEn === "Dan" ||
+          alert.areaNameEn === "Sharon"
+        ) {
+          originSouth += 1;
+        } else if (
+          alert.areaNameEn === "HaAmakim" ||
+          alert.areaNameEn === "Samaria" ||
+          alert.areaNameEn === "Southern Golan" ||
+          alert.areaNameEn === "Upper Galilee" ||
+          alert.areaNameEn === "Lower Galilee" ||
+          alert.areaNameEn === "Menashe" ||
+          alert.areaNameEn === "Confrontation Line" ||
+          alert.areaNameEn === "Wadi Ara" ||
+          alert.areaNameEn === "Center Galilee" ||
+          alert.areaNameEn === "HaMifratz" ||
+          alert.areaNameEn === "HaCarmel" ||
+          alert.areaNameEn === "Beit Sha'an Valley" ||
+          alert.areaNameEn === "Northern Golan" ||
+          alert.areaNameEn === "HaAmakim"
+        ) {
+          originNorth += 1;
+        }
+      });
+
+      originSouthCount += originSouth;
+      originNorthCount += originNorth;
+    });
+
+    data.push({
+      week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getNow())}`,
+      count: originSouthCount,
+      origin: "Gaza / Hamas",
+    });
+    data.push({
+      week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getNow())}`,
+      count: originNorthCount,
+      origin: "Southern Lebanon / Hezbollah",
+    });
+
+    this.setState({
+      showGraphByOrigin: true,
+      graphByOriginConfig: {
+        data,
+        xField: "week",
+        yField: "count",
+        isGroup: true,
+        seriesField: "origin",
+        // columnWidthRatio: 0.5,
+        columnStyle: {
+          radius: [20, 20, 0, 0],
+        },
+        color: ["#008000", "#F7E210", "#5c0011"],
+        appendPadding: [30, 0, 0, 0],
+        label: {
+          position: "top",
+          style: {
+            fill: "black",
+            opacity: 1,
+            fontSize: 16,
+          },
+        },
+        xAxis: {
+          label: {
+            autoHide: true,
+            autoRotate: true,
+            style: {
+              fill: "black",
+              fontSize: 14,
+            },
+          },
+        },
+        yAxis: false,
+      },
+    });
   };
 
   handleMonthClick = (month) => {
@@ -325,7 +447,9 @@ class CurrentOperation extends React.Component {
             </Col>
           </Row>
         </div>
-        {(this.state.showGraphByWeek || this.state.showGraphByDay) && (
+        {(this.state.showGraphByWeek ||
+          this.state.showGraphByDay ||
+          this.state.showGraphByOrigin) && (
           <div className="current-operation-graph">
             <Row gutter={[24, 24]} justify={"center"}>
               {this.state.showGraphByWeek && (
@@ -370,6 +494,20 @@ class CurrentOperation extends React.Component {
                     <Bar {...this.state.graphByDayConfig} />
                   )}
                 </Col>
+              )}
+              {this.state.showGraphByOrigin && (
+                <>
+                  <Col span={24}>
+                    <h2>Alerts by source since Oct 7</h2>
+                    <Column {...this.state.graphByOriginConfig} />
+                  </Col>
+                  <Col gutter={[24, 24]}>
+                    Estimation only. Based on alert location and its distance
+                    from the Gaza Strip vs Southern Lebanon. Alerts from Gaza
+                    may also include rockets shot by Islamic Jihad; Alerts from Southern Lebanon
+                    may also include rockets shot by other Iranian proxies.
+                  </Col>
+                </>
               )}
             </Row>
           </div>

@@ -60,8 +60,8 @@ const Tracking = {
     track("event", "header_getMostRecentAlert_error", {
       err,
     }),
-  totalAlertsByDayError: (err) =>
-    track("event", "currentOpeation_getTotalAlertsByDay_error", {
+  detailedAlertsByDayError: (err) =>
+    track("event", "currentOpeation_getDetailedAlertsByDay_error", {
       err,
     }),
   tileError: (err) =>
