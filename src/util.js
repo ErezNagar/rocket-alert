@@ -98,12 +98,56 @@ const getDistanceByTimeToShelter = (timeToShelter) => {
   return TIME_TO_DISTANCE[timeToShelter];
 };
 
+const isRegionInSouth = (region) => {
+  const REGIONS_IN_SOUTH = [
+    "Gaza Envelope",
+    "Western Negev",
+    "Southern Negev",
+    "Central Negev",
+    "Shfelat Yehuda",
+    "Shfela (Lowlands)",
+    "Judea",
+    "Lakhish",
+    "Western Lakhish",
+    "Dead Sea",
+    "Eilat",
+    "Arabah",
+    "Bika'a",
+    "Jerusalem",
+    "Yarkon",
+    "Dan",
+    "Sharon",
+  ];
+  return REGIONS_IN_SOUTH.includes(region);
+};
+
+const isRegionInNorth = (region) => {
+  const REGIONS_IN_NORTH = [
+    "Confrontation Line",
+    "Northern Golan",
+    "Southern Golan",
+    "Upper Galilee",
+    "Center Galilee",
+    "Lower Galilee",
+    "Wadi Ara",
+    "Menashe",
+    "HaAmakim",
+    "Samaria",
+    "HaMifratz",
+    "HaCarmel",
+    "Beit Sha'an Valley",
+  ];
+  return REGIONS_IN_NORTH.includes(region);
+};
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
   isLocalStorageAvailable,
   useIsVisible,
   getDistanceByTimeToShelter,
+  isRegionInSouth,
+  isRegionInNorth,
   REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,

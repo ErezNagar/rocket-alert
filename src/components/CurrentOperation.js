@@ -13,8 +13,39 @@ import {
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
+import Util from "../util";
 
 const GRAPH_CONFIG = {
+  ALERTS_BY_WEEKS: {
+    xField: "week",
+    yField: "count",
+    seriesField: "",
+    // columnWidthRatio: 0.5,
+    columnStyle: {
+      radius: [20, 20, 0, 0],
+    },
+    color: "#5c0011",
+    appendPadding: [30, 0, 0, 0],
+    label: {
+      position: "top",
+      style: {
+        fill: "black",
+        opacity: 1,
+        fontSize: 16,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: true,
+        style: {
+          fill: "black",
+          fontSize: 14,
+        },
+      },
+    },
+    yAxis: false,
+  },
   ALERTS_BY_DAY: {
     COLUMN: {
       xField: "day",
@@ -294,34 +325,7 @@ class CurrentOperation extends React.Component {
       showGraphByWeek: true,
       graphByWeekConfig: {
         data,
-        xField: "week",
-        yField: "count",
-        seriesField: "",
-        // columnWidthRatio: 0.5,
-        columnStyle: {
-          radius: [20, 20, 0, 0],
-        },
-        color: "#5c0011",
-        appendPadding: [30, 0, 0, 0],
-        label: {
-          position: "top",
-          style: {
-            fill: "black",
-            opacity: 1,
-            fontSize: 16,
-          },
-        },
-        xAxis: {
-          label: {
-            autoHide: true,
-            autoRotate: true,
-            style: {
-              fill: "black",
-              fontSize: 14,
-            },
-          },
-        },
-        yAxis: false,
+        ...GRAPH_CONFIG.ALERTS_BY_WEEKS,
       },
     });
   };
@@ -405,42 +409,9 @@ class CurrentOperation extends React.Component {
       let originSouth = 0;
       let originNorth = 0;
       alerts.forEach((alert) => {
-        if (
-          alert.areaNameEn === "Gaza Envelope" ||
-          alert.areaNameEn === "Western Negev" ||
-          alert.areaNameEn === "Southern Negev" ||
-          alert.areaNameEn === "Central Negev" ||
-          alert.areaNameEn === "Shfelat Yehuda" ||
-          alert.areaNameEn === "Shfela (Lowlands)" ||
-          alert.areaNameEn === "Judea" ||
-          alert.areaNameEn === "Lakhish" ||
-          alert.areaNameEn === "Western Lakhish" ||
-          alert.areaNameEn === "Dead Sea" ||
-          alert.areaNameEn === "Eilat" ||
-          alert.areaNameEn === "Arabah" ||
-          alert.areaNameEn === "Bika'a" ||
-          alert.areaNameEn === "Jerusalem" ||
-          alert.areaNameEn === "Yarkon" ||
-          alert.areaNameEn === "Dan" ||
-          alert.areaNameEn === "Sharon"
-        ) {
+        if (Util.isRegionInSouth(alert.areaNameEn)) {
           originSouth += 1;
-        } else if (
-          alert.areaNameEn === "HaAmakim" ||
-          alert.areaNameEn === "Samaria" ||
-          alert.areaNameEn === "Southern Golan" ||
-          alert.areaNameEn === "Upper Galilee" ||
-          alert.areaNameEn === "Lower Galilee" ||
-          alert.areaNameEn === "Menashe" ||
-          alert.areaNameEn === "Confrontation Line" ||
-          alert.areaNameEn === "Wadi Ara" ||
-          alert.areaNameEn === "Center Galilee" ||
-          alert.areaNameEn === "HaMifratz" ||
-          alert.areaNameEn === "HaCarmel" ||
-          alert.areaNameEn === "Beit Sha'an Valley" ||
-          alert.areaNameEn === "Northern Golan" ||
-          alert.areaNameEn === "HaAmakim"
-        ) {
+        } else if (Util.isRegionInNorth(alert.areaNameEn)) {
           originNorth += 1;
         }
       });
