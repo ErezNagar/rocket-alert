@@ -586,7 +586,7 @@ class CurrentOperation extends React.Component {
                     <Col xs={24} lg={12}>
                       <h2>Most targeted communities</h2>
                       {this.state.mostTargetedLocations.map((location) => (
-                        <Row justify={"center"}>
+                        <Row justify={"center"} key={location.englishName}>
                           <Col span={18}>
                             <a
                               className="most-targeted-location"
@@ -607,6 +607,7 @@ class CurrentOperation extends React.Component {
                       <h2>Most targeted regions</h2>
                       {this.state.mostTargetedRegions.map((region) => (
                         <Row
+                          key={region.areaNameEn}
                           justify={"center"}
                           className="most-targeted-region"
                         >
