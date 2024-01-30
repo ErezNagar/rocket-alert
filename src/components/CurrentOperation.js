@@ -205,6 +205,8 @@ class CurrentOperation extends React.Component {
     graphBySourceConfig: null,
     selectedMonth: null,
     isLoadingChart: false,
+    mostTargetedLocations: null,
+    mostTargetedRegions: null,
   };
 
   componentDidMount() {
@@ -216,6 +218,20 @@ class CurrentOperation extends React.Component {
       this.buildAlertsByDayGraph(alerts);
       this.buildAlertsBySourceGraph(alerts);
       this.updateGraphConfig();
+    });
+
+    this.getMostTargetedLocations().then((res) => {
+      if (!res) {
+        return;
+      }
+      this.setState({ mostTargetedLocations: res });
+    });
+
+    this.getMostTargetedRegions().then((res) => {
+      if (!res) {
+        return;
+      }
+      this.setState({ mostTargetedRegions: res });
     });
 
     window.addEventListener("resize", this.updateGraphConfig);
@@ -271,6 +287,28 @@ class CurrentOperation extends React.Component {
       .catch((error) => {
         Tracking.detailedAlertsByDayError(error);
         console.error(error);
+        return null;
+      });
+
+  getMostTargetedLocations = () =>
+    this.props.alertsClient
+      .getMostTargetedLocations(new Date("2023-10-07"), getNow())
+      .then((res) => {
+        return res.payload;
+      })
+      .catch((error) => {
+        Tracking.mostTargetedLocationsError(error);
+        return null;
+      });
+
+  getMostTargetedRegions = () =>
+    this.props.alertsClient
+      .getMostTargetedRegions(new Date("2023-10-07"), getNow())
+      .then((res) => {
+        return res.payload;
+      })
+      .catch((error) => {
+        Tracking.mostTargetedRegionError(error);
         return null;
       });
 
@@ -540,6 +578,45 @@ class CurrentOperation extends React.Component {
                   </Col>
                 </>
               )}
+              {this.state.mostTargetedLocations &&
+                this.state.mostTargetedRegions && (
+                  <>
+                    <Col xs={24} lg={12}>
+                      <h2>Most targeted communities</h2>
+                      {this.state.mostTargetedLocations.map((location) => (
+                        <Row justify={"center"}>
+                          <Col span={18}>
+                            <a
+                              className="most-targeted-location"
+                              href={`http://www.google.com/maps/place/${location.lat},${location.lon}/@${location.lat},${location.lon},14z`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {location.englishName || location.name}
+                            </a>
+                          </Col>
+                          <Col span={3} className="most-targeted-region">
+                            {location.total}
+                          </Col>
+                        </Row>
+                      ))}
+                    </Col>
+                    <Col xs={24} lg={12}>
+                      <h2>Most targeted regions</h2>
+                      {this.state.mostTargetedRegions.map((region) => (
+                        <Row
+                          justify={"center"}
+                          className="most-targeted-region"
+                        >
+                          <Col span={18}>
+                            {region.areaNameEn || region.areaNameHe}
+                          </Col>
+                          <Col span={3}>{region.total}</Col>
+                        </Row>
+                      ))}
+                    </Col>
+                  </>
+                )}
             </Row>
           </div>
         )}

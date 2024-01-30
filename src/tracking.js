@@ -64,6 +64,14 @@ const Tracking = {
     track("event", "currentOpeation_getDetailedAlertsByDay_error", {
       err,
     }),
+  mostTargetedLocationsError: (err) =>
+    track("event", "currentOpeation_getMostTargetedLocations_error", {
+      err,
+    }),
+  mostTargetedRegionError: (err) =>
+    track("event", "currentOpeation_GetMostTargetedRegions_error", {
+      err,
+    }),
   tileError: (err) =>
     track("event", "tile_getAlerts_error", {
       err,

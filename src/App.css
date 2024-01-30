@@ -283,6 +283,20 @@ h3 {
   height: 400px;
 }
 
+.most-targeted-location,
+.most-targeted-region {
+  font-size: 1.25em;
+}
+
+.most-targeted-location {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.current-operation a {
+  color: black;
+}
+
 /*
 * Location Distance
 */

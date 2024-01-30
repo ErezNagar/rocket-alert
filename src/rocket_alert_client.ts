@@ -131,6 +131,62 @@ const AlertClient = {
   getMostRecentAlert: (): any => api.url("/latest").get().json(),
 
   /*
+   *  Gets the top N most targeted locations
+   *
+   *  @param {string} from  from date, inclusive.
+   *  @param {string} to    to date, inclusive.
+   *  @param {number} max   number of locations. Defaults to 10
+   *  @return {object}
+   */
+  getMostTargetedLocations: (
+    from: string,
+    to: string,
+    max: number = 10
+  ): any => {
+    if (!from || !isValid(new Date(from))) {
+      return Promise.reject(new Error("Invalid Date: from"));
+    }
+    if (!to || !isValid(new Date(to))) {
+      return Promise.reject(new Error("Invalid Date: to"));
+    }
+    return api
+      .url("/top/place")
+      .query({
+        from: isoFormat(convertToServerTime(from)),
+        to: isoFormat(convertToServerTime(to)),
+        limit: max,
+      })
+      .get()
+      .json();
+  },
+
+  /*
+   *  Gets the top N most targeted regions
+   *
+   *  @param {string} from  from date, inclusive.
+   *  @param {string} to    to date, inclusive.
+   *  @param {number} max   number of locations. Defaults to 10
+   *  @return {object}
+   */
+  getMostTargetedRegions: (from: string, to: string, max: number = 10): any => {
+    if (!from || !isValid(new Date(from))) {
+      return Promise.reject(new Error("Invalid Date: from"));
+    }
+    if (!to || !isValid(new Date(to))) {
+      return Promise.reject(new Error("Invalid Date: to"));
+    }
+    return api
+      .url("/top/area")
+      .query({
+        from: isoFormat(convertToServerTime(from)),
+        to: isoFormat(convertToServerTime(to)),
+        limit: max,
+      })
+      .get()
+      .json();
+  },
+
+  /*
    *  Opens a persistent connection for interfacing with the server-sent events
    *
    *  @param {string} url   url of the event source
