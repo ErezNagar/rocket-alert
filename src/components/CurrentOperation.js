@@ -14,39 +14,9 @@ import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 
-class CurrentOperation extends React.Component {
-  state = {
-    data: [],
-    showGraphByWeek: false,
-    showGraphByDay: false,
-    showGraphByOrigin: false,
-    graphByDayType: "Column",
-    graphByWeekConfig: null,
-    graphByDayConfig: null,
-    graphByOriginConfig: null,
-    selectedMonth: null,
-    isLoadingChart: false,
-  };
-
-  componentDidMount() {
-    this.getDetailedAlerts().then((alerts) => {
-      if (!alerts || alerts.length === 0) {
-        return;
-      }
-      this.buildAlertsByWeekGraph(alerts);
-      this.buildAlertsByDayGraph(alerts);
-      this.buildAlertsBySourceGraph(alerts);
-    });
-
-    window.addEventListener("resize", this.updateGraphConfig);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateGraphConfig);
-  }
-
-  updateGraphConfig = () => {
-    const columnConfig = {
+const GRAPH_CONFIG = {
+  ALERTS_BY_DAY: {
+    COLUMN: {
       xField: "day",
       yField: "count",
       seriesField: "",
@@ -79,8 +49,8 @@ class CurrentOperation extends React.Component {
         },
       },
       yAxis: false,
-    };
-    const barConfig = {
+    },
+    BAR: {
       xField: "count",
       yField: "day",
       barStyle: {
@@ -112,36 +82,152 @@ class CurrentOperation extends React.Component {
         },
       },
       xAxis: false,
-    };
+    },
+  },
+  ALERTS_BY_SOURCE: {
+    COLUMN: {
+      xField: "week",
+      yField: "count",
+      isGroup: true,
+      seriesField: "origin",
+      // columnWidthRatio: 0.5,
+      columnStyle: {
+        radius: [20, 20, 0, 0],
+      },
+      color: ["#008000", "#F7E210", "#5c0011"],
+      appendPadding: [30, 0, 0, 0],
+      label: {
+        position: "top",
+        style: {
+          fill: "black",
+          opacity: 1,
+          fontSize: 16,
+        },
+      },
+      xAxis: {
+        label: {
+          autoHide: true,
+          autoRotate: true,
+          style: {
+            fill: "black",
+            fontSize: 14,
+          },
+        },
+      },
+      yAxis: false,
+    },
+    BAR: {
+      xField: "count",
+      yField: "week",
+      isGroup: true,
+      seriesField: "origin",
+      barStyle: {
+        radius: [20, 20, 0, 0],
+      },
+      legend: {
+        layout: "horizontal",
+        position: "top-left",
+      },
+      autoFit: false,
+      maxBarWidth: 40,
+      minBarWidth: 13,
+      color: ["#008000", "#F7E210", "#5c0011"],
+      appendPadding: [0, 50, 0, 0],
+      dodgePadding: 5,
+      intervalPadding: 15,
+      label: {
+        position: "right",
+        autoHide: true,
+        autoRotate: true,
+        autoEllipsis: true,
+        style: {
+          fill: "black",
+          opacity: 1,
+          fontSize: 14,
+        },
+      },
+      yAxis: {
+        label: {
+          autoHide: false,
+          autoRotate: true,
+          style: {
+            fill: "black",
+            fontSize: 14,
+          },
+        },
+      },
+      xAxis: false,
+    },
+  },
+};
 
+class CurrentOperation extends React.Component {
+  state = {
+    data: [],
+    showGraphByWeek: false,
+    showGraphByDay: false,
+    showGraphByOrigin: false,
+    graphByDayType: "Column",
+    graphBySourceType: "Column",
+    graphByWeekConfig: null,
+    graphByDayConfig: null,
+    graphBySourceConfig: null,
+    selectedMonth: null,
+    isLoadingChart: false,
+  };
+
+  componentDidMount() {
+    this.getDetailedAlerts().then((alerts) => {
+      if (!alerts || alerts.length === 0) {
+        return;
+      }
+      this.buildAlertsByWeekGraph(alerts);
+      this.buildAlertsByDayGraph(alerts);
+      this.buildAlertsBySourceGraph(alerts);
+      this.updateGraphConfig();
+    });
+
+    window.addEventListener("resize", this.updateGraphConfig);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateGraphConfig);
+  }
+
+  updateGraphConfig = () => {
     const vw = Math.max(
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
     );
-    const graphByDayType = vw >= 768 ? "Column" : "Bar";
-    const config = graphByDayType === "Column" ? columnConfig : barConfig;
-    if (graphByDayType === "Bar") {
+    const type = vw >= 768 ? "Column" : "Bar";
+    let height = 200;
+    if (type === "Bar") {
       if (this.state.graphByDayConfig.data.length <= 10) {
-        config.height = 200;
+        height = 200;
       } else if (this.state.graphByDayConfig.data.length <= 20) {
-        config.height = config.height = 400;
+        height = 400;
       } else {
-        config.height = config.height = 700;
+        height = 550;
       }
     }
 
-    // We need to "reset" graphByDayType for Ant Design chart to re-render properly
-    this.setState({ graphByDayType: null, isLoadingChart: true }, () => {
-      setTimeout(() => {
-        this.setState({
-          isLoadingChart: false,
-          graphByDayType,
-          graphByDayConfig: {
-            data: this.state.graphByDayConfig.data,
-            ...config,
-          },
-        });
-      }, 10);
+    this.setState({
+      graphByDayType: type,
+      graphBySourceType: type,
+      graphByDayConfig: {
+        data: this.state.graphByDayConfig.data,
+        ...(type === "Column"
+          ? GRAPH_CONFIG.ALERTS_BY_DAY.COLUMN
+          : GRAPH_CONFIG.ALERTS_BY_DAY.BAR),
+        height,
+      },
+      graphBySourceConfig: {
+        data: this.state.graphBySourceConfig.data,
+        ...(type === "Column"
+          ? GRAPH_CONFIG.ALERTS_BY_SOURCE.COLUMN
+          : GRAPH_CONFIG.ALERTS_BY_SOURCE.BAR),
+        height: 550,
+      },
     });
   };
 
@@ -290,8 +376,6 @@ class CurrentOperation extends React.Component {
         data: data[selectedMonth],
       },
     });
-
-    this.updateGraphConfig();
   };
 
   buildAlertsBySourceGraph = (alertsPerDay) => {
@@ -378,37 +462,8 @@ class CurrentOperation extends React.Component {
 
     this.setState({
       showGraphByOrigin: true,
-      graphByOriginConfig: {
+      graphBySourceConfig: {
         data,
-        xField: "week",
-        yField: "count",
-        isGroup: true,
-        seriesField: "origin",
-        // columnWidthRatio: 0.5,
-        columnStyle: {
-          radius: [20, 20, 0, 0],
-        },
-        color: ["#008000", "#F7E210", "#5c0011"],
-        appendPadding: [30, 0, 0, 0],
-        label: {
-          position: "top",
-          style: {
-            fill: "black",
-            opacity: 1,
-            fontSize: 16,
-          },
-        },
-        xAxis: {
-          label: {
-            autoHide: true,
-            autoRotate: true,
-            style: {
-              fill: "black",
-              fontSize: 14,
-            },
-          },
-        },
-        yAxis: false,
       },
     });
   };
@@ -454,7 +509,7 @@ class CurrentOperation extends React.Component {
             <Row gutter={[24, 24]} justify={"center"}>
               {this.state.showGraphByWeek && (
                 <Col span={24}>
-                  <h2>Bi-weekly alerts since Oct 7</h2>
+                  <h2>Alerts since Oct 7</h2>
                   <Column {...this.state.graphByWeekConfig} />
                 </Col>
               )}
@@ -499,13 +554,18 @@ class CurrentOperation extends React.Component {
                 <>
                   <Col span={24}>
                     <h2>Alerts by source since Oct 7</h2>
-                    <Column {...this.state.graphByOriginConfig} />
+                    {this.state.graphBySourceType === "Column" && (
+                      <Column {...this.state.graphBySourceConfig} />
+                    )}
+                    {this.state.graphBySourceType === "Bar" && (
+                      <Bar {...this.state.graphBySourceConfig} />
+                    )}
                   </Col>
                   <Col gutter={[24, 24]}>
                     Estimation only. Based on alert location and its distance
-                    from the Gaza Strip vs Southern Lebanon. Alerts from Gaza
-                    may include rockets shot by Islamic Jihad; Alerts from Southern Lebanon
-                    may include rockets shot by other Iranian proxies.
+                    from the Gaza Strip vs Southern Lebanon. May include rockets
+                    shot by Islamic Jihad (Gaza) or by other Iranian proxies
+                    (Southern Lebanon)
                   </Col>
                 </>
               )}
