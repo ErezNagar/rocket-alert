@@ -14,6 +14,7 @@ import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
+import PreviousStats from "./PreviousStats";
 
 const GRAPH_CONFIG = {
   ALERTS_BY_WEEKS: {
@@ -511,6 +512,7 @@ class CurrentOperation extends React.Component {
             </Col>
           </Row>
         </div>
+        <PreviousStats alertsClient={this.props.alertsClient} />
         {(this.state.showGraphByWeek ||
           this.state.showGraphByDay ||
           this.state.showGraphByOrigin) && (

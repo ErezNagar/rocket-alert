@@ -3,7 +3,6 @@ import "./App.css";
 import Header from "./components/Header";
 import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
-import PreviousStats from "./components/PreviousStats";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
 import RecentAlertsMap from "./components/RecentAlertsMap";
@@ -206,7 +205,6 @@ class App extends React.Component {
           </section>
         )}
         <CurrentOperation alertsClient={AlertClient} />
-        <PreviousStats alertsClient={AlertClient} />
         <LocationDistance />
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
