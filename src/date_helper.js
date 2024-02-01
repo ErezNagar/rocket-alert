@@ -20,7 +20,10 @@ export const convertToServerTime = (date) =>
 
 export const isoFormat = (date) => {
   const dateTimeISO = formatISO(date);
-  return dateTimeISO.substring(0, dateTimeISO.length - 6);
+  if (new Date(dateTimeISO).getTimezoneOffset() !== 0) {
+    return dateTimeISO.substring(0, dateTimeISO.length - 6);
+  }
+  return dateTimeISO;
 };
 
 export const displayFormat = (date) => format(date, "MMM d, yyyy");
