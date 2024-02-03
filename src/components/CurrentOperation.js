@@ -235,11 +235,11 @@ class CurrentOperation extends React.Component {
       this.setState({ mostTargetedRegions: res });
     });
 
-    window.addEventListener("resize", this.updateGraphConfig);
+    // window.addEventListener("resize", this.updateGraphConfig);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateGraphConfig);
+    // window.removeEventListener("resize", this.updateGraphConfig);
   }
 
   updateGraphConfig = () => {
@@ -276,6 +276,20 @@ class CurrentOperation extends React.Component {
           : GRAPH_CONFIG.ALERTS_BY_SOURCE.BAR),
         height: 550,
       },
+    });
+
+    // To apply a new height, We need to "reset" graphByDayType for Ant Design chart to re-render properly
+    this.setState({ graphByDayType: null, isLoadingChart: true }, () => {
+      setTimeout(() => {
+        this.setState({
+          isLoadingChart: false,
+          graphByDayType: type,
+          graphByDayConfig: {
+            ...this.state.graphByDayConfig,
+            height,
+          },
+        });
+      }, 10);
     });
   };
 
