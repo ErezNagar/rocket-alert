@@ -143,10 +143,10 @@ const FAQ = () => {
         </p>
         <p className="question-answer">
           We only have data on the number of alerts, not on the number of
-          rockets being fired. A single rocket could trigger an alert in multiple
-          locations, dependeing on the proximity of those locations to each
-          other and the geographical size of those communities. An alert in a
-          specified location typically indicates at least one rocket fired
+          rockets being fired. A single rocket could trigger an alert in
+          multiple locations, depending on the proximity of those locations to
+          each other and the geographical size of those communities. An alert in
+          a specified location typically indicates at least one rocket fired
           towards that location.
         </p>
       </div>
