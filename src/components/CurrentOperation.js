@@ -589,7 +589,7 @@ class CurrentOperation extends React.Component {
                   <Col gutter={[24, 24]}>
                     Estimation only. Based on alert location and its distance
                     from the Gaza Strip vs Southern Lebanon. May include rockets
-                    shot by Islamic Jihad (Gaza) or by other Iranian proxies
+                    fired by Islamic Jihad (Gaza) or by other Iranian proxies
                     (Southern Lebanon)
                   </Col>
                 </>
