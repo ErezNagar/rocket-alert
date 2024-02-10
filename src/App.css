@@ -271,13 +271,6 @@ h3 {
 .current-operation-graph .month-list {
   text-align: center;
 }
-.month-button {
-  border-radius: 8px;
-}
-.month-button.selected {
-  color: white;
-  background-color: #5c0011;
-}
 
 .loading-chart {
   height: 400px;
@@ -295,6 +288,51 @@ h3 {
 
 .current-operation a {
   color: black;
+}
+
+/* Adding a custom arrow */
+.customSelect {
+  position: relative;
+}
+
+.customSelect::before,
+.customSelect::after {
+  --size: 0.3rem;
+  position: absolute;
+  content: "";
+  right: 1rem;
+  pointer-events: none;
+}
+
+.customSelect::before {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid black;
+  top: 40%;
+}
+
+.customSelect::after {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid black;
+  top: 55%;
+}
+
+#month-select {
+  min-width: 150px;
+}
+
+select {
+  appearance: none;
+  /* safari */
+  -webkit-appearance: none;
+  /* other styles for aesthetics */
+  padding: 0.75em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
 }
 
 /*

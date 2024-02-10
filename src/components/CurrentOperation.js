@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Row, Col, Button } from "antd";
+import { Row, Col } from "antd";
 import Tile from "./Tile";
 import { eachDayOfInterval, isSameDay } from "date-fns";
 import {
@@ -267,7 +267,7 @@ class CurrentOperation extends React.Component {
         ...(type === "Column"
           ? GRAPH_CONFIG.ALERTS_BY_DAY.COLUMN
           : GRAPH_CONFIG.ALERTS_BY_DAY.BAR),
-        height,
+        height: type === "Column" ? 400 : height,
       },
       graphBySourceConfig: {
         data: this.state.graphBySourceConfig.data,
@@ -286,7 +286,7 @@ class CurrentOperation extends React.Component {
           graphByDayType: type,
           graphByDayConfig: {
             ...this.state.graphByDayConfig,
-            height,
+            height: type === "Column" ? 400 : height,
           },
         });
       }, 10);
@@ -492,7 +492,8 @@ class CurrentOperation extends React.Component {
     });
   };
 
-  handleMonthClick = (month) => {
+  handleMonthClick = () => {
+    const month = document.getElementById("month-select").value;
     Tracking.graphMonthClick(month);
     this.setState(
       {
@@ -542,22 +543,28 @@ class CurrentOperation extends React.Component {
                 <Col span={24}>
                   <h2>Alerts by day since Oct 7</h2>
                   <Row justify={"center"} className={"month-list"}>
-                    {this.state.byDayData.months.map((month) => (
-                      <Col xs={24} md={4} lg={3} key={month}>
-                        <Button
-                          size="large"
-                          type="text"
-                          className={
-                            this.state.selectedMonth === month
-                              ? "month-button selected"
-                              : "month-button"
-                          }
-                          onClick={() => this.handleMonthClick(month)}
-                        >
-                          {month}
-                        </Button>
-                      </Col>
-                    ))}
+                    <div className={"customSelect"}>
+                      <select
+                        id="month-select"
+                        onChange={(e) => this.handleMonthClick(e)}
+                      >
+                        {this.state.byDayData.months.map((month, idx) =>
+                          idx + 1 === this.state.byDayData.months.length ? (
+                            <option
+                              value={month}
+                              selected="selected"
+                              key={month}
+                            >
+                              {month}
+                            </option>
+                          ) : (
+                            <option value={month} key={month}>
+                              {month}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
                   </Row>
                   {this.state.isLoadingChart && (
                     <Row
