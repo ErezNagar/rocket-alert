@@ -17,7 +17,7 @@ const FAQ = () => {
     <section ref={ref} className="section faq" id="faq">
       <h2>Frequently Asked Questions</h2>
       <div>
-        <p className="question-title">Where are these rockets launched from?</p>
+        <p className="question-title">Where are these rockets fired from?</p>
         <p className="question-answer">
           Mostly from the{" "}
           <a
@@ -27,12 +27,12 @@ const FAQ = () => {
           >
             Gaza Strip
           </a>
-          , although sometimes there are rockets launched from South Lebanon or
+          , although sometimes there are rockets fired from South Lebanon or
           Syria.
         </p>
       </div>
       <div>
-        <p className="question-title">Who is shooting these rockets?</p>
+        <p className="question-title">Who is firing these rockets?</p>
         <p className="question-answer">
           Palestinian terror organizations from Gaza, namely{" "}
           <a
@@ -64,9 +64,9 @@ const FAQ = () => {
       <div>
         <p className="question-title">What are these rockets targeting?</p>
         <p className="question-answer">
-          Whether launched from Gaza or South Lebanon, these rockets are
-          launched indiscriminately at Israeli towns and cities, deliberatly
-          targeting innocent civilians.
+          Whether fired from Gaza or South Lebanon, these rockets are
+          fired indiscriminately at Israeli towns and cities, deliberatly
+          targeting innocent civilians, homes and schools.
         </p>
       </div>
       <div>
