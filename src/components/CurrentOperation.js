@@ -147,6 +147,10 @@ const GRAPH_CONFIG = {
         },
       },
       yAxis: false,
+      legend: {
+        layout: "horizontal",
+        position: "top",
+      },
     },
     BAR: {
       xField: "count",
