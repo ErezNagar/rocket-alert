@@ -96,7 +96,7 @@ const FAQ = () => {
       <div>
         <p className="question-title">Do rockets ever hit Israel?</p>
         <p className="question-answer">
-          Yes. While Iron Dome intercepts about 90% of rockets aimed at Israeli
+          Yes. While Iron Dome intercepts most of the rockets fired at Israeli
           population, rockets still penetrate the defense system and hit
           residential areas, including homes and schools.
         </p>
@@ -112,9 +112,9 @@ const FAQ = () => {
           >
             Home Front Command
           </a>{" "}
-          (Pikud HaOref) unofficial rocket alert API, which allows us to easily
+          (Pikud HaOref) rocket alert API, which allows us to easily
           query for real-time rocket alerts. We aggregate the data and slice &
-          dice the information to provide historical data and other insights
+          dice the information to provide historical data and other insights.
         </p>
       </div>
       <div>
