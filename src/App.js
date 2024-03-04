@@ -131,8 +131,12 @@ class App extends React.Component {
   processRealTimeAlert = (alert, isLastAlert) => {
     alert = JSON.parse(alert);
     const newMostRecentAlerts = [...this.state.mostRecentAlerts];
+    // Add alert to top of alert list
     newMostRecentAlerts.unshift(alert);
-    newMostRecentAlerts.pop();
+    // Maintain 15 most recent alerts by removing the oldest
+    if (newMostRecentAlerts.length >= 15) {
+      newMostRecentAlerts.pop();
+    }
 
     this.setState({
       realTimeAlert: alert,
