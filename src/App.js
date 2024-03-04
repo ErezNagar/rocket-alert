@@ -134,7 +134,7 @@ class App extends React.Component {
     // Add alert to top of alert list
     newMostRecentAlerts.unshift(alert);
     // Maintain 15 most recent alerts by removing the oldest
-    if (newMostRecentAlerts.length >= 15) {
+    if (newMostRecentAlerts.length >= Util.MAX_RECENT_ALERTS) {
       newMostRecentAlerts.pop();
     }
 
