@@ -539,9 +539,28 @@ class CurrentOperation extends React.Component {
             <Row gutter={[24, 24]} justify={"center"}>
               {this.state.showGraphByWeek && (
                 <Col span={24}>
-                  <h2>Alerts since Oct 7</h2>
+                  <h2>Total Alerts since Oct 7</h2>
                   <Column {...this.state.graphByWeekConfig} />
                 </Col>
+              )}
+              {this.state.showGraphByOrigin && (
+                <>
+                  <Col span={24}>
+                    <h2>Alerts by source since Oct 7</h2>
+                    {this.state.graphBySourceType === "Column" && (
+                      <Column {...this.state.graphBySourceConfig} />
+                    )}
+                    {this.state.graphBySourceType === "Bar" && (
+                      <Bar {...this.state.graphBySourceConfig} />
+                    )}
+                  </Col>
+                  <Col gutter={[24, 24]}>
+                    Estimation only. Based on alert location and its distance
+                    from the Gaza Strip vs Southern Lebanon. May include rockets
+                    fired by Islamic Jihad (Gaza) or by other Iranian proxies
+                    (Southern Lebanon)
+                  </Col>
+                </>
               )}
               {this.state.showGraphByDay && (
                 <Col span={24}>
@@ -585,25 +604,6 @@ class CurrentOperation extends React.Component {
                     <Bar {...this.state.graphByDayConfig} />
                   )}
                 </Col>
-              )}
-              {this.state.showGraphByOrigin && (
-                <>
-                  <Col span={24}>
-                    <h2>Alerts by source since Oct 7</h2>
-                    {this.state.graphBySourceType === "Column" && (
-                      <Column {...this.state.graphBySourceConfig} />
-                    )}
-                    {this.state.graphBySourceType === "Bar" && (
-                      <Bar {...this.state.graphBySourceConfig} />
-                    )}
-                  </Col>
-                  <Col gutter={[24, 24]}>
-                    Estimation only. Based on alert location and its distance
-                    from the Gaza Strip vs Southern Lebanon. May include rockets
-                    fired by Islamic Jihad (Gaza) or by other Iranian proxies
-                    (Southern Lebanon)
-                  </Col>
-                </>
               )}
               {this.state.mostTargetedLocations &&
                 this.state.mostTargetedRegions && (
