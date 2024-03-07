@@ -170,7 +170,7 @@ class Header extends React.Component {
           alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
         }
       } else if (pastWeekAlertCount > 0) {
-        alertSummaryText = `In the last week, there were ${pastWeekAlertCount} rocket alerts`;
+        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} rocket alerts`;
         if (pastMonthAlertCount > 0) {
           alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
         }
@@ -190,7 +190,7 @@ class Header extends React.Component {
       }
     } else if (pastWeekAlertCount > 0) {
       alertSummaryCount = pastWeekAlertCount;
-      alertSummaryTitle = `Rocket alerts in the last week`;
+      alertSummaryTitle = `Rocket alerts in the past week`;
       if (
         pastMonthAlertCount > 0 &&
         pastMonthAlertCount !== pastWeekAlertCount
