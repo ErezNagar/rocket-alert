@@ -74,7 +74,7 @@ class App extends React.Component {
         const mostRecentAlerts = values[0];
         const realTimeAlertCache = values[1];
 
-        if (!mostRecentAlerts) {
+        if (!mostRecentAlerts && !realTimeAlertCache) {
           return;
         }
 
