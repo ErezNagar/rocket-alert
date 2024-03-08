@@ -1,29 +1,30 @@
-name: build-and-test
+name: Test and Build
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
-  build_and_test:
+  test-and-build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node: [10, 12]
-
     steps:
-      - name: Checkout
+      - name: Checkout 🛎️
         uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install project
+
+      - name: Install
         run: npm install
-      - name: Build the project
-        run: npm run build --if-present
+
       - name: Run tests
         run: npm test
+
+      - name: Build 🔧
+        run: npm run build
+        env:
+          REACT_APP_MAPBOX_ACCESS_TOKEN_ALERT_LOCATION: ${{ secrets.MAPBOX_ACCESS_TOKEN_ALERT_LOCATION }}
+          REACT_APP_MAPBOX_ACCESS_TOKEN_USER_LOCATION: ${{ secrets.MAPBOX_ACCESS_TOKEN_USER_LOCATION }}
+
+      # - name: Deploy 🚀
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     folder: build
