@@ -56,7 +56,7 @@ class UserLocationMap extends React.Component {
         );
 
         window.mapboxgl.accessToken =
-          "pk.eyJ1IjoiZXJlem5hZ2FyIiwiYSI6ImNsb2xuOTRzZjB5b3oycW1vN3l3dzF4YjIifQ.lR0mx9Q4okPC_yUCkdJ6Sw";
+          process.env.REACT_APP_MAPBOX_ACCESS_TOKEN_USER_LOCATION;
         const map = new window.mapboxgl.Map({
           container: "user_location_map",
           style: "mapbox://styles/mapbox/dark-v11",
