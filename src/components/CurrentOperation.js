@@ -8,6 +8,7 @@ import {
   getYesterday,
   dayOfMonthFormat,
   isBiWeeklyDifference,
+  is3WeeksDifference,
   weekRangeFormat,
 } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
@@ -219,7 +220,7 @@ class CurrentOperation extends React.Component {
       if (!alerts || alerts.length === 0) {
         return;
       }
-      this.buildAlertsByWeekGraph(alerts);
+      this.buildTotalAlertsGraph(alerts);
       this.buildAlertsByDayGraph(alerts);
       this.buildAlertsBySourceGraph(alerts);
       this.updateGraphConfig();
@@ -247,11 +248,7 @@ class CurrentOperation extends React.Component {
   }
 
   updateGraphConfig = () => {
-    const vw = Math.max(
-      document.documentElement.clientWidth || 0,
-      window.innerWidth || 0
-    );
-    const type = vw >= 768 ? "Column" : "Bar";
+    const type = Util.isSmallViewport() ? "Bar" : "Column";
     let height = 200;
     if (type === "Bar") {
       if (this.state.graphByDayConfig.data.length <= 10) {
@@ -331,37 +328,17 @@ class CurrentOperation extends React.Component {
         return null;
       });
 
-  buildAlertsByWeekGraph = (alertsPerDay) => {
-    // Alerts By Month
-
-    // let data = [];
-    // let monthlyAlertCount = 0;
-    // let currentMonth = "10"; // Starting from October
-    // alertsPerDay.forEach(({ alerts, timeStamp }) => {
-    //   const [year, month, day] = timeStamp.split("-");
-    //   if (currentMonth !== month) {
-    //     data.push({
-    //       month: currentMonth,
-    //       count: monthlyAlertCount,
-    //     });
-    //     currentMonth = month;
-    //     monthlyAlertCount = 0;
-    //   }
-
-    //   monthlyAlertCount += alerts;
-    // });
-
-    // data.push({
-    //   month: currentMonth,
-    //   count: monthlyAlertCount,
-    // });
+  buildTotalAlertsGraph = (alertsPerDay) => {
     let data = [];
     let biweeklyAlertCount = 0;
     let weekDate = new Date(2023, 9, 7);
+    const weekDiffFunction = Util.isSmallViewport()
+      ? is3WeeksDifference
+      : isBiWeeklyDifference;
     alertsPerDay.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
       const theDate = new Date(year, month - 1, day);
-      if (isBiWeeklyDifference(weekDate, theDate)) {
+      if (weekDiffFunction(weekDate, theDate)) {
         data.push({
           week: weekRangeFormat(weekDate, theDate),
           count: biweeklyAlertCount,

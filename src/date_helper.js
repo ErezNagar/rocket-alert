@@ -37,6 +37,11 @@ export const isBiWeeklyDifference = (fromDate, toDate) => {
   return Math.abs(diff) === 2 ? true : false;
 };
 
+export const is3WeeksDifference = (fromDate, toDate) => {
+  const diff = differenceInWeeks(fromDate, toDate);
+  return Math.abs(diff) === 3 ? true : false;
+};
+
 export const weekRangeFormat = (fromDate, toDate) =>
   `${dayOfMonthFormat(fromDate)} - ${dayOfMonthFormat(subDays(toDate, 1))}`;
 
