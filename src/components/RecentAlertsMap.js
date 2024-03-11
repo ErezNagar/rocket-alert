@@ -130,7 +130,7 @@ class RecentAlertsMap extends React.Component {
     });
 
     map.fitBounds(bounds, {
-      padding: { top: 50, bottom: 170 },
+      padding: { top: 50, bottom: 170, left: 50, right: 50 },
       animate: false,
     });
 
