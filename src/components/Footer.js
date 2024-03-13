@@ -7,7 +7,7 @@ import { ReactComponent as TelegramLogo } from "../assets/telegram.svg";
 import { ReactComponent as MastodonLogo } from "../assets/mastodon.svg";
 import { ReactComponent as EmailLogo } from "../assets/email.svg";
 
-const Footer = ({}) => {
+const Footer = () => {
   const ref = useRef();
   const isVisible = Util.useIsVisible(ref);
 
