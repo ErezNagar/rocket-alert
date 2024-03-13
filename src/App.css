@@ -440,8 +440,9 @@ select {
 }
 
 footer {
-  height: 10vh;
-  padding-top: 3vh;
+  display: flex;
+  justify-content: center;
+  padding: 3vh 0;
   background-color: #5c0011;
 }
 
