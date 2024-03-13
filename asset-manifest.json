@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.8ef8727b.css",
-    "main.js": "/static/js/main.df18925c.js",
+    "main.css": "/static/css/main.3f5ad82c.css",
+    "main.js": "/static/js/main.05d48501.js",
     "static/js/661.9951ca13.chunk.js": "/static/js/661.9951ca13.chunk.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/jerusalem_distance.png": "/static/media/jerusalem_distance.bac81e957ebb29a6fb29.png",
@@ -11,11 +11,16 @@
     "static/media/beeri_distance.png": "/static/media/beeri_distance.9d2802bef9fed5318644.png",
     "static/media/logo.svg": "/static/media/logo.517fc583554a578e37192f200c94b94d.svg",
     "index.html": "/index.html",
-    "main.8ef8727b.css.map": "/static/css/main.8ef8727b.css.map",
-    "main.df18925c.js.map": "/static/js/main.df18925c.js.map"
+    "static/media/telegram.svg": "/static/media/telegram.ec2459e84ea4ed19af879827455c94d9.svg",
+    "static/media/mastodon.svg": "/static/media/mastodon.c5bdf3a936feb0716799a6686ed5ad0e.svg",
+    "static/media/twitter.svg": "/static/media/twitter.c4236a95b1a54627edce47c20a871ef0.svg",
+    "static/media/twitter_black.svg": "/static/media/twitter_black.9a56ea57a5ed634cfbf9ae2b7de7cfda.svg",
+    "static/media/email.svg": "/static/media/email.071535162611fb198c1012dac02b4d90.svg",
+    "main.3f5ad82c.css.map": "/static/css/main.3f5ad82c.css.map",
+    "main.05d48501.js.map": "/static/js/main.05d48501.js.map"
   },
   "entrypoints": [
-    "static/css/main.8ef8727b.css",
-    "static/js/main.df18925c.js"
+    "static/css/main.3f5ad82c.css",
+    "static/js/main.05d48501.js"
   ]
 }
