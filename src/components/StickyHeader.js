@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import FadeInOut from "./FadeInOut";
 import FormattedAlertTime from "./FormattedAlertTime";
-import { TwitterOutlined } from "@ant-design/icons";
+import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import logo from "../assets/logo.svg";
 import Tracking from "../tracking";
 import Util from "../util";
@@ -61,7 +61,7 @@ class StickyHeader extends React.Component {
               rel="noreferrer"
               onClick={Tracking.shareStickyHeaderClick}
             >
-              <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
+              <TwitterLogo style={{ height: "36px" }} />
             </a>
           </div>
         )}

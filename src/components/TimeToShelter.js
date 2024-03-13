@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { TwitterOutlined } from "@ant-design/icons";
+import { ReactComponent as TwitterLogo } from "../assets/twitter_black.svg";
 import Tracking from "../tracking";
 import { useEffect, useRef, useState } from "react";
 import Util from "../util";
@@ -73,7 +73,7 @@ const TimeToShelter = ({ alerts }) => {
           style={{ color: "black" }}
           onClick={Tracking.shareTimetoShelterClick}
         >
-          <TwitterOutlined style={{ fontSize: "30px", color: "black" }} />
+          <TwitterLogo style={{ height: "36px" }} />
         </a>
         <div>
           <a

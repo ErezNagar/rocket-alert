@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TwitterOutlined } from "@ant-design/icons";
+import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import logo from "../assets/logo.svg";
 import alarmAudio from "../assets/alarm.mp3";
 import { Row, Col } from "antd";
@@ -318,9 +318,7 @@ class Header extends React.Component {
                     rel="noreferrer"
                     onClick={Tracking.shareHeaderClick}
                   >
-                    <TwitterOutlined
-                      style={{ fontSize: "30px", color: "white" }}
-                    />
+                    <TwitterLogo style={{ height: "36px" }} />
                   </a>
                 </Col>
                 <Col span={24}>
