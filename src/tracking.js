@@ -46,9 +46,11 @@ const Tracking = {
     track("event", "share_click", {
       method: "twitter_time_to_shelter",
     }),
-  shareFooterClick: () =>
-    track("event", "share_click", {
-      method: "twitter_footer",
+    
+  // Footer social
+  socialFooterClick: (method) =>
+    track("event", "footer_social", {
+      method,
     }),
 
   // Error

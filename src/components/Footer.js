@@ -1,11 +1,13 @@
-import PropTypes from "prop-types";
-import { TwitterOutlined, MailOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import Tracking from "../tracking";
 import { useEffect, useRef } from "react";
 import Util from "../util";
+import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
+import { ReactComponent as TelegramLogo } from "../assets/telegram.svg";
+import { ReactComponent as MastodonLogo } from "../assets/mastodon.svg";
+import { ReactComponent as EmailLogo } from "../assets/email.svg";
 
-const Footer = ({ twitterShareText }) => {
+const Footer = ({}) => {
   const ref = useRef();
   const isVisible = Util.useIsVisible(ref);
 
@@ -17,39 +19,98 @@ const Footer = ({ twitterShareText }) => {
 
   return (
     <footer ref={ref}>
-      <Row align="middle" justify="center" style={{ textAlign: "center" }}>
-        <Col>
-          <Row justify="center">
-            <Col span={24}>
+      <Row justify="center" align="top">
+        <Col xs={8} md={4} lg={3}>
+          <div className="title">Live Alert Feed</div>
+          {/* <Row align="middle">
+            <Col>
               <a
                 href={`https://twitter.com/share?text=${twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
                 target="_blank"
                 rel="noreferrer"
-                onClick={Tracking.shareFooterClick}
+                onClick={()=>Tracking.socialFooterClick("twitterbot")}
               >
-                <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
+                <TwitterLogo className="icon" />
               </a>
             </Col>
-            <Col span={24}>
+            <Col>Twitter</Col>
+          </Row> */}
+          <Row className="item">
+            <Col>
               <a
-                href={`https://twitter.com/share?text=${twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+                href={"https://t.me/RocketAlert"}
                 target="_blank"
                 rel="noreferrer"
-                onClick={Tracking.shareFooterClick}
+                onClick={() => Tracking.socialFooterClick("telegram")}
               >
-                Share
+                <TelegramLogo className="icon" />
+              </a>
+            </Col>
+            <Col>
+              <a
+                href={"https://t.me/RocketAlert"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => Tracking.socialFooterClick("telegram")}
+              >
+                Telegram
+              </a>
+            </Col>
+          </Row>
+          <Row className="item">
+            <Col>
+              <a
+                href={"https://mastodon.social/@rocketalert"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => Tracking.socialFooterClick("mastodon")}
+              >
+                <MastodonLogo className="icon" />
+              </a>
+            </Col>
+            <Col>
+              <a
+                href={"https://mastodon.social/@rocketalert"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => Tracking.socialFooterClick("mastodon")}
+              >
+                Mastodon
               </a>
             </Col>
           </Row>
         </Col>
         <Col>
-          <Row justify="center">
-            <Col span={24}>
-              <a href={"mailto: rocketalertlive@gmail.com"}>
-                <MailOutlined style={{ fontSize: "24px", color: "white" }} />
+          <div className="title">Connect</div>
+          <Row className="item">
+            <Col>
+              <a
+                href={"https://x.com/rocketalertlive"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => Tracking.socialFooterClick("twitter")}
+              >
+                <TwitterLogo className="icon" />
               </a>
             </Col>
-            <Col span={24}>
+            <Col>
+              <a
+                href={"https://x.com/rocketalertlive"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => Tracking.socialFooterClick("twitter")}
+              >
+                Twitter
+              </a>
+            </Col>
+          </Row>
+          <Row className="item">
+            <Col>
+              <a href={"mailto: rocketalertlive@gmail.com"}>
+                <EmailLogo className="icon" />
+              </a>
+            </Col>
+            <Col>
               <a href={"mailto: rocketalertlive@gmail.com"}>Contact Us</a>
             </Col>
           </Row>
@@ -57,15 +118,6 @@ const Footer = ({ twitterShareText }) => {
       </Row>
     </footer>
   );
-};
-
-Footer.propTypes = {
-  // Text to share on twitter. Generated in Header
-  twitterShareText: PropTypes.string,
-};
-
-Footer.defaultProps = {
-  twitterShareText: "",
 };
 
 export default Footer;

@@ -440,17 +440,28 @@ select {
 }
 
 footer {
-  display: flex;
-  justify-content: center;
+  color: white;
   padding: 3vh 0;
-  background-color: #5c0011;
+  background-color: #290008;
 }
-
+footer .title {
+  font-size: 1.25em;
+  margin-bottom: 0.5em;
+}
 footer a {
   color: white;
 }
 footer a:hover {
   color: white;
+}
+
+footer .item {
+  line-height: 2em;
+}
+footer .icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 0.5em;
 }
 
 @media only screen and (max-width: 768px) {
@@ -494,6 +505,11 @@ footer a:hover {
   }
   .section.location-distance .location-row h2 {
     font-size: 1.7em;
+  }
+
+  footer .title {
+    font-size: 1em;
+    font-weight: bold;
   }
 }
 
