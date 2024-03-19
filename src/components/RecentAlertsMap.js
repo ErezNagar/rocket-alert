@@ -18,7 +18,7 @@ class RecentAlertsMap extends React.Component {
     if (Cache.canUseCache()) {
       if ((polygons = Cache.getJSON("polygons")) === null) {
         import("../polygons.json").then((json) => {
-          polygons = json;
+          polygons = json.default || json;
           Cache.setJSON("polygons", polygons);
           Cache.set("polygons_version", 1);
         });
@@ -42,7 +42,6 @@ class RecentAlertsMap extends React.Component {
   }
 
   async initMapWithAlertLocation() {
-    console.log("initMapWithAlertLocation");
     window.mapboxgl.accessToken =
       process.env.REACT_APP_MAPBOX_ACCESS_TOKEN_ALERT_LOCATION;
     const map = new window.mapboxgl.Map({
