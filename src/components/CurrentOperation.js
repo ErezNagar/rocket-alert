@@ -52,12 +52,13 @@ const GRAPH_CONFIG = {
     COLUMN: {
       xField: "day",
       yField: "count",
-      seriesField: "",
+      isGroup: true,
+      seriesField: "origin",
       columnStyle: {
         radius: [20, 20, 0, 0],
       },
       maxColumnWidth: 40,
-      color: "#5c0011",
+      color: ["#008000", "#F7E210", "#5c0011"],
       appendPadding: [50, 0, 10, 10],
       autoFit: true,
       label: {
@@ -82,17 +83,29 @@ const GRAPH_CONFIG = {
         },
       },
       yAxis: false,
+      legend: {
+        layout: "horizontal",
+        position: "top",
+      },
     },
     BAR: {
       xField: "count",
       yField: "day",
+      isGroup: true,
+      seriesField: "origin",
       barStyle: {
         radius: [20, 20, 0, 0],
       },
+      legend: {
+        layout: "horizontal",
+        position: "top-left",
+      },
       autoFit: false,
-      maxBarWidth: 20,
-      color: "#5c0011",
-      appendPadding: [30, 50, 0, 0],
+      maxBarWidth: 40,
+      minBarWidth: 13,
+      color: ["#008000", "#F7E210", "#5c0011"],
+      appendPadding: [0, 50, 0, 0],
+      dodgePadding: 4,
       label: {
         position: "right",
         autoHide: true,
@@ -101,7 +114,7 @@ const GRAPH_CONFIG = {
         style: {
           fill: "black",
           opacity: 1,
-          fontSize: 16,
+          fontSize: 14,
         },
       },
       yAxis: {
@@ -110,7 +123,7 @@ const GRAPH_CONFIG = {
           autoRotate: true,
           style: {
             fill: "black",
-            fontSize: 16,
+            fontSize: 14,
           },
         },
       },
@@ -170,7 +183,7 @@ const GRAPH_CONFIG = {
       minBarWidth: 13,
       color: ["#008000", "#F7E210", "#5c0011"],
       appendPadding: [0, 50, 0, 0],
-      dodgePadding: 5,
+      dodgePadding: 4,
       intervalPadding: 15,
       label: {
         position: "right",
@@ -249,33 +262,36 @@ class CurrentOperation extends React.Component {
 
   updateGraphConfig = () => {
     const type = Util.isSmallViewport() ? "Bar" : "Column";
+    const graphByDayType = Util.isMediumViewport() ? "Bar" : "Column";
     let height = 200;
-    if (type === "Bar") {
-      if (this.state.graphByDayConfig.data.length <= 10) {
+    if (graphByDayType === "Bar") {
+      if (this.state.graphByDayConfig.data.length / 2 <= 5) {
         height = 200;
-      } else if (this.state.graphByDayConfig.data.length <= 20) {
+      } else if (this.state.graphByDayConfig.data.length / 2 <= 10) {
         height = 400;
+      } else if (this.state.graphByDayConfig.data.length / 2 <= 20) {
+        height = 800;
       } else {
-        height = 550;
+        height = 1300;
       }
     }
 
     this.setState({
-      graphByDayType: type,
       graphBySourceType: type,
-      graphByDayConfig: {
-        data: this.state.graphByDayConfig.data,
-        ...(type === "Column"
-          ? GRAPH_CONFIG.ALERTS_BY_DAY.COLUMN
-          : GRAPH_CONFIG.ALERTS_BY_DAY.BAR),
-        height: type === "Column" ? 400 : height,
-      },
       graphBySourceConfig: {
         data: this.state.graphBySourceConfig.data,
         ...(type === "Column"
           ? GRAPH_CONFIG.ALERTS_BY_SOURCE.COLUMN
           : GRAPH_CONFIG.ALERTS_BY_SOURCE.BAR),
         height: 550,
+      },
+      graphByDayType: graphByDayType,
+      graphByDayConfig: {
+        data: this.state.graphByDayConfig.data,
+        ...(graphByDayType === "Column"
+          ? GRAPH_CONFIG.ALERTS_BY_DAY.COLUMN
+          : GRAPH_CONFIG.ALERTS_BY_DAY.BAR),
+        height: graphByDayType === "Column" ? 400 : height,
       },
     });
 
@@ -284,10 +300,10 @@ class CurrentOperation extends React.Component {
       setTimeout(() => {
         this.setState({
           isLoadingChart: false,
-          graphByDayType: type,
+          graphByDayType: graphByDayType,
           graphByDayConfig: {
             ...this.state.graphByDayConfig,
-            height: type === "Column" ? 400 : height,
+            height: graphByDayType === "Column" ? 400 : height,
           },
         });
       }, 10);
@@ -386,19 +402,42 @@ class CurrentOperation extends React.Component {
       } else {
         const [year, month, day] = alertsPerDay[dataIndex].date.split("-");
         const dateOfAlerts = new Date(year, month - 1, day);
+
+        let originSouthCount = 0;
+        let originNorthCount = 0;
+        alertsPerDay[dataIndex].alerts.forEach((alert) => {
+          if (Util.isRegionInSouth(alert.areaNameEn)) {
+            originSouthCount += 1;
+          } else if (Util.isRegionInNorth(alert.areaNameEn)) {
+            originNorthCount += 1;
+          }
+        });
+
         /* If there's alert data for this dateInterval, use it
            Otherwise, there's no alert data since alerts = 0
         */
         if (isSameDay(dateInterval, dateOfAlerts)) {
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            count: alertsPerDay[dataIndex].alerts.length,
+            count: originSouthCount,
+            origin: "Gaza / Hamas",
+          });
+          data[monthName].push({
+            day: dayOfMonthFormat(dateInterval),
+            count: originNorthCount,
+            origin: "Southern Lebanon / Hezbollah",
           });
           dataIndex = dataIndex + 1;
         } else {
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: 0,
+            origin: "Gaza / Hamas",
+          });
+          data[monthName].push({
+            day: dayOfMonthFormat(dateInterval),
+            count: 0,
+            origin: "Southern Lebanon / Hezbollah",
           });
         }
       }

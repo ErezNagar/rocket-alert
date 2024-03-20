@@ -144,6 +144,10 @@ const isSmallViewport = () =>
   Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <
   768;
 
+const isMediumViewport = () =>
+  Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <
+  1024;
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
@@ -153,6 +157,7 @@ const Util = {
   isRegionInSouth,
   isRegionInNorth,
   isSmallViewport,
+  isMediumViewport,
   REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
