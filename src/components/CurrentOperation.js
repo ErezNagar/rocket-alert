@@ -420,24 +420,24 @@ class CurrentOperation extends React.Component {
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: originSouthCount,
-            origin: "Gaza / Hamas",
+            origin: "Hamas (Gaza)",
           });
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: originNorthCount,
-            origin: "Southern Lebanon / Hezbollah",
+            origin: "Hezbollah (Southern Lebanon)",
           });
           dataIndex = dataIndex + 1;
         } else {
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: 0,
-            origin: "Gaza / Hamas",
+            origin: "Hamas (Gaza)",
           });
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: 0,
-            origin: "Southern Lebanon / Hezbollah",
+            origin: "Hezbollah (Southern Lebanon)",
           });
         }
       }
@@ -467,12 +467,12 @@ class CurrentOperation extends React.Component {
         data.push({
           week: weekRangeFormat(weekDate, theDate),
           count: originSouthCount,
-          origin: "Gaza / Hamas",
+          origin: "Hamas (Gaza)",
         });
         data.push({
           week: weekRangeFormat(weekDate, theDate),
           count: originNorthCount,
-          origin: "Southern Lebanon / Hezbollah",
+          origin: "Hezbollah (Southern Lebanon)",
         });
         weekDate = theDate;
         originSouthCount = 0;
@@ -496,12 +496,12 @@ class CurrentOperation extends React.Component {
     data.push({
       week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getNow())}`,
       count: originSouthCount,
-      origin: "Gaza / Hamas",
+      origin: "Hamas (Gaza)",
     });
     data.push({
       week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getNow())}`,
       count: originNorthCount,
-      origin: "Southern Lebanon / Hezbollah",
+      origin: "Hezbollah (Southern Lebanon)",
     });
 
     this.setState({
@@ -571,55 +571,63 @@ class CurrentOperation extends React.Component {
                     )}
                   </Col>
                   <Col gutter={[24, 24]}>
-                    Estimation only. Based on alert location and its distance
-                    from the Gaza Strip vs Southern Lebanon. May include rockets
-                    fired by Islamic Jihad (Gaza) or by other Iranian proxies
-                    (Southern Lebanon)
+                    Source is estimation only. Based on alert location and its
+                    distance from the Gaza Strip vs Southern Lebanon. May or may
+                    not include rockets fired by Islamic Jihad (Gaza) or by
+                    other Iranian proxies (Southern Lebanon)
                   </Col>
                 </>
               )}
               {this.state.showGraphByDay && (
-                <Col span={24}>
-                  <h2>Alerts by day since Oct 7</h2>
-                  <Row justify={"center"} className={"month-list"}>
-                    <div className={"customSelect"}>
-                      <select
-                        id="month-select"
-                        onChange={(e) => this.handleMonthClick(e)}
-                      >
-                        {this.state.byDayData.months.map((month, idx) =>
-                          idx + 1 === this.state.byDayData.months.length ? (
-                            <option
-                              value={month}
-                              selected="selected"
-                              key={month}
-                            >
-                              {month}
-                            </option>
-                          ) : (
-                            <option value={month} key={month}>
-                              {month}
-                            </option>
-                          )
-                        )}
-                      </select>
-                    </div>
-                  </Row>
-                  {this.state.isLoadingChart && (
-                    <Row
-                      gutter={[24, 24]}
-                      justify={"center"}
-                      align={"middle"}
-                      className={"loading-chart"}
-                    ></Row>
-                  )}
-                  {this.state.graphByDayType === "Column" && (
-                    <Column {...this.state.graphByDayConfig} />
-                  )}
-                  {this.state.graphByDayType === "Bar" && (
-                    <Bar {...this.state.graphByDayConfig} />
-                  )}
-                </Col>
+                <>
+                  <Col span={24}>
+                    <h2>Alerts by day since Oct 7</h2>
+                    <Row justify={"center"} className={"month-list"}>
+                      <div className={"customSelect"}>
+                        <select
+                          id="month-select"
+                          onChange={(e) => this.handleMonthClick(e)}
+                        >
+                          {this.state.byDayData.months.map((month, idx) =>
+                            idx + 1 === this.state.byDayData.months.length ? (
+                              <option
+                                value={month}
+                                selected="selected"
+                                key={month}
+                              >
+                                {month}
+                              </option>
+                            ) : (
+                              <option value={month} key={month}>
+                                {month}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </div>
+                    </Row>
+                    {this.state.isLoadingChart && (
+                      <Row
+                        gutter={[24, 24]}
+                        justify={"center"}
+                        align={"middle"}
+                        className={"loading-chart"}
+                      ></Row>
+                    )}
+                    {this.state.graphByDayType === "Column" && (
+                      <Column {...this.state.graphByDayConfig} />
+                    )}
+                    {this.state.graphByDayType === "Bar" && (
+                      <Bar {...this.state.graphByDayConfig} />
+                    )}
+                  </Col>
+                  <Col gutter={[24, 24]}>
+                    Source is estimation only. Based on alert location and its
+                    distance from the Gaza Strip vs Southern Lebanon. May or may
+                    not include rockets fired by Islamic Jihad (Gaza) or by
+                    other Iranian proxies (Southern Lebanon)
+                  </Col>
+                </>
               )}
               {this.state.mostTargetedLocations &&
                 this.state.mostTargetedRegions && (
