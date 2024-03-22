@@ -639,7 +639,7 @@ class CurrentOperation extends React.Component {
                           <Col span={18}>
                             <a
                               className="most-targeted-location"
-                              href={`http://www.google.com/maps/place/${location.lat},${location.lon}/@${location.lat},${location.lon},14z`}
+                              href={`https://www.google.com/maps/?q=${location.lat},${location.lon}`}
                               target="_blank"
                               rel="noreferrer"
                             >
