@@ -6,6 +6,7 @@ import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import { ReactComponent as TelegramLogo } from "../assets/telegram.svg";
 import { ReactComponent as MastodonLogo } from "../assets/mastodon.svg";
 import { ReactComponent as EmailLogo } from "../assets/email.svg";
+import { ReactComponent as InstagramLogo } from "../assets/instagram.svg";
 
 const Footer = () => {
   const ref = useRef();
@@ -101,6 +102,28 @@ const Footer = () => {
                 onClick={() => Tracking.socialFooterClick("twitter")}
               >
                 Twitter
+              </a>
+            </Col>
+          </Row>
+          <Row className="item">
+            <Col>
+              <a
+                href={"https://www.instagram.com/RocketAlertLive/"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => Tracking.socialFooterClick("instagram")}
+              >
+                <InstagramLogo className="icon" />
+              </a>
+            </Col>
+            <Col>
+              <a
+                href={"https://www.instagram.com/RocketAlertLive/"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => Tracking.socialFooterClick("instagram")}
+              >
+                Instagram
               </a>
             </Col>
           </Row>
