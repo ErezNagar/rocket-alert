@@ -262,19 +262,6 @@ h3 {
   margin-bottom: 1em;
   font-size: 2em;
 }
-.current-operation-graph {
-  padding: 3em 1em;
-}
-.current-operation-graph h2 {
-  color: black;
-}
-.current-operation-graph .month-list {
-  text-align: center;
-}
-
-.loading-chart {
-  height: 400px;
-}
 
 .most-targeted-location,
 .most-targeted-region {
@@ -290,9 +277,31 @@ h3 {
   color: black;
 }
 
+.graph {
+  margin-bottom: 3em;
+  padding: 0 1em;
+}
+
+.graph h2 {
+  color: black;
+}
+.graph .footer {
+  margin-top: 1em;
+  font-size: 0.9em;
+}
+
+.community {
+  margin-bottom: 3em;
+}
+
+.community h2 {
+  color: black;
+}
+
 /* Adding a custom arrow */
 .customSelect {
   position: relative;
+  margin-bottom: 1em;
 }
 
 .customSelect::before,
