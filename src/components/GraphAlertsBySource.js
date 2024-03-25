@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Spin } from "antd";
 import {
   getNow,
   dayOfMonthFormat,
@@ -9,6 +9,7 @@ import {
 import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
   COLUMN: {
@@ -92,7 +93,7 @@ const GRAPH_CONFIG = {
   },
 };
 
-const GraphAlertBySource = ({ alertData }) => {
+const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [graphType, setGraphType] = useState("Column");
@@ -174,35 +175,56 @@ const GraphAlertBySource = ({ alertData }) => {
 
   return (
     <section className="graph">
-      {showGraph && (
-        <Row justify={"center"}>
-          <Col span={24}>
-            <h2>Alerts by source since Oct 7</h2>
-            {graphType === "Column" && (
-              <Column
-                {...{
-                  data,
-                  ...config,
-                }}
+      <Row justify={"center"}>
+        <Col span={24}>
+          <h2>Alerts by source since Oct 7</h2>
+          {isLoading && (
+            <div className="center-flexbox">
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{ fontSize: 24, color: "black" }}
+                    spin
+                  />
+                }
               />
-            )}
-            {graphType === "Bar" && (
-              <Bar
-                {...{
-                  data,
-                  ...config,
-                }}
-              />
-            )}
-          </Col>
-          <Col className="footer">
-            Source is estimation only. Based on alert location and its distance
-            from the Gaza Strip vs Southern Lebanon. May or may not include
-            rockets fired by Islamic Jihad (Gaza) or by other Iranian proxies
-            (Southern Lebanon)
-          </Col>
-        </Row>
-      )}
+            </div>
+          )}
+          {showGraph && (
+            <>
+              <Col>
+                {graphType === "Column" && (
+                  <Column
+                    {...{
+                      data,
+                      ...config,
+                    }}
+                  />
+                )}
+                {graphType === "Bar" && (
+                  <Bar
+                    {...{
+                      data,
+                      ...config,
+                    }}
+                  />
+                )}
+              </Col>
+              <Col className="footer">
+                Source is estimation only. Based on alert location and its
+                distance from the Gaza Strip vs Southern Lebanon. May or may not
+                include rockets fired by Islamic Jihad (Gaza) or by other
+                Iranian proxies (Southern Lebanon)
+              </Col>
+            </>
+          )}
+          {isError && (
+            <div className="center-flexbox">
+              <Col>Something went wrong. Please try again.</Col>
+            </div>
+          )}
+        </Col>
+      </Row>
     </section>
   );
 };

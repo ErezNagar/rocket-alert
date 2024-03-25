@@ -6,25 +6,17 @@ import { getNow } from "../date_helper";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import PreviousStats from "./PreviousStats";
-import GraphTotalAlerts from "./GraphTotalAlerts";
-import GraphAlertsByDay from "./GraphAlertsByDay";
-import GraphAlertsBySource from "./GraphAlertsBySource";
+import AlertGraphs from "./AlertGraphs";
 
 class CurrentOperation extends React.Component {
   state = {
     mostTargetedLocations: null,
     mostTargetedRegions: null,
     detaildAlerts: null,
+    isDetailedAlertsError: false,
   };
 
   componentDidMount() {
-    this.getDetailedAlerts().then((alerts) => {
-      if (!alerts || alerts.length === 0) {
-        return;
-      }
-      this.setState({ detaildAlerts: alerts });
-    });
-
     this.getMostTargetedLocations().then((res) => {
       if (!res) {
         return;
@@ -39,18 +31,6 @@ class CurrentOperation extends React.Component {
       this.setState({ mostTargetedRegions: res });
     });
   }
-
-  getDetailedAlerts = () =>
-    this.props.alertsClient
-      .getDetailedAlerts(new Date("2023-10-07"), getNow())
-      .then((res) => {
-        return res.payload;
-      })
-      .catch((error) => {
-        Tracking.detailedAlertsByDayError(error);
-        console.error(error);
-        return null;
-      });
 
   getMostTargetedLocations = () =>
     this.props.alertsClient
@@ -94,9 +74,8 @@ class CurrentOperation extends React.Component {
         </div>
 
         <PreviousStats alertsClient={this.props.alertsClient} />
-        <GraphTotalAlerts alertData={this.state.detaildAlerts} />
-        <GraphAlertsBySource alertData={this.state.detaildAlerts} />
-        <GraphAlertsByDay alertData={this.state.detaildAlerts} />
+        {/* <AlertGraphs /> */}
+        <AlertGraphs alertsClient={this.props.alertsClient} />
         <Row justify={"center"}>
           {this.state.mostTargetedLocations &&
             this.state.mostTargetedRegions && (

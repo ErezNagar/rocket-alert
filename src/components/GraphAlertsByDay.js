@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Spin } from "antd";
 import { eachDayOfInterval, isSameDay } from "date-fns";
 import { getYesterday, dayOfMonthFormat } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
   COLUMN: {
@@ -89,7 +90,7 @@ const GRAPH_CONFIG = {
   },
 };
 
-const GraphAlertsByDay = ({ alertData }) => {
+const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
@@ -210,38 +211,56 @@ const GraphAlertsByDay = ({ alertData }) => {
   };
 
   return (
-    // These graph rows all had a guuter of [24, 24]
     <section className="graph">
-      {showGraph && (
-        <Row justify={"center"}>
-          <Col span={24}>
-            <h2>Alerts by day since Oct 7</h2>
-            <Row justify={"center"}>
-              <div className={"customSelect"}>
-                <select
-                  id="month-select"
-                  defaultValue={data.months[data.months.length - 1]}
-                  onChange={(e) => handleMonthClick(e)}
-                >
-                  {data.months.map((month) => (
-                    <option value={month} key={month}>
-                      {month}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </Row>
-            {graphType === "Column" && <Column {...config} />}
-            {graphType === "Bar" && <Bar {...config} />}
-          </Col>
-          <Col className="footer">
-            Source is estimation only. Based on alert location and its distance
-            from the Gaza Strip vs Southern Lebanon. May or may not include
-            rockets fired by Islamic Jihad (Gaza) or by other Iranian proxies
-            (Southern Lebanon)
-          </Col>
-        </Row>
-      )}
+      <Row justify={"center"}>
+        <Col span={24}>
+          <h2>Alerts by day since Oct 7</h2>
+          {isLoading && (
+            <div className="center-flexbox">
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{ fontSize: 24, color: "black" }}
+                    spin
+                  />
+                }
+              />
+            </div>
+          )}
+          {showGraph && (
+            <>
+              <Row justify={"center"}>
+                <div className={"customSelect"}>
+                  <select
+                    id="month-select"
+                    defaultValue={data.months[data.months.length - 1]}
+                    onChange={(e) => handleMonthClick(e)}
+                  >
+                    {data.months.map((month) => (
+                      <option value={month} key={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </Row>
+              {graphType === "Column" && <Column {...config} />}
+              {graphType === "Bar" && <Bar {...config} />}
+              <Col className="footer">
+                Source is estimation only. Based on alert location and its
+                distance from the Gaza Strip vs Southern Lebanon. May or may not
+                include rockets fired by Islamic Jihad (Gaza) or by other
+                Iranian proxies (Southern Lebanon)
+              </Col>
+            </>
+          )}
+          {isError && (
+            <div className="center-flexbox">
+              <Col>Something went wrong. Please try again.</Col>
+            </div>
+          )}
+        </Col>
+      </Row>
     </section>
   );
 };

@@ -285,6 +285,15 @@ h3 {
 .graph h2 {
   color: black;
 }
+
+.graph .center-flexbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100px;
+}
+
 .graph .footer {
   margin-top: 1em;
   font-size: 0.9em;

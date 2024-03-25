@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import React, { useEffect, useState, useCallback } from "react";
+import { Row, Col, Spin } from "antd";
 import {
   getNow,
   dayOfMonthFormat,
@@ -10,8 +10,9 @@ import {
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
+import { LoadingOutlined } from "@ant-design/icons";
 
-const GraphTotalAlerts = ({ alertData }) => {
+const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
 
@@ -46,13 +47,7 @@ const GraphTotalAlerts = ({ alertData }) => {
     yAxis: false,
   };
 
-  useEffect(() => {
-    if (alertData) {
-      buildGraph();
-    }
-  }, [alertData]);
-
-  const buildGraph = () => {
+  const buildGraph = useCallback(() => {
     let data = [];
     let biweeklyAlertCount = 0;
     let weekDate = new Date(2023, 9, 7);
@@ -82,23 +77,46 @@ const GraphTotalAlerts = ({ alertData }) => {
 
     setData(data);
     setShowGraph(true);
-  };
+  }, [alertData]);
+
+  useEffect(() => {
+    if (alertData) {
+      buildGraph();
+    }
+  }, [alertData, buildGraph]);
 
   return (
     <section className="graph">
-      {showGraph && (
-        <Row justify={"center"}>
-          <Col span={24}>
-            <h2>Total alerts since Oct 7</h2>
+      <Row justify={"center"}>
+        <Col span={24}>
+          <h2>Total alerts since Oct 7</h2>
+          {isLoading && (
+            <div className="center-flexbox">
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{ fontSize: 24, color: "black" }}
+                    spin
+                  />
+                }
+              />
+            </div>
+          )}
+          {showGraph && (
             <Column
               {...{
                 data,
                 ...config,
               }}
             />
-          </Col>
-        </Row>
-      )}
+          )}
+          {isError && (
+            <div className="center-flexbox">
+              <Col>Something went wrong. Please try again.</Col>
+            </div>
+          )}
+        </Col>
+      </Row>
     </section>
   );
 };
