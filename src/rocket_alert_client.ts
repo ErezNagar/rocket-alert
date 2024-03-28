@@ -93,7 +93,9 @@ const AlertClient = {
         if (!res.success) {
           return null;
         }
-        return res.payload;
+        const payload: any = [];
+        res.payload.forEach((item: any) => payload.push(...item.alerts));
+        return payload;
       });
   },
 
