@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Row, Col, Spin } from "antd";
 import {
   getNow,
@@ -99,19 +99,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   const [graphType, setGraphType] = useState("Column");
   const [config, setConfig] = useState(null);
 
-  useEffect(() => {
-    if (alertData) {
-      buildGraph();
-    }
-  }, [alertData]);
-
-  useEffect(() => {
-    if (data) {
-      updateGraphConfig();
-    }
-  }, [data]);
-
-  const buildGraph = () => {
+  const buildGraph = useCallback(() => {
     let data = [];
     let originSouthCount = 0;
     let originNorthCount = 0;
@@ -162,7 +150,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     });
 
     setData(data);
-  };
+  }, [alertData]);
 
   const updateGraphConfig = () => {
     const type = Util.isSmallViewport() ? "Bar" : "Column";
@@ -172,6 +160,18 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     });
     setShowGraph(true);
   };
+
+  useEffect(() => {
+    if (alertData) {
+      buildGraph();
+    }
+  }, [alertData, buildGraph]);
+
+  useEffect(() => {
+    if (data) {
+      updateGraphConfig();
+    }
+  }, [data]);
 
   return (
     <section className="graph">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Row, Col, Spin } from "antd";
 import { eachDayOfInterval, isSameDay } from "date-fns";
 import { getYesterday, dayOfMonthFormat } from "../date_helper";
@@ -97,19 +97,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   const [graphType, setGraphType] = useState("Column");
   const [config, setConfig] = useState(null);
 
-  useEffect(() => {
-    if (alertData) {
-      buildGraph();
-    }
-  }, [alertData]);
-
-  useEffect(() => {
-    if (selectedMonth) {
-      updateGraphConfig();
-    }
-  }, [selectedMonth]);
-
-  const buildGraph = () => {
+  const buildGraph = useCallback(() => {
     let dataIndex = 0;
     const data = { months: [] };
 
@@ -177,9 +165,9 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
 
     setData(data);
     setSelectedMonth(selectedMonth);
-  };
+  }, [alertData]);
 
-  const updateGraphConfig = () => {
+  const updateGraphConfig = useCallback(() => {
     const type = Util.isMediumViewport() ? "Bar" : "Column";
     let height = 200;
 
@@ -202,7 +190,19 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
       height: type === "Column" ? 400 : height,
     });
     setShowGraph(true);
-  };
+  }, [data, selectedMonth]);
+
+  useEffect(() => {
+    if (alertData) {
+      buildGraph();
+    }
+  }, [alertData, buildGraph]);
+
+  useEffect(() => {
+    if (selectedMonth) {
+      updateGraphConfig();
+    }
+  }, [selectedMonth, updateGraphConfig]);
 
   const handleMonthClick = () => {
     const month = document.getElementById("month-select").value;
