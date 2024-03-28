@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3f5ad82c.css",
-    "main.js": "/static/js/main.22365358.js",
+    "main.css": "/static/css/main.cc5974ae.css",
+    "main.js": "/static/js/main.dea531c0.js",
     "static/js/661.9951ca13.chunk.js": "/static/js/661.9951ca13.chunk.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/jerusalem_distance.png": "/static/media/jerusalem_distance.bac81e957ebb29a6fb29.png",
@@ -17,11 +17,11 @@
     "static/media/twitter.svg": "/static/media/twitter.c4236a95b1a54627edce47c20a871ef0.svg",
     "static/media/twitter_black.svg": "/static/media/twitter_black.9a56ea57a5ed634cfbf9ae2b7de7cfda.svg",
     "static/media/email.svg": "/static/media/email.071535162611fb198c1012dac02b4d90.svg",
-    "main.3f5ad82c.css.map": "/static/css/main.3f5ad82c.css.map",
-    "main.22365358.js.map": "/static/js/main.22365358.js.map"
+    "main.cc5974ae.css.map": "/static/css/main.cc5974ae.css.map",
+    "main.dea531c0.js.map": "/static/js/main.dea531c0.js.map"
   },
   "entrypoints": [
-    "static/css/main.3f5ad82c.css",
-    "static/js/main.22365358.js"
+    "static/css/main.cc5974ae.css",
+    "static/js/main.dea531c0.js"
   ]
 }
