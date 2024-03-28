@@ -3,8 +3,9 @@ import isValid from "date-fns/isValid";
 import { isoFormat, convertToServerTime } from "./date_helper";
 import Util from "./util";
 
-const SERVER_URL = "https://agg.rocketalert.live/api/v1/alerts";
-const api = wretch(SERVER_URL);
+const SERVER_URL = "https://agg.rocketalert.live/api";
+const APIv1 = wretch(`${SERVER_URL}/v1/alerts`);
+const APIv2 = wretch(`${SERVER_URL}/v2/alerts`);
 
 /*
  *  Gets detailed alert data for alerts in the given date range
@@ -20,8 +21,7 @@ const getDetailedAlerts = (from: string, to: string) => {
   if (!to || !isValid(new Date(to))) {
     return Promise.reject(new Error("Invalid Date: to"));
   }
-  return api
-    .url("/details")
+  return APIv1.url("/details")
     .query({
       from: isoFormat(convertToServerTime(from)),
       to: isoFormat(convertToServerTime(to)),
@@ -71,8 +71,7 @@ const AlertClient = {
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return api
-      .url("/daily")
+    return APIv1.url("/daily")
       .query({
         from: isoFormat(convertToServerTime(from)),
         to: isoFormat(convertToServerTime(to)),
@@ -87,8 +86,7 @@ const AlertClient = {
    *  @return {object}
    */
   getRealTimeAlertCache: (): any => {
-    return api
-      .url("/real-time/cached")
+    return APIv2.url("/real-time/cached")
       .get()
       .json()
       .then((res) => {
@@ -113,8 +111,7 @@ const AlertClient = {
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return api
-      .url("/total")
+    return APIv1.url("/total")
       .query({
         from: isoFormat(convertToServerTime(from)),
         to: isoFormat(convertToServerTime(to)),
@@ -128,7 +125,7 @@ const AlertClient = {
    *
    *  @return {object}
    */
-  getMostRecentAlert: (): any => api.url("/latest").get().json(),
+  getMostRecentAlert: (): any => APIv1.url("/latest").get().json(),
 
   /*
    *  Gets the top N most targeted locations
@@ -149,8 +146,7 @@ const AlertClient = {
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return api
-      .url("/top/place")
+    return APIv1.url("/top/place")
       .query({
         from: isoFormat(convertToServerTime(from)),
         to: isoFormat(convertToServerTime(to)),
@@ -175,8 +171,7 @@ const AlertClient = {
     if (!to || !isValid(new Date(to))) {
       return Promise.reject(new Error("Invalid Date: to"));
     }
-    return api
-      .url("/top/area")
+    return APIv1.url("/top/area")
       .query({
         from: isoFormat(convertToServerTime(from)),
         to: isoFormat(convertToServerTime(to)),
@@ -194,8 +189,8 @@ const AlertClient = {
    */
   getRealTimeAlertEventSource: (
     url = Util.isAlertModeQueryString()
-      ? `${SERVER_URL}/real-time-test`
-      : `${SERVER_URL}/real-time`
+      ? `${SERVER_URL}/v2/alerts/real-time-test`
+      : `${SERVER_URL}/v2/alerts/real-time`
   ) => new EventSource(url),
 };
 

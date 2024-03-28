@@ -24,13 +24,16 @@ const RealTimeAlertManager = {
       RealTimeAlertManager.processAlert(cb);
     };
     RealTimeAlertManager.alertEventSource.addEventListener("message", (e) => {
-      if (JSON.parse(e.data).name === "KEEP_ALIVE") {
+      if (JSON.parse(e.data).alerts[0].name === "KEEP_ALIVE") {
         return;
       }
       if (RealTimeAlertManager.alertQueue.length === MAX_QUEUE_SIZE) {
         RealTimeAlertManager.alertQueue.shift();
       }
-      RealTimeAlertManager.alertQueue.push(e.data);
+      const data = JSON.parse(e.data);
+      data.alerts.forEach((alert) => {
+        RealTimeAlertManager.alertQueue.push(alert);
+      });
     });
     RealTimeAlertManager.alertEventSource.onerror = () => {
       console.error("EventSource failed.");

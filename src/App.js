@@ -95,32 +95,36 @@ class App extends React.Component {
    * Mocks alerts in the client without hitting the server
    */
   mockClientAlerts = () => {
-    RealTimeAlertManager.alertQueue.push(
-      JSON.stringify({
-        name: "Test Eilat 1",
-        englishName: null,
-        lat: 29.6276236,
-        lon: 34.7892581,
-        taCityId: 4,
-        countdownSec: 15,
-        areaNameHe: "areaNameHe",
-        areaNameEn: "areaNameEn",
-        timeStamp: "2023-11-06 17:20:33",
-      })
-    );
-    RealTimeAlertManager.alertQueue.push(
-      JSON.stringify({
-        name: "Test Eilat 2",
-        englishName: null,
-        lat: 29.6276236,
-        lon: 34.7892581,
-        taCityId: 4,
-        countdownSec: 15,
-        areaNameHe: "areaNameHe",
-        areaNameEn: "areaNameEn",
-        timeStamp: "2023-11-06 17:20:33",
-      })
-    );
+    const alerts = {
+      alerts: [
+        {
+          name: "Test Eilat 1",
+          englishName: null,
+          lat: 29.6276236,
+          lon: 34.7892581,
+          taCityId: 4,
+          countdownSec: 15,
+          areaNameHe: "areaNameHe",
+          areaNameEn: "areaNameEn",
+          timeStamp: "2023-11-06 17:20:33",
+        },
+        {
+          name: "Test Eilat 2",
+          englishName: null,
+          lat: 29.6276236,
+          lon: 34.7892581,
+          taCityId: 4,
+          countdownSec: 15,
+          areaNameHe: "areaNameHe",
+          areaNameEn: "areaNameEn",
+          timeStamp: "2023-11-06 17:20:33",
+        },
+      ],
+    };
+    
+    alerts.alerts.forEach((alert) => {
+      RealTimeAlertManager.alertQueue.push(alert);
+    });
 
     RealTimeAlertManager.processAlert(this.processRealTimeAlert);
   };
@@ -129,7 +133,6 @@ class App extends React.Component {
    * Processes a single real-time alert by showing it in the UI
    */
   processRealTimeAlert = (alert, isLastAlert) => {
-    alert = JSON.parse(alert);
     const newMostRecentAlerts = [...this.state.mostRecentAlerts];
     // Add alert to top of alert list
     newMostRecentAlerts.unshift(alert);
