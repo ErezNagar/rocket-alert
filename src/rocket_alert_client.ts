@@ -5,7 +5,7 @@ import Util from "./util";
 
 const SERVER_URL = "https://agg.rocketalert.live/api";
 const APIv1 = wretch(`${SERVER_URL}/v1/alerts`);
-const APIv2 = wretch(`${SERVER_URL}/v2/alerts`);
+// const APIv2 = wretch(`${SERVER_URL}/v2/alerts`);
 
 /*
  *  Gets detailed alert data for alerts in the given date range
@@ -86,16 +86,17 @@ const AlertClient = {
    *  @return {object}
    */
   getRealTimeAlertCache: (): any => {
-    return APIv2.url("/real-time/cached")
+    return APIv1.url("/real-time/cached")
       .get()
       .json()
       .then((res) => {
         if (!res.success) {
           return null;
         }
-        const payload: any = [];
-        res.payload.forEach((item: any) => payload.push(...item.alerts));
-        return payload;
+        // const payload: any = [];
+        // res.payload.forEach((item: any) => payload.push(...item.alerts));
+        // return payload;
+        return res.payload;
       })
       .catch((err) => {
         console.log(err);
