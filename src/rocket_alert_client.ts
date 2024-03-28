@@ -96,6 +96,9 @@ const AlertClient = {
         const payload: any = [];
         res.payload.forEach((item: any) => payload.push(...item.alerts));
         return payload;
+      })
+      .catch((err) => {
+        console.log(err);
       });
   },
 

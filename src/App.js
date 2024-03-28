@@ -71,8 +71,8 @@ class App extends React.Component {
       AlertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
-        const mostRecentAlerts = values[0];
-        const realTimeAlertCache = values[1];
+        const mostRecentAlerts = values[0] ? values[0] : [];
+        const realTimeAlertCache = values[1] ? values[1] : [];
 
         if (!mostRecentAlerts && !realTimeAlertCache) {
           return;
@@ -121,7 +121,7 @@ class App extends React.Component {
         },
       ],
     };
-    
+
     alerts.alerts.forEach((alert) => {
       RealTimeAlertManager.alertQueue.push(alert);
     });
