@@ -87,10 +87,7 @@ const TimeToShelter = ({ alerts }) => {
           </a>
         </div>
       </div>
-      <p>
-        Based on the last rocket alert. See a map of your area by enabling
-        location services.
-      </p>
+      <p>Based on the last rocket alert</p>
     </div>
   ) : null;
 };

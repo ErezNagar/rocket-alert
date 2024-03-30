@@ -122,7 +122,7 @@ class UserLocationMap extends React.Component {
   }
 
   render() {
-    return (
+    return this.state.showMapWithUserLocation ? (
       <section className="section map">
         <div
           id="user_location_map"
@@ -131,6 +131,8 @@ class UserLocationMap extends React.Component {
           }}
         ></div>
       </section>
+    ) : (
+      <></>
     );
   }
 }
