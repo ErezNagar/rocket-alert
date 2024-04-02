@@ -93,6 +93,7 @@ const GRAPH_CONFIG = {
 const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
+  const [selectedMonthData, setSelectedMonthData] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [graphType, setGraphType] = useState("Column");
   const [config, setConfig] = useState(null);
@@ -132,31 +133,20 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         });
 
         /* If there's alert data for this dateInterval, use it
-            Otherwise, there's no alert data since alerts = 0
-            */
+            Otherwise, there's no alert data since alerts = 0, but we still want to show that date in the graph
+        */
+        data[monthName].push({
+          day: dayOfMonthFormat(dateInterval),
+          count: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
+          origin: "Hamas (Gaza)",
+        });
+        data[monthName].push({
+          day: dayOfMonthFormat(dateInterval),
+          count: isSameDay(dateInterval, dateOfAlerts) ? originNorthCount : 0,
+          origin: "Hezbollah (Southern Lebanon)",
+        });
         if (isSameDay(dateInterval, dateOfAlerts)) {
-          data[monthName].push({
-            day: dayOfMonthFormat(dateInterval),
-            count: originSouthCount,
-            origin: "Hamas (Gaza)",
-          });
-          data[monthName].push({
-            day: dayOfMonthFormat(dateInterval),
-            count: originNorthCount,
-            origin: "Hezbollah (Southern Lebanon)",
-          });
           dataIndex = dataIndex + 1;
-        } else {
-          data[monthName].push({
-            day: dayOfMonthFormat(dateInterval),
-            count: 0,
-            origin: "Hamas (Gaza)",
-          });
-          data[monthName].push({
-            day: dayOfMonthFormat(dateInterval),
-            count: 0,
-            origin: "Hezbollah (Southern Lebanon)",
-          });
         }
       }
     });
@@ -165,6 +155,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
 
     setData(data);
     setSelectedMonth(selectedMonth);
+    setSelectedMonthData(data[selectedMonth]);
   }, [alertData]);
 
   const updateGraphConfig = useCallback(() => {
@@ -172,25 +163,28 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     let height = 200;
 
     if (type === "Bar") {
-      if (data[selectedMonth].length <= 10) {
+      if (selectedMonthData.length <= 10) {
         height = 200;
-      } else if (data[selectedMonth].length <= 20) {
+      } else if (selectedMonthData.length <= 20) {
         height = 400;
-      } else if (data[selectedMonth].length <= 40) {
+      } else if (selectedMonthData.length <= 40) {
         height = 800;
       } else {
         height = 1300;
       }
     }
 
-    setGraphType(type);
-    setConfig({
-      data: data[selectedMonth],
-      ...(type === "Column" ? GRAPH_CONFIG.COLUMN : GRAPH_CONFIG.BAR),
-      height: type === "Column" ? 400 : height,
-    });
-    setShowGraph(true);
-  }, [data, selectedMonth]);
+    setShowGraph(false);
+    setConfig(null);
+    setTimeout(() => {
+      setGraphType(type);
+      setConfig({
+        ...(type === "Column" ? GRAPH_CONFIG.COLUMN : GRAPH_CONFIG.BAR),
+        height: type === "Column" ? 400 : height,
+      });
+      setShowGraph(true);
+    }, 1);
+  }, [selectedMonthData]);
 
   useEffect(() => {
     if (alertData) {
@@ -208,6 +202,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     const month = document.getElementById("month-select").value;
     Tracking.graphMonthClick(month);
     setSelectedMonth(month);
+    setSelectedMonthData(data[month]);
   };
 
   return (
@@ -233,7 +228,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
                 <div className={"customSelect"}>
                   <select
                     id="month-select"
-                    defaultValue={data.months[data.months.length - 1]}
+                    value={selectedMonth}
                     onChange={(e) => handleMonthClick(e)}
                   >
                     {data.months.map((month) => (
@@ -244,8 +239,12 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
                   </select>
                 </div>
               </Row>
-              {graphType === "Column" && <Column {...config} />}
-              {graphType === "Bar" && <Bar {...config} />}
+              {graphType === "Column" && (
+                <Column {...{ ...config, data: selectedMonthData }} />
+              )}
+              {graphType === "Bar" && (
+                <Bar {...{ ...config, data: selectedMonthData }} />
+              )}
               <Col className="footer">
                 Source is estimation only. Based on alert location and its
                 distance from the Gaza Strip vs Southern Lebanon. May or may not
