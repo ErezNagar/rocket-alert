@@ -9,6 +9,8 @@ import {
   startOfToday,
   startOfYesterday,
   endOfYesterday,
+  isAfter,
+  isBefore,
 } from "date-fns";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 
@@ -44,6 +46,15 @@ export const is3WeeksDifference = (fromDate, toDate) => {
 
 export const weekRangeFormat = (fromDate, toDate) =>
   `${dayOfMonthFormat(fromDate)} - ${dayOfMonthFormat(subDays(toDate, 1))}`;
+
+export const isIranianMissileAttackTimeFrame = (date) => {
+  const theDate = new Date(date);
+  // Beginning of Iranian start date
+  const start = new Date("2024-04-14 01:42:00");
+  // End of Iranian start date
+  const end = new Date("2024-04-14 01:58:00");
+  return isAfter(theDate, start) && isBefore(theDate, end);
+};
 
 export const getNow = () => new Date();
 
