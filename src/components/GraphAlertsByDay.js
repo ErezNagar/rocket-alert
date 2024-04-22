@@ -61,7 +61,7 @@ const GRAPH_CONFIG = {
       radius: [20, 20, 0, 0],
     },
     legend: {
-      layout: "horizontal",
+      layout: "vertical",
       position: "top-left",
     },
     maxBarWidth: 40,
