@@ -5,7 +5,6 @@ import Tile from "./Tile";
 import { getNow } from "../date_helper";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
-import PreviousStats from "./PreviousStats";
 import AlertGraphs from "./AlertGraphs";
 
 class CurrentOperation extends React.Component {
@@ -73,8 +72,6 @@ class CurrentOperation extends React.Component {
           </Row>
         </div>
 
-        <PreviousStats alertsClient={this.props.alertsClient} />
-        {/* <AlertGraphs /> */}
         <AlertGraphs alertsClient={this.props.alertsClient} />
         <Row justify={"center"}>
           {this.state.mostTargetedLocations &&
