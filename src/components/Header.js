@@ -185,6 +185,12 @@ class Header extends React.Component {
         pastWeekAlertCount !== yesterdayAlertCount
       ) {
         alertSummaryText = `In the past week, there were ${pastWeekAlertCount} rocket alerts`;
+        if (
+          pastMonthAlertCount > 0 &&
+          pastWeekAlertCount !== pastMonthAlertCount
+        ) {
+          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
+        }
       } else if (pastMonthAlertCount > 0) {
         alertSummaryText = `In the past month, there were ${pastMonthAlertCount} rocket alerts`;
       }
