@@ -4,8 +4,8 @@ import {
   getNow,
   dayOfMonthFormat,
   isBiWeeklyDifference,
-  is3WeeksDifference,
   weekRangeFormat,
+  isAMonthDifference,
 } from "../date_helper";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
@@ -52,7 +52,7 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
     let biweeklyAlertCount = 0;
     let weekDate = new Date(2023, 9, 7);
     const weekDiffFunction = Util.isSmallViewport()
-      ? is3WeeksDifference
+      ? isAMonthDifference
       : isBiWeeklyDifference;
 
     alertData.forEach(({ alerts, date }) => {
