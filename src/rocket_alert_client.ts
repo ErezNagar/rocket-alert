@@ -14,7 +14,11 @@ const APIv1 = wretch(`${SERVER_URL}/v1/alerts`);
  *  @param {string} to    to date, inclusive.
  *  @return {object}
  */
-const getDetailedAlerts = (from: string, to: string) => {
+const getDetailedAlerts = (
+  from: string,
+  to: string,
+  alertType: number = Util.ALERT_TYPE_ROCKETS
+) => {
   if (!from || !isValid(new Date(from))) {
     return Promise.reject(new Error("Invalid Date: from"));
   }
@@ -25,6 +29,7 @@ const getDetailedAlerts = (from: string, to: string) => {
     .query({
       from: isoFormat(convertToServerTime(from)),
       to: isoFormat(convertToServerTime(to)),
+      alertTypeId: alertType,
     })
     .get()
     .json();
