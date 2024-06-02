@@ -4,8 +4,10 @@ import { isoFormat, convertToServerTime } from "./date_helper";
 import Util from "./util";
 
 const SERVER_URL = "https://agg.rocketalert.live/api";
-const APIv1 = wretch(`${SERVER_URL}/v1/alerts`);
-// const APIv2 = wretch(`${SERVER_URL}/v2/alerts`);
+const V1 = `${SERVER_URL}/v1`;
+const V2 = `${SERVER_URL}/v2`;
+const APIv1 = wretch(`${V1}/alerts`);
+const APIv2 = wretch(`${V2}/alerts`);
 
 /*
  *  Gets detailed alert data for alerts in the given date range
@@ -86,7 +88,7 @@ const AlertClient = {
    *  @return {object}
    */
   getRealTimeAlertCache: (): any => {
-    return APIv1.url("/real-time/cached")
+    return APIv2.url("/real-time/cached")
       .get()
       .json()
       .then((res) => {
@@ -195,8 +197,8 @@ const AlertClient = {
    */
   getRealTimeAlertEventSource: (
     url = Util.isAlertModeQueryString()
-      ? `${SERVER_URL}/v2/alerts/real-time-test`
-      : `${SERVER_URL}/v2/alerts/real-time`
+      ? `${V2}/alerts/real-time-test`
+      : `${V2}/alerts/real-time`
   ) => new EventSource(url),
 };
 
