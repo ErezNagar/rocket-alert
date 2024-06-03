@@ -95,10 +95,12 @@ const AlertClient = {
         if (!res.success) {
           return null;
         }
-        // const payload: any = [];
-        // res.payload.forEach((item: any) => payload.push(...item.alerts));
-        // return payload;
-        return res.payload;
+        const payload: any = {
+          alerts: [],
+          count: res.payload.length,
+        };
+        res.payload.forEach((item: any) => payload.alerts.push(...item.alerts));
+        return payload;
       })
       .catch((err) => {
         console.log(err);

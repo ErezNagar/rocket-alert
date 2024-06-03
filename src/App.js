@@ -74,13 +74,13 @@ class App extends React.Component {
         const mostRecentAlerts = values[0] ? values[0] : [];
         const realTimeAlertCache = values[1] ? values[1] : [];
 
-        if (!mostRecentAlerts && !realTimeAlertCache) {
+        if (!mostRecentAlerts && realTimeAlertCache.count === 0) {
           return;
         }
 
         this.setState({
           mostRecentAlerts: mostRecentAlerts
-            .concat(realTimeAlertCache)
+            .concat(realTimeAlertCache.alerts)
             .slice(-Util.MAX_RECENT_ALERTS)
             .reverse(),
         });
@@ -107,6 +107,7 @@ class App extends React.Component {
           areaNameHe: "areaNameHe",
           areaNameEn: "areaNameEn",
           timeStamp: "2023-11-06 17:20:33",
+          alertTypeId: 1,
         },
         {
           name: "Test Eilat 2",
@@ -118,6 +119,7 @@ class App extends React.Component {
           areaNameHe: "areaNameHe",
           areaNameEn: "areaNameEn",
           timeStamp: "2023-11-06 17:20:33",
+          alertTypeId: 2,
         },
       ],
     };
