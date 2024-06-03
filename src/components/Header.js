@@ -62,10 +62,7 @@ HeaderContent.defaultProps = {
 
 const AlertModeHeaderContent = ({ shouldRefresh, alert }) => {
   let alertText = "";
-  console.log(alert.alertTypeId);
-  console.log(alert.alertTypeId === Util.ALERT_TYPE_ROCKET);
-  console.log(alert.alertTypeId === Util.ALERT_TYPE_UAV);
-  if (alert.alertTypeId === Util.ALERT_TYPE_ROCKET) {
+  if (alert.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
     alertText = "Rocket alert";
   } else if (
     alert.alertTypeId === Util.ALERT_TYPE_UAV ||

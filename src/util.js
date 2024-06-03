@@ -24,6 +24,13 @@ const REAL_TIME_ALERT_DISPLAY_DURATION =
 const MAX_RECENT_ALERTS = 15;
 
 /*
+ * Alert Type Ids
+ */
+const ALERT_TYPE_ALL = -1;
+const ALERT_TYPE_ROCKETS = 1;
+const ALERT_TYPE_UAV = 2 || 6;
+
+/*
  * Checks whether the Alert Mode query string is set. Dev only.
  */
 const isAlertModeQueryString = () => {
@@ -162,6 +169,9 @@ const Util = {
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
   MAX_RECENT_ALERTS,
+  ALERT_TYPE_ALL,
+  ALERT_TYPE_ROCKETS,
+  ALERT_TYPE_UAV,
 };
 
 export default Util;
