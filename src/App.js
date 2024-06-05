@@ -31,6 +31,8 @@ class App extends React.Component {
     realTimeAlert: null,
     // Most recent alerts
     mostRecentAlerts: [],
+    // Most recent alerts cache
+    mostRecentAlertCache: { alerts: [], count: 0 },
     // Text when sharing on twitter. Generated in Header
     twitterShareText: "",
     // The location to focus on on the map
@@ -73,12 +75,12 @@ class App extends React.Component {
       .then((values) => {
         const mostRecentAlerts = values[0] ? values[0] : [];
         const realTimeAlertCache = values[1] ? values[1] : [];
-
         if (!mostRecentAlerts && realTimeAlertCache.count === 0) {
           return;
         }
 
         this.setState({
+          mostRecentAlertCache: realTimeAlertCache,
           mostRecentAlerts: mostRecentAlerts
             .concat(realTimeAlertCache.alerts)
             .slice(-Util.MAX_RECENT_ALERTS)
@@ -186,6 +188,7 @@ class App extends React.Component {
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
           onTwitterShareText={this.handleOnTwitterShareText}
+          mostRecentAlertCache={this.state.mostRecentAlertCache}
         />
         <StickyHeader
           showStickyHeader={this.state.showStickyHeader}

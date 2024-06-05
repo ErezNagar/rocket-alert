@@ -96,6 +96,10 @@ AlertModeHeaderContent.defaultProps = {
 class Header extends React.Component {
   state = {
     alerts: {},
+    todayAlertCount: 0,
+    yesterdayAlertCount: 0,
+    pastWeekAlertCount: 0,
+    pastMonthAlertCount: 0,
     alertSummaryCount: 0,
     alertSummaryTitle: "",
     alertSummaryText: "",
@@ -108,7 +112,23 @@ class Header extends React.Component {
   };
 
   componentDidMount() {
+    console.log("componentDidMount");
     this.getHeaderData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
+      this.refreshAlert(this.props.realTimeAlert);
+      this.updateCurrentAlertCount();
+    }
+    if (this.props.mostRecentAlertCache !== prevProps.mostRecentAlertCache) {
+      this.setAlertSummary(
+        this.state.todayAlertCount + this.props.mostRecentAlertCache.count,
+        this.state.yesterdayAlertCount,
+        this.state.pastWeekAlertCount,
+        this.state.pastMonthAlertCount
+      );
+    }
   }
 
   /*
@@ -130,16 +150,20 @@ class Header extends React.Component {
       alertClient.getTotalAlerts(startOfYesterday, endOfYesterday),
       alertClient.getTotalAlerts(pastWeek, now),
       alertClient.getTotalAlerts(pastMonth, now),
-      alertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
         const todayAlertCount = values[0].success ? values[0].payload : 0;
         const yesterdayAlertCount = values[1].success ? values[1].payload : 0;
         const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
         const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
-        const realTimeAlertCacheCount = values[4] ? values[4] : [];
+        this.setState({
+          todayAlertCount,
+          yesterdayAlertCount,
+          pastWeekAlertCount,
+          pastMonthAlertCount,
+        });
         this.setAlertSummary(
-          todayAlertCount + realTimeAlertCacheCount.count,
+          todayAlertCount + this.props.mostRecentAlertCache.count,
           yesterdayAlertCount,
           pastWeekAlertCount,
           pastMonthAlertCount
@@ -253,13 +277,6 @@ class Header extends React.Component {
     this.props.onTwitterShareText(twitterShareText);
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
-      this.refreshAlert(this.props.realTimeAlert);
-      this.updateCurrentAlertCount();
-    }
-  }
-
   refreshAlert = () => {
     this.setState({
       shouldRefresh: true,
@@ -364,6 +381,7 @@ Header.propTypes = {
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
   onTwitterShareText: PropTypes.func.isRequired,
+  mostRecentAlertCache: PropTypes.object.isRequired,
 };
 
 Header.defaultProps = {
