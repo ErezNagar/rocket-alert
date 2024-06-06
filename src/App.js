@@ -107,6 +107,7 @@ class App extends React.Component {
           areaNameHe: "areaNameHe",
           areaNameEn: "areaNameEn",
           timeStamp: "2023-11-06 17:20:33",
+          alertTypeId: Util.ALERT_TYPE_ROCKETS,
         },
         {
           name: "Test Eilat 2",
@@ -118,6 +119,7 @@ class App extends React.Component {
           areaNameHe: "areaNameHe",
           areaNameEn: "areaNameEn",
           timeStamp: "2023-11-06 17:20:33",
+          alertTypeId: Util.ALERT_TYPE_UAV,
         },
       ],
     };

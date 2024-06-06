@@ -60,16 +60,26 @@ HeaderContent.defaultProps = {
   alertSummaryCount: 0,
 };
 
-const AlertModeHeaderContent = ({ shouldRefresh, alert }) => (
-  <>
-    <h3>Rocket alert</h3>
-    <div className="alert">
-      <FadeInOut show={shouldRefresh}>
-        {alert.englishName || alert.name}
-      </FadeInOut>
-    </div>
-  </>
-);
+const AlertModeHeaderContent = ({ shouldRefresh, alert }) => {
+  let alertText = "";
+  if (alert.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
+    alertText = "Rocket alert";
+  } else if (alert.alertTypeId === Util.ALERT_TYPE_UAV) {
+    alertText = "Hostile UAV alert";
+  } else {
+    alertText = "Red alert";
+  }
+  return (
+    <>
+      <h3>{alertText}</h3>
+      <div className="alert">
+        <FadeInOut show={shouldRefresh}>
+          {alert.englishName || alert.name}
+        </FadeInOut>
+      </div>
+    </>
+  );
+};
 
 AlertModeHeaderContent.propTypes = {
   shouldRefresh: PropTypes.bool,
@@ -139,7 +149,7 @@ class Header extends React.Component {
       });
   }
 
-  /* Sets rocket alert summary text in a simple, human readable form.
+  /* Sets red alert summary text in a simple, human readable form.
    * Prioritizes recent alerts over old ones.
    */
   setAlertSummary = async (
@@ -154,10 +164,10 @@ class Header extends React.Component {
 
     if (todayAlertCount > 0) {
       alertSummaryCount = todayAlertCount;
-      alertSummaryTitle = `Rocket alerts today`;
+      alertSummaryTitle = `Red alerts today`;
 
       if (yesterdayAlertCount > 0) {
-        alertSummaryText = `Yesterday, there were ${yesterdayAlertCount} rocket alerts`;
+        alertSummaryText = `Yesterday, there were ${yesterdayAlertCount} red alerts`;
         if (
           pastWeekAlertCount > 0 &&
           yesterdayAlertCount !== pastWeekAlertCount
@@ -170,21 +180,21 @@ class Header extends React.Component {
           alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
         }
       } else if (pastWeekAlertCount > 0) {
-        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} rocket alerts`;
+        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} red alerts`;
         if (pastMonthAlertCount > 0) {
           alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
         }
       } else if (pastMonthAlertCount > 0) {
-        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} rocket alerts`;
+        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} red alerts`;
       }
     } else if (yesterdayAlertCount > 0) {
       alertSummaryCount = yesterdayAlertCount;
-      alertSummaryTitle = `Rocket alerts yesterday`;
+      alertSummaryTitle = `Red alerts yesterday`;
       if (
         pastWeekAlertCount > 0 &&
         pastWeekAlertCount !== yesterdayAlertCount
       ) {
-        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} rocket alerts`;
+        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} red alerts`;
         if (
           pastMonthAlertCount > 0 &&
           pastWeekAlertCount !== pastMonthAlertCount
@@ -192,20 +202,20 @@ class Header extends React.Component {
           alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
         }
       } else if (pastMonthAlertCount > 0) {
-        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} rocket alerts`;
+        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} red alerts`;
       }
     } else if (pastWeekAlertCount > 0) {
       alertSummaryCount = pastWeekAlertCount;
-      alertSummaryTitle = `Rocket alerts in the past week`;
+      alertSummaryTitle = `Red alerts in the past week`;
       if (
         pastMonthAlertCount > 0 &&
         pastMonthAlertCount !== pastWeekAlertCount
       ) {
-        alertSummaryText += `In the past month, there were ${pastMonthAlertCount} rocket alerts`;
+        alertSummaryText += `In the past month, there were ${pastMonthAlertCount} red alerts`;
       }
     } else if (pastMonthAlertCount > 0) {
       alertSummaryCount = pastMonthAlertCount;
-      alertSummaryTitle = `Rocket alerts in the last month`;
+      alertSummaryTitle = `Red alerts in the last month`;
     } else {
       await this.props.alertClient
         .getMostRecentAlert()
@@ -216,10 +226,10 @@ class Header extends React.Component {
               new Date(res.payload.date)
             );
             if (monthsAgo <= 1) {
-              alertSummaryTitle = `Last rocket alert was a month ago`;
+              alertSummaryTitle = `Last red alert was a month ago`;
             }
             if (monthsAgo > 1) {
-              alertSummaryTitle = `Last rocket alert was ${monthsAgo} months ago`;
+              alertSummaryTitle = `Last red alert was ${monthsAgo} months ago`;
             }
           }
         })
@@ -229,7 +239,7 @@ class Header extends React.Component {
         });
     }
 
-    const twitterShareText = `Rocket Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
+    const twitterShareText = `Red Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
     this.setState({
       alertSummaryCount,
       alertSummaryTitle,
@@ -285,7 +295,7 @@ class Header extends React.Component {
       >
         <div className="header-top">
           <img className="logo" src={logo} alt="" />
-          <h2>Real-time rocket alerts in Israel</h2>
+          <h2>Real-time red alerts in Israel</h2>
         </div>
         <div className="header-content">
           {!this.state.isError && this.props.isAlertMode && (

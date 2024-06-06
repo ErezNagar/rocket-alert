@@ -1,7 +1,7 @@
 {
   "name": "rocket-alert",
   "version": "1.7.0",
-  "description": "Real-time rocket alerts in Israel",
+  "description": "Real-time red alerts in Israel",
   "author": "Erez Nagar (erez.nagar@gmail.com)",
   "license": "MIT",
   "repository": {
@@ -11,9 +11,10 @@
   "homepage": "https://ereznagar.github.io",
   "keywords": [
     "rockets",
-    "alerts",
+    "red alert",
     "codered",
     "code-red",
+    "alerts",
     "israel"
   ],
   "dependencies": {

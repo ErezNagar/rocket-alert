@@ -23,19 +23,6 @@ const Footer = () => {
       <Row justify="center" align="top">
         <Col xs={8} md={4} lg={3}>
           <div className="title">Live Alert Feed</div>
-          {/* <Row align="middle">
-            <Col>
-              <a
-                href={`https://twitter.com/share?text=${twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-                target="_blank"
-                rel="noreferrer"
-                onClick={()=>Tracking.socialFooterClick("twitterbot")}
-              >
-                <TwitterLogo className="icon" />
-              </a>
-            </Col>
-            <Col>Twitter</Col>
-          </Row> */}
           <Row className="item">
             <Col>
               <a

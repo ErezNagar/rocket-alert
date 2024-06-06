@@ -17,9 +17,12 @@ const FAQ = () => {
     <section ref={ref} className="section faq" id="faq">
       <h2>Frequently Asked Questions</h2>
       <div>
-        <p className="question-title">Where are these rockets fired from?</p>
+        <p className="question-title">
+          Where are these rockets and UAV's fired from?
+        </p>
         <p className="question-answer">
-          Mostly from the{" "}
+          Before the Hamas attack on October 7, 2023, rockets were mostly fired
+          from the{" "}
           <a
             href="https://en.wikipedia.org/wiki/Gaza_Strip"
             target="_blank"
@@ -27,12 +30,21 @@ const FAQ = () => {
           >
             Gaza Strip
           </a>
-          , although sometimes there are rockets fired from South Lebanon or
-          Syria.
+          , but since then, rockets and also UAV's (i.e. loitering munition,
+          more commonly known as{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/Loitering_munition"
+            target="_blank"
+            rel="noreferrer"
+          >
+            exploding drones
+          </a>
+          ) have been fired mostly from South Lebanon, but also from Syria, Iraq
+          and Yemen.
         </p>
       </div>
       <div>
-        <p className="question-title">Who is firing these rockets?</p>
+        <p className="question-title">Who is firing these rockets and UAV's?</p>
         <p className="question-answer">
           Palestinian terror organizations from Gaza, namely{" "}
           <a
@@ -62,9 +74,11 @@ const FAQ = () => {
         </p>
       </div>
       <div>
-        <p className="question-title">What are these rockets targeting?</p>
+        <p className="question-title">
+          What are these rockets and UAVs targeting?
+        </p>
         <p className="question-answer">
-          Whether fired from Gaza or South Lebanon, these rockets are
+          Whether fired from Gaza or South Lebanon, these rockets and UAVs are
           fired indiscriminately at Israeli towns and cities, deliberatly
           targeting innocent civilians, homes and schools.
         </p>
@@ -112,9 +126,9 @@ const FAQ = () => {
           >
             Home Front Command
           </a>{" "}
-          (Pikud HaOref) rocket alert API, which allows us to easily
-          query for real-time rocket alerts. We aggregate the data and slice &
-          dice the information to provide historical data and other insights.
+          (Pikud HaOref) rocket alert API, which allows us to easily query for
+          real-time rocket alerts. We aggregate the data and slice & dice the
+          information to provide historical data and other insights.
         </p>
       </div>
       <div>
