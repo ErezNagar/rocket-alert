@@ -41,8 +41,8 @@ const TimeToShelter = ({ alerts }) => {
 
     const text =
       alertDistance > 5
-        ? `If this was happening in your area, this means a rocket targeting you was fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
-        : `If this was happening in your area, this means a rocket targeting you was fired less than 5 km (${alertDistanceInKM} miles) away`;
+        ? `If this was happening in your area, this means a rocket or UAV targeting you was fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
+        : `If this was happening in your area, this means a rocket or UAV targeting you was fired less than 5 km (${alertDistanceInKM} miles) away`;
 
     const timeToShelterShareTitle =
       alertDistance > 5
@@ -51,8 +51,8 @@ const TimeToShelter = ({ alerts }) => {
 
     const timeToShelterShareText =
       alertDistance > 5
-        ? `If this was happening in MY area, this means a rocket targeting me would've been fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
-        : `If this was happening in MY area, this means a rocket targeting me would've been fired less than 5 km (${alertDistanceInKM} miles) away`;
+        ? `If this was happening in MY area, this means a rocket or UAV targeting me would've been fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
+        : `If this was happening in MY area, this means a rocket or UAV targeting me would've been fired less than 5 km (${alertDistanceInKM} miles) away`;
 
     setTimeToShelterTitle(title);
     setTimeToShelterText(text);
