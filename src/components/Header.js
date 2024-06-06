@@ -123,10 +123,14 @@ class Header extends React.Component {
     const pastMonth = getPastMonth();
 
     Promise.all([
-      alertClient.getTotalAlerts(startOfToday, now),
-      alertClient.getTotalAlerts(startOfYesterday, endOfYesterday),
-      alertClient.getTotalAlerts(pastWeek, now),
-      alertClient.getTotalAlerts(pastMonth, now),
+      alertClient.getTotalAlerts(startOfToday, now, Util.ALERT_TYPE_ALL),
+      alertClient.getTotalAlerts(
+        startOfYesterday,
+        endOfYesterday,
+        Util.ALERT_TYPE_ALL
+      ),
+      alertClient.getTotalAlerts(pastWeek, now, Util.ALERT_TYPE_ALL),
+      alertClient.getTotalAlerts(pastMonth, now, Util.ALERT_TYPE_ALL),
       alertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
