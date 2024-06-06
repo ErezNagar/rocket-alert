@@ -126,7 +126,7 @@ class Header extends React.Component {
         const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
         const realTimeAlertCacheCount = values[4] ? values[4] : [];
         this.setAlertSummary(
-          todayAlertCount + realTimeAlertCacheCount.length,
+          todayAlertCount + realTimeAlertCacheCount.count,
           yesterdayAlertCount,
           pastWeekAlertCount,
           pastMonthAlertCount
