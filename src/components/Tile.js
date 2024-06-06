@@ -5,6 +5,7 @@ import { Row, Col, Statistic, Spin } from "antd";
 import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import FadeIn from "./FadeIn";
 import Tracking from "../tracking";
+import Util from "../util";
 
 const LoadingTile = ({ showAverage }) => (
   <Row
@@ -40,6 +41,7 @@ export default class Tile extends React.Component {
     // "Static" tile uses alertCount instead of making a request to the server
     isStatic: PropTypes.bool,
     alertCount: PropTypes.number,
+    alertTypeId: PropTypes.number,
   };
 
   static defaultProps = {
@@ -50,6 +52,7 @@ export default class Tile extends React.Component {
     showAverage: false,
     isStatic: false,
     alertCount: 0,
+    alertTypeId: Util.ALERT_TYPE_ROCKETS,
   };
 
   state = { isLoading: true, isError: false, alerts: null, average: 0 };
@@ -70,7 +73,11 @@ export default class Tile extends React.Component {
 
   getAlerts = () => {
     this.props.alertsClient
-      .getTotalAlerts(this.props.fromDate, this.props.toDate)
+      .getTotalAlerts(
+        this.props.fromDate,
+        this.props.toDate,
+        this.props.alertTypeId
+      )
       .then((res) => {
         if (this.props.showAverage) {
           this.setState({

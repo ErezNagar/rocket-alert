@@ -6,6 +6,7 @@ import { getNow } from "../date_helper";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import AlertGraphs from "./AlertGraphs";
+import Util from "./../util";
 
 class CurrentOperation extends React.Component {
   state = {
@@ -57,15 +58,27 @@ class CurrentOperation extends React.Component {
     return (
       <section ref={this.props.isIntersectingRef} className="current-operation">
         <div className="currentOperationTile">
-          <h2>Rocket alerts in current conflict</h2>
+          <h2>Operation Swords of Iron</h2>
           <Row gutter={[24, 24]} justify={"center"}>
             <Col xs={24} sm={12} md={8} lg={6}>
               <Tile
-                title={"Operation Swords of Iron"}
+                title={"Rocket Alerts"}
                 subtitle={"Since October 7, 2023"}
                 fromDate={new Date("2023-10-07")}
                 // toDate={new Date("2022-08-08T00:00")}
                 alertsClient={this.props.alertsClient}
+                alertTypeId={Util.ALERT_TYPE_ROCKETS}
+                showAverage
+              />
+            </Col>
+            <Col xs={24} sm={12} md={8} lg={6}>
+              <Tile
+                title={"UAV Alerts"}
+                subtitle={"Since October 7, 2023"}
+                fromDate={new Date("2023-10-07")}
+                // toDate={new Date("2022-08-08T00:00")}
+                alertsClient={this.props.alertsClient}
+                alertTypeId={Util.ALERT_TYPE_UAV}
                 showAverage
               />
             </Col>
