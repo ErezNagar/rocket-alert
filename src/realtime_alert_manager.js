@@ -31,9 +31,10 @@ const RealTimeAlertManager = {
       if (RealTimeAlertManager.alertQueue.length === MAX_QUEUE_SIZE) {
         RealTimeAlertManager.alertQueue.shift();
       }
-      data.alerts.forEach((alert) => {
-        RealTimeAlertManager.alertQueue.push(alert);
-      });
+      RealTimeAlertManager.alertQueue = [
+        ...RealTimeAlertManager.alertQueue,
+        ...data.alerts,
+      ];
     });
     RealTimeAlertManager.alertEventSource.onerror = () => {
       console.error("EventSource failed.");

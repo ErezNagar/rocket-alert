@@ -27,6 +27,8 @@ class App extends React.Component {
     isAlertModeOverride: false,
     // Whether the app currently receives incoming alerts
     isAlertMode: false,
+    // Whether this is the last real-time alert of the alert batch
+    isLastAlertOfBatch: false,
     // The alert boject
     realTimeAlert: null,
     // Most recent alerts
@@ -138,7 +140,7 @@ class App extends React.Component {
     const newMostRecentAlerts = [...this.state.mostRecentAlerts];
     // Add alert to top of alert list
     newMostRecentAlerts.unshift(alert);
-    // Maintain 15 most recent alerts by removing the oldest
+    // Maintain a max of Util.MAX_RECENT_ALERTS most recent alerts by removing the oldest
     if (newMostRecentAlerts.length >= Util.MAX_RECENT_ALERTS) {
       newMostRecentAlerts.pop();
     }
@@ -147,6 +149,7 @@ class App extends React.Component {
       realTimeAlert: alert,
       isAlertMode: true,
       mostRecentAlerts: newMostRecentAlerts,
+      isLastAlertOfBatch: isLastAlert,
     });
     if (isLastAlert) {
       setTimeout(() => {
@@ -185,6 +188,7 @@ class App extends React.Component {
           alertClient={AlertClient}
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
+          isLastAlertOfBatch={this.state.isLastAlertOfBatch}
           onTwitterShareText={this.handleOnTwitterShareText}
         />
         <StickyHeader

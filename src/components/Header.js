@@ -257,7 +257,9 @@ class Header extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
       this.refreshAlert(this.props.realTimeAlert);
-      this.updateCurrentAlertCount();
+      if (this.props.isLastAlertOfBatch) {
+        this.updateCurrentAlertCount();
+      }
     }
   }
 
@@ -365,6 +367,7 @@ Header.propTypes = {
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
   onTwitterShareText: PropTypes.func.isRequired,
+  isLastAlertOfBatch: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
