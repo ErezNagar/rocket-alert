@@ -17,6 +17,7 @@ TODO.txt
 .env.development
 .env.production
 rocket-alert.git
+rocket-alert.code-workspace
 
 npm-debug.log*
 yarn-debug.log*
