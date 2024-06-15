@@ -135,7 +135,9 @@ const GraphAlertsByDay = ({ t, alertData, isLoading, isError }) => {
             originNorthCount += 1;
           }
         });
-
+        /* If there's alert data for this dateInterval, use it
+            Otherwise, there's no alert data since alerts = 0, but we still want to show that date in the graph
+        */
         data[monthName].push({
           day: dayOfMonthFormat(dateInterval),
           count: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
