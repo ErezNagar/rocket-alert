@@ -4,14 +4,7 @@ import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import logo from "../assets/logo.svg";
 import alarmAudio from "../assets/alarm.mp3";
 import { Row, Col } from "antd";
-import {
-  getNow,
-  getStartOfToday,
-  getStartOfYesterday,
-  getEndOfYesterday,
-  getPastWeek,
-  getPastMonth,
-} from "../date_helper";
+import { getNow, getStartOfToday, getStartOfYesterday, getEndOfYesterday, getPastWeek, getPastMonth } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import AudioControls from "./AudioControls";
@@ -22,20 +15,10 @@ import Util from "../util";
 import Tracking from "../tracking";
 import { withTranslation } from "react-i18next";
 
-const HeaderContent = ({
-  alertSummaryTitle,
-  alertSummaryText,
-  alertSummaryCount,
-  isLoading,
-  t,
-}) => (
+const HeaderContent = ({ alertSummaryTitle, alertSummaryText, alertSummaryCount, isLoading, t }) => (
   <>
     {isLoading ? (
-      <Spin
-        indicator={
-          <LoadingOutlined style={{ fontSize: 36, color: "white" }} spin />
-        }
-      />
+      <Spin indicator={<LoadingOutlined style={{ fontSize: 36, color: "white" }} spin />} />
     ) : (
       <>
         {alertSummaryCount > 0 && (
@@ -94,6 +77,16 @@ AlertModeHeaderContent.defaultProps = {
   alert: {},
 };
 
+const languages = [
+  { code: "en", text: "Real time red alerts in Israel" },
+  { code: "de", text: "Echtzeit Raketenalarmierungen aus Israel" },
+  { code: "ru", text: "Сирены тревоги в реальном времени в Израиле" },
+  { code: "ua", text: "Червоні тривоги в режимі реального часу в Ізраїлі" },
+  { code: "he", text: "אזעקות אדומות בזמן אמת בישראל" },
+  { code: "in", text: "Israel में रीयल-टाइम रेड अलर्ट" },
+  { code: "af", text: "Regstreekse rooi alarms in Israel" }
+];
+
 class Header extends React.Component {
   state = {
     alerts: {},
@@ -106,11 +99,23 @@ class Header extends React.Component {
     shouldRefresh: false,
     isAudioOn: false,
     alarm: null,
+    currentLanguageIndex: 0,
   };
 
   componentDidMount() {
     this.getHeaderData();
+    this.languageInterval = setInterval(this.changeLanguage, 5000); // Wechsel alle 5 Sekunden
   }
+
+  componentWillUnmount() {
+    clearInterval(this.languageInterval);
+  }
+
+  changeLanguage = () => {
+    this.setState((prevState) => ({
+      currentLanguageIndex: (prevState.currentLanguageIndex + 1) % languages.length,
+    }));
+  };
 
   getHeaderData() {
     const alertClient = this.props.alertClient;
@@ -124,11 +129,7 @@ class Header extends React.Component {
 
     Promise.all([
       alertClient.getTotalAlerts(startOfToday, now, Util.ALERT_TYPE_ALL),
-      alertClient.getTotalAlerts(
-        startOfYesterday,
-        endOfYesterday,
-        Util.ALERT_TYPE_ALL
-      ),
+      alertClient.getTotalAlerts(startOfYesterday, endOfYesterday, Util.ALERT_TYPE_ALL),
       alertClient.getTotalAlerts(pastWeek, now, Util.ALERT_TYPE_ALL),
       alertClient.getTotalAlerts(pastMonth, now, Util.ALERT_TYPE_ALL),
       alertClient.getRealTimeAlertCache(),
@@ -197,7 +198,7 @@ class Header extends React.Component {
         pastWeekAlertCount > 0 &&
         pastWeekAlertCount !== yesterdayAlertCount
       ) {
-        alertSummaryText = t("alert_week", { count: pastWeekAlertCount });
+        alertSummaryText += t("alert_week", { count: pastWeekAlertCount });
         if (
           pastMonthAlertCount > 0 &&
           pastWeekAlertCount !== pastMonthAlertCount
@@ -295,13 +296,13 @@ class Header extends React.Component {
 
   render() {
     const { t } = this.props;
+    const { currentLanguageIndex } = this.state;
+    const currentLanguageText = languages[currentLanguageIndex].text;
     return (
-      <header
-        className={this.props.isAlertMode ? "header alert-mode" : "header"}
-      >
+      <header className={this.props.isAlertMode ? "header alert-mode" : "header"}>
         <div className="header-top">
           <img className="logo" src={logo} alt="" />
-          <h2>{t("real_time_alerts")}</h2>
+          <h2 className="animated-text">{currentLanguageText}</h2>
         </div>
         <div className="header-content">
           {!this.state.isError && this.props.isAlertMode && (

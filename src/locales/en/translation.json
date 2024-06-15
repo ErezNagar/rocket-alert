@@ -34,7 +34,8 @@
         "q9": "Does one alert represent a single rocket?",
         "a9": "We only have data on the number of alerts, not on the number of rockets being fired. A single rocket could trigger an alert in multiple locations, depending on the proximity of those locations to each other and the geographical size of those communities. An alert in a specified location typically indicates at least one rocket fired towards that location.",
         "q10": "How can I get more granular data?",
-        "a10": "We'd love to help! Feel free to contact us with more information on your specific use case."
+        "a10": "We'd love to help! Feel free to contact us with more information on your specific use case.",
+        "a10_link": "Contact us here"
     },
     "location_distance": {
         "title": "Terrorism is closer than you think",
@@ -69,36 +70,50 @@
             "shield_and_arrow": {
                 "title": "Operation Shield and Arrow",
                 "subtitle": "May 9 2023 - May 13 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
                 "alert_count": 775
             },
             "breaking_dawn": {
                 "title": "Operation Breaking Dawn",
                 "subtitle": "Aug 5 2022 - Aug 7 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
                 "alert_count": 754
             },
             "guardian_of_the_walls": {
                 "title": "Operation Guardian of the Walls",
                 "subtitle": "May 10, 2021 - May 21, 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
                 "alert_count": 7000
             },
             "black_belt": {
                 "title": "Operation Black Belt",
                 "subtitle": "Nov 12, 2019 - Nov 16, 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
                 "alert_count": 928
             },
             "protective_edge": {
                 "title": "Operation Protective Edge",
                 "subtitle": "July 8, 2014 - Aug 26, 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
                 "alert_count": 12808
             },
             "pillar_of_defense": {
                 "title": "Operation Pillar of Defense",
                 "subtitle": "Nov 14, 2012 - Nov 21, 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
                 "alert_count": 1506
             },
             "cast_lead": {
                 "title": "Operation Cast Lead",
                 "subtitle": "Dec 27, 2008 - Jan 18, 2009",
+                "fromDate": "2008-12-27",
+                "toDate": "2009-01-18",
                 "alert_count": 575
             }
         }

@@ -55,7 +55,6 @@ const FAQ = ({ t }) => {
       <div>
         <p className="question-title">{t("faq_questions.q10")}</p>
         <p className="question-answer">
-          #TODO: Fix this link
           {t("faq_questions.a10")} <a href="mailto:rocketalertlive@gmail.com">{t("faq_questions.a10_link")}</a>
         </p>
       </div>

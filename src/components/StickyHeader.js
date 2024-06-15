@@ -42,7 +42,7 @@ class StickyHeader extends React.Component {
   };
 
   render() {
-    const { isAlertMode, realTimeAlert, t, i18n } = this.props;
+    const { isAlertMode, realTimeAlert, i18n } = this.props;
 
     const changeLanguage = (lng) => {
       i18n.changeLanguage(lng);
@@ -94,13 +94,12 @@ class StickyHeader extends React.Component {
               <button onClick={() => changeLanguage('in')}>
                 <span className="fi fi-in"></span> Indisch
               </button>
-              <button onClick={() => changeLanguage('af')}>
+              <button onClick={() => changeLanguage('za')}>
                 <span className="fi fi-za"></span> Afrikaans
               </button>
             </div>
           </div>
         </div>
-
       </header>
     );
   }

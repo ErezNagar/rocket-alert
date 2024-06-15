@@ -56,3 +56,5 @@ Code Red Rocket Alerts is licensed under the [MIT License](https://opensource.or
 
 
 image form https://commons.wikimedia.org/wiki/File:Font_Awesome_5_solid_language.svg
+
+Cloudflare mail Redirect z.b.: FHQ@rocketalert.live -> rocketalertlive@gmail.com

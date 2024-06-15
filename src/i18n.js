@@ -1,12 +1,13 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector'; // Importiere den Language Detector
+import LanguageDetector from 'i18next-browser-languagedetector';
 import translationEN from './locales/en/translation.json';
 import translationDE from './locales/de/translation.json';
 import translationRU from './locales/ru/translation.json';
 import translationUA from './locales/ua/translation.json';
 import translationHE from './locales/he/translation.json';
 import translationIN from './locales/in/translation.json';
+import translationZA from './locales/za/translation.json';
 
 const resources = {
   en: {
@@ -27,7 +28,12 @@ const resources = {
   in: {
     translation: translationIN
   },
+  za: {
+    translation: translationZA
+  },
 };
+
+const rtlLanguages = ['he', 'ar'];
 
 i18n
   .use(LanguageDetector)
@@ -41,7 +47,12 @@ i18n
     },
     interpolation: {
       escapeValue: false
+    },
+    react: {
+      useSuspense: false,
     }
   });
+
+export const isRtl = () => rtlLanguages.includes(i18n.language);
 
 export default i18n;

@@ -1,140 +1,159 @@
 {
-    "real_time_alerts": "Real-time red alerts in Israel",
-    "rocket_alert": "Rocket alert",
-    "uav_alert": "Hostile UAV alert",
-    "red_alert": "Red alert",
-    "alert_today": "Red alerts today",
-    "alert_yesterday": "Red alerts yesterday",
-    "alert_week": "Red alerts in the past week",
-    "alert_month": "Red alerts in the last month",
-    "data_unavailable": "Data currently unavailable",
-    "share": "Share",
-    "faq_title": "Frequently Asked Questions",
+    "real_time_alerts": "Regstreekse rooi waarskuwings in Israel",
+    "rocket_alert": "Raket waarskuwing",
+    "uav_alert": "Vyandige UAV waarskuwing",
+    "red_alert": "Rooi waarskuwing",
+    "alert_today": "Rooi waarskuwings vandag",
+    "alert_yesterday": "Rooi waarskuwings gister",
+    "alert_week": "Rooi waarskuwings die afgelope week",
+    "alert_month": "Rooi waarskuwings in die afgelope maand",
+    "data_unavailable": "Data tans nie beskikbaar nie",
+    "share": "Deel",
+    "faq_title": "Gereelde Vrae",
+    "total_alerts_since_oct_7": "Totale waarskuwings sedert 7 Okt",
+    "uav_alerts_since_oct_7": "UAV waarskuwings sedert 7 Okt",
+    "rocket_alerts_since_oct_7": "Raket waarskuwings sedert 7 Okt",
+    "something_went_wrong": "Iets het verkeerd geloop. Probeer asseblief weer.",
     "faq_questions": {
-        "q1": "Where are these rockets and UAV's fired from?",
-        "a1": "Before the <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> attack on <a href=\"https://en.wikipedia.org/wiki/Terrorangriff_der_Hamas_auf_Israel_2023\">October 7, 2023</a>, rockets were mostly fired from the <a href=\"https://en.wikipedia.org/wiki/Gaza_Strip\">Gaza Strip</a>, but since then, rockets and also UAV's (i.e. <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\"> loitering munition</a>, more commonly known as <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">exploding drones</a>) have been fired mostly from South Lebanon, but also from Syria, Iraq and Yemen.",
-        "q2": "Who is firing these rockets and UAV's?",
-        "a2": "Palestinian terror organizations from Gaza, namely <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> and <a href=\"https://en.wikipedia.org/wiki/Palestinian_Islamic_Jihad\">Islamic Jihad</a>, as well as <a href=\"https://en.wikipedia.org/wiki/Hezbollah\">Hezbollah</a> terror organization based in South Lebanon.",
-        "q3": "What are these rockets and UAVs targeting?",
-        "a3": "Whether fired from Gaza or South Lebanon, these rockets and UAVs are fired indiscriminately at Israeli towns and cities, deliberately targeting innocent civilians, homes and schools.",
-        "q4": "Does Israel respond?",
-        "a4": "In addition to protecting its civilians via a combination of bomb shelters and the deployment of the <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome</a> system, Israel typically responds by air striking terror targets, including launch sites, command and control centers, and weapons storage sites.",
-        "q5": "What is Iron Dome?",
-        "a5": "The <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome Aerial Defense System</a> is an Israeli air defense system designed to intercept and destroy rockets whose trajectory would take them to an Israeli populated area.",
-        "q6": "Do rockets ever hit Israel?",
-        "a6": "Yes. While Iron Dome intercepts most of the rockets fired at Israeli population, rockets still penetrate the defense system and hit residential areas, including homes and schools.",
-        "q7": "Where does the alert data come from?",
-        "a7": "We use the IDF's <a href=\"https://en.wikipedia.org/wiki/Home_Front_Command\">Home Front Command</a> (Pikud HaOref) rocket alert API, which allows us to easily query for real-time rocket alerts. We aggregate the data and slice & dice the information to provide historical data and other insights.",
-        "q8": "How reliable is your data?",
-        "a8": "The real-time rocket alerts we show are queried directly from the Home Front Command's API, which is connected to the IDF's <a href=\"https://en.wikipedia.org/wiki/Red_Color\">Red Color</a> early-warning system. The Red Color system is Israel's official source for rocket alerts which millions of Israelis rely on for their safety. A real-time alert would show up on the website immediately after there's an alert going off in Israel. In some cases, and depending on your connection, it might take a few seconds for an alert going off in Israel to show up.",
-        "q9": "Does one alert represent a single rocket?",
-        "a9": "We only have data on the number of alerts, not on the number of rockets being fired. A single rocket could trigger an alert in multiple locations, depending on the proximity of those locations to each other and the geographical size of those communities. An alert in a specified location typically indicates at least one rocket fired towards that location.",
-        "q10": "How can I get more granular data?",
-        "a10": "We'd love to help! Feel free to contact us with more information on your specific use case."
+        "q1": "Waarvandaan word hierdie vuurpyle en UAV's gelanseer?",
+        "a1": "Voor die <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> aanval op <a href=\"https://en.wikipedia.org/wiki/Terrorangriff_der_Hamas_auf_Israel_2023\">7 Oktober 2023</a>, is vuurpyle meestal vanaf die <a href=\"https://en.wikipedia.org/wiki/Gaza_Strip\">Gaza Strook</a> gelanseer, maar sedertdien is vuurpyle en ook UAV's (d.w.s. <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">doolwapens</a>, meer algemeen bekend as <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">ontploffende hommeltuie</a>) meestal vanaf Suid-Libanon gelanseer, maar ook vanaf Sirië, Irak en Jemen.",
+        "q2": "Wie lanseer hierdie vuurpyle en UAV's?",
+        "a2": "Palestynse terreurorganisasies van Gaza, naamlik <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> en <a href=\"https://en.wikipedia.org/wiki/Palestinian_Islamic_Jihad\">Islamitiese Jihad</a>, sowel as die <a href=\"https://en.wikipedia.org/wiki/Hezbollah\">Hezbollah</a> terreurorganisasie gebaseer in Suid-Libanon.",
+        "q3": "Wat is die teikens van hierdie vuurpyle en UAV's?",
+        "a3": "Of dit nou vanaf Gaza of Suid-Libanon gelanseer word, hierdie vuurpyle en UAV's word lukraak op Israeliese dorpe en stede afgevuur, met die doelbewuste teiken van onskuldige burgers, huise en skole.",
+        "q4": "Reageer Israel?",
+        "a4": "Benewens die beskerming van sy burgers deur middel van 'n kombinasie van bomskuilings en die ontplooiing van die <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome</a> stelsel, reageer Israel tipies deur lugaanvalle op terreurteikens, insluitend lanseerplekke, beheersentrums en wapenopbergplekke.",
+        "q5": "Wat is Iron Dome?",
+        "a5": "Die <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome Lugverdedigingstelsel</a> is 'n Israeliese lugverdedigingstelsel ontwerp om vuurpyle wat op 'n Israeliese bevolkte gebied gemik is, te onderskep en te vernietig.",
+        "q6": "Treff vuurpyle ooit Israel?",
+        "a6": "Ja. Terwyl Iron Dome die meeste van die vuurpyle wat op die Israeliese bevolking afgevuur word, onderskep, dring sommige vuurpyle steeds deur die verdedigingsstelsel en tref residensiële areas, insluitend huise en skole.",
+        "q7": "Waarvandaan kom die waarskuwingsdata?",
+        "a7": "Ons gebruik die IDF se <a href=\"https://en.wikipedia.org/wiki/Home_Front_Command\">Home Front Command</a> (Pikud HaOref) vuurpylwaarskuwings API, wat ons toelaat om maklik real-time vuurpylwaarskuwings op te vra. Ons versamel die data en verwerk die inligting om historiese data en ander insigte te verskaf.",
+        "q8": "Hoe betroubaar is julle data?",
+        "a8": "Die real-time vuurpylwaarskuwings wat ons wys, word direk uit die Home Front Command se API gevra, wat gekoppel is aan die IDF se <a href=\"https://en.wikipedia.org/wiki/Red_Color\">Red Color</a> vroeë waarskuwingstelsel. Die Red Color stelsel is Israel se amptelike bron vir vuurpylwaarskuwings waarop miljoene Israeli's vir hul veiligheid staatmaak. 'n Real-time waarskuwing sal onmiddellik op die webwerf verskyn nadat daar 'n waarskuwing in Israel afgaan. In sommige gevalle, en afhangende van jou verbinding, kan dit 'n paar sekondes neem vir 'n waarskuwing om op die webwerf te verskyn.",
+        "q9": "Verteenwoordig een waarskuwing 'n enkele vuurpyl?",
+        "a9": "Ons het slegs data oor die aantal waarskuwings, nie oor die aantal vuurpyle wat afgevuur word nie. 'n Enkele vuurpyl kan 'n waarskuwing in verskeie plekke veroorsaak, afhangende van die nabyheid van daardie plekke aan mekaar en die geografiese grootte van daardie gemeenskappe. 'n Waarskuwing in 'n gespesifiseerde plek dui tipies op ten minste een vuurpyl wat in die rigting van daardie plek afgevuur is.",
+        "q10": "Hoe kan ek meer gedetailleerde data kry?",
+        "a10": "Ons sal graag help! Kontak ons gerus met meer inligting oor jou spesifieke gebruiksgeval.",
+        "a10_link": "Kontak ons hier"
     },
     "location_distance": {
-        "title": "Terrorism is closer than you think",
+        "title": "Terrorisme is nader as wat jy dink",
         "nahal_oz": {
-            "distance": "1.5km (0.9 miles) to Nahal Oz",
-            "description": "A small community of 500 people",
-            "example": "Less than the length of the Golden Gate Bridge"
+            "distance": "1,5km (0,9 myl) na Nahal Oz",
+            "description": "Klein gemeenskap van 500 mense",
+            "example": "Minder as die lengte van die Golden Gate Bridge"
         },
         "beeri": {
-            "distance": "4 km (2.5 miles) to Be'eri",
-            "description": "A small community of 1100 people",
-            "example": "The length of the Washington DC National Mall"
+            "distance": "4 km (2,5 myl) na Be'eri",
+            "description": "Klein gemeenskap van 1100 mense",
+            "example": "Die lengte van die Washington DC Nasionale Mall"
         },
         "ashkelon": {
-            "distance": "13 km (8 miles) to Ashkelon",
-            "description": "Population of 160k"
+            "distance": "13 km (8 myl) na Ashkelon",
+            "description": "Bevolking van 160k"
         },
         "jerusalem": {
-            "distance": "70 km (44 miles) to Jerusalem",
-            "description": "Population of 980k (Metro: 1.3m)",
-            "example": "The length of Lake Geneva"
+            "distance": "70 km (44 myl) na Jerusalem",
+            "description": "Bevolking van 980k (Metro: 1,3m)",
+            "example": "Die lengte van die Lake Geneva"
         },
         "tel_aviv": {
-            "distance": "62 km (39 miles) to Tel Aviv",
-            "description": "Population of 470k (Metro: 4.2m)",
-            "example": "The distance between San Francisco and San Jose"
+            "distance": "62 km (39 myl) na Tel Aviv",
+            "description": "Bevolking van 470k (Metro: 4,2m)",
+            "example": "Die afstand tussen San Francisco en San Jose"
         }
     },
     "previous_operations": {
-        "title": "Rocket alerts in previous conflicts",
+        "title": "Vuurpylwaarskuwings in vorige konflikte",
         "operations": {
             "shield_and_arrow": {
-                "title": "Operation Shield and Arrow",
-                "subtitle": "May 9 2023 - May 13 2023",
+                "title": "Operasie Shield and Arrow",
+                "subtitle": "9 Mei 2023 - 13 Mei 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
                 "alert_count": 775
             },
             "breaking_dawn": {
-                "title": "Operation Breaking Dawn",
-                "subtitle": "Aug 5 2022 - Aug 7 2022",
+                "title": "Operasie Breaking Dawn",
+                "subtitle": "5 Aug 2022 - 7 Aug 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
                 "alert_count": 754
             },
             "guardian_of_the_walls": {
-                "title": "Operation Guardian of the Walls",
-                "subtitle": "May 10, 2021 - May 21, 2021",
+                "title": "Operasie Guardian of the Walls",
+                "subtitle": "10 Mei 2021 - 21 Mei 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
                 "alert_count": 7000
             },
             "black_belt": {
-                "title": "Operation Black Belt",
-                "subtitle": "Nov 12, 2019 - Nov 16, 2019",
+                "title": "Operasie Black Belt",
+                "subtitle": "12 Nov 2019 - 16 Nov 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
                 "alert_count": 928
             },
             "protective_edge": {
-                "title": "Operation Protective Edge",
-                "subtitle": "July 8, 2014 - Aug 26, 2014",
+                "title": "Operasie Protective Edge",
+                "subtitle": "8 Jul 2014 - 26 Aug 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
                 "alert_count": 12808
             },
             "pillar_of_defense": {
-                "title": "Operation Pillar of Defense",
-                "subtitle": "Nov 14, 2012 - Nov 21, 2012",
+                "title": "Operasie Pillar of Defense",
+                "subtitle": "14 Nov 2012 - 21 Nov 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
                 "alert_count": 1506
             },
             "cast_lead": {
-                "title": "Operation Cast Lead",
-                "subtitle": "Dec 27, 2008 - Jan 18, 2009",
+                "title": "Operasie Cast Lead",
+                "subtitle": "27 Des 2008 - 18 Jan 2009",
+                "fromDate": "2008-12-27",
+                "toDate": "2009-01-18",
                 "alert_count": 575
             }
         }
     },
     "graph_alerts_by_day": {
-        "title": "Alerts by day since Oct 7",
-        "source_note": "Source is estimation only. Based on alert location and its distance from the Gaza Strip vs Southern Lebanon. May or may not include rockets fired by Islamic Jihad (Gaza) or by other Iranian proxies (Southern Lebanon).",
+        "title": "Waarskuwings per dag sedert 7 Okt",
+        "source_note": "Bron is slegs 'n skatting. Gebaseer op waarskuwing se ligging en sy afstand vanaf die Gaza Strook vs Suid-Libanon. Mag of mag nie vuurpyle wat deur Islamitiese Jihad (Gaza) of deur ander Iranse proxy's (Suid-Libanon) afgevuur word, insluit nie.",
         "month": {
-            "october": "October",
+            "october": "Oktober",
             "november": "November",
-            "december": "December"
+            "december": "Desember"
         },
-        "error_message": "Something went wrong. Please try again."
+        "error_message": "Iets het verkeerd geloop. Probeer asseblief weer."
     },
     "graph_alerts_by_source": {
-        "title": "Alerts by source since Oct 7",
-        "source_note": "Source is estimation only. Based on alert location and its distance from the Gaza Strip vs Southern Lebanon. May or may not include rockets fired by Islamic Jihad (Gaza) or by other Iranian proxies (Southern Lebanon).",
-        "error_message": "Something went wrong. Please try again."
+        "title": "Waarskuwings per bron sedert 7 Okt",
+        "source_note": "Bron is slegs 'n skatting. Gebaseer op waarskuwing se ligging en sy afstand vanaf die Gaza Strook vs Suid-Libanon. Mag of mag nie vuurpyle wat deur Islamitiese Jihad (Gaza) of deur ander Iranse proxy's (Suid-Libanon) afgevuur word, insluit nie.",
+        "error_message": "Iets het verkeerd geloop. Probeer asseblief weer."
     },
     "current_operation": {
-        "title": "Operation Swords of Iron",
-        "rocket_alerts_title": "Rocket Alerts",
-        "uav_alerts_title": "UAV Alerts",
-        "alerts_subtitle": "Since October 7, 2023",
-        "most_targeted_communities": "Most targeted communities",
-        "most_targeted_regions": "Most targeted regions"
+        "title": "Operasie Swords of Iron",
+        "rocket_alerts_title": "Raketwaarskuwings",
+        "uav_alerts_title": "UAV Waarskuwings",
+        "alerts_subtitle": "Sedert 7 Oktober 2023",
+        "most_targeted_communities": "Mees geteikende gemeenskappe",
+        "most_targeted_regions": "Mees geteikende streke"
     },
     "most_recent_alerts": {
-        "title": "Most recent alerts",
-        "show_all": "Show All"
+        "title": "Mees onlangse waarskuwings",
+        "show_all": "Wys alles"
       },    
     "time_to_shelter": {
-        "title_far": "You have {{countdownSec}} seconds to get to shelter!",
-        "title_near": "Get to shelter immediately!",
-        "text_far": "If this was happening in your area, this means a rocket or UAV targeting you was fired roughly {{distanceKM}} km ({{distanceMiles}} miles) away",
-        "text_near": "If this was happening in your area, this means a rocket or UAV targeting you was fired less than 5 km ({{distanceMiles}} miles) away",
-        "share_title_far": "I'd have {{countdownSec}} seconds to get to shelter!",
-        "share_title_near": "I'd have to get to shelter immediately!",
-        "share_text_far": "If this was happening in MY area, this means a rocket or UAV targeting me would've been fired roughly {{distanceKM}} km ({{distanceMiles}} miles) away",
-        "share_text_near": "If this was happening in MY area, this means a rocket or UAV targeting me would've been fired less than 5 km ({{distanceMiles}} miles) away",
-        "based_on_last_alert": "Based on the last rocket alert"
+        "title_far": "Jy het {{countdownSec}} sekondes om by 'n skuiling te kom!",
+        "title_near": "Gaan dadelik na 'n skuiling!",
+        "text_far": "As dit in jou area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op jou gemik is, ongeveer {{distanceKM}} km ({{distanceMiles}} myl) weg gelanseer is",
+        "text_near": "As dit in jou area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op jou gemik is, minder as 5 km ({{distanceMiles}} myl) weg gelanseer is",
+        "share_title_far": "Ek sou {{countdownSec}} sekondes gehad het om by 'n skuiling te kom!",
+        "share_title_near": "Ek sou dadelik na 'n skuiling moes gaan!",
+        "share_text_far": "As dit in MY area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op my gemik is, ongeveer {{distanceKM}} km ({{distanceMiles}} myl) weg gelanseer is",
+        "share_text_near": "As dit in MY area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op my gemik is, minder as 5 km ({{distanceMiles}} myl) weg gelanseer is",
+        "based_on_last_alert": "Gebaseer op die laaste vuurpylwaarskuwing"
       }
 }

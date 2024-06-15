@@ -34,10 +34,11 @@
         "q9": "Repräsentiert ein Alarm eine einzelne Rakete?",
         "a9": "Wir haben nur Daten zur Anzahl der Alarme, nicht zur Anzahl der abgefeuerten Raketen. Eine einzelne Rakete könnte in mehreren Standorten einen Alarm auslösen, abhängig von der Nähe dieser Standorte zueinander und der geografischen Größe dieser Gemeinden. Ein Alarm in einem bestimmten Standort zeigt typischerweise mindestens eine in Richtung dieses Standorts abgefeuerte Rakete an.",
         "q10": "Wie kann ich detailliertere Daten erhalten?",
-        "a10": "Wir helfen dir gerne weiter! Kontaktiere uns mit weiteren Informationen zu deinem speziellen Anwendungsfall."
+        "a10": "Wir helfen dir gerne weiter! Kontaktiere uns mit weiteren Informationen zu deinem speziellen Anwendungsfall.",
+        "a10_link": "Kontaktiere uns hier"
     },
     "location_distance": {
-        "title": "Der Terrorismus ist näher, als Sie denken",
+        "title": "Die Terroristen sind näher, als du denkst",
         "nahal_oz": {
             "distance": "1,5 km (0,9 Meilen) bis Nahal Oz",
             "description": "Eine kleine Gemeinde von 500 Menschen",
@@ -69,36 +70,50 @@
             "shield_and_arrow": {
                 "title": "Operation Schild und Pfeil",
                 "subtitle": "9. Mai 2023 - 13. Mai 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
                 "alert_count": 775
             },
             "breaking_dawn": {
                 "title": "Operation Morgendämmerung",
                 "subtitle": "5. Aug 2022 - 7. Aug 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
                 "alert_count": 754
             },
             "guardian_of_the_walls": {
                 "title": "Operation Wächter der Mauern",
                 "subtitle": "10. Mai 2021 - 21. Mai 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
                 "alert_count": 7000
             },
             "black_belt": {
                 "title": "Operation Schwarzer Gürtel",
                 "subtitle": "12. Nov 2019 - 16. Nov 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
                 "alert_count": 928
             },
             "protective_edge": {
                 "title": "Operation Schutzkante",
                 "subtitle": "8. Juli 2014 - 26. Aug 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
                 "alert_count": 12808
             },
             "pillar_of_defense": {
                 "title": "Operation Säule der Verteidigung",
                 "subtitle": "14. Nov 2012 - 21. Nov 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
                 "alert_count": 1506
             },
             "cast_lead": {
                 "title": "Operation Gegossenes Blei",
                 "subtitle": "27. Dez 2008 - 18. Jan 2009",
+                "fromDate": "2008-12-27",
+                "toDate": "2009-01-18",
                 "alert_count": 575
             }
         }
@@ -129,10 +144,10 @@
     "most_recent_alerts": {
         "title": "Neueste Alarmierungen",
         "show_all": "Alle anzeigen"
-      },
+    },
     "time_to_shelter": {
         "title_far": "Sie haben {{countdownSec}} Sekunden, um in den Schutzraum zu gelangen!",
-        "title_near": "Gehen Sie sofort in den Schutzraum!",
+        "title_near": "Gehe sofort in den Schutzraum!",
         "text_far": "Wenn dies in Ihrer Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das Sie anvisiert, ungefähr {{distanceKM}} km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
         "text_near": "Wenn dies in Ihrer Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das Sie anvisiert, weniger als 5 km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
         "share_title_far": "Ich hätte {{countdownSec}} Sekunden, um in den Schutzraum zu gelangen!",
@@ -140,5 +155,5 @@
         "share_text_far": "Wenn dies in MEINER Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das mich anvisiert, ungefähr {{distanceKM}} km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
         "share_text_near": "Wenn dies in MEINER Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das mich anvisiert, weniger als 5 km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
         "based_on_last_alert": "Basierend auf dem letzten Raketenalarm"
-      }
+    }
 }

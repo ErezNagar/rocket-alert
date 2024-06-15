@@ -1,136 +1,159 @@
 {
-    "faq_title": "Häufig gestellte Fragen",
-    "real_time_alerts": "Echtzeit-Raketenalarme in Israel",
-    "rocket_alert": "Raketenalarm",
-    "uav_alert": "Feindlicher UAV-Alarm",
-    "red_alert": "Roter Alarm",
-    "alert_today": "Rote Alarme heute",
-    "alert_yesterday": "Rote Alarme gestern",
-    "alert_week": "Rote Alarme in der letzten Woche",
-    "alert_month": "Rote Alarme im letzten Monat",
-    "data_unavailable": "Daten derzeit nicht verfügbar",
-    "share": "Teilen",
+    "real_time_alerts": "Потимінтні червоні тривоги в Ізраїлі",
+    "rocket_alert": "Ракетна тривога",
+    "uav_alert": "Ворожий БПЛА тривога",
+    "red_alert": "Червона тривога",
+    "alert_today": "Червоні тривоги сьогодні",
+    "alert_yesterday": "Червоні тривоги вчора",
+    "alert_week": "Червоні тривоги за минулий тиждень",
+    "alert_month": "Червоні тривоги за минулий місяць",
+    "data_unavailable": "Дані наразі недоступні",
+    "share": "Поділитися",
+    "faq_title": "Часті питання",
+    "total_alerts_since_oct_7": "Всього тривог з 7 жовтня",
+    "uav_alerts_since_oct_7": "БПЛА тривоги з 7 жовтня",
+    "rocket_alerts_since_oct_7": "Ракетні тривоги з 7 жовтня",
+    "something_went_wrong": "Щось пішло не так. Спробуйте ще раз.",
     "faq_questions": {
-        "q1": "Woher werden diese Raketen und UAVs abgefeuert?",
-        "a1": "Vor dem Hamas-Angriff am 7. Oktober 2023 wurden die meisten Raketen aus dem Gazastreifen abgefeuert, aber seitdem werden Raketen und auch UAVs (d.h. loitering munition, besser bekannt als explodierende Drohnen) hauptsächlich aus dem Südlibanon, aber auch aus Syrien, Irak und Jemen abgefeuert.",
-        "q2": "Wer feuert diese Raketen und UAVs ab?",
-        "a2": "Palästinensische Terrororganisationen aus Gaza, nämlich Hamas und Islamischer Dschihad, sowie die im Südlibanon ansässige Terrororganisation Hisbollah.",
-        "q3": "Was sind die Ziele dieser Raketen und UAVs?",
-        "a3": "Egal ob aus Gaza oder dem Südlibanon abgefeuert, diese Raketen und UAVs werden wahllos auf israelische Städte und Dörfer abgefeuert und zielen absichtlich auf unschuldige Zivilisten, Häuser und Schulen.",
-        "q4": "Reagiert Israel?",
-        "a4": "Neben dem Schutz seiner Zivilisten durch eine Kombination aus Luftschutzbunkern und dem Einsatz des Iron Dome-Systems reagiert Israel typischerweise mit Luftangriffen auf Terrorziele, einschließlich Abschussrampen, Kommando- und Kontrollzentren sowie Waffendepots.",
-        "q5": "Was ist Iron Dome?",
-        "a5": "Das Iron Dome Aerial Defense System ist ein israelisches Luftverteidigungssystem, das entwickelt wurde, um Raketen abzufangen und zu zerstören, deren Flugbahn sie in ein von Israelis bewohntes Gebiet führen würde.",
-        "q6": "Treffen Raketen jemals Israel?",
-        "a6": "Ja. Während Iron Dome die meisten der auf die israelische Bevölkerung abgefeuerten Raketen abfängt, dringen Raketen dennoch durch das Verteidigungssystem und treffen Wohngebiete, einschließlich Häuser und Schulen.",
-        "q7": "Woher stammen die Alarmdaten?",
-        "a7": "Wir verwenden die Raketenalarm-API des IDF-Heimatschutzkommandos (Pikud HaOref), die es uns ermöglicht, problemlos in Echtzeit nach Raketenalarmen zu suchen. Wir aggregieren die Daten und analysieren die Informationen, um historische Daten und andere Einblicke zu bieten.",
-        "q8": "Wie zuverlässig sind Ihre Daten?",
-        "a8": "Die Echtzeit-Raketenalarme, die wir anzeigen, werden direkt aus der API des Heimatschutzkommandos abgefragt, die mit dem Frühwarnsystem Red Color der IDF verbunden ist. Das Red Color-System ist die offizielle Quelle für Raketenalarme in Israel, auf die Millionen Israelis zu ihrer Sicherheit angewiesen sind. Ein Echtzeit-Alarm würde sofort auf der Website erscheinen, nachdem in Israel ein Alarm ausgelöst wurde. In einigen Fällen und abhängig von Ihrer Verbindung kann es einige Sekunden dauern, bis ein in Israel ausgelöster Alarm angezeigt wird.",
-        "q9": "Repräsentiert ein Alarm eine einzelne Rakete?",
-        "a9": "Wir haben nur Daten zur Anzahl der Alarme, nicht zur Anzahl der abgefeuerten Raketen. Eine einzelne Rakete könnte in mehreren Standorten einen Alarm auslösen, abhängig von der Nähe dieser Standorte zueinander und der geografischen Größe dieser Gemeinden. Ein Alarm in einem bestimmten Standort zeigt typischerweise mindestens eine in Richtung dieses Standorts abgefeuerte Rakete an.",
-        "q10": "Wie kann ich detailliertere Daten erhalten?",
-        "a10": "Wir helfen Ihnen gerne weiter! Kontaktieren Sie uns mit weiteren Informationen zu Ihrem speziellen Anwendungsfall."
+        "q1": "Звідки запускають ці ракети та БПЛА?",
+        "a1": "До атаки <a href=\"https://en.wikipedia.org/wiki/Hamas\">Хамас</a> <a href=\"https://en.wikipedia.org/wiki/Terrorangriff_der_Hamas_auf_Israel_2023\">7 жовтня 2023</a>, ракети здебільшого запускали з <a href=\"https://en.wikipedia.org/wiki/Gaza_Strip\">сектора Газа</a>, але відтоді ракети та БПЛА (тобто <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">барражуючі боєприпаси</a>, більш відомі як <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">вибухові дрони</a>) здебільшого запускають з Південного Лівану, а також з Сирії, Іраку та Ємену.",
+        "q2": "Хто запускає ці ракети та БПЛА?",
+        "a2": "Палестинські терористичні організації з Гази, а саме <a href=\"https://en.wikipedia.org/wiki/Hamas\">Хамас</a> та <a href=\"https://en.wikipedia.org/wiki/Palestinian_Islamic_Jihad\">Ісламський Джихад</a>, а також терористична організація <a href=\"https://en.wikipedia.org/wiki/Hezbollah\">Хезболла</a>, базована в Південному Лівані.",
+        "q3": "Які цілі у цих ракет та БПЛА?",
+        "a3": "Чи запускають їх з Гази чи Південного Лівану, ці ракети та БПЛА без розбору націлені на ізраїльські міста і села, навмисно атакуючи невинних мирних жителів, будинки та школи.",
+        "q4": "Чи відповідає Ізраїль?",
+        "a4": "Окрім захисту своїх громадян за допомогою комбінації бомбосховищ та розгортання системи <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Залізний Купол</a>, Ізраїль зазвичай відповідає авіаударами по терористичних цілях, включаючи місця запуску, командні центри та склади зброї.",
+        "q5": "Що таке Залізний Купол?",
+        "a5": "<a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Залізний Купол</a> - це ізраїльська система ППО, призначена для перехоплення та знищення ракет, траєкторія яких веде до населених пунктів в Ізраїлі.",
+        "q6": "Чи досягають ракети Ізраїлю?",
+        "a6": "Так. Хоча Залізний Купол перехоплює більшість ракет, які запускаються по ізраїльських населених пунктах, деякі ракети все ж проникають через систему ППО та вражають житлові райони, включаючи будинки та школи.",
+        "q7": "Звідки надходять дані про тривоги?",
+        "a7": "Ми використовуємо API тривог про ракети Командування тилу ЦАХАЛ (Пікуд ХаОреф), який дозволяє нам легко запитувати тривоги в реальному часі. Ми агрегуємо дані та обробляємо інформацію, щоб надавати історичні дані та інші інсайти.",
+        "q8": "Наскільки надійні ваші дані?",
+        "a8": "Тривоги про ракети в реальному часі, які ми показуємо, запитуються безпосередньо з API Командування тилу ЦАХАЛ, який підключений до системи раннього попередження ЦАХАЛ <a href=\"https://en.wikipedia.org/wiki/Red_Color\">Цева Адом</a>. Система Цева Адом - це офіційне джерело тривог про ракети в Ізраїлі, на яке покладаються мільйони ізраїльтян для своєї безпеки. Тривога в реальному часі з’явиться на сайті відразу після того, як тривога прозвучить в Ізраїлі. В деяких випадках, в залежності від вашого з’єднання, може знадобитися кілька секунд, щоб тривога з’явилася на сайті.",
+        "q9": "Чи представляє одна тривога одну ракету?",
+        "a9": "Ми маємо дані лише про кількість тривог, а не про кількість запущених ракет. Одна ракета може викликати тривогу в кількох місцях, залежно від близькості цих місць одне до одного та географічного розміру цих громад. Тривога в зазначеному місці зазвичай означає щонайменше одну ракету, запущену в напрямку цього місця.",
+        "q10": "Як я можу отримати більш детальні дані?",
+        "a10": "Ми будемо раді допомогти! Зв’яжіться з нами і розкажіть про ваш конкретний випадок.",
+        "a10_link": "Зв'яжіться з нами тут"
     },
     "location_distance": {
-        "title": "Der Terrorismus ist näher, als Sie denken",
+        "title": "Тероризм ближче, ніж ви думаєте",
         "nahal_oz": {
-            "distance": "1,5 km (0,9 Meilen) bis Nahal Oz",
-            "description": "Eine kleine Gemeinde von 500 Menschen",
-            "example": "Weniger als die Länge der Golden Gate Bridge"
+            "distance": "1,5 км (0,9 миль) до Нахаль Оз",
+            "description": "Маленька громада з 500 людей",
+            "example": "Менше довжини моста Золоті Ворота"
         },
         "beeri": {
-            "distance": "4 km (2,5 Meilen) bis Be'eri",
-            "description": "Eine kleine Gemeinde von 1100 Menschen",
-            "example": "Die Länge des Washington DC National Mall"
+            "distance": "4 км (2,5 миль) до Беері",
+            "description": "Маленька громада з 1100 людей",
+            "example": "Довжина Національного Молу у Вашингтоні"
         },
         "ashkelon": {
-            "distance": "13 km (8 Meilen) bis Ashkelon",
-            "description": "Bevölkerung von 160k"
+            "distance": "13 км (8 миль) до Ашкелона",
+            "description": "Населення 160 тис."
         },
         "jerusalem": {
-            "distance": "70 km (44 Meilen) bis Jerusalem",
-            "description": "Bevölkerung von 980k (Metro: 1,3m)",
-            "example": "Die Länge des Genfersees"
+            "distance": "70 км (44 миль) до Єрусалима",
+            "description": "Населення 980 тис. (метро: 1,3 млн)",
+            "example": "Довжина озера Женева"
         },
         "tel_aviv": {
-            "distance": "62 km (39 Meilen) bis Tel Aviv",
-            "description": "Bevölkerung von 470k (Metro: 4,2m)",
-            "example": "Die Entfernung zwischen San Francisco und San Jose"
+            "distance": "62 км (39 миль) до Тель-Авіва",
+            "description": "Населення 470 тис. (метро: 4,2 млн)",
+            "example": "Відстань між Сан-Франциско і Сан-Хосе"
         }
     },
     "previous_operations": {
-        "title": "Raketenalarme in früheren Konflikten",
+        "title": "Ракетні тривоги в попередніх конфліктах",
         "operations": {
             "shield_and_arrow": {
-                "title": "Operation Schild und Pfeil",
-                "subtitle": "9. Mai 2023 - 13. Mai 2023",
+                "title": "Операція Щит і Стріла",
+                "subtitle": "9 травня 2023 - 13 травня 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
                 "alert_count": 775
             },
             "breaking_dawn": {
-                "title": "Operation Morgendämmerung",
-                "subtitle": "5. Aug 2022 - 7. Aug 2022",
+                "title": "Операція Злам світанку",
+                "subtitle": "5 серпня 2022 - 7 серпня 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
                 "alert_count": 754
             },
             "guardian_of_the_walls": {
-                "title": "Operation Wächter der Mauern",
-                "subtitle": "10. Mai 2021 - 21. Mai 2021",
+                "title": "Операція Захисник Стіни",
+                "subtitle": "10 травня 2021 - 21 травня 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
                 "alert_count": 7000
             },
             "black_belt": {
-                "title": "Operation Schwarzer Gürtel",
-                "subtitle": "12. Nov 2019 - 16. Nov 2019",
+                "title": "Операція Чорний пояс",
+                "subtitle": "12 листопада 2019 - 16 листопада 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
                 "alert_count": 928
             },
             "protective_edge": {
-                "title": "Operation Schutzkante",
-                "subtitle": "8. Juli 2014 - 26. Aug 2014",
+                "title": "Операція Непорушна Скала",
+                "subtitle": "8 липня 2014 - 26 серпня 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
                 "alert_count": 12808
             },
             "pillar_of_defense": {
-                "title": "Operation Säule der Verteidigung",
-                "subtitle": "14. Nov 2012 - 21. Nov 2012",
+                "title": "Операція Стовп Оборони",
+                "subtitle": "14 листопада 2012 - 21 листопада 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
                 "alert_count": 1506
             },
             "cast_lead": {
-                "title": "Operation Gegossenes Blei",
-                "subtitle": "27. Dez 2008 - 18. Jan 2009",
+                "title": "Операція Литий свинець",
+                "subtitle": "27 грудня 2008 - 18 січня 2009",
+                "fromDate": "2008-12-27",
+                "toDate": "2009-01-18",
                 "alert_count": 575
             }
         }
     },
     "graph_alerts_by_day": {
-        "title": "Alarme pro Tag seit dem 7. Oktober",
-        "source_note": "Die Quelle ist nur eine Schätzung. Basierend auf dem Standort des Alarms und dessen Entfernung vom Gazastreifen bzw. Südlibanon. Kann Raketen einschließen oder nicht, die von Islamischem Dschihad (Gaza) oder anderen iranischen Stellvertretern (Südlibanon) abgefeuert wurden.",
+        "title": "Тривоги по днях з 7 жовтня",
+        "source_note": "Джерело - лише оцінка. Ґрунтується на місці тривоги та її відстані від сектора Газа чи Південного Лівану. Може включати або не включати ракети, запущені Ісламським Джихадом (Газа) або іншими іранськими проксі (Південний Ліван).",
         "month": {
-            "october": "Oktober",
-            "november": "November",
-            "december": "Dezember"
+            "october": "Жовтень",
+            "november": "Листопад",
+            "december": "Грудень"
         },
-        "error_message": "Etwas ist schief gelaufen. Bitte versuche es erneut."
+        "error_message": "Щось пішло не так. Спробуйте ще раз."
     },
     "graph_alerts_by_source": {
-        "title": "Alarmierungen nach Quelle seit dem 7. Oktober",
-        "source_note": "Quelle ist nur eine Schätzung. Basierend auf dem Standort des Alarms und dessen Entfernung vom Gazastreifen bzw. Südlibanon. Kann Raketen einschließen oder nicht, die von Islamischem Dschihad (Gaza) oder anderen iranischen Stellvertretern (Südlibanon) abgefeuert wurden.",
-        "error_message": "Etwas ist schief gelaufen. Bitte versuche es erneut."
+        "title": "Тривоги за джерелами з 7 жовтня",
+        "source_note": "Джерело - лише оцінка. Ґрунтується на місці тривоги та її відстані від сектора Газа чи Південного Лівану. Може включати або не включати ракети, запущені Ісламським Джихадом (Газа) або іншими іранськими проксі (Південний Ліван).",
+        "error_message": "Щось пішло не так. Спробуйте ще раз."
     },
     "current_operation": {
-        "title": "Operation Eisenschwerter",
-        "rocket_alerts_title": "Raketenalarme",
-        "uav_alerts_title": "UAV-Alarme",
-        "alerts_subtitle": "Seit dem 7. Oktober 2023",
-        "most_targeted_communities": "Am häufigsten angegriffene Gemeinden",
-        "most_targeted_regions": "Am häufigsten angegriffene Regionen"
+        "title": "Операція Мечі Заліза",
+        "rocket_alerts_title": "Ракетні тривоги",
+        "uav_alerts_title": "БПЛА тривоги",
+        "alerts_subtitle": "З 7 жовтня 2023 року",
+        "most_targeted_communities": "Найбільш постраждалі громади",
+        "most_targeted_regions": "Найбільш постраждалі регіони"
     },
+    "most_recent_alerts": {
+        "title": "Останні тривоги",
+        "show_all": "Показати все"
+      },    
     "time_to_shelter": {
-        "title_far": "Sie haben {{countdownSec}} Sekunden, um in den Schutzraum zu gelangen!",
-        "title_near": "Gehen Sie sofort in den Schutzraum!",
-        "text_far": "Wenn dies in Ihrer Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das Sie anvisiert, ungefähr {{distanceKM}} km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
-        "text_near": "Wenn dies in Ihrer Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das Sie anvisiert, weniger als 5 km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
-        "share_title_far": "Ich hätte {{countdownSec}} Sekunden, um in den Schutzraum zu gelangen!",
-        "share_title_near": "Ich müsste sofort in den Schutzraum gehen!",
-        "share_text_far": "Wenn dies in MEINER Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das mich anvisiert, ungefähr {{distanceKM}} km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
-        "share_text_near": "Wenn dies in MEINER Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das mich anvisiert, weniger als 5 km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
-        "based_on_last_alert": "Basierend auf dem letzten Raketenalarm"
+        "title_far": "У вас {{countdownSec}} секунд, щоб дістатися до укриття!",
+        "title_near": "Негайно йдіть до укриття!",
+        "text_far": "Якби це сталося у вашому районі, це означало б, що ракета чи БПЛА, націлені на вас, були запущені приблизно з відстані {{distanceKM}} км ({{distanceMiles}} миль)",
+        "text_near": "Якби це сталося у вашому районі, це означало б, що ракета чи БПЛА, націлені на вас, були запущені з відстані менше 5 км ({{distanceMiles}} миль)",
+        "share_title_far": "У мене було б {{countdownSec}} секунд, щоб дістатися до укриття!",
+        "share_title_near": "Мені потрібно негайно йти до укриття!",
+        "share_text_far": "Якби це сталося у МОЄМУ районі, це означало б, що ракета чи БПЛА, націлені на мене, були б запущені приблизно з відстані {{distanceKM}} км ({{distanceMiles}} миль)",
+        "share_text_near": "Якби це сталося у МОЄМУ районі, це означало б, що ракета чи БПЛА, націлені на мене, були б запущені з відстані менше 5 км ({{distanceMiles}} миль)",
+        "based_on_last_alert": "На основі останньої ракетної тривоги"
       }
 }

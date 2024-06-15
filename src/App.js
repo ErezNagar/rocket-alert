@@ -19,6 +19,7 @@ import { getNow, get24HoursAgo } from './date_helper';
 import TimeToShelter from './components/TimeToShelter';
 import { withTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.min.css';
+import { isRtl } from './i18n';
 
 class App extends React.Component {
   state = {
@@ -58,6 +59,9 @@ class App extends React.Component {
     this.setState({
       startfadeInEffect: true,
     });
+
+    document.body.dir = isRtl() ? 'rtl' : 'ltr';
+    document.body.className = isRtl() ? 'rtl' : 'ltr';
   }
 
   componentWillUnmount() {
@@ -182,6 +186,8 @@ class App extends React.Component {
 
     const changeLanguage = (lng) => {
       i18n.changeLanguage(lng);
+      document.body.dir = isRtl() ? 'rtl' : 'ltr';
+      document.body.className = isRtl() ? 'rtl' : 'ltr';
     };
 
     return (
@@ -225,7 +231,7 @@ class App extends React.Component {
           <button onClick={() => changeLanguage('in')}>
             <span className="fi fi-in"></span> Indisch
           </button>
-          <button onClick={() => changeLanguage('af')}>
+          <button onClick={() => changeLanguage('za')}>
             <span className="fi fi-za"></span> Afrikaans
           </button>
         </div>
