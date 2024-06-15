@@ -56,6 +56,7 @@ h3 {
 .sticky-header .left-container {
   display: flex;
   align-items: center;
+  z-index: 10000;
 }
 
 .sticky-header .logo {
@@ -77,6 +78,7 @@ h3 {
 .sticky-header .right-container {
   display: flex;
   align-items: center;
+  z-index: 10000;
 }
 
 .sticky-header .right-container a {
@@ -144,6 +146,164 @@ h3 {
 .header-content .summary-text {
   font-size: 2.5vh;
 }
+
+/* Styles for the language selector component. */
+:root {
+  --primary-color: #007bff;
+  --hover-color: #0056b3;
+  --button-background: #ffffff;
+  --button-border: #dddddd;
+  --text-color: #333333;
+  --icon-size: 16px;
+  --button-padding: 5px 10px;
+  --button-font-size: 14px;
+}
+
+/* Existing styles for language selector */
+.language-selector {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px;
+}
+
+.language-selector button {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  padding: var(--button-padding);
+  background-color: var(--button-background);
+  border: 1px solid var(--button-border);
+  border-radius: 20px;
+  color: var(--text-color);
+  font-size: var(--button-font-size);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.language-selector button:hover {
+  background-color: var(--primary-color);
+  border-color: var(--hover-color);
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.language-selector button .fi {
+  margin-right: 5px;
+  font-size: var(--icon-size);
+}
+
+/* Sticky Header adjustments */
+.sticky-header .language-selector {
+  display: none; /* Initially hidden */
+}
+
+.sticky-header.active .language-selector {
+  display: flex; /* Show when sticky header is active */
+  margin-left: auto; /* Align to the right */
+}
+
+/* Dropdown styles */
+.language-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.dropbtn:hover {
+  transform: scale(1.1);
+}
+
+.language-dropdown .dropdown-content {
+  display: none;
+  position: fixed; /* Use fixed positioning */
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 10000; /* Ensure it's above all other layers */
+  border-radius: 8px;
+  overflow: hidden;
+  right: 0;
+  top: 60px; /* Adjust to ensure the dropdown is fully visible */
+}
+
+.language-dropdown .dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.language-dropdown .dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+
+.language-dropdown .dropdown-content .fi {
+  margin-right: 8px;
+}
+
+.language-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.language-dropdown:hover .dropbtn {
+  background-color: #e0e0e0;
+  border-radius: 50%;
+}
+
+/* Ensure dropdown is above all other layers */
+.sticky-header .language-selector {
+  z-index: 10000; /* Ensure the language selector is above all other layers */
+}
+
+.language-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.language-dropdown .dropbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-dropdown .dropbtn:hover {
+  transform: scale(1.1);
+}
+
+/* Additional Styles for better positioning and visibility */
+.sticky-header .language-dropdown {
+  margin-left: 10px; /* Adjust spacing between Twitter button and language button */
+  position: relative;
+}
+
+.language-dropdown .dropbtn svg {
+  width: 24px;
+  height: 24px;
+}
+
 
 /*
  * Header Content in Alert Mode
@@ -531,6 +691,19 @@ footer .icon {
     font-size: 1em;
     font-weight: bold;
   }
+  
+  .sticky-header .language-selector {
+    display: none;
+  }
+
+  .sticky-header.active .language-selector {
+    display: none;
+  }
+
+  .sticky-header .language-dropdown {
+    display: block;
+  }
+
 }
 
 @keyframes moveIn {
