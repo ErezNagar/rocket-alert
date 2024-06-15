@@ -3,8 +3,9 @@ import { ReactComponent as TwitterLogo } from "../assets/twitter_black.svg";
 import Tracking from "../tracking";
 import { useEffect, useRef, useState } from "react";
 import Util from "../util";
+import { withTranslation } from "react-i18next";
 
-const TimeToShelter = ({ alerts }) => {
+const TimeToShelter = ({ t, alerts }) => {
   const [showTimeToShelter, setShowTimeToShelter] = useState(false);
   const [timeToShelterTitle, setTimeToShelterTitle] = useState("");
   const [timeToShelterText, setTimeToShelterText] = useState("");
@@ -12,7 +13,7 @@ const TimeToShelter = ({ alerts }) => {
   const [timeToShelterShareText, setTimeToShelterShareText] = useState("");
 
   const ref = useRef();
-  const isVisible = Util.useIsVisible();
+  const isVisible = Util.useIsVisible(ref);
 
   const KMToMiles = (km) => Math.round(km * 0.621371 * 10) / 10;
 
@@ -23,7 +24,6 @@ const TimeToShelter = ({ alerts }) => {
   }, [isVisible]);
 
   useEffect(() => {
-    // Filters alerts with countdown data and use the first one
     const alertsWithCountdown = alerts?.filter(
       (alert) => alert.countdownSec === 0 || alert.countdownSec > 0
     );
@@ -36,30 +36,30 @@ const TimeToShelter = ({ alerts }) => {
     const alertDistanceInKM = KMToMiles(alertDistance);
     const title =
       alertDistance > 5
-        ? `You have ${alert.countdownSec} seconds to get to shelter!`
-        : `Get to shelter immediately!`;
+        ? t("time_to_shelter.title_far", { countdownSec: alert.countdownSec })
+        : t("time_to_shelter.title_near");
 
     const text =
       alertDistance > 5
-        ? `If this was happening in your area, this means a rocket or UAV targeting you was fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
-        : `If this was happening in your area, this means a rocket or UAV targeting you was fired less than 5 km (${alertDistanceInKM} miles) away`;
+        ? t("time_to_shelter.text_far", { distanceKM: alertDistance, distanceMiles: alertDistanceInKM })
+        : t("time_to_shelter.text_near", { distanceMiles: alertDistanceInKM });
 
     const timeToShelterShareTitle =
       alertDistance > 5
-        ? `I'd have ${alert.countdownSec} seconds to get to shelter!`
-        : `I'd have to get to shelter immediately!`;
+        ? t("time_to_shelter.share_title_far", { countdownSec: alert.countdownSec })
+        : t("time_to_shelter.share_title_near");
 
     const timeToShelterShareText =
       alertDistance > 5
-        ? `If this was happening in MY area, this means a rocket or UAV targeting me would've been fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
-        : `If this was happening in MY area, this means a rocket or UAV targeting me would've been fired less than 5 km (${alertDistanceInKM} miles) away`;
+        ? t("time_to_shelter.share_text_far", { distanceKM: alertDistance, distanceMiles: alertDistanceInKM })
+        : t("time_to_shelter.share_text_near", { distanceMiles: alertDistanceInKM });
 
     setTimeToShelterTitle(title);
     setTimeToShelterText(text);
     setTimeToShelterShareTitle(timeToShelterShareTitle);
     setTimeToShelterShareText(timeToShelterShareText);
     setShowTimeToShelter(true);
-  }, [alerts]);
+  }, [alerts, t]);
 
   return showTimeToShelter ? (
     <div ref={ref} className="time-to-shelter">
@@ -83,11 +83,11 @@ const TimeToShelter = ({ alerts }) => {
             rel="noreferrer"
             onClick={Tracking.shareTimetoShelterClick}
           >
-            Share this
+            {t("Share this")}
           </a>
         </div>
       </div>
-      <p>Based on the last rocket alert</p>
+      <p>{t("time_to_shelter.based_on_last_alert")}</p>
     </div>
   ) : null;
 };
@@ -96,4 +96,4 @@ TimeToShelter.propTypes = {
   alerts: PropTypes.array.isRequired,
 };
 
-export default TimeToShelter;
+export default withTranslation()(TimeToShelter);

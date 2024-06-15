@@ -11,6 +11,7 @@ import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
 import { LoadingOutlined } from "@ant-design/icons";
+import { withTranslation } from "react-i18next";
 
 const GRAPH_CONFIG = {
   COLUMN: {
@@ -18,7 +19,6 @@ const GRAPH_CONFIG = {
     yField: "count",
     isGroup: true,
     seriesField: "origin",
-    // columnWidthRatio: 0.5,
     columnStyle: {
       radius: [20, 20, 0, 0],
     },
@@ -94,7 +94,7 @@ const GRAPH_CONFIG = {
   },
 };
 
-const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
+const GraphAlertsBySource = ({ t, alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [graphType, setGraphType] = useState("Column");
@@ -200,7 +200,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     <section className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Alerts by source since Oct 7</h2>
+          <h2>{t("graph_alerts_by_source.title")}</h2>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
@@ -234,16 +234,13 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
                 )}
               </Col>
               <Col className="footer">
-                Source is estimation only. Based on alert location and its
-                distance from the Gaza Strip vs Southern Lebanon. May or may not
-                include rockets fired by Islamic Jihad (Gaza) or by other
-                Iranian proxies (Southern Lebanon)
+                {t("graph_alerts_by_source.source_note")}
               </Col>
             </>
           )}
           {isError && (
             <div className="center-flexbox">
-              <Col>Something went wrong. Please try again.</Col>
+              <Col>{t("graph_alerts_by_source.error_message")}</Col>
             </div>
           )}
         </Col>
@@ -252,4 +249,4 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(GraphAlertBySource, "Graph_alerts_by_source");
+export default withIsVisibleHook(withTranslation()(GraphAlertsBySource), "Graph_alerts_by_source");

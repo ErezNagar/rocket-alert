@@ -5,26 +5,26 @@ import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
+import { withTranslation } from "react-i18next";
 
-const MostRecentAlerts = (props) => {
+const MostRecentAlerts = ({ t, alerts, onAlertLocationClick, isIntersectingRef }) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
   const handleAlertLocationClick = (alert, idx) => {
     Tracking.alertLocationClick(idx);
     setShowResetFocus(true);
-    props.onAlertLocationClick(alert);
+    onAlertLocationClick(alert);
   };
 
   const handleResetFocus = () => {
     setShowResetFocus(false);
-    props.onAlertLocationClick("reset");
+    onAlertLocationClick("reset");
   };
 
   return (
-    <div ref={props.isIntersectingRef} className="container">
-      <h2>{"Most recent alerts"}</h2>
-
-      {props.alerts.map((alert, idx) => (
+    <div ref={isIntersectingRef} className="container">
+      <h2>{t("most_recent_alerts.title")}</h2>
+      {alerts.map((alert, idx) => (
         <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
           <Row justify="center">
             <Col className="textRight" xs={10} md={10}>
@@ -42,8 +42,8 @@ const MostRecentAlerts = (props) => {
         </FadeIn>
       ))}
       {showResetFocus && (
-        <div className="showAll" onClick={() => handleResetFocus()}>
-          Show All
+        <div className="showAll" onClick={handleResetFocus}>
+          {t("most_recent_alerts.show_all")}
         </div>
       )}
     </div>
@@ -53,12 +53,11 @@ const MostRecentAlerts = (props) => {
 MostRecentAlerts.propTypes = {
   alerts: PropTypes.array.isRequired,
   onAlertLocationClick: PropTypes.func,
-  // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
 };
 
 MostRecentAlerts.defaultProps = {
-  recentAlertMapFocus() {},
+  onAlertLocationClick: () => {},
 };
 
-export default withIsVisibleHook(MostRecentAlerts, "MostRecentAlerts");
+export default withIsVisibleHook(withTranslation()(MostRecentAlerts), "MostRecentAlerts");

@@ -11,8 +11,9 @@ import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
 import { LoadingOutlined } from "@ant-design/icons";
+import { withTranslation } from "react-i18next";
 
-const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
+const GraphTotalRocketAlerts = ({ alertData, isLoading, isError, t }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
 
@@ -20,7 +21,6 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
     xField: "week",
     yField: "count",
     seriesField: "",
-    // columnWidthRatio: 0.5,
     columnStyle: {
       radius: [20, 20, 0, 0],
     },
@@ -89,7 +89,7 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
     <section className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Rocket alerts since Oct 7</h2>
+          <h2>{t("rocket_alerts_since_oct_7")}</h2>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
@@ -112,7 +112,7 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
           )}
           {isError && (
             <div className="center-flexbox">
-              <Col>Something went wrong. Please try again.</Col>
+              <Col>{t("something_went_wrong")}</Col>
             </div>
           )}
         </Col>
@@ -121,7 +121,4 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(
-  GraphTotalRocketAlerts,
-  "Graph_total_rocket_alerts"
-);
+export default withTranslation()(withIsVisibleHook(GraphTotalRocketAlerts, "Graph_total_rocket_alerts"));

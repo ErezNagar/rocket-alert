@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Row, Col, Spin } from "antd";
 import { eachDayOfInterval, isSameDay } from "date-fns";
-import {
-  getYesterday,
-  dayOfMonthFormat,
-  isIranianMissileAttackTimeFrame,
-} from "../date_helper";
+import { getYesterday, dayOfMonthFormat, isIranianMissileAttackTimeFrame } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
 import { LoadingOutlined } from "@ant-design/icons";
+import { withTranslation } from "react-i18next";
 
 const GRAPH_CONFIG = {
   COLUMN: {
@@ -94,7 +91,7 @@ const GRAPH_CONFIG = {
   },
 };
 
-const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
+const GraphAlertsByDay = ({ t, alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [selectedMonthData, setSelectedMonthData] = useState(null);
@@ -139,9 +136,6 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
           }
         });
 
-        /* If there's alert data for this dateInterval, use it
-            Otherwise, there's no alert data since alerts = 0, but we still want to show that date in the graph
-        */
         data[monthName].push({
           day: dayOfMonthFormat(dateInterval),
           count: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
@@ -224,7 +218,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     <section className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Alerts by day since Oct 7</h2>
+          <h2>{t("graph_alerts_by_day.title")}</h2>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
@@ -248,7 +242,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
                   >
                     {data.months.map((month) => (
                       <option value={month} key={month}>
-                        {month}
+                        {t(`graph_alerts_by_day.month.${month.toLowerCase()}`)}
                       </option>
                     ))}
                   </select>
@@ -261,16 +255,13 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
                 <Bar {...{ ...config, data: selectedMonthData }} />
               )}
               <Col className="footer">
-                Source is estimation only. Based on alert location and its
-                distance from the Gaza Strip vs Southern Lebanon. May or may not
-                include rockets fired by Islamic Jihad (Gaza) or by other
-                Iranian proxies (Southern Lebanon)
+                {t("graph_alerts_by_day.source_note")}
               </Col>
             </>
           )}
           {isError && (
             <div className="center-flexbox">
-              <Col>Something went wrong. Please try again.</Col>
+              <Col>{t("graph_alerts_by_day.error_message")}</Col>
             </div>
           )}
         </Col>
@@ -279,4 +270,4 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(GraphAlertsByDay, "Graph_alerts_by_day");
+export default withIsVisibleHook(withTranslation()(GraphAlertsByDay), "Graph_alerts_by_day");
