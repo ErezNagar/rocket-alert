@@ -81,6 +81,7 @@ const languages = [
   { code: "en", text: "Real time red alerts in Israel" },
   { code: "de", text: "Echtzeit Raketenalarmierungen aus Israel" },
   { code: "ru", text: "Сирены тревоги в реальном времени в Израиле" },
+  { code: "tr", text: "İsrail'de gerçek zamanlı kırmızı alarm" },
   { code: "ua", text: "Червоні тривоги в режимі реального часу в Ізраїлі" },
   { code: "he", text: "אזעקות אדומות בזמן אמת בישראל" },
   { code: "in", text: "Israel में रीयल-टाइम रेड अलर्ट" },

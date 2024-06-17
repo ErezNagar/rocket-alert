@@ -219,6 +219,9 @@ class App extends React.Component {
           <button onClick={() => changeLanguage('de')}>
             <span className="fi fi-de"></span> Deutsch
           </button>
+          <button onClick={() => changeLanguage('tr')}>
+            <span className="fi fi-tr"></span> Türkisch
+          </button>
           <button onClick={() => changeLanguage('ru')}>
             <span className="fi fi-ru"></span> Russisch
           </button>

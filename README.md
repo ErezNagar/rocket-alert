@@ -45,7 +45,7 @@ Contributions are welcome! If you would like to contribute to Code Red Rocket Al
 
 - *German* David Chevallier
 - *Russian* Daria Vedernikova
-- *Ukrainian* Daria Vedernikova
+- *Ukrainian* Daria Vedernikova && Daria Parashchenko
 - *Indian [(Kanaha)](https://de.wikipedia.org/wiki/Kannada)* Lennart Chevallier
 - *Turkish* Fathi
 - *Hebrew* Anna Kahn
