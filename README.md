@@ -54,6 +54,6 @@ Contributions are welcome! If you would like to contribute to Code Red Rocket Al
 
 Code Red Rocket Alerts is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-image form https://commons.wikimedia.org/wiki/File:Font_Awesome_5_solid_language.svg
+image form <https://commons.wikimedia.org/wiki/File:Font_Awesome_5_solid_language.svg>
 
-Cloudflare mail Redirect z.b.: FHQ@rocketalert.live -> rocketalertlive@gmail.com
+Cloudflare mail Redirect z.b.: <FHQ@rocketalert.live> -> <rocketalertlive@gmail.com>
