@@ -1,0 +1,62 @@
+networks:
+  external:
+    name: external
+    attachable: false
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.6.0.0/16
+        - subnet: "fd00:6::/64"
+    driver_opts:
+      com.docker.network.bridge.name: "br_external"
+
+x-environment: &default-environments
+  TZ: Europe/Zurich
+
+x-dns: &default-dns
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+
+services:
+  rocket-alert:
+    image: dchevallier/rocket-alert:latest
+    container_name: rocket-alert
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: /Dockerfile
+    ports:
+      - target: 3000
+        published: 80
+        protocol: tcp
+        mode: host
+    environment:
+      <<: *default-environments
+      NODE_ENV: production
+    <<: *default-dns
+    networks:
+      external:
+        ipv4_address: 10.6.0.2
+        aliases:
+          - rocket-alert
+
+  ouroboros:
+    image: pyouroboros/ouroboros:1.4.3
+    container_name: ouroboros
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      <<: *default-environments
+      CLEANUP: true
+      INTERVAL: 300
+      LOG_LEVEL: info
+      SELF_UPDATE: true
+    <<: *default-dns
+    networks:
+      external:
+        ipv4_address: 10.6.0.3
+        aliases:
+          - ouroboros
