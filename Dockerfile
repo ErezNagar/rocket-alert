@@ -29,12 +29,12 @@ RUN mkdir -p /opt/app && \
     adduser -D ${USER} && \
     chown -R ${USER}:${USER} /opt/app
 
-USER ${USER}
+#USER ${USER}
 
-COPY --from=build /usr/local /usr/local
-COPY --from=build /usr/lib /usr/lib
-COPY --from=build /usr/bin/node /usr/bin/node
-COPY --from=build /usr/bin/npm /usr/bin/npm
+COPY --from=build --chown=${USER}:${USER} /usr/local /usr/local
+COPY --from=build --chown=${USER}:${USER} /usr/lib /usr/lib
+COPY --from=build --chown=${USER}:${USER} /usr/bin/node /usr/bin/node
+COPY --from=build --chown=${USER}:${USER} /usr/bin/npm /usr/bin/npm
 
 WORKDIR /opt/app
 COPY --from=build --chown=${USER}:${USER} /opt/app/build ./build
@@ -42,5 +42,6 @@ COPY --from=build --chown=${USER}:${USER} /opt/app/node_modules ./node_modules
 COPY --from=build --chown=${USER}:${USER} /opt/app/package.json ./
 COPY --from=build --chown=${USER}:${USER} /opt/app/package-lock.json ./
 
-CMD ["npm", "start"]
+# FIXME: /bin/ash: node: not found - https://edu.chainguard.dev/chainguard/chainguard-images/getting-started/node/
+CMD ["/usr/bin/node", "npm", "start"]
 EXPOSE 3000
