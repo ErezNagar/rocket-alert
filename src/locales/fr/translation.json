@@ -1,0 +1,159 @@
+{
+    "real_time_alerts": "Real-time red alerts in Israel",
+    "rocket_alert": "Rocket alert",
+    "uav_alert": "Hostile UAV alert",
+    "red_alert": "Red alert",
+    "alert_today": "Red alerts today",
+    "alert_yesterday": "Red alerts yesterday",
+    "alert_week": "Red alerts in the past week",
+    "alert_month": "Red alerts in the last month",
+    "data_unavailable": "Data currently unavailable",
+    "share": "Share",
+    "faq_title": "Frequently Asked Questions",
+    "total_alerts_since_oct_7": "Total alerts since Oct 7",
+    "uav_alerts_since_oct_7": "UAV alerts since Oct 7",
+    "rocket_alerts_since_oct_7": "Rocket alerts since Oct 7",
+    "something_went_wrong": "Something went wrong. Please try again.",
+    "faq_questions": {
+        "q1": "Where are these rockets and UAV's fired from?",
+        "a1": "Before the <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> attack on <a href=\"https://en.wikipedia.org/wiki/Terrorangriff_der_Hamas_auf_Israel_2023\">October 7, 2023</a>, rockets were mostly fired from the <a href=\"https://en.wikipedia.org/wiki/Gaza_Strip\">Gaza Strip</a>, but since then, rockets and also UAV's (i.e. <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\"> loitering munition</a>, more commonly known as <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">exploding drones</a>) have been fired mostly from South Lebanon, but also from Syria, Iraq and Yemen.",
+        "q2": "Who is firing these rockets and UAV's?",
+        "a2": "Palestinian terror organizations from Gaza, namely <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> and <a href=\"https://en.wikipedia.org/wiki/Palestinian_Islamic_Jihad\">Islamic Jihad</a>, as well as <a href=\"https://en.wikipedia.org/wiki/Hezbollah\">Hezbollah</a> terror organization based in South Lebanon.",
+        "q3": "What are these rockets and UAVs targeting?",
+        "a3": "Whether fired from Gaza or South Lebanon, these rockets and UAVs are fired indiscriminately at Israeli towns and cities, deliberately targeting innocent civilians, homes and schools.",
+        "q4": "Does Israel respond?",
+        "a4": "In addition to protecting its civilians via a combination of bomb shelters and the deployment of the <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome</a> system, Israel typically responds by air striking terror targets, including launch sites, command and control centers, and weapons storage sites.",
+        "q5": "What is Iron Dome?",
+        "a5": "The <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome Aerial Defense System</a> is an Israeli air defense system designed to intercept and destroy rockets whose trajectory would take them to an Israeli populated area.",
+        "q6": "Do rockets ever hit Israel?",
+        "a6": "Yes. While Iron Dome intercepts most of the rockets fired at Israeli population, rockets still penetrate the defense system and hit residential areas, including homes and schools.",
+        "q7": "Where does the alert data come from?",
+        "a7": "We use the IDF's <a href=\"https://en.wikipedia.org/wiki/Home_Front_Command\">Home Front Command</a> (Pikud HaOref) rocket alert API, which allows us to easily query for real-time rocket alerts. We aggregate the data and slice & dice the information to provide historical data and other insights.",
+        "q8": "How reliable is your data?",
+        "a8": "The real-time rocket alerts we show are queried directly from the Home Front Command's API, which is connected to the IDF's <a href=\"https://en.wikipedia.org/wiki/Red_Color\">Red Color</a> early-warning system. The Red Color system is Israel's official source for rocket alerts which millions of Israelis rely on for their safety. A real-time alert would show up on the website immediately after there's an alert going off in Israel. In some cases, and depending on your connection, it might take a few seconds for an alert going off in Israel to show up.",
+        "q9": "Does one alert represent a single rocket?",
+        "a9": "We only have data on the number of alerts, not on the number of rockets being fired. A single rocket could trigger an alert in multiple locations, depending on the proximity of those locations to each other and the geographical size of those communities. An alert in a specified location typically indicates at least one rocket fired towards that location.",
+        "q10": "How can I get more granular data?",
+        "a10": "We'd love to help! Feel free to contact us with more information on your specific use case.",
+        "a10_link": "Contact us here"
+    },
+    "location_distance": {
+        "title": "Terrorism is closer than you think",
+        "nahal_oz": {
+            "distance": "1.5km (0.9 miles) to Nahal Oz",
+            "description": "A small community of 500 people",
+            "example": "Less than the length of the Golden Gate Bridge"
+        },
+        "beeri": {
+            "distance": "4 km (2.5 miles) to Be'eri",
+            "description": "A small community of 1100 people",
+            "example": "The length of the Washington DC National Mall"
+        },
+        "ashkelon": {
+            "distance": "13 km (8 miles) to Ashkelon",
+            "description": "Population of 160k"
+        },
+        "jerusalem": {
+            "distance": "70 km (44 miles) to Jerusalem",
+            "description": "Population of 980k (Metro: 1.3m)",
+            "example": "The length of Lake Geneva"
+        },
+        "tel_aviv": {
+            "distance": "62 km (39 miles) to Tel Aviv",
+            "description": "Population of 470k (Metro: 4.2m)",
+            "example": "The distance between San Francisco and San Jose"
+        }
+    },
+    "previous_operations": {
+        "title": "Rocket alerts in previous conflicts",
+        "operations": {
+            "shield_and_arrow": {
+                "title": "Operation Shield and Arrow",
+                "subtitle": "May 9 2023 - May 13 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
+                "alert_count": 775
+            },
+            "breaking_dawn": {
+                "title": "Operation Breaking Dawn",
+                "subtitle": "Aug 5 2022 - Aug 7 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
+                "alert_count": 754
+            },
+            "guardian_of_the_walls": {
+                "title": "Operation Guardian of the Walls",
+                "subtitle": "May 10, 2021 - May 21, 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
+                "alert_count": 7000
+            },
+            "black_belt": {
+                "title": "Operation Black Belt",
+                "subtitle": "Nov 12, 2019 - Nov 16, 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
+                "alert_count": 928
+            },
+            "protective_edge": {
+                "title": "Operation Protective Edge",
+                "subtitle": "July 8, 2014 - Aug 26, 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
+                "alert_count": 12808
+            },
+            "pillar_of_defense": {
+                "title": "Operation Pillar of Defense",
+                "subtitle": "Nov 14, 2012 - Nov 21, 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
+                "alert_count": 1506
+            },
+            "cast_lead": {
+                "title": "Operation Cast Lead",
+                "subtitle": "Dec 27, 2008 - Jan 18, 2009",
+                "fromDate": "2008-12-27",
+                "toDate": "2009-01-18",
+                "alert_count": 575
+            }
+        }
+    },
+    "graph_alerts_by_day": {
+        "title": "Alerts by day since Oct 7",
+        "source_note": "Source is estimation only. Based on alert location and its distance from the Gaza Strip vs Southern Lebanon. May or may not include rockets fired by Islamic Jihad (Gaza) or by other Iranian proxies (Southern Lebanon).",
+        "month": {
+            "october": "October",
+            "november": "November",
+            "december": "December"
+        },
+        "error_message": "Something went wrong. Please try again."
+    },
+    "graph_alerts_by_source": {
+        "title": "Alerts by source since Oct 7",
+        "source_note": "Source is estimation only. Based on alert location and its distance from the Gaza Strip vs Southern Lebanon. May or may not include rockets fired by Islamic Jihad (Gaza) or by other Iranian proxies (Southern Lebanon).",
+        "error_message": "Something went wrong. Please try again."
+    },
+    "current_operation": {
+        "title": "Operation Swords of Iron",
+        "rocket_alerts_title": "Rocket Alerts",
+        "uav_alerts_title": "UAV Alerts",
+        "alerts_subtitle": "Since October 7, 2023",
+        "most_targeted_communities": "Most targeted communities",
+        "most_targeted_regions": "Most targeted regions"
+    },
+    "most_recent_alerts": {
+        "title": "Most recent alerts",
+        "show_all": "Show All"
+      },    
+    "time_to_shelter": {
+        "title_far": "You have {{countdownSec}} seconds to get to shelter!",
+        "title_near": "Get to shelter immediately!",
+        "text_far": "If this was happening in your area, this means a rocket or UAV targeting you was fired roughly {{distanceKM}} km ({{distanceMiles}} miles) away",
+        "text_near": "If this was happening in your area, this means a rocket or UAV targeting you was fired less than 5 km ({{distanceMiles}} miles) away",
+        "share_title_far": "I'd have {{countdownSec}} seconds to get to shelter!",
+        "share_title_near": "I'd have to get to shelter immediately!",
+        "share_text_far": "If this was happening in MY area, this means a rocket or UAV targeting me would've been fired roughly {{distanceKM}} km ({{distanceMiles}} miles) away",
+        "share_text_near": "If this was happening in MY area, this means a rocket or UAV targeting me would've been fired less than 5 km ({{distanceMiles}} miles) away",
+        "based_on_last_alert": "Based on the last rocket alert"
+      }
+}

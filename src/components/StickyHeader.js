@@ -85,6 +85,9 @@ class StickyHeader extends React.Component {
               <button onClick={() => changeLanguage('tr')}>
                 <span className="fi fi-tr"></span> Türkisch
               </button>
+              <button onClick={() => changeLanguage('fr')}>
+                <span className="fi fi-fr"></span> French
+              </button>
               <button onClick={() => changeLanguage('ru')}>
                 <span className="fi fi-ru"></span> Russisch
               </button>
