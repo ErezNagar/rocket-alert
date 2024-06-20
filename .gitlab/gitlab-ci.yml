@@ -1,6 +1,6 @@
 stages:
-  - build
   - test
+  - build
   - deploy
 
 variables:
@@ -13,6 +13,13 @@ cache:
 before_script:
   - npm install
 
+test:
+  stage: test
+  script:
+    - npm test
+  only:
+    - master
+
 build:
   stage: build
   script:
@@ -20,11 +27,14 @@ build:
   artifacts:
     paths:
       - build/
-
-test:
-  stage: test
-  script:
-    - npm test
+  environment:
+    name: production
+    url: https://rocketalert.live
+  only:
+    - master
+  variables:
+    REACT_APP_MAPBOX_ACCESS_TOKEN_ALERT_LOCATION: $MAPBOX_ACCESS_TOKEN_ALERT_LOCATION
+    REACT_APP_MAPBOX_ACCESS_TOKEN_USER_LOCATION: $MAPBOX_ACCESS_TOKEN_USER_LOCATION
 
 deploy:
   stage: deploy
