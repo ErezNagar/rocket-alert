@@ -21,7 +21,7 @@ x-dns: &default-dns
 
 services:
   rocket-alert:
-    image: dchevallier/rocket-alert:latest
+    image: dchevallier/rocket-alert:v1.7.0
     container_name: rocket-alert
     restart: unless-stopped
     build:
