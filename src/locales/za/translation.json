@@ -1,0 +1,159 @@
+{
+    "real_time_alerts": "Regstreekse rooi waarskuwings in Israel",
+    "rocket_alert": "Raket waarskuwing",
+    "uav_alert": "Vyandige UAV waarskuwing",
+    "red_alert": "Rooi waarskuwing",
+    "alert_today": "Rooi waarskuwings vandag",
+    "alert_yesterday": "Rooi waarskuwings gister",
+    "alert_week": "Rooi waarskuwings die afgelope week",
+    "alert_month": "Rooi waarskuwings in die afgelope maand",
+    "data_unavailable": "Data tans nie beskikbaar nie",
+    "share": "Deel",
+    "faq_title": "Gereelde Vrae",
+    "total_alerts_since_oct_7": "Totale waarskuwings sedert 7 Okt",
+    "uav_alerts_since_oct_7": "UAV waarskuwings sedert 7 Okt",
+    "rocket_alerts_since_oct_7": "Raket waarskuwings sedert 7 Okt",
+    "something_went_wrong": "Iets het verkeerd geloop. Probeer asseblief weer.",
+    "faq_questions": {
+        "q1": "Waarvandaan word hierdie vuurpyle en UAV's gelanseer?",
+        "a1": "Voor die <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> aanval op <a href=\"https://en.wikipedia.org/wiki/Terrorangriff_der_Hamas_auf_Israel_2023\">7 Oktober 2023</a>, is vuurpyle meestal vanaf die <a href=\"https://en.wikipedia.org/wiki/Gaza_Strip\">Gaza Strook</a> gelanseer, maar sedertdien is vuurpyle en ook UAV's (d.w.s. <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">doolwapens</a>, meer algemeen bekend as <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\">ontploffende hommeltuie</a>) meestal vanaf Suid-Libanon gelanseer, maar ook vanaf Sirië, Irak en Jemen.",
+        "q2": "Wie lanseer hierdie vuurpyle en UAV's?",
+        "a2": "Palestynse terreurorganisasies van Gaza, naamlik <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> en <a href=\"https://en.wikipedia.org/wiki/Palestinian_Islamic_Jihad\">Islamitiese Jihad</a>, sowel as die <a href=\"https://en.wikipedia.org/wiki/Hezbollah\">Hezbollah</a> terreurorganisasie gebaseer in Suid-Libanon.",
+        "q3": "Wat is die teikens van hierdie vuurpyle en UAV's?",
+        "a3": "Of dit nou vanaf Gaza of Suid-Libanon gelanseer word, hierdie vuurpyle en UAV's word lukraak op Israeliese dorpe en stede afgevuur, met die doelbewuste teiken van onskuldige burgers, huise en skole.",
+        "q4": "Reageer Israel?",
+        "a4": "Benewens die beskerming van sy burgers deur middel van 'n kombinasie van bomskuilings en die ontplooiing van die <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome</a> stelsel, reageer Israel tipies deur lugaanvalle op terreurteikens, insluitend lanseerplekke, beheersentrums en wapenopbergplekke.",
+        "q5": "Wat is Iron Dome?",
+        "a5": "Die <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome Lugverdedigingstelsel</a> is 'n Israeliese lugverdedigingstelsel ontwerp om vuurpyle wat op 'n Israeliese bevolkte gebied gemik is, te onderskep en te vernietig.",
+        "q6": "Treff vuurpyle ooit Israel?",
+        "a6": "Ja. Terwyl Iron Dome die meeste van die vuurpyle wat op die Israeliese bevolking afgevuur word, onderskep, dring sommige vuurpyle steeds deur die verdedigingsstelsel en tref residensiële areas, insluitend huise en skole.",
+        "q7": "Waarvandaan kom die waarskuwingsdata?",
+        "a7": "Ons gebruik die IDF se <a href=\"https://en.wikipedia.org/wiki/Home_Front_Command\">Home Front Command</a> (Pikud HaOref) vuurpylwaarskuwings API, wat ons toelaat om maklik real-time vuurpylwaarskuwings op te vra. Ons versamel die data en verwerk die inligting om historiese data en ander insigte te verskaf.",
+        "q8": "Hoe betroubaar is julle data?",
+        "a8": "Die real-time vuurpylwaarskuwings wat ons wys, word direk uit die Home Front Command se API gevra, wat gekoppel is aan die IDF se <a href=\"https://en.wikipedia.org/wiki/Red_Color\">Red Color</a> vroeë waarskuwingstelsel. Die Red Color stelsel is Israel se amptelike bron vir vuurpylwaarskuwings waarop miljoene Israeli's vir hul veiligheid staatmaak. 'n Real-time waarskuwing sal onmiddellik op die webwerf verskyn nadat daar 'n waarskuwing in Israel afgaan. In sommige gevalle, en afhangende van jou verbinding, kan dit 'n paar sekondes neem vir 'n waarskuwing om op die webwerf te verskyn.",
+        "q9": "Verteenwoordig een waarskuwing 'n enkele vuurpyl?",
+        "a9": "Ons het slegs data oor die aantal waarskuwings, nie oor die aantal vuurpyle wat afgevuur word nie. 'n Enkele vuurpyl kan 'n waarskuwing in verskeie plekke veroorsaak, afhangende van die nabyheid van daardie plekke aan mekaar en die geografiese grootte van daardie gemeenskappe. 'n Waarskuwing in 'n gespesifiseerde plek dui tipies op ten minste een vuurpyl wat in die rigting van daardie plek afgevuur is.",
+        "q10": "Hoe kan ek meer gedetailleerde data kry?",
+        "a10": "Ons sal graag help! Kontak ons gerus met meer inligting oor jou spesifieke gebruiksgeval.",
+        "a10_link": "Kontak ons hier"
+    },
+    "location_distance": {
+        "title": "Terrorisme is nader as wat jy dink",
+        "nahal_oz": {
+            "distance": "1,5km (0,9 myl) na Nahal Oz",
+            "description": "Klein gemeenskap van 500 mense",
+            "example": "Minder as die lengte van die Golden Gate Bridge"
+        },
+        "beeri": {
+            "distance": "4 km (2,5 myl) na Be'eri",
+            "description": "Klein gemeenskap van 1100 mense",
+            "example": "Die lengte van die Washington DC Nasionale Mall"
+        },
+        "ashkelon": {
+            "distance": "13 km (8 myl) na Ashkelon",
+            "description": "Bevolking van 160k"
+        },
+        "jerusalem": {
+            "distance": "70 km (44 myl) na Jerusalem",
+            "description": "Bevolking van 980k (Metro: 1,3m)",
+            "example": "Die lengte van die Lake Geneva"
+        },
+        "tel_aviv": {
+            "distance": "62 km (39 myl) na Tel Aviv",
+            "description": "Bevolking van 470k (Metro: 4,2m)",
+            "example": "Die afstand tussen San Francisco en San Jose"
+        }
+    },
+    "previous_operations": {
+        "title": "Vuurpylwaarskuwings in vorige konflikte",
+        "operations": {
+            "shield_and_arrow": {
+                "title": "Operasie Shield and Arrow",
+                "subtitle": "9 Mei 2023 - 13 Mei 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
+                "alert_count": 775
+            },
+            "breaking_dawn": {
+                "title": "Operasie Breaking Dawn",
+                "subtitle": "5 Aug 2022 - 7 Aug 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
+                "alert_count": 754
+            },
+            "guardian_of_the_walls": {
+                "title": "Operasie Guardian of the Walls",
+                "subtitle": "10 Mei 2021 - 21 Mei 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
+                "alert_count": 7000
+            },
+            "black_belt": {
+                "title": "Operasie Black Belt",
+                "subtitle": "12 Nov 2019 - 16 Nov 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
+                "alert_count": 928
+            },
+            "protective_edge": {
+                "title": "Operasie Protective Edge",
+                "subtitle": "8 Jul 2014 - 26 Aug 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
+                "alert_count": 12808
+            },
+            "pillar_of_defense": {
+                "title": "Operasie Pillar of Defense",
+                "subtitle": "14 Nov 2012 - 21 Nov 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
+                "alert_count": 1506
+            },
+            "cast_lead": {
+                "title": "Operasie Cast Lead",
+                "subtitle": "27 Des 2008 - 18 Jan 2009",
+                "fromDate": "2008-12-27",
+                "toDate": "2009-01-18",
+                "alert_count": 575
+            }
+        }
+    },
+    "graph_alerts_by_day": {
+        "title": "Waarskuwings per dag sedert 7 Okt",
+        "source_note": "Bron is slegs 'n skatting. Gebaseer op waarskuwing se ligging en sy afstand vanaf die Gaza Strook vs Suid-Libanon. Mag of mag nie vuurpyle wat deur Islamitiese Jihad (Gaza) of deur ander Iranse proxy's (Suid-Libanon) afgevuur word, insluit nie.",
+        "month": {
+            "october": "Oktober",
+            "november": "November",
+            "december": "Desember"
+        },
+        "error_message": "Iets het verkeerd geloop. Probeer asseblief weer."
+    },
+    "graph_alerts_by_source": {
+        "title": "Waarskuwings per bron sedert 7 Okt",
+        "source_note": "Bron is slegs 'n skatting. Gebaseer op waarskuwing se ligging en sy afstand vanaf die Gaza Strook vs Suid-Libanon. Mag of mag nie vuurpyle wat deur Islamitiese Jihad (Gaza) of deur ander Iranse proxy's (Suid-Libanon) afgevuur word, insluit nie.",
+        "error_message": "Iets het verkeerd geloop. Probeer asseblief weer."
+    },
+    "current_operation": {
+        "title": "Operasie Swords of Iron",
+        "rocket_alerts_title": "Raketwaarskuwings",
+        "uav_alerts_title": "UAV Waarskuwings",
+        "alerts_subtitle": "Sedert 7 Oktober 2023",
+        "most_targeted_communities": "Mees geteikende gemeenskappe",
+        "most_targeted_regions": "Mees geteikende streke"
+    },
+    "most_recent_alerts": {
+        "title": "Mees onlangse waarskuwings",
+        "show_all": "Wys alles"
+      },    
+    "time_to_shelter": {
+        "title_far": "Jy het {{countdownSec}} sekondes om by 'n skuiling te kom!",
+        "title_near": "Gaan dadelik na 'n skuiling!",
+        "text_far": "As dit in jou area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op jou gemik is, ongeveer {{distanceKM}} km ({{distanceMiles}} myl) weg gelanseer is",
+        "text_near": "As dit in jou area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op jou gemik is, minder as 5 km ({{distanceMiles}} myl) weg gelanseer is",
+        "share_title_far": "Ek sou {{countdownSec}} sekondes gehad het om by 'n skuiling te kom!",
+        "share_title_near": "Ek sou dadelik na 'n skuiling moes gaan!",
+        "share_text_far": "As dit in MY area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op my gemik is, ongeveer {{distanceKM}} km ({{distanceMiles}} myl) weg gelanseer is",
+        "share_text_near": "As dit in MY area gebeur het, beteken dit dat 'n vuurpyl of UAV wat op my gemik is, minder as 5 km ({{distanceMiles}} myl) weg gelanseer is",
+        "based_on_last_alert": "Gebaseer op die laaste vuurpylwaarskuwing"
+      }
+}

@@ -11,8 +11,9 @@ import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
 import { LoadingOutlined } from "@ant-design/icons";
+import { withTranslation } from "react-i18next";
 
-const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
+const GraphTotalUAVAlerts = ({ alertData, isLoading, isError, t }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
 
@@ -20,7 +21,6 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
     xField: "week",
     yField: "count",
     seriesField: "",
-    // columnWidthRatio: 0.5,
     columnStyle: {
       radius: [20, 20, 0, 0],
     },
@@ -89,7 +89,7 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
     <section className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>UAV alerts since Oct 7</h2>
+          <h2>{t("uav_alerts_since_oct_7")}</h2>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
@@ -112,7 +112,7 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
           )}
           {isError && (
             <div className="center-flexbox">
-              <Col>Something went wrong. Please try again.</Col>
+              <Col>{t("something_went_wrong")}</Col>
             </div>
           )}
         </Col>
@@ -121,4 +121,4 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(GraphTotalUAVAlerts, "Graph_total_uav_alerts");
+export default withTranslation()(withIsVisibleHook(GraphTotalUAVAlerts, "Graph_total_uav_alerts"));

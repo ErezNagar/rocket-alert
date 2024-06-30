@@ -1,22 +1,25 @@
-import React from "react";
-import "./App.css";
-import Header from "./components/Header";
-import StickyHeader from "./components/StickyHeader";
-import PreviousOperations from "./components/PreviousOperations";
-import MostRecentAlerts from "./components/MostRecentAlerts";
-import CurrentOperation from "./components/CurrentOperation";
-import RecentAlertsMap from "./components/RecentAlertsMap";
-import UserLocationMap from "./components/UserLocationMap";
-import LocationDistance from "./components/LocationDistance";
-import Footer from "./components/Footer";
-import FAQ from "./components/FAQ";
-import AlertClient from "./rocket_alert_client";
-import { Row, Col } from "antd";
-import RealTimeAlertManager from "./realtime_alert_manager";
-import Util from "./util";
-import Tracking from "./tracking";
-import { getNow, get24HoursAgo } from "./date_helper";
-import TimeToShelter from "./components/TimeToShelter";
+import React from 'react';
+import './App.css';
+import Header from './components/Header';
+import StickyHeader from './components/StickyHeader';
+import PreviousOperations from './components/PreviousOperations';
+import MostRecentAlerts from './components/MostRecentAlerts';
+import CurrentOperation from './components/CurrentOperation';
+import RecentAlertsMap from './components/RecentAlertsMap';
+import UserLocationMap from './components/UserLocationMap';
+import LocationDistance from './components/LocationDistance';
+import Footer from './components/Footer';
+import FAQ from './components/FAQ';
+import AlertClient from './rocket_alert_client';
+import { Row, Col } from 'antd';
+import RealTimeAlertManager from './realtime_alert_manager';
+import Util from './util';
+import Tracking from './tracking';
+import { getNow, get24HoursAgo } from './date_helper';
+import TimeToShelter from './components/TimeToShelter';
+import { withTranslation } from 'react-i18next';
+import 'flag-icons/css/flag-icons.min.css';
+import { isRtl } from './i18n';
 
 class App extends React.Component {
   state = {
@@ -29,7 +32,7 @@ class App extends React.Component {
     isAlertMode: false,
     // Whether this is the last real-time alert of the alert batch
     isLastAlertOfBatch: false,
-    // The alert boject
+    // The alert object
     realTimeAlert: null,
     // Most recent alerts
     mostRecentAlerts: [],
@@ -52,14 +55,17 @@ class App extends React.Component {
 
     this.getMostRecentAlerts();
 
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
     this.setState({
       startfadeInEffect: true,
     });
+
+    document.body.dir = isRtl() ? 'rtl' : 'ltr';
+    document.body.className = isRtl() ? 'rtl' : 'ltr';
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll);
     RealTimeAlertManager.stopRealTimeAlerts();
   }
 
@@ -176,6 +182,14 @@ class App extends React.Component {
   handleOnAlertLocationClick = (alert) => this.setState({ mapFocus: alert });
 
   render() {
+    const { i18n } = this.props;
+
+    const changeLanguage = (lng) => {
+      i18n.changeLanguage(lng);
+      document.body.dir = isRtl() ? 'rtl' : 'ltr';
+      document.body.className = isRtl() ? 'rtl' : 'ltr';
+    };
+
     return (
       <div
         className={
@@ -196,7 +210,37 @@ class App extends React.Component {
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
           twitterShareText={this.state.twitterShareText}
+          showLanguageSelector={!this.state.showStickyHeader}
         />
+        <div className="language-selector">
+          <button onClick={() => changeLanguage('en')}>
+            <span className="fi fi-gb"></span> English
+          </button>
+          <button onClick={() => changeLanguage('de')}>
+            <span className="fi fi-de"></span> Deutsch
+          </button>
+          <button onClick={() => changeLanguage('tr')}>
+            <span className="fi fi-tr"></span> Türkisch
+          </button>
+          <button onClick={() => changeLanguage('fr')}>
+            <span className="fi fi-fr"></span> French
+          </button>
+          <button onClick={() => changeLanguage('ru')}>
+            <span className="fi fi-ru"></span> Russisch
+          </button>
+          <button onClick={() => changeLanguage('ua')}>
+            <span className="fi fi-ua"></span> Ukrainisch
+          </button>
+          <button onClick={() => changeLanguage('he')}>
+            <span className="fi fi-il"></span> Hebrew
+          </button>
+          <button onClick={() => changeLanguage('in')}>
+            <span className="fi fi-in"></span> Indisch
+          </button>
+          <button onClick={() => changeLanguage('za')}>
+            <span className="fi fi-za"></span> Afrikaans
+          </button>
+        </div>
 
         {this.state.mostRecentAlerts.length > 0 && (
           <section className="section mostRecentAlerts">
@@ -228,4 +272,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withTranslation()(App);

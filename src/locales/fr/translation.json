@@ -1,0 +1,158 @@
+{
+    "real_time_alerts": "Alertes rouges en temps réel en Israël",
+    "rocket_alert": "Alerte de roquette",
+    "uav_alert": "Alerte UAV hostile",
+    "red_alert": "Alerte rouge",
+    "alert_today": "Alertes rouges aujourd'hui",
+    "alert_yesterday": "Alertes rouges hier",
+    "alert_week": "Alertes rouges la semaine dernière",
+    "alert_month": "Alertes rouges le mois dernier",
+    "data_unavailable": "Données actuellement indisponibles",
+    "share": "Partager",
+    "faq_title": "Questions fréquentes",
+    "total_alerts_since_oct_7": "Alertes totales depuis le 7 octobre",
+    "uav_alerts_since_oct_7": "Alertes UAV depuis le 7 octobre",
+    "rocket_alerts_since_oct_7": "Alertes de roquettes depuis le 7 octobre",
+    "something_went_wrong": "Une erreur s'est produite. Veuillez réessayer.",
+    "faq_questions": {
+        "q1": "D'où viennent ces roquettes et UAV ?",
+        "a1": "Avant l'attaque de <a href=\"https://fr.wikipedia.org/wiki/Hamas\">Hamas</a> le <a href=\"https://fr.wikipedia.org/wiki/Attaque_terroriste_du_Hamas_en_Israël_en_2023\">7 octobre 2023</a>, les roquettes étaient principalement tirées depuis la <a href=\"https://fr.wikipedia.org/wiki/Bande_de_Gaza\">bande de Gaza</a>, mais depuis lors, des roquettes et également des UAV (c'est-à-dire des <a href=\"https://fr.wikipedia.org/wiki/Munition_rodeuse\"> munitions rodeuses</a>, plus communément appelées <a href=\"https://fr.wikipedia.org/wiki/Munition_rodeuse\">drones explosifs</a>) ont été tirées principalement depuis le sud du Liban, mais aussi depuis la Syrie, l'Irak et le Yémen.",
+        "q2": "Qui tire ces roquettes et UAV ?",
+        "a2": "Des organisations terroristes palestiniennes de Gaza, à savoir <a href=\"https://fr.wikipedia.org/wiki/Hamas\">Hamas</a> et <a href=\"https://fr.wikipedia.org/wiki/Djihad_islamique_palestinien\">Djihad islamique</a>, ainsi que l'organisation terroriste <a href=\"https://fr.wikipedia.org/wiki/Hezbollah\">Hezbollah</a> basée dans le sud du Liban.",
+        "q3": "Quels sont les cibles de ces roquettes et UAV ?",
+        "a3": "Qu'elles soient tirées de Gaza ou du sud du Liban, ces roquettes et UAV sont tirées sans discrimination sur les villes et villages israéliens, visant délibérément des civils innocents, des maisons et des écoles.",
+        "q4": "Israël réagit-il ?",
+        "a4": "En plus de protéger ses civils via une combinaison d'abris anti-bombes et de déploiement du système <a href=\"https://fr.wikipedia.org/wiki/Dôme_de_Fer\">Dôme de Fer</a>, Israël réagit généralement en frappant par voie aérienne des cibles terroristes, y compris des sites de lancement, des centres de commandement et de contrôle, et des dépôts d'armes.",
+        "q5": "Qu'est-ce que le Dôme de Fer ?",
+        "a5": "Le <a href=\"https://fr.wikipedia.org/wiki/Dôme_de_Fer\">Dôme de Fer</a> est un système de défense aérienne israélien conçu pour intercepter et détruire les roquettes dont la trajectoire les amènerait dans une zone peuplée d'Israël.",
+        "q6": "Des roquettes atteignent-elles jamais Israël ?",
+        "a6": "Oui. Bien que le Dôme de Fer intercepte la plupart des roquettes tirées sur la population israélienne, des roquettes traversent encore le système de défense et touchent des zones résidentielles, y compris des maisons et des écoles.",
+        "q7": "D'où viennent les données d'alerte ?",
+        "a7": "Nous utilisons l'API d'alerte de roquettes du <a href=\"https://fr.wikipedia.org/wiki/Commandement_du_Front_Intérieur\">Commandement du Front Intérieur</a> (Pikud HaOref) de l'IDF, ce qui nous permet de demander facilement des alertes de roquettes en temps réel. Nous agrégeons les données et découpons les informations pour fournir des données historiques et d'autres informations.",
+        "q8": "Quelle est la fiabilité de vos données ?",
+        "a8": "Les alertes de roquettes en temps réel que nous affichons sont directement demandées à partir de l'API du Commandement du Front Intérieur, qui est connecté au système d'alerte précoce <a href=\"https://fr.wikipedia.org/wiki/Couleur_rouge\">Couleur Rouge</a> de l'IDF. Le système Couleur Rouge est la source officielle des alertes de roquettes en Israël sur laquelle des millions d'Israéliens comptent pour leur sécurité. Une alerte en temps réel apparaîtra sur le site immédiatement après qu'une alerte se soit déclenchée en Israël. Dans certains cas, et selon votre connexion, il peut y avoir quelques secondes de décalage avant qu'une alerte se déclenche en Israël et apparaisse.",
+        "q9": "Une alerte représente-t-elle une seule roquette ?",
+        "a9": "Nous avons uniquement des données sur le nombre d'alertes, pas sur le nombre de roquettes tirées. Une seule roquette pourrait déclencher une alerte dans plusieurs lieux, en fonction de la proximité de ces lieux entre eux et de la taille géographique de ces communautés. Une alerte dans un lieu spécifié indique généralement qu'au moins une roquette a été tirée vers ce lieu.",
+        "q10": "Comment puis-je obtenir des données plus détaillées ?",
+        "a10": "Nous serions ravis de vous aider ! N'hésitez pas à nous contacter avec plus d'informations sur votre cas spécifique.",
+        "a10_link": "Contactez-nous ici"
+    },
+    "location_distance": {
+        "title": "Le terrorisme est plus proche que vous ne le pensez",
+        "nahal_oz": {
+            "distance": "1,5 km (0,9 miles) de Nahal Oz",
+            "description": "Une petite communauté de 500 personnes",
+            "example": "Moins que la longueur du Golden Gate Bridge"
+        },
+        "beeri": {
+            "distance": "4 km (2,5 miles) de Be'eri",
+            "description": "Une petite communauté de 1100 personnes",
+            "example": "La longueur du National Mall de Washington DC"
+        },
+        "ashkelon": {
+            "distance": "13 km (8 miles) d'Ashkelon",
+            "description": "Population de 160k"
+        },
+        "jerusalem": {
+            "distance": "70 km (44 miles) de Jérusalem",
+            "description": "Population de 980k (Métro : 1,3m)",
+            "example": "La longueur du lac Léman"
+        },
+        "tel_aviv": {
+            "distance": "62 km (39 miles) de Tel Aviv",
+            "description": "Population de 470k (Métro : 4,2m)",
+            "example": "La distance entre San Francisco et San Jose"
+        }
+    },
+    "previous_operations": {
+        "title": "Alertes de roquettes lors de conflits précédents",
+        "operations": {
+            "shield_and_arrow": {
+                "title": "Opération Bouclier et Flèche",
+                "subtitle": "9 mai 2023 - 13 mai 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
+                "alert_count": 775
+            },
+            "breaking_dawn": {
+                "title": "Opération Aube Naissante",
+                "subtitle": "5 août 2022 - 7 août 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
+                "alert_count": 754
+            },
+            "guardian_of_the_walls": {
+                "title": "Opération Gardien des Murailles",
+                "subtitle": "10 mai 2021 - 21 mai 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
+                "alert_count": 7000
+            },
+            "black_belt": {
+                "title": "Opération Ceinture Noire",
+                "subtitle": "12 novembre 2019 - 16 novembre 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
+                "alert_count": 928
+            },
+            "protective_edge": {
+                "title": "Opération Bordure Protectrice",
+                "subtitle": "8 juillet 2014 - 26 août 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
+                "alert_count": 12808
+            },
+            "pillar_of_defense": {
+                "title": "Opération Pilier de Défense",
+                "subtitle": "14 novembre 2012 - 21 novembre 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
+                "alert_count": 1506
+            },
+            "cast_lead": {
+                "title": "Opération Plomb Durci",
+                "subtitle": "27 décembre 2008 - 18 janvier 2009",
+                "fromDate": "2008-12-27","toDate": "2009-01-18",
+                "alert_count": 575
+            }
+        }
+    },
+    "graph_alerts_by_day": {
+        "title": "Alertes par jour depuis le 7 octobre",
+        "source_note": "La source est une estimation seulement. Basé sur l'emplacement de l'alerte et sa distance de la bande de Gaza vs le sud du Liban. Peut ou non inclure les roquettes tirées par le Djihad islamique (Gaza) ou par d'autres mandataires iraniens (sud du Liban).",
+        "month": {
+            "october": "Octobre",
+            "november": "Novembre",
+            "december": "Décembre"
+        },
+        "error_message": "Une erreur s'est produite. Veuillez réessayer."
+    },
+    "graph_alerts_by_source": {
+        "title": "Alertes par source depuis le 7 octobre",
+        "source_note": "La source est une estimation seulement. Basé sur l'emplacement de l'alerte et sa distance de la bande de Gaza vs le sud du Liban. Peut ou non inclure les roquettes tirées par le Djihad islamique (Gaza) ou par d'autres mandataires iraniens (sud du Liban).",
+        "error_message": "Une erreur s'est produite. Veuillez réessayer."
+    },
+    "current_operation": {
+        "title": "Opération Épées de Fer",
+        "rocket_alerts_title": "Alertes de roquettes",
+        "uav_alerts_title": "Alertes UAV",
+        "alerts_subtitle": "Depuis le 7 octobre 2023",
+        "most_targeted_communities": "Communautés les plus ciblées",
+        "most_targeted_regions": "Régions les plus ciblées"
+    },
+    "most_recent_alerts": {
+        "title": "Alertes les plus récentes",
+        "show_all": "Afficher tout"
+    },
+    "time_to_shelter": {
+        "title_far": "Vous avez {{countdownSec}} secondes pour vous abriter !",
+        "title_near": "Abritez-vous immédiatement !",
+        "text_far": "Si cela se produisait dans votre région, cela signifie qu'une roquette ou un UAV vous ciblant a été tiré à environ {{distanceKM}} km ({{distanceMiles}} miles)",
+        "text_near": "Si cela se produisait dans votre région, cela signifie qu'une roquette ou un UAV vous ciblant a été tiré à moins de 5 km ({{distanceMiles}} miles)",
+        "share_title_far": "J'aurais {{countdownSec}} secondes pour m'abriter !",
+        "share_title_near": "Je devrais m'abriter immédiatement !",
+        "share_text_far": "Si cela se produisait dans MA région, cela signifie qu'une roquette ou un UAV me ciblant aurait été tiré à environ {{distanceKM}} km ({{distanceMiles}} miles)",
+        "share_text_near": "Si cela se produisait dans MA région, cela signifie qu'une roquette ou un UAV me ciblant aurait été tiré à moins de 5 km ({{distanceMiles}} miles)",
+        "based_on_last_alert": "Basé sur la dernière alerte de roquette"
+    }
+}

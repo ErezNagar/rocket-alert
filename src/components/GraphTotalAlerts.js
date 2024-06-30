@@ -11,8 +11,9 @@ import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
 import { LoadingOutlined } from "@ant-design/icons";
+import { withTranslation } from "react-i18next";
 
-const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
+const GraphTotalAlerts = ({ alertData, isLoading, isError, t }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
 
@@ -89,7 +90,7 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
     <section className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Total alerts since Oct 7</h2>
+          <h2>{t("total_alerts_since_oct_7")}</h2>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
@@ -112,7 +113,7 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
           )}
           {isError && (
             <div className="center-flexbox">
-              <Col>Something went wrong. Please try again.</Col>
+              <Col>{t("something_went_wrong")}</Col>
             </div>
           )}
         </Col>
@@ -121,4 +122,4 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(GraphTotalAlerts, "Graph_total_alerts");
+export default withTranslation()(withIsVisibleHook(GraphTotalAlerts, "Graph_total_alerts"));

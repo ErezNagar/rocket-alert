@@ -1,6 +1,7 @@
+import React, { useEffect, useRef } from "react";
 import { Row, Col } from "antd";
+import { withTranslation } from "react-i18next";
 import Util from "../util";
-import { useEffect, useRef } from "react";
 import beeriDistance from "../assets/beeri_distance.png";
 import nahalOzDistance from "../assets/nahal_oz_distance.png";
 import ashkelonDistance from "../assets/ashkelon_distance.png";
@@ -8,7 +9,7 @@ import jerusalemDistance from "../assets/jerusalem_distance.png";
 import telAvivDistance from "../assets/tel_aviv_distance.png";
 import Tracking from "../tracking";
 
-const DesktopView = () => (
+const DesktopView = ({ t }) => (
   <div className="desktop">
     <Row
       gutter={[24, 24]}
@@ -19,15 +20,15 @@ const DesktopView = () => (
       <Col md={6}>
         <img
           src={nahalOzDistance}
-          alt="Distance from Gaza strip to Nahal Oz"
+          alt={t("location_distance.nahal_oz.alt")}
           width="100%"
         ></img>
       </Col>
       <Col md={12}>
-        <h2>1.5km (0.9 miles) to Nahal Oz</h2>
-        <p className="location-description">A small community of 500 people</p>
+        <h2>{t("location_distance.nahal_oz.distance")}</h2>
+        <p className="location-description">{t("location_distance.nahal_oz.description")}</p>
         <div className="location-example">
-          Less than the length of the Golden Gate Bridge
+          {t("location_distance.nahal_oz.example")}
         </div>
       </Col>
     </Row>
@@ -38,16 +39,16 @@ const DesktopView = () => (
       className="location-row"
     >
       <Col md={12}>
-        <h2>4 km (2.5 miles) to Be'eri</h2>
-        <p className="location-description">A small community of 1100 people</p>
+        <h2>{t("location_distance.beeri.distance")}</h2>
+        <p className="location-description">{t("location_distance.beeri.description")}</p>
         <div className="location-example">
-          The length of the Washington DC National Mall
+          {t("location_distance.beeri.example")}
         </div>
       </Col>
       <Col md={6}>
         <img
           src={beeriDistance}
-          alt="Distance from Gaza strip to Be'eri"
+          alt={t("location_distance.beeri.alt")}
           width="100%"
         ></img>
       </Col>
@@ -61,13 +62,13 @@ const DesktopView = () => (
       <Col md={6}>
         <img
           src={ashkelonDistance}
-          alt="Distance from Gaza strip to Ashkelon"
+          alt={t("location_distance.ashkelon.alt")}
           width="100%"
         ></img>
       </Col>
       <Col md={12}>
-        <h2>13 km (8 miles) to Ashkelon</h2>
-        <p className="location-description">Population of 160k</p>
+        <h2>{t("location_distance.ashkelon.distance")}</h2>
+        <p className="location-description">{t("location_distance.ashkelon.description")}</p>
         <div className="location-example"></div>
       </Col>
     </Row>
@@ -78,14 +79,14 @@ const DesktopView = () => (
       className="location-row"
     >
       <Col md={12}>
-        <h2>70 km (44 miles) to Jerusalem</h2>
-        <p className="location-description">Population of 980k (Metro: 1.3m)</p>
-        <div className="location-example">The length of Lake Geneva</div>
+        <h2>{t("location_distance.jerusalem.distance")}</h2>
+        <p className="location-description">{t("location_distance.jerusalem.description")}</p>
+        <div className="location-example">{t("location_distance.jerusalem.example")}</div>
       </Col>
       <Col md={6}>
         <img
           src={jerusalemDistance}
-          alt="Distance from Gaza strip to Jerusalem"
+          alt={t("location_distance.jerusalem.alt")}
           width="100%"
         ></img>
       </Col>
@@ -99,22 +100,22 @@ const DesktopView = () => (
       <Col md={6}>
         <img
           src={telAvivDistance}
-          alt="Distance from Gaza strip to Tel Aviv"
+          alt={t("location_distance.tel_aviv.alt")}
           width="100%"
         ></img>
       </Col>
       <Col md={12}>
-        <h2>62 km (39 miles) to Tel Aviv</h2>
-        <p className="location-description">Population of 470k (Metro: 4.2m)</p>
+        <h2>{t("location_distance.tel_aviv.distance")}</h2>
+        <p className="location-description">{t("location_distance.tel_aviv.description")}</p>
         <div className="location-example">
-          The distance between San Francisco and San Jose
+          {t("location_distance.tel_aviv.example")}
         </div>
       </Col>
     </Row>
   </div>
 );
 
-const MobileView = () => (
+const MobileView = ({ t }) => (
   <div className="mobile">
     <Row
       gutter={[24, 24]}
@@ -123,17 +124,17 @@ const MobileView = () => (
       className="location-row"
     >
       <Col>
-        <h2>1.5km (0.9 miles) to Nahal Oz</h2>
-        <p className="location-description">A small community of 500 people</p>
+        <h2>{t("location_distance.nahal_oz.distance")}</h2>
+        <p className="location-description">{t("location_distance.nahal_oz.description")}</p>
         <img
           src={nahalOzDistance}
-          alt="Distance from Gaza strip to nahal Oz"
+          alt={t("location_distance.nahal_oz.alt")}
           width="100%"
         ></img>
       </Col>
       <Col>
         <div className="location-example">
-          Less than the length of the Golden Gate Bridge
+          {t("location_distance.nahal_oz.example")}
         </div>
       </Col>
     </Row>
@@ -144,17 +145,17 @@ const MobileView = () => (
       className="location-row"
     >
       <Col>
-        <h2>4 km (2.5 miles) to Be'eri</h2>
-        <p className="location-description">A small community of 1100 people</p>
+        <h2>{t("location_distance.beeri.distance")}</h2>
+        <p className="location-description">{t("location_distance.beeri.description")}</p>
         <img
           src={beeriDistance}
-          alt="Distance from Gaza strip to Be'eri"
+          alt={t("location_distance.beeri.alt")}
           width="100%"
         ></img>
       </Col>
       <Col>
         <div className="location-example">
-          The length of the Washington DC National Mall
+          {t("location_distance.beeri.example")}
         </div>
       </Col>
     </Row>
@@ -165,11 +166,11 @@ const MobileView = () => (
       className="location-row"
     >
       <Col>
-        <h2>13 km (8 miles) to Ashkelon</h2>
-        <p className="location-description">Population of 160k</p>
+        <h2>{t("location_distance.ashkelon.distance")}</h2>
+        <p className="location-description">{t("location_distance.ashkelon.description")}</p>
         <img
           src={ashkelonDistance}
-          alt="Distance from Gaza strip to Ashkelon"
+          alt={t("location_distance.ashkelon.alt")}
           width="100%"
         ></img>
       </Col>
@@ -181,16 +182,16 @@ const MobileView = () => (
       className="location-row"
     >
       <Col>
-        <h2>70 km (44 miles) to Jerusalem</h2>
-        <p className="location-description">Population of 980k (Metro: 1.3m)</p>
+        <h2>{t("location_distance.jerusalem.distance")}</h2>
+        <p className="location-description">{t("location_distance.jerusalem.description")}</p>
         <img
           src={jerusalemDistance}
-          alt="Distance from Gaza strip to Jerusalem"
+          alt={t("location_distance.jerusalem.alt")}
           width="100%"
         ></img>
       </Col>
       <Col>
-        <div className="location-example">The length of Lake Geneva</div>
+        <div className="location-example">{t("location_distance.jerusalem.example")}</div>
       </Col>
     </Row>
     <Row
@@ -200,24 +201,24 @@ const MobileView = () => (
       className="location-row"
     >
       <Col>
-        <h2>62 km (39 miles) to Tel Aviv</h2>
-        <p className="location-description">Population of 470k (Metro: 4.2m)</p>
+        <h2>{t("location_distance.tel_aviv.distance")}</h2>
+        <p className="location-description">{t("location_distance.tel_aviv.description")}</p>
         <img
           src={telAvivDistance}
-          alt="Distance from Gaza strip to Tel Aviv"
+          alt={t("location_distance.tel_aviv.alt")}
           width="100%"
         ></img>
       </Col>
       <Col>
         <div className="location-example">
-          The distance between San Francisco and San Jose
+          {t("location_distance.tel_aviv.example")}
         </div>
       </Col>
     </Row>
   </div>
 );
 
-const LocationDistance = () => {
+const LocationDistance = ({ t }) => {
   const ref = useRef();
   const isVisible = Util.useIsVisible(ref);
 
@@ -230,15 +231,15 @@ const LocationDistance = () => {
   return (
     <section ref={ref} className="section location-distance">
       <div className="title">
-        <h2>Terrorism is closer than you think</h2>
+        <h2>{t("location_distance.title")}</h2>
       </div>
 
       <div className="content">
-        <DesktopView />
-        <MobileView />
+        <DesktopView t={t} />
+        <MobileView t={t} />
       </div>
     </section>
   );
 };
 
-export default LocationDistance;
+export default withTranslation()(LocationDistance);

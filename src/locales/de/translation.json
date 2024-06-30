@@ -1,0 +1,159 @@
+{
+    "faq_title": "Häufig gestellte Fragen",
+    "real_time_alerts": "Echtzeit Raketenalarmierungen aus Israel",
+    "rocket_alert": "Raketenalarm",
+    "uav_alert": "Feindlicher UAV Alarm",
+    "red_alert": "Roter Alarm",
+    "alert_today": "Red Alerts heute",
+    "alert_yesterday": "Red Alerts gestern {{count}} ",
+    "alert_week": "Red Alerts in der letzten Woche {{count}}",
+    "alert_month": "Red Alerts im letzten Monat",
+    "data_unavailable": "Daten derzeit nicht verfügbar",
+    "total_alerts_since_oct_7": "Gesamtanzahl der Alarme seit dem 7. Oktober",
+    "rocket_alerts_since_oct_7": "Raketenalarmierungen seit dem 7. Oktober",
+    "uav_alerts_since_oct_7": "UAV-Alarmierungen seit dem 7. Oktober",
+    "something_went_wrong": "Etwas ist schief gelaufen. Bitte versuche es erneut.",
+    "share": "Teilen",
+    "faq_questions": {
+        "q1": "Woher werden diese Raketen und UAVs abgefeuert?",
+        "a1": "Vor dem <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> Angriff am <a href=\"https://de.wikipedia.org/wiki/Terrorangriff_der_Hamas_auf_Israel_2023\">7. Oktober 2023</a> wurden die meisten Raketen aus dem Gazastreifen abgefeuert, aber seitdem werden Raketen und auch UAVs (d.h. <a href=\"https://en.wikipedia.org/wiki/Loitering_munition\"> loitering munition</a>, besser bekannt als explodierende Drohnen) hauptsächlich aus dem Südlibanon, aber auch aus Syrien, Irak und Jemen abgefeuert.",
+        "q2": "Wer feuert diese Raketen und UAVs ab?",
+        "a2": "Palästinensische Terrororganisationen aus Gaza, nämlich <a href=\"https://en.wikipedia.org/wiki/Hamas\">Hamas</a> und Islamischer Dschihad, sowie die im Südlibanon ansässige Terrororganisation Hisbollah.",
+        "q3": "Was sind die Ziele dieser Raketen und UAVs?",
+        "a3": "Egal ob diese Raketen und UAVs aus Gaza oder dem Südlibanon abgefeuert werden, sie fliegen wahllos auf israelische Städte und Dörfer und zielen absichtlich auf unschuldige Zivilisten, Häuser und Schulen.",
+        "q4": "Wie Reagiert Israel?",
+        "a4": "Neben dem Schutz seiner Zivilisten durch eine Kombination aus Luftschutzbunkern und dem Einsatz des Iron Dome Systems reagiert Israel typischerweise mit Luftangriffen auf Terrorziele, einschließlich Abschussrampen, Kommando- und Kontrollzentren sowie Waffendepots.",
+        "q5": "Was ist der Iron Dome?",
+        "a5": "Das <a href=\"https://en.wikipedia.org/wiki/Iron_Dome\">Iron Dome Aerial Defense System</a> ist ein israelisches Luftverteidigungssystem, das entwickelt wurde, um Raketen abzufangen und zu zerstören sofern deren Flugbahn sie in ein von Israelis bewohntes Gebiet führen würde.",
+        "q6": "Treffen Raketen jemals Israel?",
+        "a6": "Ja. Während Iron Dome die meisten der auf die israelische Bevölkerung abgefeuerten Raketen abfängt, dringen Raketen dennoch durch das Verteidigungssystem und treffen Wohngebiete, einschließlich Häuser und Schulen.",
+        "q7": "Woher stammen die Alarmdaten?",
+        "a7": "Wir verwenden die Raketenalarmirungs API des IDF <a href=\"https://en.wikipedia.org/wiki/Home_Front_Command\">Home Front Command</a> Heimatschutzkommandos (Pikud HaOref), die es uns ermöglicht, problemlos in Echtzeit nach Raketenalarmen zu suchen. Wir aggregieren die Daten und analysieren die Informationen, um historische Daten und andere Einblicke zu bieten.",
+        "q8": "Wie zuverlässig sind die Daten?",
+        "a8": "Die Echtzeit Raketenalarmierungen, die wir anzeigen, werden direkt aus der API des Heimatschutzkommandos abgefragt, die mit dem Frühwarnsystem <a href=\"https://en.wikipedia.org/wiki/Red_Color\">Red Color</a> der IDF verbunden ist. Das Red Color System ist die offizielle Quelle für Raketenalarme in Israel, auf die Millionen Israelis zu ihrer Sicherheit angewiesen sind. Ein Echtzeit-Alarm würde sofort auf der Website erscheinen, nachdem in Israel ein Alarm ausgelöst wurde. In einigen Fällen und abhängig von Ihrer Verbindung kann es einige Sekunden dauern, bis ein in Israel ausgelöster Alarm angezeigt wird.",
+        "q9": "Repräsentiert ein Alarm eine einzelne Rakete?",
+        "a9": "Wir haben nur Daten zur Anzahl der Alarme, nicht zur Anzahl der abgefeuerten Raketen. Eine einzelne Rakete könnte in mehreren Standorten einen Alarm auslösen, abhängig von der Nähe dieser Standorte zueinander und der geografischen Größe dieser Gemeinden. Ein Alarm in einem bestimmten Standort zeigt typischerweise mindestens eine in Richtung dieses Standorts abgefeuerte Rakete an.",
+        "q10": "Wie kann ich detailliertere Daten erhalten?",
+        "a10": "Wir helfen dir gerne weiter! Kontaktiere uns mit weiteren Informationen zu deinem speziellen Anwendungsfall.",
+        "a10_link": "Kontaktiere uns hier"
+    },
+    "location_distance": {
+        "title": "Die Terroristen sind näher, als du denkst",
+        "nahal_oz": {
+            "distance": "1,5 km (0,9 Meilen) bis Nahal Oz",
+            "description": "Eine kleine Gemeinde von 500 Menschen",
+            "example": "Weniger als die Länge der Golden Gate Bridge"
+        },
+        "beeri": {
+            "distance": "4 km (2,5 Meilen) bis Be'eri",
+            "description": "Eine kleine Gemeinde von 1100 Menschen",
+            "example": "Die Länge des Washington DC National Mall"
+        },
+        "ashkelon": {
+            "distance": "13 km (8 Meilen) bis Ashkelon",
+            "description": "Bevölkerung von 160k"
+        },
+        "jerusalem": {
+            "distance": "70 km (44 Meilen) bis Jerusalem",
+            "description": "Bevölkerung von 980k (Metro: 1,3m)",
+            "example": "Die Länge des Genfersees"
+        },
+        "tel_aviv": {
+            "distance": "62 km (39 Meilen) bis Tel Aviv",
+            "description": "Bevölkerung von 470k (Metro: 4,2m)",
+            "example": "Die Entfernung zwischen San Francisco und San Jose"
+        }
+    },
+    "previous_operations": {
+        "title": "Raketenalarmierungen in früheren Konflikten",
+        "operations": {
+            "shield_and_arrow": {
+                "title": "Operation Schild und Pfeil",
+                "subtitle": "9. Mai 2023 - 13. Mai 2023",
+                "fromDate": "2023-05-09",
+                "toDate": "2023-05-13",
+                "alert_count": 775
+            },
+            "breaking_dawn": {
+                "title": "Operation Morgendämmerung",
+                "subtitle": "5. Aug 2022 - 7. Aug 2022",
+                "fromDate": "2022-08-05",
+                "toDate": "2022-08-07",
+                "alert_count": 754
+            },
+            "guardian_of_the_walls": {
+                "title": "Operation Wächter der Mauern",
+                "subtitle": "10. Mai 2021 - 21. Mai 2021",
+                "fromDate": "2021-05-10",
+                "toDate": "2021-05-21",
+                "alert_count": 7000
+            },
+            "black_belt": {
+                "title": "Operation Schwarzer Gürtel",
+                "subtitle": "12. Nov 2019 - 16. Nov 2019",
+                "fromDate": "2019-11-12",
+                "toDate": "2019-11-16",
+                "alert_count": 928
+            },
+            "protective_edge": {
+                "title": "Operation Schutzkante",
+                "subtitle": "8. Juli 2014 - 26. Aug 2014",
+                "fromDate": "2014-07-08",
+                "toDate": "2014-08-26",
+                "alert_count": 12808
+            },
+            "pillar_of_defense": {
+                "title": "Operation Säule der Verteidigung",
+                "subtitle": "14. Nov 2012 - 21. Nov 2012",
+                "fromDate": "2012-11-14",
+                "toDate": "2012-11-21",
+                "alert_count": 1506
+            },
+            "cast_lead": {
+                "title": "Operation Gegossenes Blei",
+                "subtitle": "27. Dez 2008 - 18. Jan 2009",
+                "fromDate": "2008-12-27",
+                "toDate": "2009-01-18",
+                "alert_count": 575
+            }
+        }
+    },
+    "graph_alerts_by_day": {
+        "title": "Alamierungen pro Tag seit dem 7. Oktober",
+        "source_note": "Die Quelle ist nur eine Schätzung. Basierend auf dem Standort des Alarms und dessen Entfernung vom Gazastreifen bzw. Südlibanon. Kann Raketen einschließen oder nicht, die von Islamischem Dschihad (Gaza) oder anderen iranischen Stellvertretern im (Südlibanon) abgefeuert wurden.",
+        "month": {
+            "october": "Oktober",
+            "november": "November",
+            "december": "Dezember"
+        },
+        "error_message": "Etwas ist schief gelaufen. Bitte versuche es erneut."
+    },
+    "graph_alerts_by_source": {
+        "title": "Alarmierungen nach Quelle seit dem 7. Oktober",
+        "source_note": "Die Quelle ist nur eine Schätzung. Basierend auf dem Standort des Alarms und dessen Entfernung vom Gazastreifen bzw. Südlibanon. Kann Raketen einschließen oder nicht, die von dem Islamischem Dschihad (Gaza) oder anderen iranischen Stellvertretern im (Südlibanon) abgefeuert wurden.",
+        "error_message": "Etwas ist schief gelaufen. Bitte versuche es erneut."
+    },
+    "current_operation": {
+        "title": "Operation Eisenschwerter",
+        "rocket_alerts_title": "Raketenalarme",
+        "uav_alerts_title": "UAV Alarmierungen",
+        "alerts_subtitle": "Seit dem 7. Oktober 2023",
+        "most_targeted_communities": "Am häufigsten angegriffene Gemeinden",
+        "most_targeted_regions": "Am häufigsten angegriffene Regionen"
+    },
+    "most_recent_alerts": {
+        "title": "Neueste Alarmierungen",
+        "show_all": "Alle anzeigen"
+    },
+    "time_to_shelter": {
+        "title_far": "Sie haben {{countdownSec}} Sekunden, um in den Schutzraum zu gelangen!",
+        "title_near": "Gehe sofort in den Schutzraum!",
+        "text_far": "Wenn dies in Ihrer Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das Sie anvisiert, ungefähr {{distanceKM}} km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
+        "text_near": "Wenn dies in Ihrer Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das Sie anvisiert, weniger als 5 km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
+        "share_title_far": "Ich hätte {{countdownSec}} Sekunden, um in den Schutzraum zu gelangen!",
+        "share_title_near": "Ich müsste sofort in den Schutzraum gehen!",
+        "share_text_far": "Wenn dies in MEINER Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das mich anvisiert, ungefähr {{distanceKM}} km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
+        "share_text_near": "Wenn dies in MEINER Gegend passieren würde, würde dies bedeuten, dass eine Rakete oder ein UAV, das mich anvisiert, weniger als 5 km ({{distanceMiles}} Meilen) entfernt abgefeuert wurde",
+        "based_on_last_alert": "Basierend auf dem letzten Raketenalarm"
+    }
+}

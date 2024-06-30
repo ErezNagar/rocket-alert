@@ -4,14 +4,7 @@ import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import logo from "../assets/logo.svg";
 import alarmAudio from "../assets/alarm.mp3";
 import { Row, Col } from "antd";
-import {
-  getNow,
-  getStartOfToday,
-  getStartOfYesterday,
-  getEndOfYesterday,
-  getPastWeek,
-  getPastMonth,
-} from "../date_helper";
+import { getNow, getStartOfToday, getStartOfYesterday, getEndOfYesterday, getPastWeek, getPastMonth } from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import AudioControls from "./AudioControls";
@@ -20,20 +13,12 @@ import { LoadingOutlined } from "@ant-design/icons";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
 import Tracking from "../tracking";
+import { withTranslation } from "react-i18next";
 
-const HeaderContent = ({
-  alertSummaryTitle,
-  alertSummaryText,
-  alertSummaryCount,
-  isLoading,
-}) => (
+const HeaderContent = ({ alertSummaryTitle, alertSummaryText, alertSummaryCount, isLoading, t }) => (
   <>
     {isLoading ? (
-      <Spin
-        indicator={
-          <LoadingOutlined style={{ fontSize: 36, color: "white" }} spin />
-        }
-      />
+      <Spin indicator={<LoadingOutlined style={{ fontSize: 36, color: "white" }} spin />} />
     ) : (
       <>
         {alertSummaryCount > 0 && (
@@ -53,6 +38,7 @@ HeaderContent.propTypes = {
   alertSummaryText: PropTypes.string,
   alertSummaryCount: PropTypes.number,
   isLoading: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
 HeaderContent.defaultProps = {
   alertSummaryTitle: "",
@@ -60,14 +46,14 @@ HeaderContent.defaultProps = {
   alertSummaryCount: 0,
 };
 
-const AlertModeHeaderContent = ({ shouldRefresh, alert }) => {
+const AlertModeHeaderContent = ({ shouldRefresh, alert, t }) => {
   let alertText = "";
   if (alert.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
-    alertText = "Rocket alert";
+    alertText = t("rocket_alert");
   } else if (alert.alertTypeId === Util.ALERT_TYPE_UAV) {
-    alertText = "Hostile UAV alert";
+    alertText = t("uav_alert");
   } else {
-    alertText = "Red alert";
+    alertText = t("red_alert");
   }
   return (
     <>
@@ -84,11 +70,24 @@ const AlertModeHeaderContent = ({ shouldRefresh, alert }) => {
 AlertModeHeaderContent.propTypes = {
   shouldRefresh: PropTypes.bool,
   alert: PropTypes.object,
+  t: PropTypes.func.isRequired,
 };
 AlertModeHeaderContent.defaultProps = {
   shouldRefresh: false,
   alert: {},
 };
+
+const languages = [
+  { code: "en", text: "Real time red alerts in Israel" },
+  { code: "de", text: "Echtzeit Raketenalarmierungen aus Israel" },
+  { code: "ru", text: "Сирены тревоги в реальном времени в Израиле" },
+  { code: "tr", text: "İsrail'de gerçek zamanlı kırmızı alarm" },
+  { code: "fr", text: "Alertes rouges en temps réel en Israël" },
+  { code: "ua", text: "Червоні тривоги в режимі реального часу в Ізраїлі" },
+  { code: "he", text: "אזעקות אדומות בזמן אמת בישראל" },
+  { code: "in", text: "Israel में रीयल-टाइम रेड अलर्ट" },
+  { code: "af", text: "Regstreekse rooi alarms in Israel" }
+];
 
 class Header extends React.Component {
   state = {
@@ -102,16 +101,24 @@ class Header extends React.Component {
     shouldRefresh: false,
     isAudioOn: false,
     alarm: null,
+    currentLanguageIndex: 0,
   };
 
   componentDidMount() {
     this.getHeaderData();
+    this.languageInterval = setInterval(this.changeLanguage, 5000); // Wechsel alle 5 Sekunden
   }
 
-  /*
-   * Queries the server to get alert data for the header alert summary.
-     Fetches today's, yesterday's, past week's and past month's data, in local time.
-   */
+  componentWillUnmount() {
+    clearInterval(this.languageInterval);
+  }
+
+  changeLanguage = () => {
+    this.setState((prevState) => ({
+      currentLanguageIndex: (prevState.currentLanguageIndex + 1) % languages.length,
+    }));
+  };
+
   getHeaderData() {
     const alertClient = this.props.alertClient;
     const now = getNow();
@@ -124,11 +131,7 @@ class Header extends React.Component {
 
     Promise.all([
       alertClient.getTotalAlerts(startOfToday, now, Util.ALERT_TYPE_ALL),
-      alertClient.getTotalAlerts(
-        startOfYesterday,
-        endOfYesterday,
-        Util.ALERT_TYPE_ALL
-      ),
+      alertClient.getTotalAlerts(startOfYesterday, endOfYesterday, Util.ALERT_TYPE_ALL),
       alertClient.getTotalAlerts(pastWeek, now, Util.ALERT_TYPE_ALL),
       alertClient.getTotalAlerts(pastMonth, now, Util.ALERT_TYPE_ALL),
       alertClient.getRealTimeAlertCache(),
@@ -153,73 +156,72 @@ class Header extends React.Component {
       });
   }
 
-  /* Sets red alert summary text in a simple, human readable form.
-   * Prioritizes recent alerts over old ones.
-   */
   setAlertSummary = async (
     todayAlertCount,
     yesterdayAlertCount,
     pastWeekAlertCount,
     pastMonthAlertCount
   ) => {
+    const { t } = this.props;
+
     let alertSummaryTitle = "";
     let alertSummaryText = "";
     let alertSummaryCount = 0;
 
     if (todayAlertCount > 0) {
       alertSummaryCount = todayAlertCount;
-      alertSummaryTitle = `Red alerts today`;
+      alertSummaryTitle = t("alert_today");
 
       if (yesterdayAlertCount > 0) {
-        alertSummaryText = `Yesterday, there were ${yesterdayAlertCount} red alerts`;
+        alertSummaryText = t("alert_yesterday", { count: yesterdayAlertCount });
         if (
           pastWeekAlertCount > 0 &&
           yesterdayAlertCount !== pastWeekAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${pastWeekAlertCount} in the past week`;
+          alertSummaryText += t("alert_week", { count: pastWeekAlertCount });
         } else if (
           pastMonthAlertCount > 0 &&
           pastWeekAlertCount !== pastMonthAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
+          alertSummaryText += t("alert_month", { count: pastMonthAlertCount });
         }
       } else if (pastWeekAlertCount > 0) {
-        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} red alerts`;
+        alertSummaryText = t("alert_week", { count: pastWeekAlertCount });
         if (pastMonthAlertCount > 0) {
-          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
+          alertSummaryText += t("alert_month", { count: pastMonthAlertCount });
         }
       } else if (pastMonthAlertCount > 0) {
-        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} red alerts`;
+        alertSummaryText = t("alert_month", { count: pastMonthAlertCount });
       }
     } else if (yesterdayAlertCount > 0) {
       alertSummaryCount = yesterdayAlertCount;
-      alertSummaryTitle = `Red alerts yesterday`;
+      alertSummaryTitle = t("alert_yesterday");
       if (
         pastWeekAlertCount > 0 &&
         pastWeekAlertCount !== yesterdayAlertCount
       ) {
-        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} red alerts`;
+        alertSummaryText += t("alert_week", { count: pastWeekAlertCount });
         if (
           pastMonthAlertCount > 0 &&
           pastWeekAlertCount !== pastMonthAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
+          alertSummaryText += t("alert_month", { count: pastMonthAlertCount });
         }
       } else if (pastMonthAlertCount > 0) {
-        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} red alerts`;
+        alertSummaryText = t("alert_month", { count: pastMonthAlertCount });
       }
     } else if (pastWeekAlertCount > 0) {
       alertSummaryCount = pastWeekAlertCount;
-      alertSummaryTitle = `Red alerts in the past week`;
+      alertSummaryTitle = t("alert_week");
       if (
         pastMonthAlertCount > 0 &&
         pastMonthAlertCount !== pastWeekAlertCount
       ) {
-        alertSummaryText += `In the past month, there were ${pastMonthAlertCount} red alerts`;
+        alertSummaryText += t("alert_month", { count: pastMonthAlertCount });
       }
     } else if (pastMonthAlertCount > 0) {
       alertSummaryCount = pastMonthAlertCount;
-      alertSummaryTitle = `Red alerts in the last month`;
+      alertSummaryTitle = t("alert_month");
     } else {
       await this.props.alertClient
         .getMostRecentAlert()
@@ -230,10 +232,10 @@ class Header extends React.Component {
               new Date(res.payload.date)
             );
             if (monthsAgo <= 1) {
-              alertSummaryTitle = `Last red alert was a month ago`;
+              alertSummaryTitle = t("alert_last_month");
             }
             if (monthsAgo > 1) {
-              alertSummaryTitle = `Last red alert was ${monthsAgo} months ago`;
+              alertSummaryTitle = t("alert_last_months", { count: monthsAgo });
             }
           }
         })
@@ -243,7 +245,7 @@ class Header extends React.Component {
         });
     }
 
-    const twitterShareText = `Red Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
+    const twitterShareText = `${alertSummaryTitle}: ${alertSummaryCount} ${alertSummaryText}.`;
     this.setState({
       alertSummaryCount,
       alertSummaryTitle,
@@ -295,13 +297,14 @@ class Header extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
+    const { currentLanguageIndex } = this.state;
+    const currentLanguageText = languages[currentLanguageIndex].text;
     return (
-      <header
-        className={this.props.isAlertMode ? "header alert-mode" : "header"}
-      >
+      <header className={this.props.isAlertMode ? "header alert-mode" : "header"}>
         <div className="header-top">
           <img className="logo" src={logo} alt="" />
-          <h2>Real-time red alerts in Israel</h2>
+          <h2 className="animated-text">{currentLanguageText}</h2>
         </div>
         <div className="header-content">
           {!this.state.isError && this.props.isAlertMode && (
@@ -309,6 +312,7 @@ class Header extends React.Component {
               shouldRefresh={this.state.shouldRefresh}
               alert={this.props.realTimeAlert}
               todayAlertCount={this.state.todayAlertCount}
+              t={t}
             />
           )}
           {!this.state.isError && !this.props.isAlertMode && (
@@ -317,10 +321,11 @@ class Header extends React.Component {
               alertSummaryText={this.state.alertSummaryText}
               alertSummaryCount={this.state.alertSummaryCount}
               isLoading={this.state.isLoading}
+              t={t}
             />
           )}
           {this.state.isError && (
-            <h3 className="error">Data currently unavailable</h3>
+            <h3 className="error">{t("data_unavailable")}</h3>
           )}
         </div>
         <div className="header-bottom">
@@ -350,7 +355,7 @@ class Header extends React.Component {
                     rel="noreferrer"
                     onClick={Tracking.shareHeaderClick}
                   >
-                    Share
+                    {t("share")}
                   </a>
                 </Col>
               </Row>
@@ -368,6 +373,7 @@ Header.propTypes = {
   realTimeAlert: PropTypes.object,
   onTwitterShareText: PropTypes.func.isRequired,
   isLastAlertOfBatch: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
@@ -375,4 +381,4 @@ Header.defaultProps = {
   realTimeAlert: {},
 };
 
-export default Header;
+export default withTranslation()(Header);

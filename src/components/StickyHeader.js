@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import FadeInOut from "./FadeInOut";
 import FormattedAlertTime from "./FormattedAlertTime";
 import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
+import { ReactComponent as LanguageIcon } from "../assets/language.svg"; // Assuming you have a language icon SVG
 import logo from "../assets/logo.svg";
 import Tracking from "../tracking";
 import Util from "../util";
+import { withTranslation } from 'react-i18next';
+import 'flag-icons/css/flag-icons.min.css';
 
 class StickyHeader extends React.Component {
   state = {
@@ -39,7 +42,12 @@ class StickyHeader extends React.Component {
   };
 
   render() {
-    const { isAlertMode, realTimeAlert } = this.props;
+    const { isAlertMode, realTimeAlert, i18n } = this.props;
+
+    const changeLanguage = (lng) => {
+      i18n.changeLanguage(lng);
+    };
+
     return (
       <header className={this.setStickyHeaderStyle()}>
         <div className="left-container">
@@ -53,18 +61,51 @@ class StickyHeader extends React.Component {
             </FadeInOut>
           )}
         </div>
-        {this.props.twitterShareText && (
-          <div className="right-container">
-            <a
-              href={`https://twitter.com/share?text=${this.props.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-              target="_blank"
-              rel="noreferrer"
-              onClick={Tracking.shareStickyHeaderClick}
-            >
-              <TwitterLogo style={{ height: "36px" }} />
-            </a>
+        <div className="right-container">
+          <a
+            href={`https://twitter.com/share?text=${this.props.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={Tracking.shareStickyHeaderClick}
+            style={{ marginRight: '10px' }} // Ensure some spacing between buttons
+          >
+            <TwitterLogo style={{ height: "36px" }} />
+          </a>
+          <div className="language-dropdown">
+            <button className="dropbtn">
+              <LanguageIcon style={{ height: "24px" }} />
+            </button>
+            <div className="dropdown-content">
+              <button onClick={() => changeLanguage('en')}>
+                <span className="fi fi-gb"></span> English
+              </button>
+              <button onClick={() => changeLanguage('de')}>
+                <span className="fi fi-de"></span> Deutsch
+              </button>
+              <button onClick={() => changeLanguage('tr')}>
+                <span className="fi fi-tr"></span> Türkisch
+              </button>
+              <button onClick={() => changeLanguage('fr')}>
+                <span className="fi fi-fr"></span> French
+              </button>
+              <button onClick={() => changeLanguage('ru')}>
+                <span className="fi fi-ru"></span> Russisch
+              </button>
+              <button onClick={() => changeLanguage('ua')}>
+                <span className="fi fi-ua"></span> Ukrainisch
+              </button>
+              <button onClick={() => changeLanguage('he')}>
+                <span className="fi fi-il"></span> Hebrew
+              </button>
+              <button onClick={() => changeLanguage('in')}>
+                <span className="fi fi-in"></span> Indisch
+              </button>
+              <button onClick={() => changeLanguage('za')}>
+                <span className="fi fi-za"></span> Afrikaans
+              </button>
+            </div>
           </div>
-        )}
+        </div>
       </header>
     );
   }
@@ -76,6 +117,8 @@ StickyHeader.propTypes = {
   realTimeAlert: PropTypes.object,
   // Text to share on twitter. Generated in Header
   twitterShareText: PropTypes.string,
+  t: PropTypes.func.isRequired,
+  i18n: PropTypes.object.isRequired,
 };
 
 StickyHeader.defaultProps = {
@@ -85,4 +128,4 @@ StickyHeader.defaultProps = {
   twitterShareText: "",
 };
 
-export default StickyHeader;
+export default withTranslation()(StickyHeader);
