@@ -46,7 +46,9 @@
     "version": "npm run build && git add *",
     "postversion": "git push && git push --tags && rm -rf build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "docker-build": "VERSION=1.0.0 && IMAGE_NAME=dchevallier/rocket-alert && docker buildx build --no-cache --platform linux/amd64,linux/arm64 -t $IMAGE_NAME:test-latest -t $IMAGE_NAME:test-$VERSION . --push",
+    "docker-run": "VERSION=1.0.0 && IMAGE_NAME=dchevallier/rocket-alert && docker run --rm -it -p 80:3000 $IMAGE_NAME:test-$VERSION"
   },
   "eslintConfig": {
     "extends": [
