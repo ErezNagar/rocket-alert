@@ -44,6 +44,11 @@ export const isAMonthDifference = (fromDate, toDate) => {
   return Math.abs(diff) === 4 ? true : false;
 };
 
+export const is5WeeksDifference = (fromDate, toDate) => {
+  const diff = differenceInWeeks(fromDate, toDate);
+  return Math.abs(diff) === 5 ? true : false;
+};
+
 export const weekRangeFormat = (fromDate, toDate) =>
   `${dayOfMonthFormat(fromDate)} - ${dayOfMonthFormat(subDays(toDate, 1))}`;
 
