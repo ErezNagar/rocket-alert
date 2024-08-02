@@ -3,7 +3,7 @@ import { Row, Col, Spin } from "antd";
 import {
   getNow,
   dayOfMonthFormat,
-  isBiWeeklyDifference,
+  is3WeeksDifference,
   weekRangeFormat,
   isIranianMissileAttackTimeFrame,
 } from "../date_helper";
@@ -110,7 +110,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
       const theDate = new Date(year, month - 1, day);
-      if (isBiWeeklyDifference(weekDate, theDate)) {
+      if (is3WeeksDifference(weekDate, theDate)) {
         const weekRange = weekRangeFormat(weekDate, theDate);
         data.push({
           week: weekRange,
