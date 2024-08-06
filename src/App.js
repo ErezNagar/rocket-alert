@@ -197,7 +197,6 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
           twitterShareText={this.state.twitterShareText}
         />
-
         {this.state.mostRecentAlerts.length > 0 && (
           <section className="section mostRecentAlerts">
             <Row justify="space-around" align="middle">
@@ -219,6 +218,26 @@ class App extends React.Component {
           </section>
         )}
         <CurrentOperation alertsClient={AlertClient} />
+        <Row
+          justify="center"
+          align="middle"
+          style={{ backgroundColor: "#f4f6f7" }}
+        >
+          <Col>
+            <blockquote className="twitter-tweet">
+              <p lang="en" dir="ltr">
+                Iron Dome’s surface-to-air Tamir missile interceptors being
+                launched against hezbollah’s rocket barrage fired towards the
+                Upper Galilee Region of Northern Israel, yesterday
+                <a href="https://t.co/cD5EYCRfET">pic.twitter.com/cD5EYCRfET</a>
+              </p>
+              &mdash; Rocket Alert (@rocketalertlive)
+              <a href="https://twitter.com/rocketalertlive/status/1820083908651929640?ref_src=twsrc%5Etfw">
+                August 4, 2024
+              </a>
+            </blockquote>
+          </Col>
+        </Row>
         <LocationDistance />
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
