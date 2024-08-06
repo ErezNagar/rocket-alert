@@ -46,7 +46,6 @@ h3 {
 
 .sticky-header.alert-mode {
   background-color: #f5222d;
-  /* background: linear-gradient(135deg, #ff4d4f, #a8071a); */
 }
 
 .sticky-header.active {
@@ -117,7 +116,6 @@ h3 {
  */
 .header.alert-mode {
   background-color: #f5222d;
-  /* background: linear-gradient(90deg, #ff4d4f, #a8071a 60%); */
 }
 
 /*
