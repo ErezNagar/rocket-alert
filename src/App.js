@@ -10,6 +10,8 @@ import UserLocationMap from "./components/UserLocationMap";
 import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
+import Social from "./components/Social";
+import EmbeddedVideos from "./components/EmbeddedVideos";
 import AlertClient from "./rocket_alert_client";
 import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
@@ -218,26 +220,7 @@ class App extends React.Component {
           </section>
         )}
         <CurrentOperation alertsClient={AlertClient} />
-        <Row
-          justify="center"
-          align="middle"
-          style={{ backgroundColor: "#f4f6f7" }}
-        >
-          <Col>
-            <blockquote className="twitter-tweet">
-              <p lang="en" dir="ltr">
-                Iron Dome’s surface-to-air Tamir missile interceptors being
-                launched against hezbollah’s rocket barrage fired towards the
-                Upper Galilee Region of Northern Israel, yesterday
-                <a href="https://t.co/cD5EYCRfET">pic.twitter.com/cD5EYCRfET</a>
-              </p>
-              &mdash; Rocket Alert (@rocketalertlive)
-              <a href="https://twitter.com/rocketalertlive/status/1820083908651929640?ref_src=twsrc%5Etfw">
-                August 4, 2024
-              </a>
-            </blockquote>
-          </Col>
-        </Row>
+        <Social />
         <LocationDistance />
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
