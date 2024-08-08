@@ -224,6 +224,7 @@ class App extends React.Component {
         <LocationDistance />
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
+        <EmbeddedVideos />
         <Footer twitterShareText={this.state.twitterShareText} />
       </div>
     );
