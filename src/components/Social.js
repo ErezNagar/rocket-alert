@@ -73,7 +73,7 @@ const Post5 = () => (
   </blockquote>
 );
 
-const Post6 = () => {
+const Post6 = () => (
   <blockquote className="twitter-tweet">
     <p lang="en" dir="ltr">
       Footage showing interception by Iron Dome over the upper Galilee region in
@@ -84,11 +84,11 @@ const Post6 = () => {
     <a href="https://twitter.com/rocketalertlive/status/1819871068976263315?ref_src=twsrc%5Etfw">
       August 3, 2024
     </a>
-  </blockquote>;
-};
+  </blockquote>
+);
 
-const Post7 = () => {
-  <blockquote class="twitter-tweet">
+const Post7 = () => (
+  <blockquote className="twitter-tweet">
     <p lang="en" dir="ltr">
       Northern Israel - a barrage of rockets fired several minutes ago by
       Hezbollah<a href="https://t.co/hCzA4VGlWN">https://t.co/hCzA4VGlWN</a>
@@ -98,8 +98,8 @@ const Post7 = () => {
     <a href="https://twitter.com/rocketalertlive/status/1813306368771686727?ref_src=twsrc%5Etfw">
       July 16, 2024
     </a>
-  </blockquote>;
-};
+  </blockquote>
+);
 
 const Social = () => {
   const ref = useRef();
