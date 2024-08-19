@@ -179,6 +179,16 @@ h3 {
 }
 
 /*
+ * Support Us
+ */
+.support-us {
+  color: black;
+  text-align: center;
+  padding: 1em 0;
+  font-size: 1.25em;
+}
+
+/*
  * Section
  */
 .section {
@@ -507,6 +517,11 @@ footer .icon {
 */
   .material-symbols-outlined {
     font-size: 16px;
+  }
+
+  .support-us {
+    font-size: 0.95em;
+    padding: 1.3em 0;
   }
 
   /*

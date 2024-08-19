@@ -19,6 +19,7 @@ import Util from "./util";
 import Tracking from "./tracking";
 import { getNow, get24HoursAgo } from "./date_helper";
 import TimeToShelter from "./components/TimeToShelter";
+import { ReactComponent as ByMeCoffee } from "./assets/coffeecup.svg";
 
 class App extends React.Component {
   state = {
@@ -199,6 +200,36 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
           twitterShareText={this.state.twitterShareText}
         />
+        <Row justify="center" align="middle" className="support-us">
+          <Row>
+            <Col>
+              {"Please consider supporting us by "}
+              <a
+                href="https://www.buymeacoffee.com/RocketAlertLive"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "black",
+                  textDecoration: "underline",
+                }}
+              >
+                {"buying us coffee"}
+              </a>
+            </Col>
+            <Col>
+              <a
+                href="https://www.buymeacoffee.com/RocketAlertLive"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ByMeCoffee style={{ height: "20px" }} />
+              </a>
+            </Col>
+          </Row>
+          <Col>
+            {"Your donation helps cover the costs of maintaining the site."}
+          </Col>
+        </Row>
         {this.state.mostRecentAlerts.length > 0 && (
           <section className="section mostRecentAlerts">
             <Row justify="space-around" align="middle">
