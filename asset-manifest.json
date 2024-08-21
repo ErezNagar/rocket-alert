@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.ed14d6ee.css",
-    "main.js": "/static/js/main.ddfde31e.js",
+    "main.css": "/static/css/main.d8fa57cd.css",
+    "main.js": "/static/js/main.683b7b57.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/jerusalem_distance.png": "/static/media/jerusalem_distance.bac81e957ebb29a6fb29.png",
     "static/media/tel_aviv_distance.png": "/static/media/tel_aviv_distance.87f019b1956f8a3407fd.png",
@@ -17,11 +17,11 @@
     "static/media/twitter.svg": "/static/media/twitter.c4236a95b1a54627edce47c20a871ef0.svg",
     "static/media/twitter_black.svg": "/static/media/twitter_black.9a56ea57a5ed634cfbf9ae2b7de7cfda.svg",
     "static/media/email.svg": "/static/media/email.071535162611fb198c1012dac02b4d90.svg",
-    "main.ed14d6ee.css.map": "/static/css/main.ed14d6ee.css.map",
-    "main.ddfde31e.js.map": "/static/js/main.ddfde31e.js.map"
+    "main.d8fa57cd.css.map": "/static/css/main.d8fa57cd.css.map",
+    "main.683b7b57.js.map": "/static/js/main.683b7b57.js.map"
   },
   "entrypoints": [
-    "static/css/main.ed14d6ee.css",
-    "static/js/main.ddfde31e.js"
+    "static/css/main.d8fa57cd.css",
+    "static/js/main.683b7b57.js"
   ]
 }
