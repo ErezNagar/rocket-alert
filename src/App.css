@@ -467,6 +467,14 @@ select {
   margin-bottom: 2em;
 }
 
+/*
+EmbeddedVideo override of twitter margins
+*/
+.twitter-tweet {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 footer {
   color: white;
   padding: 3vh 0;

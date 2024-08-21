@@ -228,6 +228,7 @@ class App extends React.Component {
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
         <EmbeddedVideos />
+        <SupportUs />
         <Footer twitterShareText={this.state.twitterShareText} />
       </div>
     );
