@@ -165,7 +165,55 @@ const FAQ = () => {
         </p>
       </div>
       <div>
-        <p className="question-title">How can I get more granluar data?</p>
+        <p className="question-title">How can I learn more and stay updated?</p>
+        <p className="question-answer">
+          Follow us on{" "}
+          <a
+            href="https://twitter.com/rocketalertlive"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Twitter (X)
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://www.instagram.com/RocketAlertLive/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram
+          </a>{" "}
+          . Join our live alert feeds on{" "}
+          <a href="https://t.me/RocketAlert" target="_blank" rel="noreferrer">
+            Telegram
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://mastodon.social/@rocketalert"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Mastodon
+          </a>{" "}
+          for real-time alerts.
+        </p>
+      </div>
+      <div>
+        <p className="question-title">How can I support this project?</p>
+        <p className="question-answer">
+          Consider supporting us by{" "}
+          <a
+            href="https://www.buymeacoffee.com/RocketAlertLive"
+            target="_blank"
+            rel="noreferrer"
+          >
+            buying us coffee!
+          </a>{" "}
+          Your contribution helps cover the costs of maintaining the site.
+        </p>
+      </div>
+      <div>
+        <p className="question-title">Could I get access to your data?</p>
         <p className="question-answer">
           We'd love to help! Feel free to{" "}
           <a href={"mailto: rocketalertlive@gmail.com"}>contact us</a> with more
