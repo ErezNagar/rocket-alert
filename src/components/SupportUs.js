@@ -28,7 +28,11 @@ const SupportUs = () => (
         </a>
       </Col>
     </Row>
-    <Col>{"Your donation helps cover the costs of maintaining the site."}</Col>
+    <Row>
+      <Col>
+        {"Your donation helps cover the costs of maintaining the site."}
+      </Col>
+    </Row>
   </Row>
 );
 
