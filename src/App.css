@@ -208,9 +208,17 @@ h3 {
   background-color: white;
 }
 .section.mostRecentAlerts .container {
-  padding: 3em 0;
+  padding: 1em 0;
   text-align: center;
   font-size: 1.25em;
+}
+.section.mostRecentAlerts .list {
+  overflow-y: auto;
+}
+.section.mostRecentAlerts .list.scrollable {
+  height: 60vh;
+  mask-image: linear-gradient(180deg, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000 90%, transparent);
 }
 .section.mostRecentAlerts .textLeft {
   text-align: left;

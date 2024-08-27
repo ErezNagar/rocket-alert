@@ -21,7 +21,7 @@ const REAL_TIME_ALERT_DISPLAY_DURATION =
 /*
  * The max amount of alerts to show in in Most Recent Alerts section
  */
-const MAX_RECENT_ALERTS = 15;
+const MAX_RECENT_ALERTS = 100;
 
 /*
  * Alert Type Ids

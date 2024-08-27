@@ -24,23 +24,25 @@ const MostRecentAlerts = (props) => {
     <div ref={props.isIntersectingRef} className="container">
       <h2>{"Most recent alerts"}</h2>
 
-      {props.alerts.map((alert, idx) => (
-        <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
-          <Row justify="center">
-            <Col className="textRight" xs={10} md={10}>
-              <FormattedAlertTime timeStamp={alert.timeStamp} />
-            </Col>
-            <Col className="textLeft" xs={12} md={12}>
-              <span
-                className="location"
-                onClick={() => handleAlertLocationClick(alert, idx)}
-              >
-                {alert.englishName || alert.name}
-              </span>
-            </Col>
-          </Row>
-        </FadeIn>
-      ))}
+      <div className={props.alerts.length <= 15 ? "list" : "list scrollable"}>
+        {props.alerts.map((alert, idx) => (
+          <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
+            <Row justify="center">
+              <Col className="textRight" xs={10} md={10}>
+                <FormattedAlertTime timeStamp={alert.timeStamp} />
+              </Col>
+              <Col className="textLeft" xs={12} md={12}>
+                <span
+                  className="location"
+                  onClick={() => handleAlertLocationClick(alert, idx)}
+                >
+                  {alert.englishName || alert.name}
+                </span>
+              </Col>
+            </Row>
+          </FadeIn>
+        ))}
+      </div>
       {showResetFocus && (
         <div className="showAll" onClick={() => handleResetFocus()}>
           Show All
