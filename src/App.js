@@ -5,8 +5,8 @@ import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
-// import RecentAlertsMap from "./components/RecentAlertsMap";
-// import UserLocationMap from "./components/UserLocationMap";
+import RecentAlertsMap from "./components/RecentAlertsMap";
+import UserLocationMap from "./components/UserLocationMap";
 import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
@@ -204,22 +204,21 @@ class App extends React.Component {
         {this.state.mostRecentAlerts.length > 0 && (
           <section className="section mostRecentAlerts">
             <Row justify="space-around" align="middle">
-              {/* <Col xs={24} lg={12}> */}
-              <Col>
+              <Col xs={24} lg={12}>
                 <MostRecentAlerts
                   alerts={this.state.mostRecentAlerts}
                   onAlertLocationClick={this.handleOnAlertLocationClick}
                 />
               </Col>
-              {/* <Col xs={24} lg={12}>
+              <Col xs={24} lg={12}>
                 <RecentAlertsMap
                   alerts={this.state.mostRecentAlerts}
                   mapFocus={this.state.mapFocus}
                 />
-              </Col> */}
+              </Col>
             </Row>
             <TimeToShelter alerts={this.state.mostRecentAlerts} />
-            {/* <UserLocationMap alerts={this.state.mostRecentAlerts} /> */}
+            <UserLocationMap alerts={this.state.mostRecentAlerts} />
           </section>
         )}
         <CurrentOperation alertsClient={AlertClient} />
