@@ -458,8 +458,16 @@ select {
  * FAQ
  */
 .faq {
+  padding: 2em 1m;
+}
+
+.faq .question {
+  box-shadow: rgba(45, 45, 45, 0.05) 0px 2px 2px,
+    rgba(49, 49, 49, 0.05) 0px 4px 4px, rgba(42, 42, 42, 0.05) 0px 8px 8px,
+    rgba(32, 32, 32, 0.05) 0px 16px 16px;
   background-color: white;
-  padding: 2em;
+  border-radius: 10px;
+  margin-bottom: 1.5em;
 }
 
 .faq p {
@@ -468,11 +476,23 @@ select {
 
 .faq .question-title {
   font-size: 1.75em;
+  padding: 0.5em 1em;
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.faq .question-title span {
+  margin-right: 0.5em;
+  color: #5c0011;
 }
 
 .faq .question-answer {
+  background-color: #f8f9fa;
   font-size: 1.25em;
-  margin-bottom: 2em;
+  padding: 1em;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 /*
@@ -554,6 +574,18 @@ footer .icon {
   }
   .section.location-distance .location-row h2 {
     font-size: 1.7em;
+  }
+
+  .faq .question-title {
+    font-size: 1.5em;
+  }
+
+  .faq .question-title span {
+    margin-right: 0.25em;
+  }
+
+  .faq .question-answer {
+    font-size: 1.2em;
   }
 
   footer .title {
