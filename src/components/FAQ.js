@@ -11,6 +11,7 @@ const FAQ = () => {
   const [toggles, setToggles] = useState(new Set());
 
   const handleOnClick = (idx) => {
+    Tracking.FAQClick(idx);
     const newToggles = new Set(toggles);
     newToggles.has(idx) ? newToggles.delete(idx) : newToggles.add(idx);
     setToggles(newToggles);
@@ -26,7 +27,7 @@ const FAQ = () => {
     <section ref={ref} className="section faq" id="faq">
       <h2>Frequently Asked Questions</h2>
       <Row justify="center">
-        <Col md={24} lg={18}>
+        <Col md={24} lg={12}>
           <Row className="question">
             <Col span={24}>
               <p className="question-title" onClick={() => handleOnClick(1)}>
