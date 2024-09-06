@@ -25,6 +25,7 @@ class App extends React.Component {
   state = {
     alerts: {},
     showStickyHeader: false,
+    // Fade in effect when app loads
     startfadeInEffect: false,
     // Whether query string alert mode param is set
     isAlertModeOverride: false,
