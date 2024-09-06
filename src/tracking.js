@@ -53,9 +53,16 @@ const Tracking = {
       method,
     }),
 
+  // FAQ
   FAQClick: (idx) =>
     track("event", "faq_click", {
       index: idx,
+    }),
+
+  // Cache hit/miss for polygons.json
+  polygonCache: (method) =>
+    track("event", "polygons.json_cache", {
+      method,
     }),
 
   // Error

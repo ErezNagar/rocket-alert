@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Cache from "../cache";
+import Tracking from "../tracking";
 let polygons;
 
 class RecentAlertsMap extends React.Component {
@@ -17,13 +18,17 @@ class RecentAlertsMap extends React.Component {
   componentDidMount() {
     if (Cache.canUseCache()) {
       if ((polygons = Cache.getJSON("polygons")) === null) {
+        Tracking.polygonCache("miss");
         import("../polygons.json").then((json) => {
           polygons = json.default || json;
           Cache.setJSON("polygons", polygons);
           Cache.set("polygons_version", 1);
         });
+      } else {
+        Tracking.polygonCache("hit");
       }
     } else {
+      Tracking.polygonCache("cant_use_cache");
       import("../polygons.json").then((json) => {
         polygons = json;
       });
