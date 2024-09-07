@@ -472,6 +472,11 @@ select {
   margin-bottom: 1.5em;
 }
 
+.faq .question:hover {
+  transform: scale(1.025, 1.1);
+  transition: 0.1s linear;
+}
+
 .faq p {
   margin: 0;
 }
