@@ -1,5 +1,8 @@
 # Code Red Rocket Alerts :rocket:
 
+![Screenshot of a real-time alert count.](/readme_alert_count.png)
+![Screenshot of alert map.](/readme_alert_map.png)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://github.com/ErezNagar/rocket-alert/actions/workflows/main.yml/badge.svg)
 
