@@ -60,26 +60,16 @@ HeaderContent.defaultProps = {
   alertSummaryCount: 0,
 };
 
-const AlertModeHeaderContent = ({ shouldRefresh, alert }) => {
-  let alertText = "";
-  if (alert.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
-    alertText = "Rocket alert";
-  } else if (alert.alertTypeId === Util.ALERT_TYPE_UAV) {
-    alertText = "Hostile UAV alert";
-  } else {
-    alertText = "Red alert";
-  }
-  return (
-    <>
-      <h3>{alertText}</h3>
-      <div className="alert">
-        <FadeInOut show={shouldRefresh}>
-          {alert.englishName || alert.name}
-        </FadeInOut>
-      </div>
-    </>
-  );
-};
+const AlertModeHeaderContent = ({ shouldRefresh, alert }) => (
+  <>
+    <h3>{Util.getAlertTypeText(alert)}</h3>
+    <div className="alert">
+      <FadeInOut show={shouldRefresh}>
+        {alert.englishName || alert.name}
+      </FadeInOut>
+    </div>
+  </>
+);
 
 AlertModeHeaderContent.propTypes = {
   shouldRefresh: PropTypes.bool,

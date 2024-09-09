@@ -40,12 +40,6 @@ class StickyHeader extends React.Component {
 
   render() {
     const { isAlertMode, realTimeAlert } = this.props;
-    let alertText = "Red alert";
-    if (realTimeAlert?.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
-      alertText = "Rocket alert";
-    } else if (realTimeAlert?.alertTypeId === Util.ALERT_TYPE_UAV) {
-      alertText = "Hostile UAV alert";
-    }
     return (
       <header className={this.setStickyHeaderStyle()}>
         <div className="left-container">
@@ -54,12 +48,10 @@ class StickyHeader extends React.Component {
         <div className="alerts">
           {isAlertMode && realTimeAlert && (
             <FadeInOut show={this.state.shouldRefresh}>
-              {Util.isSmallViewport() ? (
-                ""
-              ) : (
+              {!Util.isSmallViewport() && (
                 <>
                   <FormattedAlertTime timeStamp={realTimeAlert.timeStamp} />
-                  {` ${alertText}: `}
+                  {` ${Util.getAlertTypeText(realTimeAlert)}: `}
                 </>
               )}
               {realTimeAlert.englishName || realTimeAlert.name}

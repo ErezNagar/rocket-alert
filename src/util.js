@@ -155,6 +155,16 @@ const isMediumViewport = () =>
   Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <
   1024;
 
+const getAlertTypeText = (alert) => {
+  let alertTypeText = "Red alert";
+  if (alert?.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
+    alertTypeText = "Rocket alert";
+  } else if (alert?.alertTypeId === Util.ALERT_TYPE_UAV) {
+    alertTypeText = "Hostile UAV alert";
+  }
+  return alertTypeText;
+};
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
@@ -165,6 +175,7 @@ const Util = {
   isRegionInNorth,
   isSmallViewport,
   isMediumViewport,
+  getAlertTypeText,
   REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
