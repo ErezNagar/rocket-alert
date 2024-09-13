@@ -10,6 +10,9 @@ const MostRecentAlerts = (props) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
   const handleAlertLocationClick = (alert, idx) => {
+    if (!alert.lon || !alert.lat) {
+      return;
+    }
     Tracking.alertLocationClick(idx);
     setShowResetFocus(true);
     props.onAlertLocationClick(alert);
@@ -33,7 +36,7 @@ const MostRecentAlerts = (props) => {
               </Col>
               <Col className="textLeft" xs={12} md={12}>
                 <span
-                  className="location"
+                  className={!alert.lon || !alert.lat ? "" : "location"}
                   onClick={() => handleAlertLocationClick(alert, idx)}
                 >
                   {alert.englishName || alert.name}
