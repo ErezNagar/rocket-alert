@@ -19,7 +19,7 @@ const APIv2 = wretch(`${V2}/alerts`);
 const getDetailedAlerts = (
   from: string,
   to: string,
-  alertTypeId: number = Util.ALERT_TYPE_ROCKETS
+  alertTypeId: number = Util.ALERT_TYPE_ALL
 ) => {
   if (!from || !isValid(new Date(from))) {
     return Promise.reject(new Error("Invalid Date: from"));
@@ -122,7 +122,7 @@ const AlertClient = {
   getTotalAlerts: (
     from: string,
     to: string,
-    alertTypeId: number = Util.ALERT_TYPE_ROCKETS
+    alertTypeId: number = Util.ALERT_TYPE_ALL
   ): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
