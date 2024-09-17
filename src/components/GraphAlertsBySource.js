@@ -6,6 +6,7 @@ import {
   is3WeeksDifference,
   weekRangeFormat,
   isIranianMissileAttackTimeFrame,
+  isYemenMissileAttackTimeFrame,
 } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
@@ -23,7 +24,7 @@ const GRAPH_CONFIG = {
       radius: [20, 20, 0, 0],
     },
     height: 400,
-    color: ["#008000", "#F7E210", "#DA0000", "#5c0011"],
+    color: ["#008000", "#F7E210", "#DA0000", "black"],
     appendPadding: [30, 0, 0, 0],
     label: {
       position: "top",
@@ -65,7 +66,7 @@ const GRAPH_CONFIG = {
     autoFit: false,
     maxBarWidth: 40,
     minBarWidth: 13,
-    color: ["#008000", "#F7E210", "#DA0000", "#5c0011"],
+    color: ["#008000", "#F7E210", "#DA0000", "black"],
     appendPadding: [0, 50, 0, 0],
     dodgePadding: 4,
     intervalPadding: 15,
@@ -105,6 +106,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     let originSouthCount = 0;
     let originNorthCount = 0;
     let originIranCount = 0;
+    let originYemenCount = 0;
     let weekDate = new Date(2023, 9, 7);
 
     alertData.forEach(({ alerts, date }) => {
@@ -129,18 +131,29 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
             origin: "Iran",
           });
         }
+        if (originYemenCount) {
+          data.push({
+            week: weekRange,
+            count: originYemenCount,
+            origin: "Yemen",
+          });
+        }
         weekDate = theDate;
         originSouthCount = 0;
         originNorthCount = 0;
         originIranCount = 0;
+        originYemenCount = 0;
       }
 
       let originSouth = 0;
       let originNorth = 0;
       let originIran = 0;
+      let originYemen = 0;
       alerts.forEach((alert) => {
         if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
           originIran += 1;
+        } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
+          originYemen += 1;
         } else if (Util.isRegionInSouth(alert.areaNameEn)) {
           originSouth += 1;
         } else if (Util.isRegionInNorth(alert.areaNameEn)) {
@@ -151,6 +164,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       originSouthCount += originSouth;
       originNorthCount += originNorth;
       originIranCount += originIran;
+      originYemenCount += originYemen;
     });
 
     const weekFormat = `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(
@@ -170,6 +184,11 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       week: weekFormat,
       count: originIranCount,
       origin: "Iran",
+    });
+    data.push({
+      week: weekFormat,
+      count: originYemenCount,
+      origin: "Yemen",
     });
 
     setData(data);

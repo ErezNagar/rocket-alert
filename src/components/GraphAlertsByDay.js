@@ -5,6 +5,7 @@ import {
   getYesterday,
   dayOfMonthFormat,
   isIranianMissileAttackTimeFrame,
+  isYemenMissileAttackTimeFrame,
 } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../tracking";
@@ -22,7 +23,7 @@ const GRAPH_CONFIG = {
       radius: [20, 20, 0, 0],
     },
     maxColumnWidth: 40,
-    color: ["#008000", "#F7E210", "#DA0000", "#5c0011"],
+    color: ["#008000", "#F7E210", "#DA0000", "black"],
     appendPadding: [30, 0, 0, 0],
     autoFit: true,
     label: {
@@ -66,7 +67,7 @@ const GRAPH_CONFIG = {
     },
     maxBarWidth: 40,
     minBarWidth: 13,
-    color: ["#008000", "#F7E210", "#DA0000", "#5c0011"],
+    color: ["#008000", "#F7E210", "#DA0000", "black"],
     appendPadding: [0, 50, 0, 0],
     dodgePadding: 4,
     label: {
@@ -129,9 +130,12 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         let originSouthCount = 0;
         let originNorthCount = 0;
         let originIranCount = 0;
+        let originYemenCount = 0;
         alertData[dataIndex].alerts.forEach((alert) => {
           if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
             originIranCount += 1;
+          } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
+            originYemenCount += 1;
           } else if (Util.isRegionInSouth(alert.areaNameEn)) {
             originSouthCount += 1;
           } else if (Util.isRegionInNorth(alert.areaNameEn)) {
@@ -157,6 +161,13 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
             day: dayOfMonthFormat(dateInterval),
             count: originIranCount,
             origin: "Iran",
+          });
+        }
+        if (originYemenCount) {
+          data[monthName].push({
+            day: dayOfMonthFormat(dateInterval),
+            count: originYemenCount,
+            origin: "Yemen",
           });
         }
 
