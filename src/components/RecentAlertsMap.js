@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Cache from "../cache";
 import Tracking from "../tracking";
+import Util from "../util";
 let polygons;
 
 class RecentAlertsMap extends React.Component {
@@ -16,25 +17,48 @@ class RecentAlertsMap extends React.Component {
   };
 
   componentDidMount() {
+    this.loadPolygons();
+    this.initMapWithAlertLocation();
+  }
+
+  loadPolygons = () => {
     if (Cache.canUseCache()) {
-      if ((polygons = Cache.getJSON("polygons")) === null) {
-        Tracking.polygonCache("miss");
-        import("../polygons.json").then((json) => {
-          polygons = json.default || json;
-          Cache.setJSON("polygons", polygons);
-          Cache.set("polygons_version", 1);
-        });
-      } else {
-        Tracking.polygonCache("hit");
-      }
+      this.loadPolygonsFromCache();
     } else {
       Tracking.polygonCache("cant_use_cache");
-      import("../polygons.json").then((json) => {
+      this.loadPolygonsFromFile().then((json) => {
         polygons = json;
       });
     }
-    this.initMapWithAlertLocation();
-  }
+  };
+
+  loadPolygonsFromCache = () => {
+    if ((polygons = Cache.getJSON("polygons")) === null) {
+      Tracking.polygonCache("miss");
+      this.loadPolygonsFromFile().then((json) => {
+        polygons = json;
+        this.setPolygonsToCache(polygons);
+      });
+    } else {
+      if (Cache.get(Util.POLYGON_VERSION_KEY) === Util.POLYGON_VERSION) {
+        Tracking.polygonCache("hit");
+      } else {
+        Tracking.polygonCache("older_version");
+        this.loadPolygonsFromFile().then((newPolygons) => {
+          polygons = newPolygons;
+          this.setPolygonsToCache(polygons);
+        });
+      }
+    }
+  };
+
+  setPolygonsToCache = (polygons) => {
+    Cache.setJSON("polygons", polygons);
+    Cache.set(Util.POLYGON_VERSION_KEY, Util.POLYGON_VERSION_VALUE);
+  };
+
+  loadPolygonsFromFile = () =>
+    import("../polygons.json").then((json) => json.default || json);
 
   componentDidUpdate(prevProps) {
     if (prevProps.alerts[0].name !== this.props.alerts[0].name) {

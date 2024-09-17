@@ -31,6 +31,16 @@ const ALERT_TYPE_ROCKETS = 1;
 const ALERT_TYPE_UAV = 2;
 
 /*
+ * Cache Key for retrieving polygons.json
+ */
+const POLYGON_VERSION_KEY = "polygons_version";
+
+/*
+ * The latest version of polygons.json, to be used for caching
+ */
+const POLYGON_VERSION_VALUE = "1.1";
+
+/*
  * Checks whether the Alert Mode query string is set. Dev only.
  */
 const isAlertModeQueryString = () => {
@@ -183,6 +193,8 @@ const Util = {
   ALERT_TYPE_ALL,
   ALERT_TYPE_ROCKETS,
   ALERT_TYPE_UAV,
+  POLYGON_VERSION_KEY,
+  POLYGON_VERSION_VALUE,
 };
 
 export default Util;
