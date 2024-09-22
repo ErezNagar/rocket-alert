@@ -211,10 +211,10 @@ class App extends React.Component {
                 />
               </Col>
               <Col xs={24} lg={12}>
-                <RecentAlertsMap
+                {/* <RecentAlertsMap
                   alerts={this.state.mostRecentAlerts}
                   mapFocus={this.state.mapFocus}
-                />
+                /> */}
               </Col>
             </Row>
             <TimeToShelter alerts={this.state.mostRecentAlerts} />
