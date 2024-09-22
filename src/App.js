@@ -11,7 +11,6 @@ import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 import Social from "./components/Social";
-import EmbeddedVideos from "./components/EmbeddedVideos";
 import AlertClient from "./rocket_alert_client";
 import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
@@ -227,7 +226,6 @@ class App extends React.Component {
         <LocationDistance />
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
-        <EmbeddedVideos />
         <SupportUs />
         <Footer twitterShareText={this.state.twitterShareText} />
       </div>
