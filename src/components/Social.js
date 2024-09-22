@@ -90,13 +90,13 @@ const Post6 = () => (
 const Post7 = () => (
   <blockquote className="twitter-tweet">
     <p lang="en" dir="ltr">
-      Northern Israel - a barrage of rockets fired several minutes ago by
-      Hezbollah<a href="https://t.co/hCzA4VGlWN">https://t.co/hCzA4VGlWN</a>
-      <a href="https://t.co/SjmVOsDS5s">pic.twitter.com/SjmVOsDS5s</a>
+      Iron Dome’s “Tamir” missile interceptors maneuver sharply, as seen earlier
+      today in the skies of Northern Israel{" "}
+      <a href="https://t.co/1Aosoeq3xu">pic.twitter.com/1Aosoeq3xu</a>
     </p>
     &mdash; Rocket Alert (@rocketalertlive)
-    <a href="https://twitter.com/rocketalertlive/status/1813306368771686727?ref_src=twsrc%5Etfw">
-      July 16, 2024
+    <a href="https://twitter.com/rocketalertlive/status/1837474110365954141?ref_src=twsrc%5Etfw">
+      September 21, 2024
     </a>
   </blockquote>
 );
