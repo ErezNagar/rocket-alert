@@ -45,8 +45,9 @@ const UserLocationMap = ({ alerts }) => {
           alert.countdownSec
         );
 
+        // Exposing token intentionally. To be revoked.
         window.mapboxgl.accessToken =
-          process.env.REACT_APP_MAPBOX_ACCESS_TOKEN_USER_LOCATION;
+          "pk.eyJ1Ijoicm9ja2V0YWxlcnRsaXZlIiwiYSI6ImNtMGJzOXV5MjBjOGcyam9vMWhwdThrdWoifQ.Q-ovMs4Cr5I_r6VnVFzhqw";
         const map = new window.mapboxgl.Map({
           container: "user_location_map",
           style: "mapbox://styles/mapbox/dark-v11",
