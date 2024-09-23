@@ -31,13 +31,11 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
       style: {
         fill: "black",
         opacity: 1,
-        fontSize: 16,
+        fontSize: 14,
       },
     },
     xAxis: {
       label: {
-        autoHide: true,
-        autoRotate: true,
         style: {
           fill: "black",
           fontSize: 14,
