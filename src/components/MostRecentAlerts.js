@@ -10,6 +10,7 @@ const MostRecentAlerts = (props) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
   const handleAlertLocationClick = (alert, idx) => {
+    console.log(process.env.REACT_APP_TEST);
     if (!alert.lon || !alert.lat) {
       return;
     }
