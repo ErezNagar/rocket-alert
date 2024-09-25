@@ -9,9 +9,13 @@ import withIsVisibleHook from "./withIsVisibleHook";
 const MostRecentAlerts = (props) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
+  const isClickable = (alert) =>
+    alert.lon &&
+    alert.lat &&
+    process.env.REACT_APP_IS_MAP_INTERACTIVE === "true";
+
   const handleAlertLocationClick = (alert, idx) => {
-    console.log(process.env.REACT_APP_TEST);
-    if (!alert.lon || !alert.lat) {
+    if (!isClickable(alert)) {
       return;
     }
     Tracking.alertLocationClick(idx);
@@ -37,7 +41,7 @@ const MostRecentAlerts = (props) => {
               </Col>
               <Col className="textLeft" xs={12} md={12}>
                 <span
-                  className={!alert.lon || !alert.lat ? "" : "location"}
+                  className={isClickable(alert) ? "location" : ""}
                   onClick={() => handleAlertLocationClick(alert, idx)}
                 >
                   {alert.englishName || alert.name}
