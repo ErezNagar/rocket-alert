@@ -126,14 +126,6 @@ const isRegionInSouth = (region) => {
     "Judea",
     "Lakhish",
     "Western Lakhish",
-    "Dead Sea",
-    "Eilat",
-    "Arabah",
-    "Bika'a",
-    "Jerusalem",
-    "Yarkon",
-    "Dan",
-    "Sharon",
   ];
   return REGIONS_IN_SOUTH.includes(region);
 };
@@ -153,6 +145,14 @@ const isRegionInNorth = (region) => {
     "HaMifratz",
     "HaCarmel",
     "Beit Sha'an Valley",
+    "Dead Sea",
+    "Eilat",
+    "Arabah",
+    "Bika'a",
+    "Jerusalem",
+    "Yarkon",
+    "Dan",
+    "Sharon",
   ];
   return REGIONS_IN_NORTH.includes(region);
 };
