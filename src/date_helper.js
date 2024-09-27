@@ -68,11 +68,16 @@ export const isIranianMissileAttackTimeFrame = (date) => {
 
 export const isYemenMissileAttackTimeFrame = (date) => {
   const theDate = new Date(date);
-  // Beginning of Yemen's single MRBM launch timeframe
-  const start = new Date("2024-09-15 06:30:00");
-  // End of Yemen's single MRBM launch timeframe
-  const end = new Date("2024-09-15 06:35:00");
-  return isAfter(theDate, start) && isBefore(theDate, end);
+  const YemenAttackTimeframes = [
+    [new Date("2024-09-15 06:30:00"), new Date("2024-09-15 06:35:00")],
+    [new Date("2024-09-27 00:40:00"), new Date("2024-09-27 00:42:00")],
+  ];
+
+  return (
+    YemenAttackTimeframes.filter(
+      ([start, end]) => isAfter(theDate, start) && isBefore(theDate, end)
+    ).length !== 0
+  );
 };
 
 export const getNow = () => new Date();

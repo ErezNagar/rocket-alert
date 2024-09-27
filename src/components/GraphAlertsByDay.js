@@ -167,7 +167,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
           data[monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: originYemenCount,
-            origin: "Yemen",
+            origin: "Houthis (Yemen)",
           });
         }
 

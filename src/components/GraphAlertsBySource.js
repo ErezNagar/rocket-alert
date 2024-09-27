@@ -188,7 +188,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     data.push({
       week: weekFormat,
       count: originYemenCount,
-      origin: "Yemen",
+      origin: "Houthis (Yemen)",
     });
 
     setData(data);
