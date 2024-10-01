@@ -59,11 +59,16 @@ export const weekRangeFormat = (fromDate, toDate) =>
 
 export const isIranianMissileAttackTimeFrame = (date) => {
   const theDate = new Date(date);
-  // Beginning of Iranian attack timeframe
-  const start = new Date("2024-04-14 01:42:00");
-  // End of Iranian attack timeframe
-  const end = new Date("2024-04-14 01:58:00");
-  return isAfter(theDate, start) && isBefore(theDate, end);
+  const IranAttackTimeframes = [
+    [new Date("2024-04-14 01:42:00"), new Date("2024-04-14 01:58:00")],
+    [new Date("2024-10-01 18:37:30"), new Date("2024-10-01 19:58:35")],
+  ];
+
+  return (
+    IranAttackTimeframes.filter(
+      ([start, end]) => isAfter(theDate, start) && isBefore(theDate, end)
+    ).length !== 0
+  );
 };
 
 export const isYemenMissileAttackTimeFrame = (date) => {
