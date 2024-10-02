@@ -123,7 +123,6 @@ const isRegionInSouth = (region) => {
     "Central Negev",
     "Shfelat Yehuda",
     "Shfela (Lowlands)",
-    "Judea",
     "Lakhish",
     "Western Lakhish",
   ];
@@ -132,6 +131,7 @@ const isRegionInSouth = (region) => {
 
 const isRegionInNorth = (region) => {
   const REGIONS_IN_NORTH = [
+    "Judea",
     "Confrontation Line",
     "Northern Golan",
     "Southern Golan",

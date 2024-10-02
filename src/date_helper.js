@@ -59,9 +59,10 @@ export const weekRangeFormat = (fromDate, toDate) =>
 
 export const isIranianMissileAttackTimeFrame = (date) => {
   const theDate = new Date(date);
+  // Rounded to the nearest minute
   const IranAttackTimeframes = [
     [new Date("2024-04-14 01:42:00"), new Date("2024-04-14 01:58:00")],
-    [new Date("2024-10-01 18:37:30"), new Date("2024-10-01 19:58:35")],
+    [new Date("2024-10-01 18:37:00"), new Date("2024-10-01 19:59:00")],
   ];
 
   return (
@@ -73,11 +74,11 @@ export const isIranianMissileAttackTimeFrame = (date) => {
 
 export const isYemenMissileAttackTimeFrame = (date) => {
   const theDate = new Date(date);
+  // Rounded to the nearest minute
   const YemenAttackTimeframes = [
     [new Date("2024-09-15 06:30:00"), new Date("2024-09-15 06:35:00")],
     [new Date("2024-09-27 00:40:00"), new Date("2024-09-27 00:42:00")],
-    [new Date("2024-09-27 00:40:00"), new Date("2024-09-27 00:42:00")],
-    [new Date("2024-09-28 17:41:04"), new Date("2024-09-28 17:42:03")],
+    [new Date("2024-09-28 17:41:00"), new Date("2024-09-28 17:44:00")],
   ];
 
   return (
