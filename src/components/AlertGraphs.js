@@ -27,7 +27,7 @@ class AlertGraphs extends React.Component {
 
   getDetailedAlerts = () =>
     this.props.alertsClient
-      .getDetailedAlerts(new Date("2023-10-07"), getNow(), Util.ALERT_TYPE_ALL)
+      .getDetailedAlerts(new Date("2023-10-07"), getNow())
       .then((res) => res.payload)
       .catch((error) => {
         Tracking.detailedAlertsByDayError(error);
