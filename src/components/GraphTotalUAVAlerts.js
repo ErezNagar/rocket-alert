@@ -2,9 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Row, Col, Spin } from "antd";
 import {
   getNow,
-  dayOfMonthFormat,
   isBiWeeklyDifference,
-  weekRangeFormat,
+  weekRangeWithYearFormat,
   is5WeeksDifference,
 } from "../date_helper";
 import { Column } from "@ant-design/plots";
@@ -58,7 +57,7 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
       const theDate = new Date(year, month - 1, day);
       if (weekDiffFunction(weekDate, theDate)) {
         data.push({
-          week: weekRangeFormat(weekDate, theDate),
+          week: weekRangeWithYearFormat(weekDate, theDate),
           count: biweeklyAlertCount,
         });
         weekDate = theDate;
@@ -69,7 +68,7 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
     });
 
     data.push({
-      week: `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(getNow())}`,
+      week: weekRangeWithYearFormat(weekDate, getNow()),
       count: biweeklyAlertCount,
     });
 

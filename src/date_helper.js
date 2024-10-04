@@ -34,6 +34,8 @@ export const alertTimeDisplayFormat = (date) => format(date, "HH:mm");
 
 export const dayOfMonthFormat = (date) => format(date, "M/d");
 
+export const dayOfMonthWithYearFormat = (date) => format(date, "M/d/yy");
+
 export const isBiWeeklyDifference = (fromDate, toDate) => {
   const diff = differenceInWeeks(fromDate, toDate);
   return Math.abs(diff) === 2 ? true : false;
@@ -56,6 +58,11 @@ export const is5WeeksDifference = (fromDate, toDate) => {
 
 export const weekRangeFormat = (fromDate, toDate) =>
   `${dayOfMonthFormat(fromDate)} - ${dayOfMonthFormat(subDays(toDate, 1))}`;
+
+export const weekRangeWithYearFormat = (fromDate, toDate) =>
+  `${dayOfMonthWithYearFormat(fromDate)} - ${dayOfMonthWithYearFormat(
+    subDays(toDate, 1)
+  )}`;
 
 export const isIranianMissileAttackTimeFrame = (date) => {
   const theDate = new Date(date);

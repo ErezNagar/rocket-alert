@@ -2,9 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Row, Col, Spin } from "antd";
 import {
   getNow,
-  dayOfMonthFormat,
   is3WeeksDifference,
-  weekRangeFormat,
+  weekRangeWithYearFormat,
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
 } from "../date_helper";
@@ -58,7 +57,7 @@ const GRAPH_CONFIG = {
     barStyle: {
       radius: [20, 20, 0, 0],
     },
-    height: 900,
+    height: 1000,
     legend: {
       layout: "vertical",
       position: "top-left",
@@ -83,8 +82,6 @@ const GRAPH_CONFIG = {
     },
     yAxis: {
       label: {
-        autoHide: false,
-        autoRotate: true,
         style: {
           fill: "black",
           fontSize: 14,
@@ -113,7 +110,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       const [year, month, day] = date.split("-");
       const theDate = new Date(year, month - 1, day);
       if (is3WeeksDifference(weekDate, theDate)) {
-        const weekRange = weekRangeFormat(weekDate, theDate);
+        const weekRange = weekRangeWithYearFormat(weekDate, theDate);
         data.push({
           week: weekRange,
           count: originSouthCount,
@@ -167,9 +164,8 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       originYemenCount += originYemen;
     });
 
-    const weekFormat = `${dayOfMonthFormat(weekDate)} - ${dayOfMonthFormat(
-      getNow()
-    )}`;
+    const weekFormat = weekRangeWithYearFormat(weekDate, getNow());
+
     data.push({
       week: weekFormat,
       count: originSouthCount,
