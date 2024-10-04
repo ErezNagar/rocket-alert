@@ -35,8 +35,6 @@ const GRAPH_CONFIG = {
     },
     xAxis: {
       label: {
-        autoHide: true,
-        autoRotate: true,
         style: {
           fill: "black",
           fontSize: 14,
