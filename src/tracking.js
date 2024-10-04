@@ -22,6 +22,10 @@ const Tracking = {
       index: ++idx,
     }),
   userLocationMapLoadedEvent: () => track("event", "user_location_map_loaded"),
+  graphYearClick: (year) =>
+    track("event", "alert_by_day_graph_year_click", {
+      year,
+    }),
   graphMonthClick: (month) =>
     track("event", "alert_by_day_graph_month_click", {
       month,

@@ -98,14 +98,15 @@ const GRAPH_CONFIG = {
 const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
-  const [selectedMonthData, setSelectedMonthData] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedData, setSelectedMonthData] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [graphType, setGraphType] = useState("Column");
   const [config, setConfig] = useState(null);
 
   const buildGraph = useCallback(() => {
     let dataIndex = 0;
-    const data = { months: [] };
+    const data = { years: [] };
 
     const datesInterval = eachDayOfInterval({
       start: new Date("2023-10-07T00:00"),
@@ -113,16 +114,26 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     });
 
     datesInterval.forEach((dateInterval) => {
+      const year = dateInterval.toLocaleString("default", {
+        year: "numeric",
+      });
       const monthName = dateInterval.toLocaleString("default", {
         month: "long",
       });
-      if (!data.months.includes(monthName)) {
-        data.months.push(monthName);
-        data[monthName] = [];
+      if (!data.years.includes(year)) {
+        data.years.push(year);
+        data[year] = { months: [] };
+      }
+      if (!data[year].months.includes(monthName)) {
+        data[year].months.push(monthName);
+        data[year][monthName] = [];
       }
 
       if (dataIndex >= alertData.length) {
-        data[monthName].push({ day: dayOfMonthFormat(dateInterval), count: 0 });
+        data[year][monthName].push({
+          day: dayOfMonthFormat(dateInterval),
+          count: 0,
+        });
       } else {
         const [year, month, day] = alertData[dataIndex].date.split("-");
         const dateOfAlerts = new Date(year, month - 1, day);
@@ -146,25 +157,25 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         /* If there's alert data for this dateInterval, use it
             Otherwise, there's no alert data since alerts = 0, but we still want to show that date in the graph
         */
-        data[monthName].push({
+        data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
           count: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
           origin: "Hamas (Gaza)",
         });
-        data[monthName].push({
+        data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
           count: isSameDay(dateInterval, dateOfAlerts) ? originNorthCount : 0,
           origin: "Hezbollah (Southern Lebanon)",
         });
         if (originIranCount) {
-          data[monthName].push({
+          data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: originIranCount,
             origin: "Iran",
           });
         }
         if (originYemenCount) {
-          data[monthName].push({
+          data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
             count: originYemenCount,
             origin: "Houthis (Yemen)",
@@ -177,11 +188,14 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
       }
     });
 
-    const selectedMonth = data.months[data.months.length - 1];
+    const selectedYear = data.years[data.years.length - 1];
+    const selectedMonth =
+      data[selectedYear].months[data[selectedYear].months.length - 1];
 
     setData(data);
+    setSelectedYear(selectedYear);
     setSelectedMonth(selectedMonth);
-    setSelectedMonthData(data[selectedMonth]);
+    setSelectedMonthData(data[selectedYear][selectedMonth]);
   }, [alertData]);
 
   const updateGraphConfig = useCallback(() => {
@@ -189,11 +203,11 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     let height = 200;
 
     if (type === "Bar") {
-      if (selectedMonthData.length <= 10) {
+      if (selectedData.length <= 10) {
         height = 200;
-      } else if (selectedMonthData.length <= 20) {
+      } else if (selectedData.length <= 20) {
         height = 400;
-      } else if (selectedMonthData.length <= 40) {
+      } else if (selectedData.length <= 40) {
         height = 800;
       } else {
         height = 1300;
@@ -210,7 +224,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
       });
       setShowGraph(true);
     }, 1);
-  }, [selectedMonthData]);
+  }, [selectedData]);
 
   useEffect(() => {
     if (alertData) {
@@ -224,11 +238,25 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     }
   }, [selectedMonth, updateGraphConfig]);
 
+  const handleYearClick = () => {
+    const year = document.getElementById("year-select").value;
+    Tracking.graphYearClick(year);
+
+    if (data[year].months.includes(selectedMonth)) {
+      setSelectedMonthData(data[year][selectedMonth]);
+    } else {
+      const month = data[year].months[data[year].months.length - 1];
+      setSelectedMonth(month);
+      setSelectedMonthData(data[year][month]);
+    }
+    setSelectedYear(year);
+  };
+
   const handleMonthClick = () => {
     const month = document.getElementById("month-select").value;
     Tracking.graphMonthClick(month);
     setSelectedMonth(month);
-    setSelectedMonthData(data[month]);
+    setSelectedMonthData(data[selectedYear][month]);
   };
 
   return (
@@ -253,11 +281,24 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
               <Row justify={"center"}>
                 <div className={"customSelect"}>
                   <select
+                    id="year-select"
+                    value={selectedYear}
+                    onChange={(e) => handleYearClick(e)}
+                  >
+                    {data.years.map((year) => (
+                      <option value={year} key={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className={"customSelect"}>
+                  <select
                     id="month-select"
                     value={selectedMonth}
                     onChange={(e) => handleMonthClick(e)}
                   >
-                    {data.months.map((month) => (
+                    {data[selectedYear].months.map((month) => (
                       <option value={month} key={month}>
                         {month}
                       </option>
@@ -266,10 +307,10 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
                 </div>
               </Row>
               {graphType === "Column" && (
-                <Column {...{ ...config, data: selectedMonthData }} />
+                <Column {...{ ...config, data: selectedData }} />
               )}
               {graphType === "Bar" && (
-                <Bar {...{ ...config, data: selectedMonthData }} />
+                <Bar {...{ ...config, data: selectedData }} />
               )}
               <Col className="footer">
                 Source is estimation only. Based on alert location and its

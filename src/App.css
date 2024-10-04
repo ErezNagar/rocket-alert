@@ -354,7 +354,8 @@ h3 {
   top: 55%;
 }
 
-#month-select {
+#month-select,
+#year-select {
   min-width: 150px;
 }
 
