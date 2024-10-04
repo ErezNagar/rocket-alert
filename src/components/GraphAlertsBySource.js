@@ -15,7 +15,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 const GRAPH_CONFIG = {
   COLUMN: {
     xField: "week",
-    yField: "count",
+    yField: "alerts",
     isGroup: true,
     seriesField: "origin",
     // columnWidthRatio: 0.5,
@@ -50,7 +50,7 @@ const GRAPH_CONFIG = {
     },
   },
   BAR: {
-    xField: "count",
+    xField: "alerts",
     yField: "week",
     isGroup: true,
     seriesField: "origin",
@@ -113,25 +113,25 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
         const weekRange = weekRangeWithYearFormat(weekDate, theDate);
         data.push({
           week: weekRange,
-          count: originSouthCount,
+          alerts: originSouthCount,
           origin: "Hamas (Gaza)",
         });
         data.push({
           week: weekRange,
-          count: originNorthCount,
+          alerts: originNorthCount,
           origin: "Hezbollah (Southern Lebanon)",
         });
         if (originIranCount) {
           data.push({
             week: weekRange,
-            count: originIranCount,
+            alerts: originIranCount,
             origin: "Iran",
           });
         }
         if (originYemenCount) {
           data.push({
             week: weekRange,
-            count: originYemenCount,
+            alerts: originYemenCount,
             origin: "Houthis (Yemen)",
           });
         }
@@ -168,22 +168,22 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
 
     data.push({
       week: weekFormat,
-      count: originSouthCount,
+      alerts: originSouthCount,
       origin: "Hamas (Gaza)",
     });
     data.push({
       week: weekFormat,
-      count: originNorthCount,
+      alerts: originNorthCount,
       origin: "Hezbollah (Southern Lebanon)",
     });
     data.push({
       week: weekFormat,
-      count: originIranCount,
+      alerts: originIranCount,
       origin: "Iran",
     });
     data.push({
       week: weekFormat,
-      count: originYemenCount,
+      alerts: originYemenCount,
       origin: "Houthis (Yemen)",
     });
 

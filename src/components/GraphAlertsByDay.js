@@ -16,7 +16,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 const GRAPH_CONFIG = {
   COLUMN: {
     xField: "day",
-    yField: "count",
+    yField: "alerts",
     isGroup: true,
     seriesField: "origin",
     columnStyle: {
@@ -54,7 +54,7 @@ const GRAPH_CONFIG = {
     },
   },
   BAR: {
-    xField: "count",
+    xField: "alerts",
     yField: "day",
     isGroup: true,
     seriesField: "origin",
@@ -132,7 +132,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
       if (dataIndex >= alertData.length) {
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
-          count: 0,
+          alerts: 0,
         });
       } else {
         const [year, month, day] = alertData[dataIndex].date.split("-");
@@ -159,25 +159,25 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         */
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
-          count: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
+          alerts: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
           origin: "Hamas (Gaza)",
         });
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
-          count: isSameDay(dateInterval, dateOfAlerts) ? originNorthCount : 0,
+          alerts: isSameDay(dateInterval, dateOfAlerts) ? originNorthCount : 0,
           origin: "Hezbollah (Southern Lebanon)",
         });
         if (originIranCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            count: originIranCount,
+            alerts: originIranCount,
             origin: "Iran",
           });
         }
         if (originYemenCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            count: originYemenCount,
+            alerts: originYemenCount,
             origin: "Houthis (Yemen)",
           });
         }

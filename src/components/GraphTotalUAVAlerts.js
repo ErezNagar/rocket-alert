@@ -17,7 +17,7 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
 
   const config = {
     xField: "week",
-    yField: "count",
+    yField: "alerts",
     seriesField: "",
     // columnWidthRatio: 0.5,
     columnStyle: {
@@ -58,7 +58,7 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
       if (weekDiffFunction(weekDate, theDate)) {
         data.push({
           week: weekRangeWithYearFormat(weekDate, theDate),
-          count: biweeklyAlertCount,
+          alerts: biweeklyAlertCount,
         });
         weekDate = theDate;
         biweeklyAlertCount = 0;
@@ -69,7 +69,7 @@ const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
 
     data.push({
       week: weekRangeWithYearFormat(weekDate, getNow()),
-      count: biweeklyAlertCount,
+      alerts: biweeklyAlertCount,
     });
 
     setData(data);
