@@ -10,10 +10,10 @@ const REAL_TIME_ALERT_TRANSITION_DURATION = 400;
  * The interval in milliseconds in which real-time alerts are read from the alert queue
  * Set to display time + total transition time;
  */
-const REAL_TIME_ALERT_THROTTLE_DURATION = 7000;
+const REAL_TIME_ALERT_THROTTLE_DURATION = 3500;
 
 /*
- * The duration in milliseconds in which a real-time alert is shown, not including css transition time
+ * The net duration in milliseconds a real-time alert is shown, not including css transition time
  */
 const REAL_TIME_ALERT_DISPLAY_DURATION =
   REAL_TIME_ALERT_THROTTLE_DURATION - REAL_TIME_ALERT_TRANSITION_DURATION * 2;
@@ -186,7 +186,6 @@ const Util = {
   isSmallViewport,
   isMediumViewport,
   getAlertTypeText,
-  REAL_TIME_ALERT_TRANSITION_DURATION,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
   MAX_RECENT_ALERTS,
