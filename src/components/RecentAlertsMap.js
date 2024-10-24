@@ -44,8 +44,9 @@ class RecentAlertsMap extends React.Component {
         this.setPolygonsToCache(polygons);
       });
     } else {
-      if (Cache.get(Util.POLYGON_VERSION_KEY) === Util.POLYGON_VERSION) {
+      if (Cache.get(Util.POLYGON_VERSION_KEY) === Util.POLYGON_VERSION_VALUE) {
         Tracking.polygonCache("hit");
+        this.setState({ polygons });
       } else {
         Tracking.polygonCache("older_version");
         this.loadPolygonsFromFile().then((json) => {
