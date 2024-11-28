@@ -175,6 +175,30 @@ const getAlertTypeText = (alert) => {
   return alertTypeText;
 };
 
+/*
+  Format chart xAxis label from "mm/dd/yy - mm/dd/yy" to "mm/yy"
+  Used to shorten label for small viewports
+*/
+const buildxAxisLabel = (label) => {
+  const xAxisLabel = {
+    style: {
+      fill: "black",
+      fontSize: 14,
+    },
+  };
+
+  if (isSmallViewport()) {
+    const labelFormatter = (label) => {
+      const [startDate] = label.split(" - ");
+      const [startDay, , startYear] = startDate.split("/");
+      return `${startDay}/${startYear}`;
+    };
+    xAxisLabel.formatter = labelFormatter;
+  }
+
+  return xAxisLabel;
+};
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
@@ -186,6 +210,7 @@ const Util = {
   isSmallViewport,
   isMediumViewport,
   getAlertTypeText,
+  buildxAxisLabel,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
   MAX_RECENT_ALERTS,

@@ -11,40 +11,33 @@ import withIsVisibleHook from "./withIsVisibleHook";
 import Util from "../util";
 import { LoadingOutlined } from "@ant-design/icons";
 
+const config = {
+  xField: "week",
+  yField: "alerts",
+  seriesField: "",
+  // columnWidthRatio: 0.5,
+  columnStyle: {
+    radius: [20, 20, 0, 0],
+  },
+  color: "#5c0011",
+  appendPadding: [30, 0, 0, 0],
+  label: {
+    position: "top",
+    style: {
+      fill: "black",
+      opacity: 1,
+      fontSize: 14,
+    },
+  },
+  xAxis: {
+    label: Util.buildxAxisLabel(),
+  },
+  yAxis: false,
+};
+
 const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
-
-  const config = {
-    xField: "week",
-    yField: "alerts",
-    seriesField: "",
-    // columnWidthRatio: 0.5,
-    columnStyle: {
-      radius: [20, 20, 0, 0],
-    },
-    color: "#5c0011",
-    appendPadding: [30, 0, 0, 0],
-    label: {
-      position: "top",
-      style: {
-        fill: "black",
-        opacity: 1,
-        fontSize: 14,
-      },
-    },
-    xAxis: {
-      label: {
-        style: {
-          autoHide: false,
-          autoRotate: true,
-          fill: "black",
-          fontSize: 14,
-        },
-      },
-    },
-    yAxis: false,
-  };
 
   const buildGraph = useCallback(() => {
     let data = [];
