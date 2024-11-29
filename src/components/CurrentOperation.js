@@ -97,7 +97,8 @@ class CurrentOperation extends React.Component {
                       <Col span={18}>
                         <a
                           className="most-targeted-location"
-                          href={`https://www.google.com/maps/?q=${location.lat},${location.lon}`}
+                          // Redirects to GMa
+                          href={`https://maps.apple.com/?ll=${location.lat},${location.lon}`}
                           target="_blank"
                           rel="noreferrer"
                         >
