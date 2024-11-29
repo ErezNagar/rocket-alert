@@ -53,8 +53,13 @@ const AlertClient = {
         if (!res.success) {
           return null;
         }
+
+        if (res.payload.length === 0) {
+          return res.payload;
+        }
+
         const alerts =
-          res?.payload?.length > 1
+          res.payload.length > 1
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
         return alerts.slice(-Util.MAX_RECENT_ALERTS);
