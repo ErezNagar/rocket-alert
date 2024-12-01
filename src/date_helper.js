@@ -83,6 +83,7 @@ export const isYemenMissileAttackTimeFrame = (date) => {
   const theDate = new Date(date);
   // Rounded to the nearest minute
   const YemenAttackTimeframes = [
+    [new Date("2024-12-01 06:21:00"), new Date("2024-12-01 06:23:00")],
     [new Date("2024-09-15 06:30:00"), new Date("2024-09-15 06:35:00")],
     [new Date("2024-09-27 00:40:00"), new Date("2024-09-27 00:42:00")],
     [new Date("2024-09-28 17:41:00"), new Date("2024-09-28 17:44:00")],
