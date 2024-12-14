@@ -170,14 +170,16 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         if (originIranCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            alerts: originIranCount,
+            alerts: isSameDay(dateInterval, dateOfAlerts) ? originIranCount : 0,
             origin: "Iran",
           });
         }
         if (originYemenCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            alerts: originYemenCount,
+            alerts: isSameDay(dateInterval, dateOfAlerts)
+              ? originYemenCount
+              : 0,
             origin: "Houthis (Yemen)",
           });
         }
