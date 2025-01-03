@@ -6,6 +6,7 @@ import {
   weekRangeWithYearFormat,
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
+  isAfterCeaseFireInTheNorth,
 } from "../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
@@ -149,6 +150,8 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
           originIran += 1;
         } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
           originYemen += 1;
+        } else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
+          originSouth += 1;
         } else if (Util.isRegionInSouth(alert.areaNameEn)) {
           originSouth += 1;
         } else if (Util.isRegionInNorth(alert.areaNameEn)) {

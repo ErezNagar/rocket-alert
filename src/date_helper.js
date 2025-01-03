@@ -108,6 +108,11 @@ export const isYemenMissileAttackTimeFrame = (date) => {
   );
 };
 
+export const isAfterCeaseFireInTheNorth = (date) => {
+  const ceaseFireDate = new Date("2024-11-27 04:00:00");
+  return isAfter(new Date(date), ceaseFireDate);
+};
+
 export const getNow = () => new Date();
 
 export const getStartOfToday = () => startOfToday();
