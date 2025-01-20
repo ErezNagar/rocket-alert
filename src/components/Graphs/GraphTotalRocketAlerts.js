@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Row, Col, Spin } from "antd";
 import {
   getNow,
   isBiWeeklyDifference,
   weekRangeWithYearFormat,
   is5WeeksDifference,
-} from "../date_helper";
+} from "../../date_helper";
 import { Column } from "@ant-design/plots";
-import withIsVisibleHook from "./withIsVisibleHook";
-import Util from "../util";
+import withIsVisibleHook from "./../withIsVisibleHook";
+import Util from "../../util";
+import { TOTAL_ROCKET_ALERTS } from "../../graphUtils/precompiledGraphData";
+import { concatGraphData } from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const config = {
@@ -39,10 +41,10 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
 
-  const buildGraph = useCallback(() => {
+  const buildGraph = () => {
     let data = [];
     let biweeklyAlertCount = 0;
-    let weekDate = new Date(2023, 9, 7);
+    let weekDate = new Date(2024, 11, 30);
     const weekDiffFunction = Util.isSmallViewport()
       ? is5WeeksDifference
       : isBiWeeklyDifference;
@@ -67,15 +69,14 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
       alerts: biweeklyAlertCount,
     });
 
-    setData(data);
-    setShowGraph(true);
-  }, [alertData]);
+    setData(concatGraphData(TOTAL_ROCKET_ALERTS, data));
 
-  useEffect(() => {
-    if (alertData) {
-      buildGraph();
-    }
-  }, [alertData, buildGraph]);
+    setShowGraph(true);
+  };
+
+  if (alertData && !showGraph) {
+    buildGraph();
+  }
 
   return (
     <section className="graph">

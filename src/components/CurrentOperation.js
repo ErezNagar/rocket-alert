@@ -5,7 +5,7 @@ import Tile from "./Tile";
 import { getNow } from "../date_helper";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
-import AlertGraphs from "./AlertGraphs";
+import AlertGraphs from "./Graphs/AlertGraphs";
 import Util from "./../util";
 
 class CurrentOperation extends React.Component {

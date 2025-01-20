@@ -1,17 +1,19 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { getNow } from "../date_helper";
-import Tracking from "../tracking";
+import { getNow } from "../../date_helper";
+import Tracking from "../../tracking";
 import GraphTotalAlerts from "./GraphTotalAlerts";
 import GraphAlertsByDay from "./GraphAlertsByDay";
 import GraphAlertsBySource from "./GraphAlertsBySource";
 import GraphTotalRocketAlerts from "./GraphTotalRocketAlerts";
 import GraphTotalUAVAlerts from "./GraphTotalUAVAlerts";
-import Util from "../util";
+import Util from "../../util";
 
 class AlertGraphs extends React.Component {
   state = {
     alertData: null,
+    rocketAlertData: null,
+    UAVAlertData: null,
     isLoading: true,
     isError: false,
   };
@@ -21,13 +23,26 @@ class AlertGraphs extends React.Component {
       if (!alertData || alertData.length === 0) {
         this.setState({ isError: true, isLoading: false });
       }
-      this.setState({ alertData, isLoading: false });
+      const rocketAlertData = this.filterAlertsByType(
+        alertData,
+        Util.ALERT_TYPE_ROCKETS
+      );
+      const UAVAlertData = this.filterAlertsByType(
+        alertData,
+        Util.ALERT_TYPE_UAV
+      );
+      this.setState({
+        alertData,
+        rocketAlertData,
+        UAVAlertData,
+        isLoading: false,
+      });
     });
   }
 
   getDetailedAlerts = () =>
     this.props.alertsClient
-      .getDetailedAlerts(new Date("2023-10-07"), getNow())
+      .getDetailedAlerts(new Date("2025-01-01"), getNow())
       .then((res) => res.payload)
       .catch((error) => {
         Tracking.detailedAlertsByDayError(error);
@@ -35,15 +50,11 @@ class AlertGraphs extends React.Component {
         return null;
       });
 
-  filterAlertsByType = (alertTypeId) => {
-    if (!this.state.alertData) {
-      return;
-    }
-    return this.state.alertData.map((obj) => ({
+  filterAlertsByType = (alertData, alertTypeId) =>
+    alertData.map((obj) => ({
       alerts: obj.alerts.filter((alert) => alert.alertTypeId === alertTypeId),
       date: obj.date,
     }));
-  };
 
   render() {
     return (
@@ -54,12 +65,12 @@ class AlertGraphs extends React.Component {
           isError={this.state.isError}
         />
         <GraphTotalRocketAlerts
-          alertData={this.filterAlertsByType(Util.ALERT_TYPE_ROCKETS)}
+          alertData={this.state.rocketAlertData}
           isLoading={this.state.isLoading}
           isError={this.state.isError}
         />
         <GraphTotalUAVAlerts
-          alertData={this.filterAlertsByType(Util.ALERT_TYPE_UAV)}
+          alertData={this.state.UAVAlertData}
           isLoading={this.state.isLoading}
           isError={this.state.isError}
         />

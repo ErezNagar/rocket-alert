@@ -7,10 +7,12 @@ import {
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
   isAfterCeaseFireInTheNorth,
-} from "../date_helper";
+} from "../../date_helper";
 import { Column, Bar } from "@ant-design/plots";
-import withIsVisibleHook from "./withIsVisibleHook";
-import Util from "../util";
+import withIsVisibleHook from "./../withIsVisibleHook";
+import Util from "../../util";
+import { ALERTS_BY_SOURCE } from "../../graphUtils/precompiledGraphData";
+import { concatGraphData } from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -103,7 +105,8 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     let originNorthCount = 0;
     let originIranCount = 0;
     let originYemenCount = 0;
-    let weekDate = new Date(2023, 9, 7);
+    // let weekDate = new Date(2023, 9, 7);
+    let weekDate = new Date(2024, 11, 24);
 
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
@@ -166,7 +169,6 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     });
 
     const weekFormat = weekRangeWithYearFormat(weekDate, getNow());
-
     data.push({
       week: weekFormat,
       alerts: originSouthCount,
@@ -188,7 +190,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       origin: "Houthis (Yemen)",
     });
 
-    setData(data);
+    setData(concatGraphData(ALERTS_BY_SOURCE, data, 3));
   }, [alertData]);
 
   const updateGraphConfig = () => {

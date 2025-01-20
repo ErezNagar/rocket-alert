@@ -7,11 +7,13 @@ import {
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
   isAfterCeaseFireInTheNorth,
-} from "../date_helper";
+} from "../../date_helper";
 import { Column, Bar } from "@ant-design/plots";
-import Tracking from "../tracking";
-import withIsVisibleHook from "./withIsVisibleHook";
-import Util from "../util";
+import Tracking from "../../tracking";
+import withIsVisibleHook from "./../withIsVisibleHook";
+import Util from "../../util";
+import { ALERTS_BY_DAY } from "../../graphUtils/precompiledGraphData";
+import { concatAlertsByDayGraphData } from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -110,7 +112,8 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     const data = { years: [] };
 
     const datesInterval = eachDayOfInterval({
-      start: new Date("2023-10-07T00:00"),
+      // start: new Date("2023-10-07T00:00"),
+      start: new Date("2025-01-01T00:00"),
       end: getYesterday(),
     });
 
@@ -197,7 +200,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     const selectedMonth =
       data[selectedYear].months[data[selectedYear].months.length - 1];
 
-    setData(data);
+    setData(concatAlertsByDayGraphData(ALERTS_BY_DAY, data));
     setSelectedYear(selectedYear);
     setSelectedMonth(selectedMonth);
     setSelectedMonthData(data[selectedYear][selectedMonth]);
