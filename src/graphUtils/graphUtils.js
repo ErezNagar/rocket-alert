@@ -6,6 +6,9 @@ import {
 } from "../date_helper";
 import Util from "../util";
 
+// The date from which the graph date interval will start
+const BEGINNING_DATE_INTERVAL = new Date(2024, 11, 30);
+
 const graphUtils = {
   /*
     Build graph from dynamic data pulled from server.
@@ -13,7 +16,7 @@ const graphUtils = {
   buildNewGraphData: (alertData) => {
     let data = [];
     let biweeklyAlertCount = 0;
-    let weekDate = new Date(2024, 11, 30);
+    let weekDate = BEGINNING_DATE_INTERVAL;
     const weekDiffFunction = Util.isSmallViewport()
       ? is5WeeksDifference
       : isBiWeeklyDifference;
