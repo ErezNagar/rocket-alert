@@ -13,7 +13,7 @@ import Tracking from "../../tracking";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
 import { ALERTS_BY_DAY } from "../../graphUtils/precompiledGraphData";
-import { concatAlertsByDayGraphData } from "../../graphUtils/graphUtils";
+import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -200,7 +200,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     const selectedMonth =
       data[selectedYear].months[data[selectedYear].months.length - 1];
 
-    setData(concatAlertsByDayGraphData(ALERTS_BY_DAY, data));
+    setData(graphUtils.concatAlertsByDayGraphData(ALERTS_BY_DAY, data));
     setSelectedYear(selectedYear);
     setSelectedMonth(selectedMonth);
     setSelectedMonthData(data[selectedYear][selectedMonth]);

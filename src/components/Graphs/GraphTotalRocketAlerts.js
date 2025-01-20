@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { Row, Col, Spin } from "antd";
-import {
-  getNow,
-  isBiWeeklyDifference,
-  weekRangeWithYearFormat,
-  is5WeeksDifference,
-} from "../../date_helper";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
 import { TOTAL_ROCKET_ALERTS } from "../../graphUtils/precompiledGraphData";
-import { concatGraphData } from "../../graphUtils/graphUtils";
+import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const config = {
@@ -42,35 +36,9 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
   const [data, setData] = useState(null);
 
   const buildGraph = () => {
-    let data = [];
-    let biweeklyAlertCount = 0;
-    let weekDate = new Date(2024, 11, 30);
-    const weekDiffFunction = Util.isSmallViewport()
-      ? is5WeeksDifference
-      : isBiWeeklyDifference;
-
-    alertData.forEach(({ alerts, date }) => {
-      const [year, month, day] = date.split("-");
-      const theDate = new Date(year, month - 1, day);
-      if (weekDiffFunction(weekDate, theDate)) {
-        data.push({
-          week: weekRangeWithYearFormat(weekDate, theDate),
-          alerts: biweeklyAlertCount,
-        });
-        weekDate = theDate;
-        biweeklyAlertCount = 0;
-      }
-
-      biweeklyAlertCount += alerts.length;
-    });
-
-    data.push({
-      week: weekRangeWithYearFormat(weekDate, getNow()),
-      alerts: biweeklyAlertCount,
-    });
-
-    setData(concatGraphData(TOTAL_ROCKET_ALERTS, data));
-
+    const data = graphUtils.buildNewGraphData(alertData);
+    const concatData = graphUtils.concatGraphData(TOTAL_ROCKET_ALERTS, data);
+    setData(concatData);
     setShowGraph(true);
   };
 

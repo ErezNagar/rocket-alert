@@ -12,7 +12,7 @@ import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
 import { ALERTS_BY_SOURCE } from "../../graphUtils/precompiledGraphData";
-import { concatGraphData } from "../../graphUtils/graphUtils";
+import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -190,7 +190,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       origin: "Houthis (Yemen)",
     });
 
-    setData(concatGraphData(ALERTS_BY_SOURCE, data, 3));
+    setData(graphUtils.concatGraphData(ALERTS_BY_SOURCE, data, 3));
   }, [alertData]);
 
   const updateGraphConfig = () => {
