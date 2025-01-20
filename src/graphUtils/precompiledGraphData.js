@@ -633,11 +633,6 @@ export const ALERTS_BY_SOURCE = [
   },
   {
     week: "12/1/24 - 12/23/24",
-    alerts: 0,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "12/1/24 - 12/23/24",
     alerts: 483,
     origin: "Houthis (Yemen)",
   },
@@ -645,16 +640,6 @@ export const ALERTS_BY_SOURCE = [
     week: "12/24/24 - 1/13/25",
     alerts: 138,
     origin: "Hamas (Gaza)",
-  },
-  {
-    week: "12/24/24 - 1/13/25",
-    alerts: 0,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "12/24/24 - 1/13/25",
-    alerts: 0,
-    origin: "Iran",
   },
   {
     week: "12/24/24 - 1/13/25",

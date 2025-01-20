@@ -174,21 +174,27 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       alerts: originSouthCount,
       origin: "Hamas (Gaza)",
     });
-    data.push({
-      week: weekFormat,
-      alerts: originNorthCount,
-      origin: "Hezbollah (Southern Lebanon)",
-    });
-    data.push({
-      week: weekFormat,
-      alerts: originIranCount,
-      origin: "Iran",
-    });
-    data.push({
-      week: weekFormat,
-      alerts: originYemenCount,
-      origin: "Houthis (Yemen)",
-    });
+    if (originNorthCount) {
+      data.push({
+        week: weekFormat,
+        alerts: originNorthCount,
+        origin: "Hezbollah (Southern Lebanon)",
+      });
+    }
+    if (originIranCount) {
+      data.push({
+        week: weekFormat,
+        alerts: originIranCount,
+        origin: "Iran",
+      });
+    }
+    if (originYemenCount) {
+      data.push({
+        week: weekFormat,
+        alerts: originYemenCount,
+        origin: "Houthis (Yemen)",
+      });
+    }
 
     setData(graphUtils.concatGraphData(ALERTS_BY_SOURCE, data, 3));
   }, [alertData]);
