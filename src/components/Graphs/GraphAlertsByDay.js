@@ -98,6 +98,10 @@ const GRAPH_CONFIG = {
   },
 };
 
+// The date from which the graph date interval will start
+// const BEGINNING_DATE_INTERVAL = new Date("2023-10-07T00:00");
+const BEGINNING_DATE_INTERVAL = new Date("2025-01-01T00:00");
+
 const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
@@ -112,8 +116,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     const data = { years: [] };
 
     const datesInterval = eachDayOfInterval({
-      // start: new Date("2023-10-07T00:00"),
-      start: new Date("2025-01-01T00:00"),
+      start: BEGINNING_DATE_INTERVAL,
       end: getYesterday(),
     });
 

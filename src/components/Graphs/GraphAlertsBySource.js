@@ -93,6 +93,10 @@ const GRAPH_CONFIG = {
   },
 };
 
+// The date from which the graph date interval will start
+// const BEGINNING_DATE_INTERVAL = new Date(2023, 9, 7);
+const BEGINNING_DATE_INTERVAL = new Date(2024, 11, 24);
+
 const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
@@ -105,8 +109,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     let originNorthCount = 0;
     let originIranCount = 0;
     let originYemenCount = 0;
-    // let weekDate = new Date(2023, 9, 7);
-    let weekDate = new Date(2024, 11, 24);
+    let weekDate = BEGINNING_DATE_INTERVAL;
 
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
