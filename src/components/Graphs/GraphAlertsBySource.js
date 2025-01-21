@@ -26,7 +26,7 @@ const GRAPH_CONFIG = {
       radius: [20, 20, 0, 0],
     },
     height: 400,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [30, 0, 0, 0],
     label: {
       position: "top",
@@ -66,7 +66,7 @@ const GRAPH_CONFIG = {
     autoFit: false,
     maxBarWidth: 40,
     minBarWidth: 13,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [0, 50, 0, 0],
     dodgePadding: 4,
     intervalPadding: 15,
@@ -119,25 +119,25 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
         data.push({
           week: weekRange,
           alerts: originSouthCount,
-          origin: "Hamas (Gaza)",
+          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
         });
         data.push({
           week: weekRange,
           alerts: originNorthCount,
-          origin: "Hezbollah (Southern Lebanon)",
+          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
         if (originIranCount) {
           data.push({
             week: weekRange,
             alerts: originIranCount,
-            origin: "Iran",
+            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
           });
         }
         if (originYemenCount) {
           data.push({
             week: weekRange,
             alerts: originYemenCount,
-            origin: "Houthis (Yemen)",
+            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
           });
         }
         weekDate = theDate;
@@ -175,27 +175,27 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     data.push({
       week: weekFormat,
       alerts: originSouthCount,
-      origin: "Hamas (Gaza)",
+      origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
     });
     if (originNorthCount) {
       data.push({
         week: weekFormat,
         alerts: originNorthCount,
-        origin: "Hezbollah (Southern Lebanon)",
+        origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
       });
     }
     if (originIranCount) {
       data.push({
         week: weekFormat,
         alerts: originIranCount,
-        origin: "Iran",
+        origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
       });
     }
     if (originYemenCount) {
       data.push({
         week: weekFormat,
         alerts: originYemenCount,
-        origin: "Houthis (Yemen)",
+        origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
       });
     }
 

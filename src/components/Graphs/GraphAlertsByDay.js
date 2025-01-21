@@ -26,7 +26,7 @@ const GRAPH_CONFIG = {
       radius: [20, 20, 0, 0],
     },
     maxColumnWidth: 40,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [30, 0, 0, 0],
     autoFit: true,
     label: {
@@ -70,7 +70,7 @@ const GRAPH_CONFIG = {
     },
     maxBarWidth: 40,
     minBarWidth: 13,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [0, 50, 0, 0],
     dodgePadding: 4,
     label: {
@@ -169,18 +169,18 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
           alerts: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
-          origin: "Hamas (Gaza)",
+          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
         });
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
           alerts: isSameDay(dateInterval, dateOfAlerts) ? originNorthCount : 0,
-          origin: "Hezbollah (Southern Lebanon)",
+          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
         if (originIranCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
             alerts: isSameDay(dateInterval, dateOfAlerts) ? originIranCount : 0,
-            origin: "Iran",
+            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
           });
         }
         if (originYemenCount) {
@@ -189,7 +189,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
             alerts: isSameDay(dateInterval, dateOfAlerts)
               ? originYemenCount
               : 0,
-            origin: "Houthis (Yemen)",
+            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
           });
         }
 
