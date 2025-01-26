@@ -23,6 +23,7 @@
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "ajv": "^8.17.1",
     "date-fns": "^2.22.1",
     "jest-watch-typeahead": "^0.6.5",
     "query-string": "^7.0.1",
