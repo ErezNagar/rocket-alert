@@ -10,6 +10,20 @@ const APIv1 = wretch(`${V1}/alerts`);
 const APIv2 = wretch(`${V2}/alerts`);
 
 /*
+  Utility function to filter only rocket and UAV alerts
+*/
+const filterRocketAndUAVAlerts = (res: any) => {
+  res.payload.forEach((date: any) => {
+    date.alerts = date.alerts.filter(
+      (alert: any) =>
+        alert.alertTypeId === Util.ALERT_TYPE_ROCKETS ||
+        alert.alertTypeId === Util.ALERT_TYPE_UAV
+    );
+  });
+  return res;
+};
+
+/*
  *  Gets detailed alert data for alerts in the given date range
  *
  *  @param {string} from  from date, inclusive.
@@ -34,7 +48,8 @@ const getDetailedAlerts = (
       alertTypeId,
     })
     .get()
-    .json();
+    .json()
+    .then((res) => filterRocketAndUAVAlerts(res));
 };
 
 const AlertClient = {
@@ -89,7 +104,8 @@ const AlertClient = {
         to: isoFormat(convertToServerTime(to)),
       })
       .get()
-      .json();
+      .json()
+      .then((res) => filterRocketAndUAVAlerts(res));
   },
 
   /*

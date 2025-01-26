@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Row, Col, Spin } from "antd";
-import {
-  getNow,
-  isBiWeeklyDifference,
-  weekRangeWithYearFormat,
-  is5WeeksDifference,
-} from "../date_helper";
 import { Column } from "@ant-design/plots";
-import withIsVisibleHook from "./withIsVisibleHook";
-import Util from "../util";
+import withIsVisibleHook from "./../withIsVisibleHook";
+import Util from "../../util";
+import {
+  TOTAL_UAV_ALERTS,
+  TOTAL_UAV_ALERTS_MOBILE,
+} from "../../graphUtils/precompiledGraphData";
+import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const config = {
@@ -35,53 +34,28 @@ const config = {
   yAxis: false,
 };
 
-const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
+const GraphTotalUAVAlerts = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
 
-  const buildGraph = useCallback(() => {
-    let data = [];
-    let biweeklyAlertCount = 0;
-    let weekDate = new Date(2023, 9, 7);
-    const weekDiffFunction = Util.isSmallViewport()
-      ? is5WeeksDifference
-      : isBiWeeklyDifference;
-
-    alertData.forEach(({ alerts, date }) => {
-      const [year, month, day] = date.split("-");
-      const theDate = new Date(year, month - 1, day);
-      if (weekDiffFunction(weekDate, theDate)) {
-        data.push({
-          week: weekRangeWithYearFormat(weekDate, theDate),
-          alerts: biweeklyAlertCount,
-        });
-        weekDate = theDate;
-        biweeklyAlertCount = 0;
-      }
-
-      biweeklyAlertCount += alerts.length;
-    });
-
-    data.push({
-      week: weekRangeWithYearFormat(weekDate, getNow()),
-      alerts: biweeklyAlertCount,
-    });
-
-    setData(data);
+  const buildGraph = () => {
+    const newData = graphUtils.buildNewData(alertData);
+    const existingData = Util.isSmallViewport()
+      ? TOTAL_UAV_ALERTS_MOBILE
+      : TOTAL_UAV_ALERTS;
+    setData([...existingData, ...newData]);
     setShowGraph(true);
-  }, [alertData]);
+  };
 
-  useEffect(() => {
-    if (alertData) {
-      buildGraph();
-    }
-  }, [alertData, buildGraph]);
+  if (alertData && !showGraph) {
+    buildGraph();
+  }
 
   return (
     <section className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Rocket alerts since Oct 7</h2>
+          <h2>UAV alerts since Oct 7</h2>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
@@ -113,7 +87,4 @@ const GraphTotalRocketAlerts = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(
-  GraphTotalRocketAlerts,
-  "Graph_total_rocket_alerts"
-);
+export default withIsVisibleHook(GraphTotalUAVAlerts, "Graph_total_uav_alerts");

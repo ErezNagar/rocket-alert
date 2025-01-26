@@ -7,11 +7,13 @@ import {
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
   isAfterCeaseFireInTheNorth,
-} from "../date_helper";
+} from "../../date_helper";
 import { Column, Bar } from "@ant-design/plots";
-import Tracking from "../tracking";
-import withIsVisibleHook from "./withIsVisibleHook";
-import Util from "../util";
+import Tracking from "../../tracking";
+import withIsVisibleHook from "./../withIsVisibleHook";
+import Util from "../../util";
+import { ALERTS_BY_DAY } from "../../graphUtils/precompiledGraphData";
+import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -24,7 +26,7 @@ const GRAPH_CONFIG = {
       radius: [20, 20, 0, 0],
     },
     maxColumnWidth: 40,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [30, 0, 0, 0],
     autoFit: true,
     label: {
@@ -68,7 +70,7 @@ const GRAPH_CONFIG = {
     },
     maxBarWidth: 40,
     minBarWidth: 13,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [0, 50, 0, 0],
     dodgePadding: 4,
     label: {
@@ -96,6 +98,10 @@ const GRAPH_CONFIG = {
   },
 };
 
+// The date from which the graph date interval will start
+// const BEGINNING_DATE_INTERVAL = new Date("2023-10-07T00:00");
+const BEGINNING_DATE_INTERVAL = new Date("2025-01-01T00:00");
+
 const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
@@ -110,7 +116,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     const data = { years: [] };
 
     const datesInterval = eachDayOfInterval({
-      start: new Date("2023-10-07T00:00"),
+      start: BEGINNING_DATE_INTERVAL,
       end: getYesterday(),
     });
 
@@ -163,18 +169,18 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
           alerts: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
-          origin: "Hamas (Gaza)",
+          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
         });
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
           alerts: isSameDay(dateInterval, dateOfAlerts) ? originNorthCount : 0,
-          origin: "Hezbollah (Southern Lebanon)",
+          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
         if (originIranCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
             alerts: isSameDay(dateInterval, dateOfAlerts) ? originIranCount : 0,
-            origin: "Iran",
+            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
           });
         }
         if (originYemenCount) {
@@ -183,7 +189,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
             alerts: isSameDay(dateInterval, dateOfAlerts)
               ? originYemenCount
               : 0,
-            origin: "Houthis (Yemen)",
+            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
           });
         }
 
@@ -197,7 +203,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
     const selectedMonth =
       data[selectedYear].months[data[selectedYear].months.length - 1];
 
-    setData(data);
+    setData(graphUtils.concatAlertsByDayGraphData(ALERTS_BY_DAY, data));
     setSelectedYear(selectedYear);
     setSelectedMonth(selectedMonth);
     setSelectedMonthData(data[selectedYear][selectedMonth]);

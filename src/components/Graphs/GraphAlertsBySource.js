@@ -7,10 +7,12 @@ import {
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
   isAfterCeaseFireInTheNorth,
-} from "../date_helper";
+} from "../../date_helper";
 import { Column, Bar } from "@ant-design/plots";
-import withIsVisibleHook from "./withIsVisibleHook";
-import Util from "../util";
+import withIsVisibleHook from "./../withIsVisibleHook";
+import Util from "../../util";
+import { ALERTS_BY_SOURCE } from "../../graphUtils/precompiledGraphData";
+import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -24,7 +26,7 @@ const GRAPH_CONFIG = {
       radius: [20, 20, 0, 0],
     },
     height: 400,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [30, 0, 0, 0],
     label: {
       position: "top",
@@ -64,7 +66,7 @@ const GRAPH_CONFIG = {
     autoFit: false,
     maxBarWidth: 40,
     minBarWidth: 13,
-    color: ["#008000", "#F7E210", "#DA0000", "black"],
+    color: graphUtils.getColorByOrigin,
     appendPadding: [0, 50, 0, 0],
     dodgePadding: 4,
     intervalPadding: 15,
@@ -91,6 +93,10 @@ const GRAPH_CONFIG = {
   },
 };
 
+// The date from which the graph date interval will start
+// const BEGINNING_DATE_INTERVAL = new Date(2023, 9, 7);
+const BEGINNING_DATE_INTERVAL = new Date(2024, 11, 24);
+
 const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
@@ -103,7 +109,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     let originNorthCount = 0;
     let originIranCount = 0;
     let originYemenCount = 0;
-    let weekDate = new Date(2023, 9, 7);
+    let weekDate = BEGINNING_DATE_INTERVAL;
 
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
@@ -113,25 +119,25 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
         data.push({
           week: weekRange,
           alerts: originSouthCount,
-          origin: "Hamas (Gaza)",
+          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
         });
         data.push({
           week: weekRange,
           alerts: originNorthCount,
-          origin: "Hezbollah (Southern Lebanon)",
+          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
         if (originIranCount) {
           data.push({
             week: weekRange,
             alerts: originIranCount,
-            origin: "Iran",
+            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
           });
         }
         if (originYemenCount) {
           data.push({
             week: weekRange,
             alerts: originYemenCount,
-            origin: "Houthis (Yemen)",
+            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
           });
         }
         weekDate = theDate;
@@ -166,29 +172,34 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     });
 
     const weekFormat = weekRangeWithYearFormat(weekDate, getNow());
-
     data.push({
       week: weekFormat,
       alerts: originSouthCount,
-      origin: "Hamas (Gaza)",
+      origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
     });
-    data.push({
-      week: weekFormat,
-      alerts: originNorthCount,
-      origin: "Hezbollah (Southern Lebanon)",
-    });
-    data.push({
-      week: weekFormat,
-      alerts: originIranCount,
-      origin: "Iran",
-    });
-    data.push({
-      week: weekFormat,
-      alerts: originYemenCount,
-      origin: "Houthis (Yemen)",
-    });
+    if (originNorthCount) {
+      data.push({
+        week: weekFormat,
+        alerts: originNorthCount,
+        origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
+      });
+    }
+    if (originIranCount) {
+      data.push({
+        week: weekFormat,
+        alerts: originIranCount,
+        origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
+      });
+    }
+    if (originYemenCount) {
+      data.push({
+        week: weekFormat,
+        alerts: originYemenCount,
+        origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
+      });
+    }
 
-    setData(data);
+    setData(graphUtils.concatGraphData(ALERTS_BY_SOURCE, data, 3));
   }, [alertData]);
 
   const updateGraphConfig = () => {
