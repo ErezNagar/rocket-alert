@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
+    "@mapbox/polyline": "^1.2.1",
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
