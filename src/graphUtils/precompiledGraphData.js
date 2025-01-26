@@ -1,5 +1,5 @@
 /*
-    Pre-compiled alert data in the shape the graph accepts.
+    Pre-compiled alert data in the shape the graph expects to receive.
     Covers data from 2023-10-7 to 2024-12-31.
 */
 export const TOTAL_ALERTS = [
@@ -136,6 +136,60 @@ export const TOTAL_ALERTS = [
     alerts: 536,
   },
 ];
+export const TOTAL_ALERTS_MOBILE = [
+  {
+    week: "10/7/23 - 11/10/23",
+    alerts: 8405,
+  },
+  {
+    week: "11/11/23 - 12/15/23",
+    alerts: 1710,
+  },
+  {
+    week: "12/16/23 - 1/19/24",
+    alerts: 1206,
+  },
+  {
+    week: "1/20/24 - 2/23/24",
+    alerts: 467,
+  },
+  {
+    week: "2/24/24 - 3/29/24",
+    alerts: 714,
+  },
+  {
+    week: "3/30/24 - 5/4/24",
+    alerts: 1437,
+  },
+  {
+    week: "5/5/24 - 6/8/24",
+    alerts: 2033,
+  },
+  {
+    week: "6/9/24 - 7/13/24",
+    alerts: 1578,
+  },
+  {
+    week: "7/14/24 - 8/17/24",
+    alerts: 1086,
+  },
+  {
+    week: "8/18/24 - 9/21/24",
+    alerts: 1490,
+  },
+  {
+    week: "9/22/24 - 10/26/24",
+    alerts: 10824,
+  },
+  {
+    week: "10/27/24 - 11/30/24",
+    alerts: 5673,
+  },
+  {
+    week: "12/1/24 - 1/4/25",
+    alerts: 1885,
+  },
+];
 export const TOTAL_ROCKET_ALERTS = [
   {
     week: "10/7/23 - 10/20/23",
@@ -268,6 +322,60 @@ export const TOTAL_ROCKET_ALERTS = [
   {
     week: "12/30/24 - 1/12/25",
     alerts: 530,
+  },
+];
+export const TOTAL_ROCKET_ALERTS_MOBILE = [
+  {
+    week: "10/7/23 - 11/10/23",
+    alerts: 8174,
+  },
+  {
+    week: "11/11/23 - 12/15/23",
+    alerts: 1550,
+  },
+  {
+    week: "12/16/23 - 1/19/24",
+    alerts: 671,
+  },
+  {
+    week: "1/20/24 - 2/23/24",
+    alerts: 311,
+  },
+  {
+    week: "2/24/24 - 3/29/24",
+    alerts: 449,
+  },
+  {
+    week: "3/30/24 - 5/4/24",
+    alerts: 1049,
+  },
+  {
+    week: "5/5/24 - 6/8/24",
+    alerts: 609,
+  },
+  {
+    week: "6/9/24 - 7/13/24",
+    alerts: 779,
+  },
+  {
+    week: "7/14/24 - 8/17/24",
+    alerts: 644,
+  },
+  {
+    week: "8/18/24 - 9/21/24",
+    alerts: 1002,
+  },
+  {
+    week: "9/22/24 - 10/26/24",
+    alerts: 10176,
+  },
+  {
+    week: "10/27/24 - 11/30/24",
+    alerts: 4440,
+  },
+  {
+    week: "12/1/24 - 1/4/25",
+    alerts: 1860,
   },
 ];
 export const TOTAL_UAV_ALERTS = [
@@ -404,7 +512,60 @@ export const TOTAL_UAV_ALERTS = [
     alerts: 6,
   },
 ];
-// 3 week intervals
+export const TOTAL_UAV_ALERTS_MOBILE = [
+  {
+    week: "10/7/23 - 11/10/23",
+    alerts: 231,
+  },
+  {
+    week: "11/11/23 - 12/15/23",
+    alerts: 160,
+  },
+  {
+    week: "12/16/23 - 1/19/24",
+    alerts: 535,
+  },
+  {
+    week: "1/20/24 - 2/23/24",
+    alerts: 156,
+  },
+  {
+    week: "2/24/24 - 3/29/24",
+    alerts: 265,
+  },
+  {
+    week: "3/30/24 - 5/4/24",
+    alerts: 388,
+  },
+  {
+    week: "5/5/24 - 6/8/24",
+    alerts: 1424,
+  },
+  {
+    week: "6/9/24 - 7/13/24",
+    alerts: 799,
+  },
+  {
+    week: "7/14/24 - 8/17/24",
+    alerts: 442,
+  },
+  {
+    week: "8/18/24 - 9/21/24",
+    alerts: 488,
+  },
+  {
+    week: "9/22/24 - 10/26/24",
+    alerts: 648,
+  },
+  {
+    week: "10/27/24 - 11/30/24",
+    alerts: 1233,
+  },
+  {
+    week: "12/1/24 - 1/4/25",
+    alerts: 25,
+  },
+];
 export const ALERTS_BY_SOURCE = [
   {
     week: "10/7/23 - 10/27/23",

@@ -3,7 +3,10 @@ import { Row, Col, Spin } from "antd";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
-import { TOTAL_ALERTS } from "../../graphUtils/precompiledGraphData";
+import {
+  TOTAL_ALERTS,
+  TOTAL_ALERTS_MOBILE,
+} from "../../graphUtils/precompiledGraphData";
 import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -36,9 +39,11 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   const [data, setData] = useState(null);
 
   const buildGraph = () => {
-    const data = graphUtils.buildNewGraphData(alertData);
-    const concatData = graphUtils.concatGraphData(TOTAL_ALERTS, data);
-    setData(concatData);
+    const newData = graphUtils.buildNewData(alertData);
+    const existingData = Util.isSmallViewport()
+      ? TOTAL_ALERTS_MOBILE
+      : TOTAL_ALERTS;
+    setData([...existingData, ...newData]);
     setShowGraph(true);
   };
 

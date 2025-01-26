@@ -5,9 +5,14 @@ import {
   is5WeeksDifference,
 } from "../date_helper";
 import Util from "../util";
+import { isBefore } from "date-fns";
 
-// The date from which the graph date interval will start
-const BEGINNING_DATE_INTERVAL = new Date(2024, 11, 30);
+// The date from which the new, non-hardcoded graph data starts.
+// Used for calculating alert count based on existing date intervals
+// const DYNAMIC_DATA_START_DATE = new Date(2023, 9, 7);
+// const DYNAMIC_DATA_START_DATE = new Date(2025, 0, 5);
+const TOTAL_ALERTS_DYNAMIC_DATA_START_DATE = new Date(2025, 0, 13);
+const TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE = new Date(2025, 0, 5);
 
 const ALERT_SOURCE = {
   HAMAS: {
@@ -32,15 +37,18 @@ const graphUtils = {
   ALERT_SOURCE,
 
   /*
-    Build graph from dynamic data pulled from server.
+    Build graph data from dynamic data pulled from server.
+    Shared between total alerts, rockets and UAV graphs.
   */
-  buildNewGraphData: (alertData) => {
+  buildNewData: (alertData) => {
     let data = [];
-    let biweeklyAlertCount = 0;
-    let weekDate = BEGINNING_DATE_INTERVAL;
-    const weekDiffFunction = Util.isSmallViewport()
-      ? is5WeeksDifference
-      : isBiWeeklyDifference;
+    let alertCount = 0;
+    let weekDate = TOTAL_ALERTS_DYNAMIC_DATA_START_DATE;
+    let weekDiffFunction = isBiWeeklyDifference;
+    if (Util.isSmallViewport()) {
+      weekDate = TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE;
+      weekDiffFunction = is5WeeksDifference;
+    }
 
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
@@ -48,33 +56,27 @@ const graphUtils = {
       if (weekDiffFunction(weekDate, theDate)) {
         data.push({
           week: weekRangeWithYearFormat(weekDate, theDate),
-          alerts: biweeklyAlertCount,
+          alerts: alertCount,
         });
         weekDate = theDate;
-        biweeklyAlertCount = 0;
+        alertCount = 0;
       }
 
-      biweeklyAlertCount += alerts.length;
+      if (!isBefore(theDate, weekDate)) {
+        alertCount += alerts.length;
+      }
     });
 
     data.push({
       week: weekRangeWithYearFormat(weekDate, getNow()),
-      alerts: biweeklyAlertCount,
+      alerts: alertCount,
     });
 
     return data;
   },
 
   /*
-    Concatenates pre-compiled hardcoded graph data with dynamic data pulled server.
-  */
-  concatGraphData: (precompiledData, data, deleteCount = 1) => {
-    data.splice(0, deleteCount);
-    return [...precompiledData, ...data];
-  },
-
-  /*
-    Concatenates pre-compiled hardcoded graph data with dynamic data pulled server.
+    Concatenate pre-compiled hardcoded graph data with dynamic data pulled server.
     For Alerts By Day graph
   */
   concatAlertsByDayGraphData: (precompiledData, data) => {
