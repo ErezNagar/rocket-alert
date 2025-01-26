@@ -109,17 +109,17 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     let originNorthCount = 0;
     let originIranCount = 0;
     let originYemenCount = 0;
-    let weekDate = DYNAMIC_DATA_START_DATE;
+    let currentDate = DYNAMIC_DATA_START_DATE;
 
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
-      const theDate = new Date(year, month - 1, day);
+      const alertDate = new Date(year, month - 1, day);
       // Skip dates before the relevant date starts
-      if (isBefore(theDate, weekDate)) {
+      if (isBefore(alertDate, currentDate)) {
         return;
       }
-      if (is3WeeksDifference(weekDate, theDate)) {
-        const weekRange = weekRangeWithYearFormat(weekDate, theDate);
+      if (is3WeeksDifference(currentDate, alertDate)) {
+        const weekRange = weekRangeWithYearFormat(currentDate, alertDate);
         data.push({
           week: weekRange,
           alerts: originSouthCount,
@@ -144,7 +144,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
             origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
           });
         }
-        weekDate = theDate;
+        currentDate = alertDate;
         originSouthCount = 0;
         originNorthCount = 0;
         originIranCount = 0;
@@ -175,7 +175,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       originYemenCount += originYemen;
     });
 
-    const weekFormat = weekRangeWithYearFormat(weekDate, getNow());
+    const weekFormat = weekRangeWithYearFormat(currentDate, getNow());
     data.push({
       week: weekFormat,
       alerts: originSouthCount,

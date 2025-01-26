@@ -41,32 +41,32 @@ const graphUtils = {
   buildNewData: (alertData) => {
     let data = [];
     let alertCount = 0;
-    let weekDate = TOTAL_ALERTS_DYNAMIC_DATA_START_DATE;
+    let currentDate = TOTAL_ALERTS_DYNAMIC_DATA_START_DATE;
     let weekDiffFunction = isBiWeeklyDifference;
     if (Util.isSmallViewport()) {
-      weekDate = TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE;
+      currentDate = TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE;
       weekDiffFunction = is5WeeksDifference;
     }
 
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
-      const theDate = new Date(year, month - 1, day);
-      if (weekDiffFunction(weekDate, theDate)) {
+      const alertDate = new Date(year, month - 1, day);
+      if (weekDiffFunction(currentDate, alertDate)) {
         data.push({
-          week: weekRangeWithYearFormat(weekDate, theDate),
+          week: weekRangeWithYearFormat(currentDate, alertDate),
           alerts: alertCount,
         });
-        weekDate = theDate;
+        currentDate = alertDate;
         alertCount = 0;
       }
 
-      if (!isBefore(theDate, weekDate)) {
+      if (!isBefore(alertDate, currentDate)) {
         alertCount += alerts.length;
       }
     });
 
     data.push({
-      week: weekRangeWithYearFormat(weekDate, getNow()),
+      week: weekRangeWithYearFormat(currentDate, getNow()),
       alerts: alertCount,
     });
 
