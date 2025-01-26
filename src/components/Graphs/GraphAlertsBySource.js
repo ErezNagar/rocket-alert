@@ -8,6 +8,7 @@ import {
   isYemenMissileAttackTimeFrame,
   isAfterCeaseFireInTheNorth,
 } from "../../date_helper";
+import { isBefore } from "date-fns";
 import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
@@ -93,9 +94,8 @@ const GRAPH_CONFIG = {
   },
 };
 
-// The date from which the graph date interval will start
-// const BEGINNING_DATE_INTERVAL = new Date(2023, 9, 7);
-const BEGINNING_DATE_INTERVAL = new Date(2024, 11, 24);
+// The date from which the new, non-hardcoded graph data starts.
+const DYNAMIC_DATA_START_DATE = new Date(2025, 0, 14);
 
 const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
@@ -109,11 +109,15 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
     let originNorthCount = 0;
     let originIranCount = 0;
     let originYemenCount = 0;
-    let weekDate = BEGINNING_DATE_INTERVAL;
+    let weekDate = DYNAMIC_DATA_START_DATE;
 
     alertData.forEach(({ alerts, date }) => {
       const [year, month, day] = date.split("-");
       const theDate = new Date(year, month - 1, day);
+      // Skip dates before the relevant date starts
+      if (isBefore(theDate, weekDate)) {
+        return;
+      }
       if (is3WeeksDifference(weekDate, theDate)) {
         const weekRange = weekRangeWithYearFormat(weekDate, theDate);
         data.push({
@@ -199,7 +203,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       });
     }
 
-    setData(graphUtils.concatGraphData(ALERTS_BY_SOURCE, data, 3));
+    setData([...ALERTS_BY_SOURCE, ...data]);
   }, [alertData]);
 
   const updateGraphConfig = () => {
