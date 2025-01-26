@@ -59,7 +59,7 @@ const GRAPH_CONFIG = {
     barStyle: {
       radius: [20, 20, 0, 0],
     },
-    height: 1000,
+    height: 1300,
     legend: {
       layout: "vertical",
       position: "top-left",
