@@ -5072,11 +5072,6 @@ export const ALERTS_BY_DAY = {
         origin: "Hezbollah (Southern Lebanon)",
       },
       {
-        day: "12/7",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
-      },
-      {
         day: "12/8",
         alerts: 0,
         origin: "Hamas (Gaza)",
@@ -5085,11 +5080,6 @@ export const ALERTS_BY_DAY = {
         day: "12/8",
         alerts: 0,
         origin: "Hezbollah (Southern Lebanon)",
-      },
-      {
-        day: "12/8",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
       },
       {
         day: "12/9",
@@ -5102,11 +5092,6 @@ export const ALERTS_BY_DAY = {
         origin: "Hezbollah (Southern Lebanon)",
       },
       {
-        day: "12/9",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
-      },
-      {
         day: "12/10",
         alerts: 0,
         origin: "Hamas (Gaza)",
@@ -5117,11 +5102,6 @@ export const ALERTS_BY_DAY = {
         origin: "Hezbollah (Southern Lebanon)",
       },
       {
-        day: "12/10",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
-      },
-      {
         day: "12/11",
         alerts: 0,
         origin: "Hamas (Gaza)",
@@ -5130,11 +5110,6 @@ export const ALERTS_BY_DAY = {
         day: "12/11",
         alerts: 0,
         origin: "Hezbollah (Southern Lebanon)",
-      },
-      {
-        day: "12/11",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
       },
       {
         day: "12/12",
@@ -5182,11 +5157,6 @@ export const ALERTS_BY_DAY = {
         origin: "Hezbollah (Southern Lebanon)",
       },
       {
-        day: "12/15",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
-      },
-      {
         day: "12/16",
         alerts: 0,
         origin: "Hamas (Gaza)",
@@ -5222,11 +5192,6 @@ export const ALERTS_BY_DAY = {
         origin: "Hezbollah (Southern Lebanon)",
       },
       {
-        day: "12/18",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
-      },
-      {
         day: "12/19",
         alerts: 9,
         origin: "Hamas (Gaza)",
@@ -5250,11 +5215,6 @@ export const ALERTS_BY_DAY = {
         day: "12/20",
         alerts: 0,
         origin: "Hezbollah (Southern Lebanon)",
-      },
-      {
-        day: "12/20",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
       },
       {
         day: "12/21",
@@ -5282,11 +5242,6 @@ export const ALERTS_BY_DAY = {
         origin: "Hezbollah (Southern Lebanon)",
       },
       {
-        day: "12/22",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
-      },
-      {
         day: "12/23",
         alerts: 0,
         origin: "Hamas (Gaza)",
@@ -5295,11 +5250,6 @@ export const ALERTS_BY_DAY = {
         day: "12/23",
         alerts: 0,
         origin: "Hezbollah (Southern Lebanon)",
-      },
-      {
-        day: "12/23",
-        alerts: 0,
-        origin: "Houthis (Yemen)",
       },
       {
         day: "12/24",
