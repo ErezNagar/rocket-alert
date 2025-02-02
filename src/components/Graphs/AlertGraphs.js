@@ -5,8 +5,6 @@ import Tracking from "../../tracking";
 import GraphTotalAlerts from "./GraphTotalAlerts";
 import GraphAlertsByDay from "./GraphAlertsByDay";
 import GraphAlertsBySource from "./GraphAlertsBySource";
-import GraphTotalRocketAlerts from "./GraphTotalRocketAlerts";
-import GraphTotalUAVAlerts from "./GraphTotalUAVAlerts";
 import Util from "../../util";
 
 class AlertGraphs extends React.Component {
@@ -61,16 +59,6 @@ class AlertGraphs extends React.Component {
       <>
         <GraphTotalAlerts
           alertData={this.state.alertData}
-          isLoading={this.state.isLoading}
-          isError={this.state.isError}
-        />
-        <GraphTotalRocketAlerts
-          alertData={this.state.rocketAlertData}
-          isLoading={this.state.isLoading}
-          isError={this.state.isError}
-        />
-        <GraphTotalUAVAlerts
-          alertData={this.state.UAVAlertData}
           isLoading={this.state.isLoading}
           isError={this.state.isError}
         />
