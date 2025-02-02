@@ -7,6 +7,7 @@ import {
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
   isAfterCeaseFireInTheNorth,
+  isConfirmedFalseAlert,
 } from "../../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../../tracking";
@@ -149,46 +150,51 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         let originNorthCount = 0;
         let originIranCount = 0;
         let originYemenCount = 0;
-        alertData[dataIndex].alerts.forEach((alert) => {
-          if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
-            originIranCount += 1;
-          } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
-            originYemenCount += 1;
-          } else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
-            originSouthCount += 1;
-          } else if (Util.isRegionInSouth(alert.areaNameEn)) {
-            originSouthCount += 1;
-          } else if (Util.isRegionInNorth(alert.areaNameEn)) {
-            originNorthCount += 1;
-          }
-        });
+
+        // Some days may not have alerts, so only go through
+        // alerts if that date is date with alerts
+        if (isSameDay(dateInterval, dateOfAlerts)) {
+          alertData[dataIndex].alerts.forEach((alert) => {
+            if (isConfirmedFalseAlert(alert.timeStamp)) {
+              return;
+            } else if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
+              originIranCount += 1;
+            } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
+              originYemenCount += 1;
+            } else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
+              originSouthCount += 1;
+            } else if (Util.isRegionInSouth(alert.areaNameEn)) {
+              originSouthCount += 1;
+            } else if (Util.isRegionInNorth(alert.areaNameEn)) {
+              originNorthCount += 1;
+            }
+          });
+        }
 
         /* If there's alert data for this dateInterval, use it
             Otherwise, there's no alert data since alerts = 0, but we still want to show that date in the graph
         */
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
-          alerts: isSameDay(dateInterval, dateOfAlerts) ? originSouthCount : 0,
+          alerts: originSouthCount,
           origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
         });
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
-          alerts: isSameDay(dateInterval, dateOfAlerts) ? originNorthCount : 0,
+          alerts: originNorthCount,
           origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
         if (originIranCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            alerts: isSameDay(dateInterval, dateOfAlerts) ? originIranCount : 0,
+            alerts: originIranCount,
             origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
           });
         }
         if (originYemenCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            alerts: isSameDay(dateInterval, dateOfAlerts)
-              ? originYemenCount
-              : 0,
+            alerts: originYemenCount,
             origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
           });
         }

@@ -119,6 +119,20 @@ export const isAfterCeaseFireInTheNorth = (date) => {
   return isAfter(new Date(date), ceaseFireDate);
 };
 
+export const isConfirmedFalseAlert = (date) => {
+  const theDate = new Date(date);
+  // Rounded to the nearest minute
+  const confirmedFalseAlerts = [
+    [new Date("2025-01-30 08:35:00"), new Date("2025-01-30 08:37:00")],
+  ];
+
+  return (
+    confirmedFalseAlerts.filter(
+      ([start, end]) => isAfter(theDate, start) && isBefore(theDate, end)
+    ).length !== 0
+  );
+};
+
 export const getNow = () => new Date();
 
 export const getStartOfToday = () => startOfToday();

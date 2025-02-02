@@ -3,6 +3,7 @@ import {
   isBiWeeklyDifference,
   weekRangeWithYearFormat,
   is5WeeksDifference,
+  isConfirmedFalseAlert,
 } from "../date_helper";
 import Util from "../util";
 import { isBefore } from "date-fns";
@@ -69,10 +70,13 @@ const graphUtils = {
       }
 
       if (!isBefore(alertDate, currentDate)) {
-        const rocketAlerts = alerts.filter(
+        const confirmedAlerts = alerts.filter(
+          (alert) => !isConfirmedFalseAlert(alert.timeStamp)
+        );
+        const rocketAlerts = confirmedAlerts.filter(
           (alert) => alert.alertTypeId === Util.ALERT_TYPE_ROCKETS
         );
-        const UAVAlerts = alerts.filter(
+        const UAVAlerts = confirmedAlerts.filter(
           (alert) => alert.alertTypeId === Util.ALERT_TYPE_UAV
         );
         rocketAlertCount += rocketAlerts.length;

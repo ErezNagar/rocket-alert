@@ -7,6 +7,7 @@ import {
   isIranianMissileAttackTimeFrame,
   isYemenMissileAttackTimeFrame,
   isAfterCeaseFireInTheNorth,
+  isConfirmedFalseAlert,
 } from "../../date_helper";
 import { isBefore } from "date-fns";
 import { Column, Bar } from "@ant-design/plots";
@@ -144,6 +145,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
             origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
           });
         }
+
         currentDate = alertDate;
         originSouthCount = 0;
         originNorthCount = 0;
@@ -156,7 +158,9 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
       let originIran = 0;
       let originYemen = 0;
       alerts.forEach((alert) => {
-        if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
+        if (isConfirmedFalseAlert(alert.timeStamp)) {
+          return;
+        } else if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
           originIran += 1;
         } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
           originYemen += 1;
