@@ -179,7 +179,7 @@ const getAlertTypeText = (alert) => {
   Format chart xAxis label from "mm/dd/yy - mm/dd/yy" to "mm/yy"
   Used to shorten label for small viewports
 */
-const buildxAxisLabel = (label) => {
+const buildxAxisLabel = () => {
   const xAxisLabel = {
     style: {
       fill: "black",

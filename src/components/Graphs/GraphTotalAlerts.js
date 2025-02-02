@@ -11,39 +11,62 @@ import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const config = {
+  isStack: true,
   xField: "week",
   yField: "alerts",
-  seriesField: "",
-  // columnWidthRatio: 0.5,
-  columnStyle: {
-    radius: [20, 20, 0, 0],
-  },
-  color: "#5c0011",
+  seriesField: "type",
+  columnStyle: (item) =>
+    item.type === "Rockets" ? { radius: [20, 20, 0, 0] } : { radius: 0 },
+  color: ["#5c0011", "#be0023"],
   appendPadding: [30, 0, 0, 0],
-  label: {
-    position: "top",
-    style: {
-      fill: "black",
-      opacity: 1,
-      fontSize: 14,
-    },
-  },
+  label: false,
   xAxis: {
     label: Util.buildxAxisLabel(),
   },
   yAxis: false,
+  legend: false,
 };
 
 const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
+  const [annotations, setAnnotations] = useState([]);
 
   const buildGraph = () => {
     const newData = graphUtils.buildNewData(alertData);
     const existingData = Util.isSmallViewport()
       ? TOTAL_ALERTS_MOBILE
       : TOTAL_ALERTS;
-    setData([...existingData, ...newData]);
+    const data = [...existingData, ...newData];
+
+    const groupByWeek = (array, key) => {
+      return array.reduce((result, obj) => {
+        const value = obj[key];
+        if (!result[value]) {
+          result[value] = [];
+        }
+        result[value].push(obj);
+        return result;
+      }, {});
+    };
+
+    const grouped = groupByWeek(data, "week");
+    const annotations = [];
+    Object.keys(grouped).forEach((key, i) => {
+      const totalValue = grouped[key].reduce((a, b) => a + b.alerts, 0);
+      annotations.push({
+        type: "text",
+        position: [i - 1 / 3, totalValue + 400],
+        content: `${totalValue}`,
+        style: {
+          fill: "black",
+          fontSize: 14,
+        },
+      });
+    });
+
+    setData(data);
+    setAnnotations(annotations);
     setShowGraph(true);
   };
 
@@ -55,7 +78,7 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
     <section className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Total alerts since Oct 7</h2>
+          <h2>Total rocket and UAV alerts since Oct 7</h2>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
@@ -73,6 +96,7 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
               {...{
                 data,
                 ...config,
+                annotations,
               }}
             />
           )}

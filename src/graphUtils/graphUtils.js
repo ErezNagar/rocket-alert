@@ -40,7 +40,8 @@ const graphUtils = {
   */
   buildNewData: (alertData) => {
     let data = [];
-    let alertCount = 0;
+    let rocketAlertCount = 0;
+    let UAVAlertCount = 0;
     let currentDate = TOTAL_ALERTS_DYNAMIC_DATA_START_DATE;
     let weekDiffFunction = isBiWeeklyDifference;
     if (Util.isSmallViewport()) {
@@ -54,20 +55,40 @@ const graphUtils = {
       if (weekDiffFunction(currentDate, alertDate)) {
         data.push({
           week: weekRangeWithYearFormat(currentDate, alertDate),
-          alerts: alertCount,
+          alerts: rocketAlertCount,
+          type: "Rockets",
+        });
+        data.push({
+          week: weekRangeWithYearFormat(currentDate, alertDate),
+          alerts: UAVAlertCount,
+          type: "UAVs",
         });
         currentDate = alertDate;
-        alertCount = 0;
+        rocketAlertCount = 0;
+        UAVAlertCount = 0;
       }
 
       if (!isBefore(alertDate, currentDate)) {
-        alertCount += alerts.length;
+        const rocketAlerts = alerts.filter(
+          (alert) => alert.alertTypeId === Util.ALERT_TYPE_ROCKETS
+        );
+        const UAVAlerts = alerts.filter(
+          (alert) => alert.alertTypeId === Util.ALERT_TYPE_UAV
+        );
+        rocketAlertCount += rocketAlerts.length;
+        UAVAlertCount += UAVAlerts.length;
       }
     });
 
     data.push({
       week: weekRangeWithYearFormat(currentDate, getNow()),
-      alerts: alertCount,
+      alerts: rocketAlertCount,
+      type: "Rockets",
+    });
+    data.push({
+      week: weekRangeWithYearFormat(currentDate, getNow()),
+      alerts: UAVAlertCount,
+      type: "UAVs",
     });
 
     return data;

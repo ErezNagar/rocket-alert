@@ -5,565 +5,465 @@
 export const TOTAL_ALERTS = [
   {
     week: "10/7/23 - 10/20/23",
-    alerts: 6587,
+    alerts: 6377,
+    type: "Rockets",
   },
   {
     week: "10/21/23 - 11/3/23",
-    alerts: 1362,
+    alerts: 1357,
+    type: "Rockets",
   },
   {
     week: "11/4/23 - 11/17/23",
-    alerts: 761,
+    alerts: 706,
+    type: "Rockets",
   },
   {
     week: "11/18/23 - 12/1/23",
-    alerts: 658,
+    alerts: 581,
+    type: "Rockets",
   },
   {
     week: "12/2/23 - 12/15/23",
-    alerts: 747,
+    alerts: 703,
+    type: "Rockets",
   },
   {
     week: "12/16/23 - 12/29/23",
-    alerts: 525,
+    alerts: 370,
+    type: "Rockets",
   },
   {
     week: "12/30/23 - 1/12/24",
-    alerts: 595,
+    alerts: 237,
+    type: "Rockets",
   },
   {
     week: "1/13/24 - 1/26/24",
-    alerts: 143,
+    alerts: 106,
+    type: "Rockets",
   },
   {
     week: "1/27/24 - 2/9/24",
-    alerts: 215,
+    alerts: 164,
+    type: "Rockets",
   },
   {
     week: "2/10/24 - 2/23/24",
-    alerts: 195,
+    alerts: 105,
+    type: "Rockets",
   },
   {
     week: "2/24/24 - 3/8/24",
-    alerts: 307,
+    alerts: 212,
+    type: "Rockets",
   },
   {
     week: "3/9/24 - 3/22/24",
-    alerts: 239,
+    alerts: 150,
+    type: "Rockets",
   },
   {
     week: "3/23/24 - 4/5/24",
-    alerts: 364,
+    alerts: 187,
+    type: "Rockets",
   },
   {
     week: "4/6/24 - 4/19/24",
-    alerts: 978,
+    alerts: 850,
+    type: "Rockets",
   },
   {
     week: "4/20/24 - 5/4/24",
-    alerts: 263,
+    alerts: 99,
+    type: "Rockets",
   },
   {
     week: "5/5/24 - 5/18/24",
-    alerts: 876,
+    alerts: 264,
+    type: "Rockets",
   },
   {
     week: "5/19/24 - 6/1/24",
-    alerts: 760,
+    alerts: 245,
+    type: "Rockets",
   },
   {
     week: "6/2/24 - 6/15/24",
-    alerts: 1112,
+    alerts: 417,
+    type: "Rockets",
   },
   {
     week: "6/16/24 - 6/29/24",
-    alerts: 327,
+    alerts: 161,
+    type: "Rockets",
   },
   {
     week: "6/30/24 - 7/13/24",
-    alerts: 536,
+    alerts: 301,
+    type: "Rockets",
   },
   {
     week: "7/14/24 - 7/27/24",
-    alerts: 539,
+    alerts: 335,
+    type: "Rockets",
   },
   {
     week: "7/28/24 - 8/10/24",
-    alerts: 400,
+    alerts: 228,
+    type: "Rockets",
   },
   {
     week: "8/11/24 - 8/24/24",
-    alerts: 433,
+    alerts: 250,
+    type: "Rockets",
   },
   {
     week: "8/25/24 - 9/7/24",
-    alerts: 498,
+    alerts: 303,
+    type: "Rockets",
   },
   {
     week: "9/8/24 - 9/21/24",
-    alerts: 706,
+    alerts: 530,
+    type: "Rockets",
   },
   {
     week: "9/22/24 - 10/5/24",
-    alerts: 5737,
+    alerts: 5508,
+    type: "Rockets",
   },
   {
     week: "10/6/24 - 10/19/24",
-    alerts: 3290,
+    alerts: 3093,
+    type: "Rockets",
   },
   {
     week: "10/20/24 - 11/2/24",
-    alerts: 3286,
+    alerts: 2655,
+    type: "Rockets",
   },
   {
     week: "11/3/24 - 11/16/24",
-    alerts: 2296,
+    alerts: 1868,
+    type: "Rockets",
   },
   {
     week: "11/17/24 - 11/30/24",
-    alerts: 1888,
+    alerts: 1492,
+    type: "Rockets",
   },
   {
     week: "12/1/24 - 12/15/24",
-    alerts: 145,
+    alerts: 133,
+    type: "Rockets",
   },
   {
     week: "12/16/24 - 12/29/24",
-    alerts: 1221,
+    alerts: 1209,
+    type: "Rockets",
   },
   {
     week: "12/30/24 - 1/12/25",
-    alerts: 536,
+    alerts: 530,
+    type: "Rockets",
+  },
+  {
+    week: "10/7/23 - 10/20/23",
+    alerts: 210,
+    type: "UAVs",
+  },
+  {
+    week: "10/21/23 - 11/3/23",
+    alerts: 5,
+    type: "UAVs",
+  },
+  {
+    week: "11/4/23 - 11/17/23",
+    alerts: 55,
+    type: "UAVs",
+  },
+  {
+    week: "11/18/23 - 12/1/23",
+    alerts: 77,
+    type: "UAVs",
+  },
+  {
+    week: "12/2/23 - 12/15/23",
+    alerts: 44,
+    type: "UAVs",
+  },
+  {
+    week: "12/16/23 - 12/29/23",
+    alerts: 155,
+    type: "UAVs",
+  },
+  {
+    week: "12/30/23 - 1/12/24",
+    alerts: 358,
+    type: "UAVs",
+  },
+  {
+    week: "1/13/24 - 1/26/24",
+    alerts: 37,
+    type: "UAVs",
+  },
+  {
+    week: "1/27/24 - 2/9/24",
+    alerts: 51,
+    type: "UAVs",
+  },
+  {
+    week: "2/10/24 - 2/23/24",
+    alerts: 90,
+    type: "UAVs",
+  },
+  {
+    week: "2/24/24 - 3/8/24",
+    alerts: 95,
+    type: "UAVs",
+  },
+  {
+    week: "3/9/24 - 3/22/24",
+    alerts: 89,
+    type: "UAVs",
+  },
+  {
+    week: "3/23/24 - 4/5/24",
+    alerts: 177,
+    type: "UAVs",
+  },
+  {
+    week: "4/6/24 - 4/19/24",
+    alerts: 128,
+    type: "UAVs",
+  },
+  {
+    week: "4/20/24 - 5/4/24",
+    alerts: 164,
+    type: "UAVs",
+  },
+  {
+    week: "5/5/24 - 5/18/24",
+    alerts: 612,
+    type: "UAVs",
+  },
+  {
+    week: "5/19/24 - 6/1/24",
+    alerts: 515,
+    type: "UAVs",
+  },
+  {
+    week: "6/2/24 - 6/15/24",
+    alerts: 695,
+    type: "UAVs",
+  },
+  {
+    week: "6/16/24 - 6/29/24",
+    alerts: 166,
+    type: "UAVs",
+  },
+  {
+    week: "6/30/24 - 7/13/24",
+    alerts: 235,
+    type: "UAVs",
+  },
+  {
+    week: "7/14/24 - 7/27/24",
+    alerts: 204,
+    type: "UAVs",
+  },
+  {
+    week: "7/28/24 - 8/10/24",
+    alerts: 172,
+    type: "UAVs",
+  },
+  {
+    week: "8/11/24 - 8/24/24",
+    alerts: 183,
+    type: "UAVs",
+  },
+  {
+    week: "8/25/24 - 9/7/24",
+    alerts: 195,
+    type: "UAVs",
+  },
+  {
+    week: "9/8/24 - 9/21/24",
+    alerts: 176,
+    type: "UAVs",
+  },
+  {
+    week: "9/22/24 - 10/5/24",
+    alerts: 229,
+    type: "UAVs",
+  },
+  {
+    week: "10/6/24 - 10/19/24",
+    alerts: 197,
+    type: "UAVs",
+  },
+  {
+    week: "10/20/24 - 11/2/24",
+    alerts: 631,
+    type: "UAVs",
+  },
+  {
+    week: "11/3/24 - 11/16/24",
+    alerts: 428,
+    type: "UAVs",
+  },
+  {
+    week: "11/17/24 - 11/30/24",
+    alerts: 396,
+    type: "UAVs",
+  },
+  {
+    week: "12/1/24 - 12/15/24",
+    alerts: 12,
+    type: "UAVs",
+  },
+  {
+    week: "12/16/24 - 12/29/24",
+    alerts: 12,
+    type: "UAVs",
+  },
+  {
+    week: "12/30/24 - 1/12/25",
+    alerts: 6,
+    type: "UAVs",
   },
 ];
 export const TOTAL_ALERTS_MOBILE = [
   {
     week: "10/7/23 - 11/10/23",
-    alerts: 8405,
-  },
-  {
-    week: "11/11/23 - 12/15/23",
-    alerts: 1710,
-  },
-  {
-    week: "12/16/23 - 1/19/24",
-    alerts: 1206,
-  },
-  {
-    week: "1/20/24 - 2/23/24",
-    alerts: 467,
-  },
-  {
-    week: "2/24/24 - 3/29/24",
-    alerts: 714,
-  },
-  {
-    week: "3/30/24 - 5/4/24",
-    alerts: 1437,
-  },
-  {
-    week: "5/5/24 - 6/8/24",
-    alerts: 2033,
-  },
-  {
-    week: "6/9/24 - 7/13/24",
-    alerts: 1578,
-  },
-  {
-    week: "7/14/24 - 8/17/24",
-    alerts: 1086,
-  },
-  {
-    week: "8/18/24 - 9/21/24",
-    alerts: 1490,
-  },
-  {
-    week: "9/22/24 - 10/26/24",
-    alerts: 10824,
-  },
-  {
-    week: "10/27/24 - 11/30/24",
-    alerts: 5673,
-  },
-  {
-    week: "12/1/24 - 1/4/25",
-    alerts: 1885,
-  },
-];
-export const TOTAL_ROCKET_ALERTS = [
-  {
-    week: "10/7/23 - 10/20/23",
-    alerts: 6377,
-  },
-  {
-    week: "10/21/23 - 11/3/23",
-    alerts: 1357,
-  },
-  {
-    week: "11/4/23 - 11/17/23",
-    alerts: 706,
-  },
-  {
-    week: "11/18/23 - 12/1/23",
-    alerts: 581,
-  },
-  {
-    week: "12/2/23 - 12/15/23",
-    alerts: 703,
-  },
-  {
-    week: "12/16/23 - 12/29/23",
-    alerts: 370,
-  },
-  {
-    week: "12/30/23 - 1/12/24",
-    alerts: 237,
-  },
-  {
-    week: "1/13/24 - 1/26/24",
-    alerts: 106,
-  },
-  {
-    week: "1/27/24 - 2/9/24",
-    alerts: 164,
-  },
-  {
-    week: "2/10/24 - 2/23/24",
-    alerts: 105,
-  },
-  {
-    week: "2/24/24 - 3/8/24",
-    alerts: 212,
-  },
-  {
-    week: "3/9/24 - 3/22/24",
-    alerts: 150,
-  },
-  {
-    week: "3/23/24 - 4/5/24",
-    alerts: 187,
-  },
-  {
-    week: "4/6/24 - 4/19/24",
-    alerts: 850,
-  },
-  {
-    week: "4/20/24 - 5/4/24",
-    alerts: 99,
-  },
-  {
-    week: "5/5/24 - 5/18/24",
-    alerts: 264,
-  },
-  {
-    week: "5/19/24 - 6/1/24",
-    alerts: 245,
-  },
-  {
-    week: "6/2/24 - 6/15/24",
-    alerts: 417,
-  },
-  {
-    week: "6/16/24 - 6/29/24",
-    alerts: 161,
-  },
-  {
-    week: "6/30/24 - 7/13/24",
-    alerts: 301,
-  },
-  {
-    week: "7/14/24 - 7/27/24",
-    alerts: 335,
-  },
-  {
-    week: "7/28/24 - 8/10/24",
-    alerts: 228,
-  },
-  {
-    week: "8/11/24 - 8/24/24",
-    alerts: 250,
-  },
-  {
-    week: "8/25/24 - 9/7/24",
-    alerts: 303,
-  },
-  {
-    week: "9/8/24 - 9/21/24",
-    alerts: 530,
-  },
-  {
-    week: "9/22/24 - 10/5/24",
-    alerts: 5508,
-  },
-  {
-    week: "10/6/24 - 10/19/24",
-    alerts: 3093,
-  },
-  {
-    week: "10/20/24 - 11/2/24",
-    alerts: 2655,
-  },
-  {
-    week: "11/3/24 - 11/16/24",
-    alerts: 1868,
-  },
-  {
-    week: "11/17/24 - 11/30/24",
-    alerts: 1492,
-  },
-  {
-    week: "12/1/24 - 12/15/24",
-    alerts: 133,
-  },
-  {
-    week: "12/16/24 - 12/29/24",
-    alerts: 1209,
-  },
-  {
-    week: "12/30/24 - 1/12/25",
-    alerts: 530,
-  },
-];
-export const TOTAL_ROCKET_ALERTS_MOBILE = [
-  {
-    week: "10/7/23 - 11/10/23",
     alerts: 8174,
+    type: "Rockets",
   },
   {
     week: "11/11/23 - 12/15/23",
     alerts: 1550,
+    type: "Rockets",
   },
   {
     week: "12/16/23 - 1/19/24",
     alerts: 671,
+    type: "Rockets",
   },
   {
     week: "1/20/24 - 2/23/24",
     alerts: 311,
+    type: "Rockets",
   },
   {
     week: "2/24/24 - 3/29/24",
     alerts: 449,
+    type: "Rockets",
   },
   {
     week: "3/30/24 - 5/4/24",
     alerts: 1049,
+    type: "Rockets",
   },
   {
     week: "5/5/24 - 6/8/24",
     alerts: 609,
+    type: "Rockets",
   },
   {
     week: "6/9/24 - 7/13/24",
     alerts: 779,
+    type: "Rockets",
   },
   {
     week: "7/14/24 - 8/17/24",
     alerts: 644,
+    type: "Rockets",
   },
   {
     week: "8/18/24 - 9/21/24",
     alerts: 1002,
+    type: "Rockets",
   },
   {
     week: "9/22/24 - 10/26/24",
     alerts: 10176,
+    type: "Rockets",
   },
   {
     week: "10/27/24 - 11/30/24",
     alerts: 4440,
+    type: "Rockets",
   },
   {
     week: "12/1/24 - 1/4/25",
     alerts: 1860,
+    type: "Rockets",
   },
-];
-export const TOTAL_UAV_ALERTS = [
-  {
-    week: "10/7/23 - 10/20/23",
-    alerts: 210,
-  },
-  {
-    week: "10/21/23 - 11/3/23",
-    alerts: 5,
-  },
-  {
-    week: "11/4/23 - 11/17/23",
-    alerts: 55,
-  },
-  {
-    week: "11/18/23 - 12/1/23",
-    alerts: 77,
-  },
-  {
-    week: "12/2/23 - 12/15/23",
-    alerts: 44,
-  },
-  {
-    week: "12/16/23 - 12/29/23",
-    alerts: 155,
-  },
-  {
-    week: "12/30/23 - 1/12/24",
-    alerts: 358,
-  },
-  {
-    week: "1/13/24 - 1/26/24",
-    alerts: 37,
-  },
-  {
-    week: "1/27/24 - 2/9/24",
-    alerts: 51,
-  },
-  {
-    week: "2/10/24 - 2/23/24",
-    alerts: 90,
-  },
-  {
-    week: "2/24/24 - 3/8/24",
-    alerts: 95,
-  },
-  {
-    week: "3/9/24 - 3/22/24",
-    alerts: 89,
-  },
-  {
-    week: "3/23/24 - 4/5/24",
-    alerts: 177,
-  },
-  {
-    week: "4/6/24 - 4/19/24",
-    alerts: 128,
-  },
-  {
-    week: "4/20/24 - 5/4/24",
-    alerts: 164,
-  },
-  {
-    week: "5/5/24 - 5/18/24",
-    alerts: 612,
-  },
-  {
-    week: "5/19/24 - 6/1/24",
-    alerts: 515,
-  },
-  {
-    week: "6/2/24 - 6/15/24",
-    alerts: 695,
-  },
-  {
-    week: "6/16/24 - 6/29/24",
-    alerts: 166,
-  },
-  {
-    week: "6/30/24 - 7/13/24",
-    alerts: 235,
-  },
-  {
-    week: "7/14/24 - 7/27/24",
-    alerts: 204,
-  },
-  {
-    week: "7/28/24 - 8/10/24",
-    alerts: 172,
-  },
-  {
-    week: "8/11/24 - 8/24/24",
-    alerts: 183,
-  },
-  {
-    week: "8/25/24 - 9/7/24",
-    alerts: 195,
-  },
-  {
-    week: "9/8/24 - 9/21/24",
-    alerts: 176,
-  },
-  {
-    week: "9/22/24 - 10/5/24",
-    alerts: 229,
-  },
-  {
-    week: "10/6/24 - 10/19/24",
-    alerts: 197,
-  },
-  {
-    week: "10/20/24 - 11/2/24",
-    alerts: 631,
-  },
-  {
-    week: "11/3/24 - 11/16/24",
-    alerts: 428,
-  },
-  {
-    week: "11/17/24 - 11/30/24",
-    alerts: 396,
-  },
-  {
-    week: "12/1/24 - 12/15/24",
-    alerts: 12,
-  },
-  {
-    week: "12/16/24 - 12/29/24",
-    alerts: 12,
-  },
-  {
-    week: "12/30/24 - 1/12/25",
-    alerts: 6,
-  },
-];
-export const TOTAL_UAV_ALERTS_MOBILE = [
   {
     week: "10/7/23 - 11/10/23",
     alerts: 231,
+    type: "UAVs",
   },
   {
     week: "11/11/23 - 12/15/23",
     alerts: 160,
+    type: "UAVs",
   },
   {
     week: "12/16/23 - 1/19/24",
     alerts: 535,
+    type: "UAVs",
   },
   {
     week: "1/20/24 - 2/23/24",
     alerts: 156,
+    type: "UAVs",
   },
   {
     week: "2/24/24 - 3/29/24",
     alerts: 265,
+    type: "UAVs",
   },
   {
     week: "3/30/24 - 5/4/24",
     alerts: 388,
+    type: "UAVs",
   },
   {
     week: "5/5/24 - 6/8/24",
     alerts: 1424,
+    type: "UAVs",
   },
   {
     week: "6/9/24 - 7/13/24",
     alerts: 799,
+    type: "UAVs",
   },
   {
     week: "7/14/24 - 8/17/24",
     alerts: 442,
+    type: "UAVs",
   },
   {
     week: "8/18/24 - 9/21/24",
     alerts: 488,
+    type: "UAVs",
   },
   {
     week: "9/22/24 - 10/26/24",
     alerts: 648,
+    type: "UAVs",
   },
   {
     week: "10/27/24 - 11/30/24",
     alerts: 1233,
+    type: "UAVs",
   },
   {
     week: "12/1/24 - 1/4/25",
     alerts: 25,
+    type: "UAVs",
   },
 ];
 export const ALERTS_BY_SOURCE = [
