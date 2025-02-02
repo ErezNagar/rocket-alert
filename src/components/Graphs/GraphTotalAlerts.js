@@ -33,6 +33,11 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   const [annotations, setAnnotations] = useState([]);
 
   const buildGraph = () => {
+    const POSITION_OFFSET = 1 / 3;
+    const POSITION_OFFSET_MOBILE = 1 / 2;
+    const offset = Util.isSmallViewport()
+      ? POSITION_OFFSET_MOBILE
+      : POSITION_OFFSET;
     const newData = graphUtils.buildNewData(alertData);
     const existingData = Util.isSmallViewport()
       ? TOTAL_ALERTS_MOBILE
@@ -52,11 +57,12 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
 
     const grouped = groupByWeek(data, "week");
     const annotations = [];
+
     Object.keys(grouped).forEach((key, i) => {
       const totalValue = grouped[key].reduce((a, b) => a + b.alerts, 0);
       annotations.push({
         type: "text",
-        position: [i - 1 / 3, totalValue + 400],
+        position: [i - offset, totalValue + 400],
         content: `${totalValue}`,
         style: {
           fill: "black",
