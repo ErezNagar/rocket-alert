@@ -16,7 +16,7 @@ const config = {
   yField: "alerts",
   seriesField: "type",
   columnStyle: (item) =>
-    item.type === "Rocket" ? { radius: [20, 20, 0, 0] } : { radius: 0 },
+    item.type === "Rockets" ? { radius: [20, 20, 0, 0] } : { radius: 0 },
   color: ["#5c0011", "#be0023"],
   appendPadding: [30, 0, 0, 0],
   label: false,
