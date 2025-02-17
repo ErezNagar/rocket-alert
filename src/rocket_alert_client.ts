@@ -91,7 +91,11 @@ const AlertClient = {
    *  @param {string} to    to date, inclusive.
    *  @return {object}
    */
-  getTotalAlertsByDay: (from: string, to: string): any => {
+  getTotalAlertsByDay: (
+    from: string,
+    to: string,
+    alertTypeId: number = Util.ALERT_TYPE_ALL
+  ): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
     }
@@ -102,10 +106,10 @@ const AlertClient = {
       .query({
         from: isoFormat(convertToServerTime(from)),
         to: isoFormat(convertToServerTime(to)),
+        alertTypeId,
       })
       .get()
-      .json()
-      .then((res) => filterRocketAndUAVAlerts(res));
+      .json();
   },
 
   /*

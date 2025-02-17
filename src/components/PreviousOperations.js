@@ -5,6 +5,40 @@ import Tile from "./Tile";
 import Util from "../util";
 import Tracking from "../tracking";
 
+const PREVIUOS_OPERATIONS = {
+  SHIELD_AND_ARROW: {
+    SPARKLINE_DATA: [0, 0, 259, 168, 110, 235, 0, 0],
+    ALERT_COUNT: 775,
+  },
+  BREAKING_DAWN: {
+    SPARKLINE_DATA: [0, 0, 90, 270, 394, 0, 0],
+    ALERT_COUNT: 754,
+  },
+  GUARDIAN_OF_THE_WALLS: {
+    SPARKLINE_DATA: [
+      7, 202, 1180, 1287, 814, 626, 838, 654, 333, 341, 326, 409, 31,
+    ],
+    ALERT_COUNT: 7000,
+  },
+  BLACK_BELT: {
+    SPARKLINE_DATA: [0, 0, 482, 381, 66, 8, 0, 0],
+    ALERT_COUNT: 928,
+  },
+  PROTECTIVE_EDGE: {
+    SPARKLINE_DATA: [
+      0, 37, 853, 214, 2198, 459, 607, 390, 582, 609, 329, 1905, 16, 386, 23, 189,
+      42, 8, 464, 775, 823, 384, 493, 548, 474, 786, 0
+    ],
+    ALERT_COUNT: 12808,
+  },
+  PILLAR_OF_DEFENSE: {
+    ALERT_COUNT: 1506,
+  },
+  CAST_LEAD: {
+    ALERT_COUNT: 575,
+  },
+};
+
 const PreviousOperations = (props) => {
   const ref = useRef();
   const isVisible = Util.useIsVisible(ref);
@@ -26,7 +60,10 @@ const PreviousOperations = (props) => {
               subtitle={"May 9 2023 - May 13 2023"}
               fromDate={new Date("2023-05-09T00:00")}
               toDate={new Date("2023-05-13T00:00")}
-              alertCount={775}
+              sparklineData={
+                PREVIUOS_OPERATIONS.SHIELD_AND_ARROW.SPARKLINE_DATA
+              }
+              alertCount={PREVIUOS_OPERATIONS.SHIELD_AND_ARROW.ALERT_COUNT}
               isStatic
               showAverage
             />
@@ -37,7 +74,8 @@ const PreviousOperations = (props) => {
               subtitle={"Aug 5 2022 - Aug 7 2022"}
               fromDate={new Date("2022-08-05T00:00")}
               toDate={new Date("2022-08-07T00:00")}
-              alertCount={754}
+              sparklineData={PREVIUOS_OPERATIONS.BREAKING_DAWN.SPARKLINE_DATA}
+              alertCount={PREVIUOS_OPERATIONS.BREAKING_DAWN.ALERT_COUNT}
               isStatic
               showAverage
             />
@@ -48,7 +86,10 @@ const PreviousOperations = (props) => {
               subtitle={"May 10, 2021 - May 21, 2021"}
               fromDate={new Date("2021-05-10")}
               toDate={new Date("2021-05-21")}
-              alertCount={7000}
+              sparklineData={
+                PREVIUOS_OPERATIONS.GUARDIAN_OF_THE_WALLS.SPARKLINE_DATA
+              }
+              alertCount={PREVIUOS_OPERATIONS.GUARDIAN_OF_THE_WALLS.ALERT_COUNT}
               isStatic
               showAverage
             />
@@ -59,7 +100,8 @@ const PreviousOperations = (props) => {
               subtitle={"Nov 12, 2019 - Nov 16, 2019"}
               fromDate={new Date("2019-11-12")}
               toDate={new Date("2019-11-16")}
-              alertCount={928}
+              sparklineData={PREVIUOS_OPERATIONS.BLACK_BELT.SPARKLINE_DATA}
+              alertCount={PREVIUOS_OPERATIONS.BLACK_BELT.ALERT_COUNT}
               isStatic
               showAverage
             />
@@ -70,7 +112,8 @@ const PreviousOperations = (props) => {
               subtitle={"July 8, 2014 - Aug 26, 2014"}
               fromDate={new Date("2014-07-08")}
               toDate={new Date("2014-08-26")}
-              alertCount={12808}
+              sparklineData={PREVIUOS_OPERATIONS.PROTECTIVE_EDGE.SPARKLINE_DATA}
+              alertCount={PREVIUOS_OPERATIONS.PROTECTIVE_EDGE.ALERT_COUNT}
               isStatic
               showAverage
             />
@@ -81,7 +124,7 @@ const PreviousOperations = (props) => {
               subtitle={"Nov 14, 2012 - Nov 21, 2012"}
               fromDate={new Date("2012-11-14")}
               toDate={new Date("2012-11-21")}
-              alertCount={1506}
+              alertCount={PREVIUOS_OPERATIONS.PILLAR_OF_DEFENSE.ALERT_COUNT}
               isStatic
               showAverage
             />
@@ -92,7 +135,7 @@ const PreviousOperations = (props) => {
               subtitle={"Dec 27, 2008 - Jan 18, 2009"}
               fromDate={new Date("2008-12-27")}
               toDate={new Date("2009-01-18")}
-              alertCount={575}
+              alertCount={PREVIUOS_OPERATIONS.CAST_LEAD.ALERT_COUNT}
               isStatic
               showAverage
             />
