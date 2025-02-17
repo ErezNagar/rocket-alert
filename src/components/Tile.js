@@ -35,7 +35,7 @@ export default class Tile extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
-    fromDate: PropTypes.instanceOf(Date).isRequired,
+    fromDate: PropTypes.instanceOf(Date),
     toDate: PropTypes.instanceOf(Date),
     alertsClient: PropTypes.object,
     sparklineData: PropTypes.array,
