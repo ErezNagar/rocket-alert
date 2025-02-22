@@ -100,7 +100,6 @@ const GRAPH_CONFIG = {
 };
 
 // The date from which the graph date interval will start
-// const BEGINNING_DATE_INTERVAL = new Date("2023-10-07T00:00");
 const BEGINNING_DATE_INTERVAL = new Date("2025-01-01T00:00");
 
 const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
@@ -112,20 +111,29 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   const [graphType, setGraphType] = useState("Column");
   const [config, setConfig] = useState(null);
 
+  /*
+    Returns whether there are alerts for that date
+  */
+  const isDateWithAlerts = (date, alertData) => {
+    const [year, month, day] = alertData.date.split("-");
+    const dateOfAlerts = new Date(year, month - 1, day);
+    return isSameDay(date, dateOfAlerts);
+  };
+
   const buildGraph = useCallback(() => {
-    let dataIndex = 0;
+    let alertDataIdx = 0;
     const data = { years: [] };
 
-    const datesInterval = eachDayOfInterval({
+    const dates = eachDayOfInterval({
       start: BEGINNING_DATE_INTERVAL,
       end: getYesterday(),
     });
 
-    datesInterval.forEach((dateInterval) => {
-      const year = dateInterval.toLocaleString("default", {
+    dates.forEach((date) => {
+      const year = date.toLocaleString("default", {
         year: "numeric",
       });
-      const monthName = dateInterval.toLocaleString("default", {
+      const monthName = date.toLocaleString("default", {
         month: "long",
       });
       if (!data.years.includes(year)) {
@@ -137,29 +145,28 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         data[year][monthName] = [];
       }
 
-      if (dataIndex >= alertData.length) {
+      if (alertDataIdx >= alertData.length) {
         data[year][monthName].push({
-          day: dayOfMonthFormat(dateInterval),
+          day: dayOfMonthFormat(date),
           alerts: 0,
           origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
         });
         data[year][monthName].push({
-          day: dayOfMonthFormat(dateInterval),
+          day: dayOfMonthFormat(date),
           alerts: 0,
           origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
       } else {
-        const [year, month, day] = alertData[dataIndex].date.split("-");
-        const dateOfAlerts = new Date(year, month - 1, day);
+        const [year] = alertData[alertDataIdx].date.split("-");
 
-        // If dateInterval date has alerts, go over the alerts and categorize them by source
-        if (isSameDay(dateInterval, dateOfAlerts)) {
+        // If date has alerts, go over the alerts and categorize them by source
+        if (isDateWithAlerts(date, alertData[alertDataIdx])) {
           let originSouthCount = 0;
           let originNorthCount = 0;
           let originIranCount = 0;
           let originYemenCount = 0;
 
-          alertData[dataIndex].alerts.forEach((alert) => {
+          alertData[alertDataIdx].alerts.forEach((alert) => {
             if (isConfirmedFalseAlert(alert.timeStamp)) {
               return;
             } else if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
@@ -176,40 +183,41 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
           });
 
           data[year][monthName].push({
-            day: dayOfMonthFormat(dateInterval),
+            day: dayOfMonthFormat(date),
             alerts: originSouthCount,
             origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
           });
           data[year][monthName].push({
-            day: dayOfMonthFormat(dateInterval),
+            day: dayOfMonthFormat(date),
             alerts: originNorthCount,
             origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
           });
           if (originIranCount) {
             data[year][monthName].push({
-              day: dayOfMonthFormat(dateInterval),
+              day: dayOfMonthFormat(date),
               alerts: originIranCount,
               origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
             });
           }
           if (originYemenCount) {
             data[year][monthName].push({
-              day: dayOfMonthFormat(dateInterval),
+              day: dayOfMonthFormat(date),
               alerts: originYemenCount,
               origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
             });
           }
 
-          dataIndex = dataIndex + 1;
-          // If dateInterval date has no alerts, add 0 to each source
+          alertDataIdx += 1;
         } else {
+          // If date doesn't have alerts, add 0 to each source
+
           data[year][monthName].push({
-            day: dayOfMonthFormat(dateInterval),
+            day: dayOfMonthFormat(date),
             alerts: 0,
             origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
           });
           data[year][monthName].push({
-            day: dayOfMonthFormat(dateInterval),
+            day: dayOfMonthFormat(date),
             alerts: 0,
             origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
           });
