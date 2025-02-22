@@ -141,19 +141,24 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
         data[year][monthName].push({
           day: dayOfMonthFormat(dateInterval),
           alerts: 0,
+          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
+        });
+        data[year][monthName].push({
+          day: dayOfMonthFormat(dateInterval),
+          alerts: 0,
+          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
       } else {
         const [year, month, day] = alertData[dataIndex].date.split("-");
         const dateOfAlerts = new Date(year, month - 1, day);
 
-        let originSouthCount = 0;
-        let originNorthCount = 0;
-        let originIranCount = 0;
-        let originYemenCount = 0;
-
-        // Some days may not have alerts, so only go through
-        // alerts if that date is date with alerts
+        // If dateInterval date has alerts, go over the alerts and categorize them by source
         if (isSameDay(dateInterval, dateOfAlerts)) {
+          let originSouthCount = 0;
+          let originNorthCount = 0;
+          let originIranCount = 0;
+          let originYemenCount = 0;
+
           alertData[dataIndex].alerts.forEach((alert) => {
             if (isConfirmedFalseAlert(alert.timeStamp)) {
               return;
@@ -169,38 +174,45 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
               originNorthCount += 1;
             }
           });
-        }
 
-        /* If there's alert data for this dateInterval, use it
-            Otherwise, there's no alert data since alerts = 0, but we still want to show that date in the graph
-        */
-        data[year][monthName].push({
-          day: dayOfMonthFormat(dateInterval),
-          alerts: originSouthCount,
-          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
-        });
-        data[year][monthName].push({
-          day: dayOfMonthFormat(dateInterval),
-          alerts: originNorthCount,
-          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
-        });
-        if (originIranCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            alerts: originIranCount,
-            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
+            alerts: originSouthCount,
+            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
           });
-        }
-        if (originYemenCount) {
           data[year][monthName].push({
             day: dayOfMonthFormat(dateInterval),
-            alerts: originYemenCount,
-            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
+            alerts: originNorthCount,
+            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
           });
-        }
+          if (originIranCount) {
+            data[year][monthName].push({
+              day: dayOfMonthFormat(dateInterval),
+              alerts: originIranCount,
+              origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
+            });
+          }
+          if (originYemenCount) {
+            data[year][monthName].push({
+              day: dayOfMonthFormat(dateInterval),
+              alerts: originYemenCount,
+              origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
+            });
+          }
 
-        if (isSameDay(dateInterval, dateOfAlerts)) {
           dataIndex = dataIndex + 1;
+          // If dateInterval date has no alerts, add 0 to each source
+        } else {
+          data[year][monthName].push({
+            day: dayOfMonthFormat(dateInterval),
+            alerts: 0,
+            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
+          });
+          data[year][monthName].push({
+            day: dayOfMonthFormat(dateInterval),
+            alerts: 0,
+            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
+          });
         }
       }
     });
