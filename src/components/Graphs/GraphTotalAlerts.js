@@ -3,10 +3,7 @@ import { Row, Col, Spin } from "antd";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
-import {
-  TOTAL_ALERTS,
-  TOTAL_ALERTS_MOBILE,
-} from "../../graphUtils/precompiledGraphData";
+import { TOTAL_ALERTS, TOTAL_ALERTS_MOBILE } from "../../data/graphs";
 import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
