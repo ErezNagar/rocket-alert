@@ -125,6 +125,7 @@ export const isConfirmedFalseAlert = (date) => {
   const confirmedFalseAlerts = [
     [new Date("2025-01-30 08:35:00"), new Date("2025-01-30 08:37:00")],
     [new Date("2025-02-08 15:53:00"), new Date("2025-02-08 15:54:00")],
+    [new Date("2025-02-25 08:39:00"), new Date("2025-02-25 08:41:00")],
   ];
 
   return (
