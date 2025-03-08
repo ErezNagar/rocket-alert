@@ -67,8 +67,4 @@ MostRecentAlerts.propTypes = {
   isIntersectingRef: PropTypes.object.isRequired,
 };
 
-MostRecentAlerts.defaultProps = {
-  recentAlertMapFocus() {},
-};
-
 export default withIsVisibleHook(MostRecentAlerts, "MostRecentAlerts");
