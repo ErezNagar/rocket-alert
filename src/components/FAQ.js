@@ -1,13 +1,11 @@
-// import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
-import Util from "../util";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import Tracking from "../tracking";
 import { Row, Col } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import withIsVisibleHook from "./withIsVisibleHook";
 
-const FAQ = () => {
-  const ref = useRef();
-  const isVisible = Util.useIsVisible(ref);
+const FAQ = ({ isIntersectingRef }) => {
   const [toggles, setToggles] = useState(new Set());
 
   const handleOnClick = (idx) => {
@@ -17,14 +15,8 @@ const FAQ = () => {
     setToggles(newToggles);
   };
 
-  useEffect(() => {
-    if (isVisible) {
-      Tracking.visibleEvent("FAQ");
-    }
-  }, [isVisible]);
-
   return (
-    <section ref={ref} className="section faq" id="faq">
+    <section ref={isIntersectingRef} className="section faq" id="faq">
       <h2>Frequently Asked Questions</h2>
       <Row justify="center">
         <Col md={24} lg={12}>
@@ -374,8 +366,9 @@ const FAQ = () => {
   );
 };
 
-FAQ.propTypes = {};
+FAQ.propTypes = {
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
+};
 
-FAQ.defaultProps = {};
-
-export default FAQ;
+export default withIsVisibleHook(FAQ, "FAQ");
