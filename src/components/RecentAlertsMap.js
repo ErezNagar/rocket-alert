@@ -5,6 +5,7 @@ import Tracking from "../tracking";
 import Util from "../util";
 import RecentAlertsStaticMap from "./RecentAlertsStaticMap";
 import RecentAlertsInteractiveMap from "./RecentAlertsInteractiveMap";
+import withIsVisibleHook from "./withIsVisibleHook";
 
 class RecentAlertsMap extends React.Component {
   constructor(props) {
@@ -68,7 +69,7 @@ class RecentAlertsMap extends React.Component {
 
   render() {
     return (
-      <section className="section map">
+      <section ref={this.props.isIntersectingRef} className="section map">
         {this.state.shouldShowInteractiveMap && (
           <RecentAlertsInteractiveMap
             alerts={this.props.alerts}
@@ -90,10 +91,12 @@ class RecentAlertsMap extends React.Component {
 RecentAlertsMap.propTypes = {
   alerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
 };
 
 RecentAlertsMap.defaultProps = {
   mapFocus: null,
 };
 
-export default RecentAlertsMap;
+export default withIsVisibleHook(RecentAlertsMap, "RecentAlertsMap");
