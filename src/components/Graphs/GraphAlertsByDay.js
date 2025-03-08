@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import { eachDayOfInterval, isSameDay } from "date-fns";
 import {
@@ -102,7 +103,12 @@ const GRAPH_CONFIG = {
 // The date from which the graph date interval will start
 const BEGINNING_DATE_INTERVAL = new Date("2025-01-01T00:00");
 
-const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
+const GraphAlertsByDay = ({
+  alertData,
+  isLoading,
+  isError,
+  isIntersectingRef,
+}) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
@@ -297,7 +303,7 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   };
 
   return (
-    <section className="graph">
+    <section ref={isIntersectingRef} className="graph">
       <Row justify={"center"}>
         <Col span={24}>
           <h2>Alerts by day since Oct 7</h2>
@@ -368,4 +374,15 @@ const GraphAlertsByDay = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(GraphAlertsByDay, "Graph_alerts_by_day");
+GraphAlertsByDay.propTypes = {
+  alertData: PropTypes.array,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
+};
+GraphAlertsByDay.defaultProps = {
+  alertData: [],
+};
+
+export default withIsVisibleHook(GraphAlertsByDay, "GraphAlertsByDay");

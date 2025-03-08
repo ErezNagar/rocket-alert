@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import {
   getNow,
@@ -98,7 +99,12 @@ const GRAPH_CONFIG = {
 // The date from which the new, non-hardcoded graph data starts.
 const DYNAMIC_DATA_START_DATE = new Date(2025, 0, 14);
 
-const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
+const GraphAlertBySource = ({
+  alertData,
+  isLoading,
+  isError,
+  isIntersectingRef,
+}) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [graphType, setGraphType] = useState("Column");
@@ -232,7 +238,7 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   }, [data]);
 
   return (
-    <section className="graph">
+    <section ref={isIntersectingRef} className="graph">
       <Row justify={"center"}>
         <Col span={24}>
           <h2>Alerts by source since Oct 7</h2>
@@ -287,4 +293,15 @@ const GraphAlertBySource = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(GraphAlertBySource, "Graph_alerts_by_source");
+GraphAlertBySource.propTypes = {
+  alertData: PropTypes.array,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
+};
+GraphAlertBySource.defaultProps = {
+  alertData: [],
+};
+
+export default withIsVisibleHook(GraphAlertBySource, "GraphAlertBySource");

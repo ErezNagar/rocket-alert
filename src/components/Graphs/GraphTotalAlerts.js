@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
@@ -24,7 +25,12 @@ const config = {
   legend: false,
 };
 
-const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
+const GraphTotalAlerts = ({
+  alertData,
+  isLoading,
+  isError,
+  isIntersectingRef,
+}) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [annotations, setAnnotations] = useState([]);
@@ -78,7 +84,7 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   }
 
   return (
-    <section className="graph">
+    <section ref={isIntersectingRef} className="graph">
       <Row justify={"center"}>
         <Col span={24}>
           <h2>Total rocket and UAV alerts since Oct 7</h2>
@@ -114,4 +120,15 @@ const GraphTotalAlerts = ({ alertData, isLoading, isError }) => {
   );
 };
 
-export default withIsVisibleHook(GraphTotalAlerts, "Graph_total_alerts");
+GraphTotalAlerts.propTypes = {
+  alertData: PropTypes.array,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
+};
+GraphTotalAlerts.defaultProps = {
+  alertData: [],
+};
+
+export default withIsVisibleHook(GraphTotalAlerts, "GraphTotalAlerts");
