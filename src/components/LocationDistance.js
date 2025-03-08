@@ -1,12 +1,11 @@
 import { Row, Col } from "antd";
-import Util from "../util";
-import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import withIsVisibleHook from "./withIsVisibleHook";
 import beeriDistance from "../assets/beeri_distance.png";
 import nahalOzDistance from "../assets/nahal_oz_distance.png";
 import ashkelonDistance from "../assets/ashkelon_distance.png";
 import jerusalemDistance from "../assets/jerusalem_distance.png";
 import telAvivDistance from "../assets/tel_aviv_distance.png";
-import Tracking from "../tracking";
 
 const DesktopView = () => (
   <div className="desktop">
@@ -18,6 +17,7 @@ const DesktopView = () => (
     >
       <Col md={6}>
         <img
+          loading="lazy"
           src={nahalOzDistance}
           alt="Distance from Gaza strip to Nahal Oz"
           width="100%"
@@ -46,6 +46,7 @@ const DesktopView = () => (
       </Col>
       <Col md={6}>
         <img
+          loading="lazy"
           src={beeriDistance}
           alt="Distance from Gaza strip to Be'eri"
           width="100%"
@@ -60,6 +61,7 @@ const DesktopView = () => (
     >
       <Col md={6}>
         <img
+          loading="lazy"
           src={ashkelonDistance}
           alt="Distance from Gaza strip to Ashkelon"
           width="100%"
@@ -84,6 +86,7 @@ const DesktopView = () => (
       </Col>
       <Col md={6}>
         <img
+          loading="lazy"
           src={jerusalemDistance}
           alt="Distance from Gaza strip to Jerusalem"
           width="100%"
@@ -98,6 +101,7 @@ const DesktopView = () => (
     >
       <Col md={6}>
         <img
+          loading="lazy"
           src={telAvivDistance}
           alt="Distance from Gaza strip to Tel Aviv"
           width="100%"
@@ -126,6 +130,7 @@ const MobileView = () => (
         <h2>1.5km (0.9 miles) to Nahal Oz</h2>
         <p className="location-description">A small community of 500 people</p>
         <img
+          loading="lazy"
           src={nahalOzDistance}
           alt="Distance from Gaza strip to nahal Oz"
           width="100%"
@@ -147,6 +152,7 @@ const MobileView = () => (
         <h2>4 km (2.5 miles) to Be'eri</h2>
         <p className="location-description">A small community of 1100 people</p>
         <img
+          loading="lazy"
           src={beeriDistance}
           alt="Distance from Gaza strip to Be'eri"
           width="100%"
@@ -168,6 +174,7 @@ const MobileView = () => (
         <h2>13 km (8 miles) to Ashkelon</h2>
         <p className="location-description">Population of 160k</p>
         <img
+          loading="lazy"
           src={ashkelonDistance}
           alt="Distance from Gaza strip to Ashkelon"
           width="100%"
@@ -184,6 +191,7 @@ const MobileView = () => (
         <h2>70 km (44 miles) to Jerusalem</h2>
         <p className="location-description">Population of 980k (Metro: 1.3m)</p>
         <img
+          loading="lazy"
           src={jerusalemDistance}
           alt="Distance from Gaza strip to Jerusalem"
           width="100%"
@@ -203,6 +211,7 @@ const MobileView = () => (
         <h2>62 km (39 miles) to Tel Aviv</h2>
         <p className="location-description">Population of 470k (Metro: 4.2m)</p>
         <img
+          loading="lazy"
           src={telAvivDistance}
           alt="Distance from Gaza strip to Tel Aviv"
           width="100%"
@@ -217,28 +226,22 @@ const MobileView = () => (
   </div>
 );
 
-const LocationDistance = () => {
-  const ref = useRef();
-  const isVisible = Util.useIsVisible(ref);
+const LocationDistance = ({ isIntersectingRef }) => (
+  <section ref={isIntersectingRef} className="section location-distance">
+    <div className="title">
+      <h2>Terrorism is closer than you think</h2>
+    </div>
 
-  useEffect(() => {
-    if (isVisible) {
-      Tracking.visibleEvent("locationDistance");
-    }
-  }, [isVisible]);
+    <div className="content">
+      <DesktopView />
+      <MobileView />
+    </div>
+  </section>
+);
 
-  return (
-    <section ref={ref} className="section location-distance">
-      <div className="title">
-        <h2>Terrorism is closer than you think</h2>
-      </div>
-
-      <div className="content">
-        <DesktopView />
-        <MobileView />
-      </div>
-    </section>
-  );
+LocationDistance.propTypes = {
+  // For Tracking
+  isIntersectingRef: PropTypes.object.isRequired,
 };
 
-export default LocationDistance;
+export default withIsVisibleHook(LocationDistance, "LocationDistance");
