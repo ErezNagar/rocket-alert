@@ -13,6 +13,24 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
   const [mostTargetedRegions, setMostTargetedRegions] = useState(null);
 
   useEffect(() => {
+    const getMostTargetedLocations = () =>
+      alertsClient
+        .getMostTargetedLocations(new Date("2023-10-07"), getNow())
+        .then((res) => res.payload)
+        .catch((error) => {
+          Tracking.mostTargetedLocationsError(error);
+          return null;
+        });
+
+    const getMostTargetedRegions = () =>
+      alertsClient
+        .getMostTargetedRegions(new Date("2023-10-07"), getNow())
+        .then((res) => res.payload)
+        .catch((error) => {
+          Tracking.mostTargetedRegionError(error);
+          return null;
+        });
+
     getMostTargetedLocations().then((res) => {
       if (!res) {
         return;
@@ -26,25 +44,7 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
       }
       setMostTargetedRegions(res);
     });
-  }, []);
-
-  const getMostTargetedLocations = () =>
-    alertsClient
-      .getMostTargetedLocations(new Date("2023-10-07"), getNow())
-      .then((res) => res.payload)
-      .catch((error) => {
-        Tracking.mostTargetedLocationsError(error);
-        return null;
-      });
-
-  const getMostTargetedRegions = () =>
-    alertsClient
-      .getMostTargetedRegions(new Date("2023-10-07"), getNow())
-      .then((res) => res.payload)
-      .catch((error) => {
-        Tracking.mostTargetedRegionError(error);
-        return null;
-      });
+  }, [alertsClient]);
 
   return (
     <section className="current-operation">
