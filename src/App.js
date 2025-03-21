@@ -33,8 +33,10 @@ class App extends React.Component {
     isLastAlertOfBatch: false,
     // The alert boject
     realTimeAlert: null,
-    // Most recent alerts
+    // Most recent alerts (since the last history sync)
     mostRecentAlerts: [],
+    // Real-time alerts that have been triggred since the last history sync
+    realTimeAlertCache: { alerts: [], count: 0 },
     // Text when sharing on twitter. Generated in Header
     twitterShareText: "",
     // The location to focus on on the map
@@ -87,6 +89,7 @@ class App extends React.Component {
             .concat(realTimeAlertCache.alerts)
             .slice(-Util.MAX_RECENT_ALERTS)
             .reverse(),
+          realTimeAlertCache,
         });
       })
       .catch((error) => {
@@ -190,6 +193,7 @@ class App extends React.Component {
           alertClient={AlertClient}
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
+          realTimeAlertCache={this.state.realTimeAlertCache}
           isLastAlertOfBatch={this.state.isLastAlertOfBatch}
           onTwitterShareText={this.handleOnTwitterShareText}
         />

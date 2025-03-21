@@ -121,16 +121,15 @@ class Header extends React.Component {
       ),
       alertClient.getTotalAlerts(pastWeek, now),
       alertClient.getTotalAlerts(pastMonth, now),
-      alertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
         const todayAlertCount = values[0].success ? values[0].payload : 0;
         const yesterdayAlertCount = values[1].success ? values[1].payload : 0;
         const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
         const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
-        const realTimeAlertCacheCount = values[4] ? values[4] : [];
+
         this.setAlertSummary(
-          todayAlertCount + realTimeAlertCacheCount.count,
+          todayAlertCount + this.props.realTimeAlertCache.count,
           yesterdayAlertCount,
           pastWeekAlertCount,
           pastMonthAlertCount
@@ -356,6 +355,7 @@ Header.propTypes = {
   alertClient: PropTypes.object.isRequired,
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
+  realTimeAlertCache: PropTypes.object.isRequired,
   onTwitterShareText: PropTypes.func.isRequired,
   isLastAlertOfBatch: PropTypes.bool.isRequired,
 };
