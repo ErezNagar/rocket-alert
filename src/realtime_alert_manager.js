@@ -28,6 +28,14 @@ const RealTimeAlertManager = {
       if (data.alerts[0].name === "KEEP_ALIVE") {
         return;
       }
+      const alertData = data.alerts.filter(
+        (alert) =>
+          alert.alertTypeId === Util.ALERT_TYPE_ROCKETS ||
+          alert.alertTypeId === Util.ALERT_TYPE_UAV
+      );
+      if (alertData.length === 0) {
+        return;
+      }
       if (RealTimeAlertManager.alertQueue.length === MAX_QUEUE_SIZE) {
         RealTimeAlertManager.alertQueue.shift();
       }
