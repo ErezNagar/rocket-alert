@@ -1,5 +1,10 @@
 import queryString from "query-string";
 import { useEffect, useState } from "react";
+import {
+  isIranianMissileAttackTimeFrame,
+  isYemenMissileAttackTimeFrame,
+  isConfirmedFalseAlert,
+} from "./date_helper";
 
 /*
  * The duration in milliseconds of the css transition for real-time alert
@@ -199,6 +204,46 @@ const buildxAxisLabel = () => {
   return xAxisLabel;
 };
 
+/*
+  Gets a list of alerts and determines the origin of each alert, based
+  on the timestamp and the region of the alert.
+*/
+const determineAlertOrigin = (alerts) => {
+  let originSouthCount = 0;
+  let originNorthCount = 0;
+  let originIranCount = 0;
+  let originYemenCount = 0;
+
+  alerts.forEach((alert) => {
+    if (isConfirmedFalseAlert(alert.timeStamp)) {
+      return;
+    } else if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
+      originIranCount += 1;
+    } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
+      originYemenCount += 1;
+    }
+    /*
+      As of March 22, 2025, Hezbollah still fires rockets and so
+      we can't just assume all alerts are from Hamas/Southv
+    */
+    // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
+    //   originSouthCount += 1;
+    // }
+    else if (Util.isRegionInSouth(alert.areaNameEn)) {
+      originSouthCount += 1;
+    } else if (Util.isRegionInNorth(alert.areaNameEn)) {
+      originNorthCount += 1;
+    }
+  });
+
+  return {
+    originSouthCount,
+    originNorthCount,
+    originIranCount,
+    originYemenCount,
+  };
+};
+
 const Util = {
   isDev: () => process.env.NODE_ENV === "development",
   isAlertModeQueryString,
@@ -211,6 +256,7 @@ const Util = {
   isMediumViewport,
   getAlertTypeText,
   buildxAxisLabel,
+  determineAlertOrigin,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
   MAX_RECENT_ALERTS,

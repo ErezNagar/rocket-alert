@@ -2,14 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import { eachDayOfInterval, isSameDay } from "date-fns";
-import {
-  getYesterday,
-  dayOfMonthFormat,
-  isIranianMissileAttackTimeFrame,
-  isYemenMissileAttackTimeFrame,
-  isAfterCeaseFireInTheNorth,
-  isConfirmedFalseAlert,
-} from "../../date_helper";
+import { getYesterday, dayOfMonthFormat } from "../../date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../../tracking";
 import withIsVisibleHook from "./../withIsVisibleHook";
@@ -167,54 +160,31 @@ const GraphAlertsByDay = ({
 
         // If date has alerts, go over the alerts and categorize them by source
         if (isDateWithAlerts(date, alertData[alertDataIdx])) {
-          let originSouthCount = 0;
-          let originNorthCount = 0;
-          let originIranCount = 0;
-          let originYemenCount = 0;
-
-          alertData[alertDataIdx].alerts.forEach((alert) => {
-            if (isConfirmedFalseAlert(alert.timeStamp)) {
-              return;
-            } else if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
-              originIranCount += 1;
-            } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
-              originYemenCount += 1;
-            }
-            /*
-              As of March 22, 2025, Hezbollah still fires rockets and so
-              we can't just assume all alerts are from Hamas/Southv
-            */
-            // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
-            //   originSouthCount += 1;
-            // }
-            else if (Util.isRegionInSouth(alert.areaNameEn)) {
-              originSouthCount += 1;
-            } else if (Util.isRegionInNorth(alert.areaNameEn)) {
-              originNorthCount += 1;
-            }
-          });
+          const alertOrigin = Util.determineAlertOrigin(
+            alertData[alertDataIdx].alerts
+          );
 
           data[year][monthName].push({
             day: dayOfMonthFormat(date),
-            alerts: originSouthCount,
+            alerts: alertOrigin.originSouthCount,
             origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
           });
           data[year][monthName].push({
             day: dayOfMonthFormat(date),
-            alerts: originNorthCount,
+            alerts: alertOrigin.originNorthCount,
             origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
           });
-          if (originIranCount) {
+          if (alertOrigin.originIranCount) {
             data[year][monthName].push({
               day: dayOfMonthFormat(date),
-              alerts: originIranCount,
+              alerts: alertOrigin.originIranCount,
               origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
             });
           }
-          if (originYemenCount) {
+          if (alertOrigin.originYemenCount) {
             data[year][monthName].push({
               day: dayOfMonthFormat(date),
-              alerts: originYemenCount,
+              alerts: alertOrigin.originYemenCount,
               origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
             });
           }

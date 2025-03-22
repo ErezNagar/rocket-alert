@@ -5,10 +5,6 @@ import {
   getNow,
   is3WeeksDifference,
   weekRangeWithYearFormat,
-  isIranianMissileAttackTimeFrame,
-  isYemenMissileAttackTimeFrame,
-  isAfterCeaseFireInTheNorth,
-  isConfirmedFalseAlert,
 } from "../../date_helper";
 import { isBefore } from "date-fns";
 import { Column, Bar } from "@ant-design/plots";
@@ -159,36 +155,11 @@ const GraphAlertBySource = ({
         originYemenCount = 0;
       }
 
-      let originSouth = 0;
-      let originNorth = 0;
-      let originIran = 0;
-      let originYemen = 0;
-      alerts.forEach((alert) => {
-        if (isConfirmedFalseAlert(alert.timeStamp)) {
-          return;
-        } else if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
-          originIran += 1;
-        } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
-          originYemen += 1;
-        }
-        /*
-          As of March 22, 2025, Hezbollah still fires rockets and so
-          we can't just assume all alerts are from Hamas/Southv
-        */
-        // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
-        //   originSouth += 1;
-        // }
-        else if (Util.isRegionInSouth(alert.areaNameEn)) {
-          originSouth += 1;
-        } else if (Util.isRegionInNorth(alert.areaNameEn)) {
-          originNorth += 1;
-        }
-      });
-
-      originSouthCount += originSouth;
-      originNorthCount += originNorth;
-      originIranCount += originIran;
-      originYemenCount += originYemen;
+      const alertOrigin = Util.determineAlertOrigin(alerts);
+      originSouthCount += alertOrigin.originSouthCount;
+      originNorthCount += alertOrigin.originNorthCount;
+      originIranCount += alertOrigin.originIranCount;
+      originYemenCount += alertOrigin.originYemenCount;
     });
 
     const weekFormat = weekRangeWithYearFormat(currentDate, getNow());
