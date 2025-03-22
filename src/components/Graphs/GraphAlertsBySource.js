@@ -170,9 +170,15 @@ const GraphAlertBySource = ({
           originIran += 1;
         } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
           originYemen += 1;
-        } else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
-          originSouth += 1;
-        } else if (Util.isRegionInSouth(alert.areaNameEn)) {
+        }
+        /*
+          As of March 22, 2025, Hezbollah still fires rockets and so
+          we can't just assume all alerts are from Hamas/Southv
+        */
+        // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
+        //   originSouth += 1;
+        // }
+        else if (Util.isRegionInSouth(alert.areaNameEn)) {
           originSouth += 1;
         } else if (Util.isRegionInNorth(alert.areaNameEn)) {
           originNorth += 1;
