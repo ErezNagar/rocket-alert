@@ -64,6 +64,24 @@ export const weekRangeWithYearFormat = (fromDate, toDate) =>
     subDays(toDate, 1)
   )}`;
 
+export const getNow = () => new Date();
+
+export const getStartOfToday = () => startOfToday();
+
+export const getStartOfYesterday = () => startOfYesterday();
+
+export const getEndOfYesterday = () => endOfYesterday();
+
+export const get24HoursAgo = () => subDays(new Date(), 1);
+
+export const getYesterday = () => subDays(new Date(), 1);
+
+export const getPastWeek = () => subWeeks(new Date(), 1);
+
+export const getPastMonth = () => subMonths(new Date(), 1);
+
+export const getPastYear = () => subYears(new Date(), 1);
+
 export const isIranianMissileAttackTimeFrame = (date) => {
   const theDate = new Date(date);
   // Rounded to the nearest minute
@@ -140,21 +158,3 @@ export const isConfirmedFalseAlert = (date) => {
     ).length !== 0
   );
 };
-
-export const getNow = () => new Date();
-
-export const getStartOfToday = () => startOfToday();
-
-export const getStartOfYesterday = () => startOfYesterday();
-
-export const getEndOfYesterday = () => endOfYesterday();
-
-export const get24HoursAgo = () => subDays(new Date(), 1);
-
-export const getYesterday = () => subDays(new Date(), 1);
-
-export const getPastWeek = () => subWeeks(new Date(), 1);
-
-export const getPastMonth = () => subMonths(new Date(), 1);
-
-export const getPastYear = () => subYears(new Date(), 1);
