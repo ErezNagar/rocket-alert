@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b5cd6fb4.css",
-    "main.js": "/static/js/main.008646f8.js",
+    "main.js": "/static/js/main.66c1b822.js",
     "static/js/686.06848f76.chunk.js": "/static/js/686.06848f76.chunk.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/jerusalem_distance.png": "/static/media/jerusalem_distance.bac81e957ebb29a6fb29.png",
@@ -9,7 +9,7 @@
     "static/media/ashkelon_distance.png": "/static/media/ashkelon_distance.f33641699a8f546c1da2.png",
     "static/media/nahal_oz_distance.png": "/static/media/nahal_oz_distance.406834af914f18c2a386.png",
     "static/media/beeri_distance.png": "/static/media/beeri_distance.9d2802bef9fed5318644.png",
-    "static/media/coffeecup.svg": "/static/media/coffeecup.5bed4f0bb8b513f4ac30e7ad12602cbe.svg",
+    "static/media/coffeecup.svg": "/static/media/coffeecup.2749e5d777448d4b2f3dce41467e93de.svg",
     "static/media/logo.svg": "/static/media/logo.517fc583554a578e37192f200c94b94d.svg",
     "static/media/instagram.svg": "/static/media/instagram.9174aeda0481ff5d558bad8b574b5ae6.svg",
     "index.html": "/index.html",
@@ -21,6 +21,6 @@
   },
   "entrypoints": [
     "static/css/main.b5cd6fb4.css",
-    "static/js/main.008646f8.js"
+    "static/js/main.66c1b822.js"
   ]
 }
