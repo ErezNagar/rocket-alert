@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import logo from "../assets/logo.svg";
@@ -80,30 +80,25 @@ AlertModeHeaderContent.defaultProps = {
   alert: {},
 };
 
-class Header extends React.Component {
-  state = {
-    alerts: {},
+const Header = (props) => {
+  const [headerText, setHeaderText] = useState({
     alertSummaryCount: 0,
     alertSummaryTitle: "",
     alertSummaryText: "",
-    twitterShareText: "",
-    isLoading: true,
-    isError: false,
-    shouldRefresh: false,
-    isAudioOn: false,
-    alarm: null,
-  };
-
-  componentDidMount() {
-    this.getHeaderData();
-  }
+  });
+  const [twitterShareText, setTwitterShareText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+  const [isAudioOn, setIsAudioOn] = useState(false);
+  const [alarm, setAlarm] = useState(null);
 
   /*
    * Queries the server to get alert data for the header alert summary.
      Fetches today's, yesterday's, past week's and past month's data, in local time.
    */
-  getHeaderData() {
-    const alertClient = this.props.alertClient;
+  const getHeaderData = () => {
+    const alertClient = props.alertClient;
     const now = getNow();
 
     const startOfToday = getStartOfToday();
@@ -128,8 +123,8 @@ class Header extends React.Component {
         const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
         const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
 
-        this.setAlertSummary(
-          todayAlertCount + this.props.realTimeAlertCache.count,
+        setAlertSummary(
+          todayAlertCount + props.realTimeAlertCache.count,
           yesterdayAlertCount,
           pastWeekAlertCount,
           pastMonthAlertCount
@@ -138,14 +133,15 @@ class Header extends React.Component {
       .catch((error) => {
         Tracking.headerDataError(error);
         console.error(error);
-        this.setState({ isError: true, isLoading: false });
+        setIsError(true);
+        setIsLoading(false);
       });
-  }
+  };
 
   /* Sets red alert summary text in a simple, human readable form.
    * Prioritizes recent alerts over old ones.
    */
-  setAlertSummary = async (
+  const setAlertSummary = async (
     todayAlertCount,
     yesterdayAlertCount,
     pastWeekAlertCount,
@@ -210,7 +206,7 @@ class Header extends React.Component {
       alertSummaryCount = pastMonthAlertCount;
       alertSummaryTitle = `Red alerts in the last month`;
     } else {
-      await this.props.alertClient
+      await props.alertClient
         .getMostRecentAlert()
         .then((res) => {
           if (res.success) {
@@ -233,123 +229,115 @@ class Header extends React.Component {
     }
 
     const twitterShareText = `Red Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
-    this.setState({
-      alertSummaryCount,
-      alertSummaryTitle,
-      alertSummaryText,
-      twitterShareText,
-      isLoading: false,
-    });
-    this.props.onTwitterShareText(twitterShareText);
+    setHeaderText({ alertSummaryCount, alertSummaryTitle, alertSummaryText });
+    setTwitterShareText(twitterShareText);
+    setIsLoading(false);
+    props.onTwitterShareText(twitterShareText);
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.realTimeAlert !== prevProps.realTimeAlert) {
-      this.refreshAlert(this.props.realTimeAlert);
-      if (this.props.isLastAlertOfBatch) {
-        this.updateCurrentAlertCount();
-      }
-    }
-  }
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    getHeaderData();
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
-  refreshAlert = () => {
-    this.setState({
-      shouldRefresh: true,
-    });
-    if (this.state.isAudioOn && this.state.alarm && this.state.alarm.paused) {
-      this.state.alarm.play();
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    refreshAlert(props.realTimeAlert);
+    if (props.isLastAlertOfBatch) {
+      setHeaderText({
+        ...headerText,
+        alertSummaryCount: headerText.alertSummaryCount + 1,
+      });
+    }
+  }, [props.realTimeAlert]);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  const refreshAlert = () => {
+    setShouldRefresh(true);
+    if (isAudioOn && alarm && alarm.paused) {
+      alarm.play();
       Tracking.alarmPlayedEvent();
     }
     setTimeout(() => {
-      this.setState({ shouldRefresh: false });
+      setShouldRefresh(false);
     }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
   };
 
-  updateCurrentAlertCount = () => {
-    this.setState({ alertSummaryCount: this.state.alertSummaryCount + 1 });
-  };
-
-  handleOnAudioChange = (isAudioOn) => {
+  const handleOnAudioChange = (isAudioOn) => {
     Tracking.alarmAudioClick(isAudioOn);
-    this.setState({ isAudioOn }, () => {
+    setIsAudioOn(isAudioOn, () => {
       if (isAudioOn) {
-        if (!this.state.alarm) {
+        if (!alarm) {
           const alarm = new Audio(alarmAudio);
           alarm.addEventListener("canplaythrough", (event) => {
-            this.setState({ alarm });
+            setAlarm(alarm);
           });
         }
       }
     });
   };
 
-  render() {
-    return (
-      <header
-        className={this.props.isAlertMode ? "header alert-mode" : "header"}
-      >
-        <div className="header-top">
-          <img className="logo" src={logo} alt="" />
-          <h2>Real-time red alerts in Israel</h2>
-        </div>
-        <div className="header-content">
-          {!this.state.isError && this.props.isAlertMode && (
-            <AlertModeHeaderContent
-              shouldRefresh={this.state.shouldRefresh}
-              alert={this.props.realTimeAlert}
-              todayAlertCount={this.state.todayAlertCount}
+  return (
+    <header className={props.isAlertMode ? "header alert-mode" : "header"}>
+      <div className="header-top">
+        <img className="logo" src={logo} alt="" />
+        <h2>Real-time red alerts in Israel</h2>
+      </div>
+      <div className="header-content">
+        {!isError && props.isAlertMode && (
+          <AlertModeHeaderContent
+            shouldRefresh={shouldRefresh}
+            alert={props.realTimeAlert}
+          />
+        )}
+        {!isError && !props.isAlertMode && (
+          <HeaderContent
+            alertSummaryTitle={headerText.alertSummaryTitle}
+            alertSummaryText={headerText.alertSummaryText}
+            alertSummaryCount={headerText.alertSummaryCount}
+            isLoading={isLoading}
+          />
+        )}
+        {isError && <h3 className="error">Data currently unavailable</h3>}
+      </div>
+      <div className="header-bottom">
+        <Row gutter={[24, 24]} align="middle">
+          <Col span={2}>
+            <AudioControls
+              onAudioChange={handleOnAudioChange}
+              isAudioOn={isAudioOn}
             />
-          )}
-          {!this.state.isError && !this.props.isAlertMode && (
-            <HeaderContent
-              alertSummaryTitle={this.state.alertSummaryTitle}
-              alertSummaryText={this.state.alertSummaryText}
-              alertSummaryCount={this.state.alertSummaryCount}
-              isLoading={this.state.isLoading}
-            />
-          )}
-          {this.state.isError && (
-            <h3 className="error">Data currently unavailable</h3>
-          )}
-        </div>
-        <div className="header-bottom">
-          <Row gutter={[24, 24]} align="middle">
-            <Col span={2}>
-              <AudioControls
-                onAudioChange={this.handleOnAudioChange}
-                isAudioOn={this.state.isAudioOn}
-              />
-            </Col>
-            <Col span={20}>
-              <Row>
-                <Col span={24}>
-                  <a
-                    href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={Tracking.shareHeaderClick}
-                  >
-                    <TwitterLogo style={{ height: "36px" }} />
-                  </a>
-                </Col>
-                <Col span={24}>
-                  <a
-                    href={`https://twitter.com/share?text=${this.state.twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={Tracking.shareHeaderClick}
-                  >
-                    Share
-                  </a>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </div>
-      </header>
-    );
-  }
-}
+          </Col>
+          <Col span={20}>
+            <Row>
+              <Col span={24}>
+                <a
+                  href={`https://twitter.com/share?text=${twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={Tracking.shareHeaderClick}
+                >
+                  <TwitterLogo style={{ height: "36px" }} />
+                </a>
+              </Col>
+              <Col span={24}>
+                <a
+                  href={`https://twitter.com/share?text=${twitterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={Tracking.shareHeaderClick}
+                >
+                  Share
+                </a>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
+    </header>
+  );
+};
 
 Header.propTypes = {
   alertClient: PropTypes.object.isRequired,
