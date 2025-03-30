@@ -138,10 +138,16 @@ const Header = (props) => {
       });
   };
 
+  const getAlertSummaryText = (timePeriodText, alertCount) =>
+    `${timePeriodText}, there were ${alertCount} red alerts`;
+
+  const appendAlertSummaryText = (timePeriodText, alertCount) =>
+    `,\nand a total of ${alertCount} ${timePeriodText}`;
+
   /* Sets red alert summary text in a simple, human readable form.
    * Prioritizes recent alerts over old ones.
    */
-  const setAlertSummary = async (
+  const setAlertSummary = (
     todayAlertCount,
     yesterdayAlertCount,
     pastWeekAlertCount,
@@ -156,25 +162,43 @@ const Header = (props) => {
       alertSummaryTitle = `Red alerts today`;
 
       if (yesterdayAlertCount > 0) {
-        alertSummaryText = `Yesterday, there were ${yesterdayAlertCount} red alerts`;
+        alertSummaryText = getAlertSummaryText(
+          "Yesterday",
+          yesterdayAlertCount
+        );
         if (
           pastWeekAlertCount > 0 &&
           yesterdayAlertCount !== pastWeekAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${pastWeekAlertCount} in the past week`;
+          alertSummaryText += appendAlertSummaryText(
+            "in the past week",
+            pastWeekAlertCount
+          );
         } else if (
           pastMonthAlertCount > 0 &&
           pastWeekAlertCount !== pastMonthAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
+          alertSummaryText += appendAlertSummaryText(
+            "in the past month",
+            pastMonthAlertCount
+          );
         }
       } else if (pastWeekAlertCount > 0) {
-        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} red alerts`;
+        alertSummaryText = getAlertSummaryText(
+          "In the past week",
+          pastWeekAlertCount
+        );
         if (pastMonthAlertCount > 0) {
-          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
+          alertSummaryText += appendAlertSummaryText(
+            "in the past month",
+            pastMonthAlertCount
+          );
         }
       } else if (pastMonthAlertCount > 0) {
-        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} red alerts`;
+        alertSummaryText = getAlertSummaryText(
+          "In the past month",
+          pastMonthAlertCount
+        );
       }
     } else if (yesterdayAlertCount > 0) {
       alertSummaryCount = yesterdayAlertCount;
@@ -183,15 +207,24 @@ const Header = (props) => {
         pastWeekAlertCount > 0 &&
         pastWeekAlertCount !== yesterdayAlertCount
       ) {
-        alertSummaryText = `In the past week, there were ${pastWeekAlertCount} red alerts`;
+        alertSummaryText = getAlertSummaryText(
+          "In the past week",
+          pastWeekAlertCount
+        );
         if (
           pastMonthAlertCount > 0 &&
           pastWeekAlertCount !== pastMonthAlertCount
         ) {
-          alertSummaryText += `,\nand a total of ${pastMonthAlertCount} in the past month`;
+          alertSummaryText += appendAlertSummaryText(
+            "in the past month",
+            pastMonthAlertCount
+          );
         }
       } else if (pastMonthAlertCount > 0) {
-        alertSummaryText = `In the past month, there were ${pastMonthAlertCount} red alerts`;
+        alertSummaryText = getAlertSummaryText(
+          "In the past month",
+          pastMonthAlertCount
+        );
       }
     } else if (pastWeekAlertCount > 0) {
       alertSummaryCount = pastWeekAlertCount;
@@ -200,13 +233,16 @@ const Header = (props) => {
         pastMonthAlertCount > 0 &&
         pastMonthAlertCount !== pastWeekAlertCount
       ) {
-        alertSummaryText += `In the past month, there were ${pastMonthAlertCount} red alerts`;
+        alertSummaryText += getAlertSummaryText(
+          "In the past month",
+          pastMonthAlertCount
+        );
       }
     } else if (pastMonthAlertCount > 0) {
       alertSummaryCount = pastMonthAlertCount;
       alertSummaryTitle = `Red alerts in the last month`;
     } else {
-      await props.alertClient
+      props.alertClient
         .getMostRecentAlert()
         .then((res) => {
           if (res.success) {
