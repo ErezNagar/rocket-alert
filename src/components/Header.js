@@ -78,7 +78,7 @@ const Header = ({
   isAlertMode,
   realTimeAlert,
   isLastAlertOfBatch,
-  onTwitterShareText,
+  setTwitterShareText,
   todayAlertCount,
   yesterdayAlertCount,
   pastWeekAlertCount,
@@ -229,7 +229,7 @@ const Header = ({
     const twitterShareText = `Red Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
     setHeaderText({ alertSummaryCount, alertSummaryTitle, alertSummaryText });
     setTwitterShareText(twitterShareText);
-    onTwitterShareText(twitterShareText);
+    setTwitterShareText(twitterShareText);
   };
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -349,7 +349,7 @@ const Header = ({
 Header.propTypes = {
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
-  onTwitterShareText: PropTypes.func,
+  setTwitterShareText: PropTypes.func,
   isLastAlertOfBatch: PropTypes.bool,
   todayAlertCount: PropTypes.number.isRequired,
   yesterdayAlertCount: PropTypes.number.isRequired,
@@ -362,7 +362,7 @@ Header.propTypes = {
 Header.defaultProps = {
   isAlertMode: false,
   realTimeAlert: {},
-  onTwitterShareText: () => {},
+  setTwitterShareText: () => {},
   isLastAlertOfBatch: false,
   isError: false,
   isLoading: false,

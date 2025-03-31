@@ -74,7 +74,7 @@ const HeaderContainer = (props) => {
       isAlertMode={props.isAlertMode}
       realTimeAlert={props.realTimeAlert}
       isLastAlertOfBatch={props.isLastAlertOfBatch}
-      onTwitterShareText={props.onTwitterShareText}
+      setTwitterShareText={props.setTwitterShareText}
       todayAlertCount={todayAlertCount}
       yesterdayAlertCount={yesterdayAlertCount}
       pastWeekAlertCount={pastWeekAlertCount}
@@ -90,7 +90,7 @@ HeaderContainer.propTypes = {
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
   realTimeAlertCache: PropTypes.object.isRequired,
-  onTwitterShareText: PropTypes.func.isRequired,
+  setTwitterShareText: PropTypes.func.isRequired,
   isLastAlertOfBatch: PropTypes.bool.isRequired,
 };
 
