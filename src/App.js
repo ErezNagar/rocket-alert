@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Header from "./components/Header";
+import HeaderContainer from "./components/HeaderContainer";
 import StickyHeader from "./components/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
@@ -189,7 +189,7 @@ class App extends React.Component {
             : "pageContainer"
         }
       >
-        <Header
+        <HeaderContainer
           alertClient={AlertClient}
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}

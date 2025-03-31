@@ -4,14 +4,6 @@ import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import logo from "../assets/logo.svg";
 import alarmAudio from "../assets/alarm.mp3";
 import { Row, Col } from "antd";
-import {
-  getNow,
-  getStartOfToday,
-  getStartOfYesterday,
-  getEndOfYesterday,
-  getPastWeek,
-  getPastMonth,
-} from "../date_helper";
 import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import AudioControls from "./AudioControls";
@@ -20,6 +12,8 @@ import { LoadingOutlined } from "@ant-design/icons";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
 import Tracking from "../tracking";
+import { getNow } from "../date_helper";
+import AlertClient from "../rocket_alert_client";
 
 const HeaderContent = ({
   alertSummaryTitle,
@@ -80,63 +74,27 @@ AlertModeHeaderContent.defaultProps = {
   alert: {},
 };
 
-const Header = (props) => {
+const Header = ({
+  isAlertMode,
+  realTimeAlert,
+  isLastAlertOfBatch,
+  onTwitterShareText,
+  todayAlertCount,
+  yesterdayAlertCount,
+  pastWeekAlertCount,
+  pastMonthAlertCount,
+  isLoading,
+  isError,
+}) => {
   const [headerText, setHeaderText] = useState({
     alertSummaryCount: 0,
     alertSummaryTitle: "",
     alertSummaryText: "",
   });
   const [twitterShareText, setTwitterShareText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [isAudioOn, setIsAudioOn] = useState(false);
   const [alarm, setAlarm] = useState(null);
-
-  /*
-   * Queries the server to get alert data for the header alert summary.
-     Fetches today's, yesterday's, past week's and past month's data, in local time.
-   */
-  const getHeaderData = () => {
-    const alertClient = props.alertClient;
-    const now = getNow();
-
-    const startOfToday = getStartOfToday();
-    const startOfYesterday = getStartOfYesterday();
-    const endOfYesterday = getEndOfYesterday();
-    const pastWeek = getPastWeek();
-    const pastMonth = getPastMonth();
-
-    Promise.all([
-      alertClient.getTotalAlerts(startOfToday, now),
-      alertClient.getTotalAlerts(
-        startOfYesterday,
-        endOfYesterday,
-        Util.ALERT_TYPE_ALL
-      ),
-      alertClient.getTotalAlerts(pastWeek, now),
-      alertClient.getTotalAlerts(pastMonth, now),
-    ])
-      .then((values) => {
-        const todayAlertCount = values[0].success ? values[0].payload : 0;
-        const yesterdayAlertCount = values[1].success ? values[1].payload : 0;
-        const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
-        const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
-
-        setAlertSummary(
-          todayAlertCount + props.realTimeAlertCache.count,
-          yesterdayAlertCount,
-          pastWeekAlertCount,
-          pastMonthAlertCount
-        );
-      })
-      .catch((error) => {
-        Tracking.headerDataError(error);
-        console.error(error);
-        setIsError(true);
-        setIsLoading(false);
-      });
-  };
 
   const getAlertSummaryText = (timePeriodText, alertCount) =>
     `${timePeriodText}, there were ${alertCount} red alerts`;
@@ -242,8 +200,7 @@ const Header = (props) => {
       alertSummaryCount = pastMonthAlertCount;
       alertSummaryTitle = `Red alerts in the last month`;
     } else {
-      props.alertClient
-        .getMostRecentAlert()
+      AlertClient.getMostRecentAlert()
         .then((res) => {
           if (res.success) {
             const monthsAgo = differenceInMonths(
@@ -257,6 +214,11 @@ const Header = (props) => {
               alertSummaryTitle = `Last red alert was ${monthsAgo} months ago`;
             }
           }
+          setHeaderText({
+            alertSummaryCount,
+            alertSummaryTitle,
+            alertSummaryText,
+          });
         })
         .catch((err) => {
           Tracking.mostRecentAlertError(err);
@@ -267,26 +229,35 @@ const Header = (props) => {
     const twitterShareText = `Red Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
     setHeaderText({ alertSummaryCount, alertSummaryTitle, alertSummaryText });
     setTwitterShareText(twitterShareText);
-    setIsLoading(false);
-    props.onTwitterShareText(twitterShareText);
+    onTwitterShareText(twitterShareText);
   };
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    getHeaderData();
-  }, []);
+    setAlertSummary(
+      todayAlertCount,
+      yesterdayAlertCount,
+      pastWeekAlertCount,
+      pastMonthAlertCount
+    );
+  }, [
+    todayAlertCount,
+    yesterdayAlertCount,
+    pastWeekAlertCount,
+    pastMonthAlertCount,
+  ]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    refreshAlert(props.realTimeAlert);
-    if (props.isLastAlertOfBatch) {
+    refreshAlert(realTimeAlert);
+    if (isLastAlertOfBatch) {
       setHeaderText({
         ...headerText,
         alertSummaryCount: headerText.alertSummaryCount + 1,
       });
     }
-  }, [props.realTimeAlert]);
+  }, [realTimeAlert]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   const refreshAlert = () => {
@@ -315,19 +286,19 @@ const Header = (props) => {
   };
 
   return (
-    <header className={props.isAlertMode ? "header alert-mode" : "header"}>
+    <header className={isAlertMode ? "header alert-mode" : "header"}>
       <div className="header-top">
         <img className="logo" src={logo} alt="" />
         <h2>Real-time red alerts in Israel</h2>
       </div>
       <div className="header-content">
-        {!isError && props.isAlertMode && (
+        {!isError && isAlertMode && (
           <AlertModeHeaderContent
             shouldRefresh={shouldRefresh}
-            alert={props.realTimeAlert}
+            alert={realTimeAlert}
           />
         )}
-        {!isError && !props.isAlertMode && (
+        {!isError && !isAlertMode && (
           <HeaderContent
             alertSummaryTitle={headerText.alertSummaryTitle}
             alertSummaryText={headerText.alertSummaryText}
@@ -376,17 +347,25 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  alertClient: PropTypes.object.isRequired,
   isAlertMode: PropTypes.bool,
   realTimeAlert: PropTypes.object,
-  realTimeAlertCache: PropTypes.object.isRequired,
-  onTwitterShareText: PropTypes.func.isRequired,
-  isLastAlertOfBatch: PropTypes.bool.isRequired,
+  onTwitterShareText: PropTypes.func,
+  isLastAlertOfBatch: PropTypes.bool,
+  todayAlertCount: PropTypes.number.isRequired,
+  yesterdayAlertCount: PropTypes.number.isRequired,
+  pastWeekAlertCount: PropTypes.number.isRequired,
+  pastMonthAlertCount: PropTypes.number.isRequired,
+  isError: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
 
 Header.defaultProps = {
   isAlertMode: false,
   realTimeAlert: {},
+  onTwitterShareText: () => {},
+  isLastAlertOfBatch: false,
+  isError: false,
+  isLoading: false,
 };
 
 export default Header;
