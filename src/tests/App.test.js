@@ -84,7 +84,6 @@ describe("AlertClient", () => {
       expect.assertions(1);
       await AlertClient.getTotalAlerts(DATE_RANGE.from, DATE_RANGE.to).then(
         (res) => {
-          console.log("res:", res);
           expect(res).toMatchObject({
             success: true,
             error: null,
