@@ -174,7 +174,7 @@ class App extends React.Component {
     });
   };
 
-  handleSetTwitterShareText = (twitterShareText) => {
+  handleOnTwitterShareText = (twitterShareText) => {
     this.setState({ twitterShareText });
   };
 
@@ -195,7 +195,7 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
           realTimeAlertCache={this.state.realTimeAlertCache}
           isLastAlertOfBatch={this.state.isLastAlertOfBatch}
-          setTwitterShareText={this.handleSetTwitterShareText}
+          onTwitterShareText={this.handleOnTwitterShareText}
         />
         <StickyHeader
           showStickyHeader={this.state.showStickyHeader}
