@@ -4,7 +4,6 @@ import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
 import logo from "../assets/logo.svg";
 import alarmAudio from "../assets/alarm.mp3";
 import { Row, Col } from "antd";
-import { differenceInMonths } from "date-fns";
 import FadeIn from "./FadeIn";
 import AudioControls from "./AudioControls";
 import { Statistic, Spin } from "antd";
@@ -12,8 +11,6 @@ import { LoadingOutlined } from "@ant-design/icons";
 import FadeInOut from "./FadeInOut";
 import Util from "../util";
 import Tracking from "../tracking";
-import { getNow } from "../date_helper";
-import AlertClient from "../rocket_alert_client";
 
 const HeaderContent = ({
   alertSummaryTitle,
@@ -83,6 +80,7 @@ const Header = ({
   yesterdayAlertCount,
   pastWeekAlertCount,
   pastMonthAlertCount,
+  mostRcentAlertAge,
   isLoading,
   isError,
 }) => {
@@ -109,7 +107,8 @@ const Header = ({
     todayAlertCount,
     yesterdayAlertCount,
     pastWeekAlertCount,
-    pastMonthAlertCount
+    pastMonthAlertCount,
+    mostRcentAlertAge
   ) => {
     let alertSummaryTitle = "";
     let alertSummaryText = "";
@@ -200,30 +199,17 @@ const Header = ({
       alertSummaryCount = pastMonthAlertCount;
       alertSummaryTitle = `Red alerts in the last month`;
     } else {
-      AlertClient.getMostRecentAlert()
-        .then((res) => {
-          if (res.success) {
-            const monthsAgo = differenceInMonths(
-              getNow(),
-              new Date(res.payload.date)
-            );
-            if (monthsAgo <= 1) {
-              alertSummaryTitle = `Last red alert was a month ago`;
-            }
-            if (monthsAgo > 1) {
-              alertSummaryTitle = `Last red alert was ${monthsAgo} months ago`;
-            }
-          }
-          setHeaderText({
-            alertSummaryCount,
-            alertSummaryTitle,
-            alertSummaryText,
-          });
-        })
-        .catch((err) => {
-          Tracking.mostRecentAlertError(err);
-          console.error("Error getMostRecentAlert()", err);
-        });
+      if (mostRcentAlertAge <= 1) {
+        alertSummaryTitle = `Last red alert was a month ago`;
+      }
+      if (mostRcentAlertAge > 1) {
+        alertSummaryTitle = `Last red alert was ${mostRcentAlertAge} months ago`;
+      }
+      setHeaderText({
+        alertSummaryCount,
+        alertSummaryTitle,
+        alertSummaryText,
+      });
     }
 
     const twitterShareText = `Red Alert in Israel: ${alertSummaryCount} ${alertSummaryTitle}. ${alertSummaryText}.`;
@@ -238,13 +224,15 @@ const Header = ({
       todayAlertCount,
       yesterdayAlertCount,
       pastWeekAlertCount,
-      pastMonthAlertCount
+      pastMonthAlertCount,
+      mostRcentAlertAge
     );
   }, [
     todayAlertCount,
     yesterdayAlertCount,
     pastWeekAlertCount,
     pastMonthAlertCount,
+    mostRcentAlertAge,
   ]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
@@ -355,6 +343,7 @@ Header.propTypes = {
   yesterdayAlertCount: PropTypes.number.isRequired,
   pastWeekAlertCount: PropTypes.number.isRequired,
   pastMonthAlertCount: PropTypes.number.isRequired,
+  mostRcentAlertAge: PropTypes.number,
   isError: PropTypes.bool,
   isLoading: PropTypes.bool,
 };

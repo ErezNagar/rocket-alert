@@ -317,4 +317,35 @@ describe("Header", () => {
       ).toBeInTheDocument();
     });
   });
+
+  describe("Most recent alert ", () => {
+    it("was a month ago", () => {
+      render(
+        <Header
+          todayAlertCount={0}
+          yesterdayAlertCount={0}
+          pastWeekAlertCount={0}
+          pastMonthAlertCount={0}
+          mostRcentAlertAge={1}
+        />
+      );
+      expect(
+        screen.getByText("Last red alert was a month ago")
+      ).toBeInTheDocument();
+    });
+    it("was X months ago", () => {
+      render(
+        <Header
+          todayAlertCount={0}
+          yesterdayAlertCount={0}
+          pastWeekAlertCount={0}
+          pastMonthAlertCount={0}
+          mostRcentAlertAge={2}
+        />
+      );
+      expect(
+        screen.getByText("Last red alert was 2 months ago")
+      ).toBeInTheDocument();
+    });
+  });
 });

@@ -11,14 +11,37 @@ import {
 } from "../date_helper";
 import Util from "../util";
 import Tracking from "../tracking";
+import { differenceInMonths } from "date-fns";
 
 const HeaderContainer = (props) => {
   const [todayAlertCount, setTodayAlertCount] = useState(0);
   const [yesterdayAlertCount, setYesterdayAlertCount] = useState(0);
   const [pastWeekAlertCount, setPastWeekAlertCount] = useState(0);
   const [pastMonthAlertCount, setPastMonthAlertCount] = useState(0);
+  const [mostRcentAlertAge, setMostRcentAlertAge] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+
+  const getMostRecentAlert = () => {
+    props.alertClient
+      .getMostRecentAlert()
+      .then((res) => {
+        if (res.success) {
+          const monthsAgo = differenceInMonths(
+            getNow(),
+            new Date(res.payload.date)
+          );
+          setMostRcentAlertAge(monthsAgo);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        Tracking.mostRecentAlertError(err);
+        setIsError(true);
+        setIsLoading(false);
+        console.error("Error getMostRecentAlert()", err);
+      });
+  };
 
   /*
    * Queries the server to get alert data for the header alert summary.
@@ -53,7 +76,17 @@ const HeaderContainer = (props) => {
         setYesterdayAlertCount(yesterdayAlertCount);
         setPastWeekAlertCount(pastWeekAlertCount);
         setPastMonthAlertCount(pastMonthAlertCount);
-        setIsLoading(false);
+
+        if (
+          todayAlertCount === 0 &&
+          yesterdayAlertCount === 0 &&
+          pastWeekAlertCount === 0 &&
+          pastMonthAlertCount === 0
+        ) {
+          getMostRecentAlert();
+        } else {
+          setIsLoading(false);
+        }
       })
       .catch((error) => {
         Tracking.headerDataError(error);
@@ -79,6 +112,7 @@ const HeaderContainer = (props) => {
       yesterdayAlertCount={yesterdayAlertCount}
       pastWeekAlertCount={pastWeekAlertCount}
       pastMonthAlertCount={pastMonthAlertCount}
+      mostRcentAlertAge={mostRcentAlertAge}
       isLoading={isLoading}
       isError={isError}
     />
