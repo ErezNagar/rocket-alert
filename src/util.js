@@ -172,9 +172,9 @@ const isMediumViewport = () =>
 
 const getAlertTypeText = (alert) => {
   let alertTypeText = "Red alert";
-  if (alert?.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
+  if (alert?.alertTypeId === ALERT_TYPE_ROCKETS) {
     alertTypeText = "Rocket alert";
-  } else if (alert?.alertTypeId === Util.ALERT_TYPE_UAV) {
+  } else if (alert?.alertTypeId === ALERT_TYPE_UAV) {
     alertTypeText = "Hostile UAV alert";
   }
   return alertTypeText;
@@ -229,9 +229,9 @@ const determineAlertOrigin = (alerts) => {
     // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
     //   originSouthCount += 1;
     // }
-    else if (Util.isRegionInSouth(alert.areaNameEn)) {
+    else if (isRegionInSouth(alert.areaNameEn)) {
       originSouthCount += 1;
-    } else if (Util.isRegionInNorth(alert.areaNameEn)) {
+    } else if (isRegionInNorth(alert.areaNameEn)) {
       originNorthCount += 1;
     }
   });
