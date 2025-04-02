@@ -18,7 +18,7 @@
     "israel"
   ],
   "dependencies": {
-    "@ant-design/charts": "^1.4.3",
+    "@ant-design/charts": "^2.2.7",
     "@mapbox/polyline": "^1.2.1",
     "ajv": "^8.17.1",
     "date-fns": "^2.22.1",
