@@ -55,7 +55,6 @@ const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    console.log("RecentAlertsMap mounted");
     loadPolygons();
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
