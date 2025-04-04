@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { differenceInDays } from "date-fns";
 import { Row, Col, Statistic, Spin } from "antd";
@@ -7,6 +7,18 @@ import FadeIn from "./FadeIn";
 import Tracking from "../tracking";
 import Util from "../util";
 import Sparkline from "./Sparkline";
+
+const LoadingSparkline = () => (
+  <Row justify="center" style={{ padding: "1.175em 0" }}>
+    <Col>
+      <Spin
+        indicator={
+          <LoadingOutlined style={{ fontSize: 24, color: "black" }} spin />
+        }
+      />
+    </Col>
+  </Row>
+);
 
 const LoadingTile = ({ showAverage }) => (
   <Row
@@ -31,190 +43,181 @@ LoadingTile.defaultProps = {
   showAverage: false,
 };
 
-export default class Tile extends React.Component {
-  static propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    fromDate: PropTypes.instanceOf(Date),
-    toDate: PropTypes.instanceOf(Date),
-    alertsClient: PropTypes.object,
-    sparklineData: PropTypes.array,
-    showAverage: PropTypes.bool,
-    // "Static" tile uses alertCount instead of making a request to the server
-    isStatic: PropTypes.bool,
-    alertCount: PropTypes.number,
-    alertTypeId: PropTypes.number,
-  };
+const Tile = ({
+  title,
+  subtitle,
+  fromDate,
+  toDate,
+  alertsClient,
+  showAverage,
+  sparklineData: propsSparklineData,
+  isStatic,
+  alertCount,
+  alertTypeId,
+}) => {
+  const [alerts, setAlerts] = useState();
+  const [average, setAverage] = useState(0);
+  const [sparklineData, setSparklineData] = useState([]);
+  const [isSparklineLoading, setIsSparkineLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  static defaultProps = {
-    title: "",
-    subtitle: "",
-    toDate: new Date(),
-    alertsClient: {},
-    showAverage: false,
-    isStatic: false,
-    alertCount: 0,
-    alertTypeId: Util.ALERT_TYPE_ROCKETS,
-  };
-
-  state = {
-    isLoading: true,
-    isSparklineLoading: false,
-    sparklineRocketData: [],
-    sparklineUAVData: [],
-    isError: false,
-    alerts: null,
-    average: 0,
-  };
-
-  componentDidMount() {
-    if (this.props.isStatic) {
-      this.setState({
-        alerts: this.props.alertCount,
-        isLoading: false,
-        average: this.props.showAverage
-          ? this.getAverage(this.props.alertCount)
-          : 0,
-      });
-    } else {
-      this.getAlerts();
-      this.getDailyAlerts();
-    }
-  }
-
-  getAlerts = () => {
-    this.props.alertsClient
-      .getTotalAlerts(
-        this.props.fromDate,
-        this.props.toDate,
-        this.props.alertTypeId
-      )
+  const getAlerts = () => {
+    alertsClient
+      .getTotalAlerts(fromDate, toDate, alertTypeId)
       .then((res) => {
-        if (this.props.showAverage) {
-          this.setState({
-            average: this.getAverage(res.payload),
-          });
+        if (showAverage) {
+          setAverage(getAverage(res.payload));
         }
-        this.setState({ alerts: res.payload, isLoading: false });
+        setAlerts(res.payload);
+        setIsLoading(false);
       })
       .catch((error) => {
         Tracking.tileError(error);
         console.error(error);
-        this.setState({ isError: true, isLoading: false });
+        setIsError(true);
+        setIsLoading(false);
       });
   };
 
-  getDailyAlerts = () => {
-    this.setState({ isSparklineLoading: true });
-    this.props.alertsClient
-      .getTotalAlertsByDay(
-        this.props.fromDate,
-        this.props.toDate,
-        this.props.alertTypeId
-      )
-      .then((res) => {
-        const data = res.payload.map((date) => date.alerts);
-        if (this.props.alertTypeId === Util.ALERT_TYPE_ROCKETS) {
-          const sparklineData = [];
-          let count = 0;
-          for (let i = 0; i < data.length; i++) {
-            if ((i + 1) % 9 === 0) {
-              sparklineData.push(count);
-              count = 0;
+  const getDailyAlerts = () => {
+    setIsSparkineLoading(true);
+
+    setTimeout(() => {
+      alertsClient
+        .getTotalAlertsByDay(fromDate, toDate, alertTypeId)
+        .then((res) => {
+          const data = res.payload.map((date) => date.alerts);
+          if (alertTypeId === Util.ALERT_TYPE_ROCKETS) {
+            const sparklineData = [];
+            let count = 0;
+            for (let i = 0; i < data.length; i++) {
+              if ((i + 1) % 9 === 0) {
+                sparklineData.push(count);
+                count = 0;
+              }
+              count += data[i];
             }
-            count += data[i];
+            sparklineData.push(count);
+            setSparklineData(sparklineData);
+            setIsSparkineLoading(false);
           }
-          sparklineData.push(count);
-          this.setState({
-            sparklineData,
-            isSparklineLoading: false,
-          });
-        }
-        if (this.props.alertTypeId === Util.ALERT_TYPE_UAV) {
-          const sparklineData = data
-            .filter((_, idx) => (idx + 1) % 2 !== 0)
-            .filter((_, idx) => (idx + 1) % 2 !== 0)
-            .filter((_, idx) => (idx + 1) % 2 !== 0);
-          this.setState({
-            sparklineData,
-            isSparklineLoading: false,
-          });
-        }
-      })
-      .catch((error) => {
-        Tracking.tileError(error);
-        console.error(error);
-        this.setState({ isError: true, isSparklineLoading: false });
-      });
+          if (alertTypeId === Util.ALERT_TYPE_UAV) {
+            const sparklineData = data
+              .filter((_, idx) => (idx + 1) % 2 !== 0)
+              .filter((_, idx) => (idx + 1) % 2 !== 0)
+              .filter((_, idx) => (idx + 1) % 2 !== 0);
+            setSparklineData(sparklineData);
+            setIsSparkineLoading(false);
+          }
+        })
+        .catch((error) => {
+          Tracking.tileError(error);
+          console.error(error);
+          setIsSparkineLoading(false);
+          setIsError(true);
+        });
+    }, 5000);
   };
 
-  getAverage = (total) => {
-    const dayCount = differenceInDays(
-      new Date(this.props.toDate),
-      new Date(this.props.fromDate)
-    );
+  const getAverage = (total) => {
+    const dayCount = differenceInDays(new Date(toDate), new Date(fromDate));
     return Math.round(total / dayCount);
   };
 
-  getNameId = () => this.props.title.replaceAll(" ", "_").toLowerCase();
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (isStatic) {
+      setAlerts(alertCount);
+      setIsLoading(false);
+      setAverage(showAverage ? getAverage(alertCount) : 0);
+    } else {
+      getAlerts();
+      getDailyAlerts();
+    }
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
-  render() {
-    const hasData = !this.state.isLoading && !this.state.isError;
+  const hasData = !isLoading && !isError;
 
-    return (
-      <div className="tile">
-        <h3>{this.props.title}</h3>
-        <div className="subtitle">{this.props.subtitle}</div>
-        <div>
-          {this.state.isLoading && <LoadingTile {...this.props} />}
-          {hasData && this.props.showAverage && (
-            <Row gutter={[8]} justify="center" className="average-container">
-              <Col>
-                <div className="alerts">
-                  <FadeIn show={!this.state.isLoading}>
-                    <Statistic value={this.state.alerts} />
-                  </FadeIn>
-                </div>
-                <div>Total</div>
-              </Col>
-              <Col className="separator">.</Col>
-              <Col>
-                <div className="average">
-                  <FadeIn show={!this.state.isLoading}>
-                    <Statistic value={this.state.average} />
-                  </FadeIn>
-                </div>
-                <div>Avg/Day</div>
-              </Col>
-            </Row>
-          )}
-          {hasData && !this.props.showAverage && (
-            <div className="alerts">
-              <FadeIn show={!this.state.isLoading}>
-                <Statistic value={this.state.alerts} />
-              </FadeIn>
-            </div>
-          )}
-          {this.state.isError && (
-            <FadeIn show={!this.state.isLoading}>
-              <ExclamationCircleOutlined
-                className={
-                  this.props.showAverage ? "loading-average" : "loading-basic"
-                }
-              />
-              {" Data unavailable"}
+  return (
+    <div className="tile">
+      <h3>{title}</h3>
+      <div className="subtitle">{subtitle}</div>
+      <div>
+        {isLoading && <LoadingTile showAverage />}
+        {hasData && showAverage && (
+          <Row gutter={[8]} justify="center" className="average-container">
+            <Col>
+              <div className="alerts">
+                <FadeIn show={!isLoading}>
+                  <Statistic value={alerts} />
+                </FadeIn>
+              </div>
+              <div>Total</div>
+            </Col>
+            <Col className="separator">.</Col>
+            <Col>
+              <div className="average">
+                <FadeIn show={!isLoading}>
+                  <Statistic value={average} />
+                </FadeIn>
+              </div>
+              <div>Avg/Day</div>
+            </Col>
+          </Row>
+        )}
+        {hasData && !showAverage && (
+          <div className="alerts">
+            <FadeIn show={!isLoading}>
+              <Statistic value={alerts} />
             </FadeIn>
-          )}
-          {(this.props.sparklineData || this.state.sparklineData) && (
-            <Sparkline
-              id={this.props.title}
-              width={250}
-              height={50}
-              data={this.props.sparklineData || this.state.sparklineData}
+          </div>
+        )}
+        {isError && (
+          <FadeIn show={!isLoading}>
+            <ExclamationCircleOutlined
+              className={showAverage ? "loading-average" : "loading-basic"}
             />
-          )}
-        </div>
+            {" Data unavailable"}
+          </FadeIn>
+        )}
+        {isSparklineLoading && <LoadingSparkline />}
+        {!isSparklineLoading && (propsSparklineData || sparklineData) && (
+          <Sparkline
+            id={title}
+            width={250}
+            height={50}
+            data={propsSparklineData || sparklineData}
+          />
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+Tile.propTypes = {
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  fromDate: PropTypes.instanceOf(Date),
+  toDate: PropTypes.instanceOf(Date),
+  alertsClient: PropTypes.object,
+  sparklineData: PropTypes.array,
+  showAverage: PropTypes.bool,
+  // "Static" tile uses alertCount instead of making a request to the server
+  isStatic: PropTypes.bool,
+  alertCount: PropTypes.number,
+  alertTypeId: PropTypes.number,
+};
+Tile.defaultProps = {
+  title: "",
+  subtitle: "",
+  toDate: new Date(),
+  alertsClient: {},
+  showAverage: false,
+  isStatic: false,
+  alertCount: 0,
+  alertTypeId: Util.ALERT_TYPE_ROCKETS,
+};
+
+export default Tile;
