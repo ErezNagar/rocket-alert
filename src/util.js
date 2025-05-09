@@ -245,7 +245,8 @@ const determineAlertOrigin = (alerts) => {
 };
 
 const Util = {
-  isDev: () => process.env.NODE_ENV === "development",
+  isDev: () =>
+    process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test",
   isAlertModeQueryString,
   isLocalStorageAvailable,
   useIsVisible,
