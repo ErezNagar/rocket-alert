@@ -1,75 +1,14 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { ReactComponent as TwitterLogo } from "../assets/twitter.svg";
-import logo from "../assets/logo.svg";
-import alarmAudio from "../assets/alarm.mp3";
+import { ReactComponent as TwitterLogo } from "../../assets/twitter.svg";
+import logo from "../../assets/logo.svg";
+import alarmAudio from "../../assets/alarm.mp3";
 import { Row, Col } from "antd";
-import FadeIn from "./FadeIn";
 import AudioControls from "./AudioControls";
-import { Statistic, Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
-import FadeInOut from "./FadeInOut";
-import Util from "../util";
-import Tracking from "../tracking";
-
-const HeaderContent = ({
-  alertSummaryTitle,
-  alertSummaryText,
-  alertSummaryCount,
-  isLoading,
-}) => (
-  <>
-    {isLoading ? (
-      <Spin
-        indicator={
-          <LoadingOutlined style={{ fontSize: 36, color: "white" }} spin />
-        }
-      />
-    ) : (
-      <>
-        {alertSummaryCount > 0 && (
-          <FadeIn show={true}>
-            <Statistic value={alertSummaryCount} />
-          </FadeIn>
-        )}
-        <h3>{alertSummaryTitle}</h3>
-        <div className="summary-text">{alertSummaryText}</div>
-      </>
-    )}
-  </>
-);
-
-HeaderContent.propTypes = {
-  alertSummaryTitle: PropTypes.string,
-  alertSummaryText: PropTypes.string,
-  alertSummaryCount: PropTypes.number,
-  isLoading: PropTypes.bool.isRequired,
-};
-HeaderContent.defaultProps = {
-  alertSummaryTitle: "",
-  alertSummaryText: "",
-  alertSummaryCount: 0,
-};
-
-const AlertModeHeaderContent = ({ shouldRefresh, alert }) => (
-  <>
-    <h3>{Util.getAlertTypeText(alert)}</h3>
-    <div className="alert">
-      <FadeInOut show={shouldRefresh}>
-        {alert.englishName || alert.name}
-      </FadeInOut>
-    </div>
-  </>
-);
-
-AlertModeHeaderContent.propTypes = {
-  shouldRefresh: PropTypes.bool,
-  alert: PropTypes.object,
-};
-AlertModeHeaderContent.defaultProps = {
-  shouldRefresh: false,
-  alert: {},
-};
+import HeaderHero from "./HeaderHero";
+import AlertModeHeaderHero from "./AlertModeHeaderHero";
+import Util from "../../util";
+import Tracking from "../../tracking";
 
 const Header = ({
   isAlertMode,
@@ -285,13 +224,13 @@ const Header = ({
       </div>
       <div className="header-content">
         {!isError && isAlertMode && (
-          <AlertModeHeaderContent
+          <AlertModeHeaderHero
             shouldRefresh={shouldRefresh}
             alert={realTimeAlert}
           />
         )}
         {!isError && !isAlertMode && (
-          <HeaderContent
+          <HeaderHero
             alertSummaryTitle={headerText.alertSummaryTitle}
             alertSummaryText={headerText.alertSummaryText}
             alertSummaryCount={headerText.alertSummaryCount}
