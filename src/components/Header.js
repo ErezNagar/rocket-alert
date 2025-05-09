@@ -94,6 +94,10 @@ const Header = ({
   const [isAudioOn, setIsAudioOn] = useState(false);
   const [alarm, setAlarm] = useState(null);
 
+  // Audio is not working on iPhone devices due to a bug in Safari that prevents audio from playing without user interaction.
+  const isIphone = () =>
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
   const getAlertSummaryText = (timePeriodText, alertCount) =>
     `${timePeriodText}, there were ${alertCount} red alerts`;
 
@@ -259,19 +263,19 @@ const Header = ({
     }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
   };
 
-  const handleOnAudioChange = (isAudioOn) => {
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
     Tracking.alarmAudioClick(isAudioOn);
-    setIsAudioOn(isAudioOn, () => {
-      if (isAudioOn) {
-        if (!alarm) {
-          const alarm = new Audio(alarmAudio);
-          alarm.addEventListener("canplaythrough", (event) => {
-            setAlarm(alarm);
-          });
-        }
+    if (isAudioOn) {
+      if (!alarm) {
+        const alarm = new Audio(alarmAudio);
+        alarm.addEventListener("canplaythrough", (event) => {
+          setAlarm(alarm);
+        });
       }
-    });
-  };
+    }
+  }, [isAudioOn]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <header className={isAlertMode ? "header alert-mode" : "header"}>
@@ -299,10 +303,14 @@ const Header = ({
       <div className="header-bottom">
         <Row gutter={[24, 24]} align="middle">
           <Col span={2}>
-            <AudioControls
-              onAudioChange={handleOnAudioChange}
-              isAudioOn={isAudioOn}
-            />
+            {!isIphone() && (
+              <AudioControls
+                onAudioChange={(isAudioOn) => {
+                  setIsAudioOn(isAudioOn);
+                }}
+                isAudioOn={isAudioOn}
+              />
+            )}
           </Col>
           <Col span={20}>
             <Row>
