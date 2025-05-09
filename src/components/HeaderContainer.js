@@ -98,8 +98,10 @@ const HeaderContainer = (props) => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    getHeaderData();
-  }, []);
+    if (props.realTimeAlertCache.count !== null) {
+      getHeaderData();
+    }
+  }, [props.realTimeAlertCache]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   return (

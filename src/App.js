@@ -36,7 +36,7 @@ class App extends React.Component {
     // Most recent alerts (since the last history sync)
     mostRecentAlerts: [],
     // Real-time alerts that have been triggred since the last history sync
-    realTimeAlertCache: { alerts: [], count: 0 },
+    realTimeAlertCache: { alerts: [], count: null },
     // Text when sharing on twitter. Generated in Header
     twitterShareText: "",
     // The location to focus on on the map
