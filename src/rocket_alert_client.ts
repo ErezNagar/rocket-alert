@@ -129,7 +129,22 @@ const AlertClient = {
           alerts: [],
           count: res.payload.length,
         };
-        res.payload.forEach((item: any) => payload.alerts.push(...item.alerts));
+
+        const allAlerts: any[] = [];
+        res.payload.forEach((item: any) => allAlerts.push(...item.alerts));
+
+        // Filter out duplicate alerts based on location name
+        const seenAlertLocations: any[] = [];
+        allAlerts.forEach((alert: any) => {
+          if (seenAlertLocations.includes(alert.englishName)) {
+            return;
+          } else {
+            seenAlertLocations.push(alert.englishName);
+            payload.alerts.push(alert);
+          }
+        });
+
+        payload.count = payload.alerts.length;
         return payload;
       })
       .catch((err) => {
