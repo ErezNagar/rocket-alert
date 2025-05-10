@@ -82,42 +82,39 @@ const Tile = ({
 
   const getDailyAlerts = () => {
     setIsSparkineLoading(true);
-
-    setTimeout(() => {
-      alertsClient
-        .getTotalAlertsByDay(fromDate, toDate, alertTypeId)
-        .then((res) => {
-          const data = res.payload.map((date) => date.alerts);
-          if (alertTypeId === Util.ALERT_TYPE_ROCKETS) {
-            const sparklineData = [];
-            let count = 0;
-            for (let i = 0; i < data.length; i++) {
-              if ((i + 1) % 9 === 0) {
-                sparklineData.push(count);
-                count = 0;
-              }
-              count += data[i];
+    alertsClient
+      .getTotalAlertsByDay(fromDate, toDate, alertTypeId)
+      .then((res) => {
+        const data = res.payload.map((date) => date.alerts);
+        if (alertTypeId === Util.ALERT_TYPE_ROCKETS) {
+          const sparklineData = [];
+          let count = 0;
+          for (let i = 0; i < data.length; i++) {
+            if ((i + 1) % 9 === 0) {
+              sparklineData.push(count);
+              count = 0;
             }
-            sparklineData.push(count);
-            setSparklineData(sparklineData);
-            setIsSparkineLoading(false);
+            count += data[i];
           }
-          if (alertTypeId === Util.ALERT_TYPE_UAV) {
-            const sparklineData = data
-              .filter((_, idx) => (idx + 1) % 2 !== 0)
-              .filter((_, idx) => (idx + 1) % 2 !== 0)
-              .filter((_, idx) => (idx + 1) % 2 !== 0);
-            setSparklineData(sparklineData);
-            setIsSparkineLoading(false);
-          }
-        })
-        .catch((error) => {
-          Tracking.tileError(error);
-          console.error(error);
+          sparklineData.push(count);
+          setSparklineData(sparklineData);
           setIsSparkineLoading(false);
-          setIsError(true);
-        });
-    }, 5000);
+        }
+        if (alertTypeId === Util.ALERT_TYPE_UAV) {
+          const sparklineData = data
+            .filter((_, idx) => (idx + 1) % 2 !== 0)
+            .filter((_, idx) => (idx + 1) % 2 !== 0)
+            .filter((_, idx) => (idx + 1) % 2 !== 0);
+          setSparklineData(sparklineData);
+          setIsSparkineLoading(false);
+        }
+      })
+      .catch((error) => {
+        Tracking.tileError(error);
+        console.error(error);
+        setIsSparkineLoading(false);
+        setIsError(true);
+      });
   };
 
   const getAverage = (total) => {
