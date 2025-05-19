@@ -144,6 +144,7 @@ export const isYemenMissileAttackTimeFrame = (date) => {
     [new Date("2025-05-13 19:24:00"), new Date("2025-05-13 19:28:00")],
     [new Date("2025-05-14 07:40:00"), new Date("2025-05-14 07:45:00")],
     [new Date("2025-05-15 21:07:00"), new Date("2025-05-15 21:12:00")],
+    [new Date("2025-05-18 01:56:00"), new Date("2025-05-18 02:03:00")],
   ];
 
   return (
