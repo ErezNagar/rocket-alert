@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import StickyHeader from "./components/StickyHeader";
+import StickyHeader from "./components/Header/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
