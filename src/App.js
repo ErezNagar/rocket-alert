@@ -31,12 +31,14 @@ class App extends React.Component {
     isAlertMode: false,
     // Whether this is the last real-time alert of the alert batch
     isLastAlertOfBatch: false,
-    // The alert boject
+    // The alert object
     realTimeAlert: null,
     // Most recent alerts (since the last history sync)
     mostRecentAlerts: [],
     // Real-time alerts that have been triggred since the last history sync
     realTimeAlertCache: { alerts: [], count: null },
+    // real-time advance notices
+    advanceNotices: [],
     // Text when sharing on twitter. Generated in Header
     twitterShareText: "",
     // The location to focus on on the map
@@ -48,7 +50,8 @@ class App extends React.Component {
   componentDidMount() {
     RealTimeAlertManager.startRealTimeAlerts(
       AlertClient,
-      this.processRealTimeAlert
+      this.processRealTimeAlert,
+      this.processRealTimeAdvanceNotice
     );
     if (Util.isDev() && Util.isAlertModeQueryString()) {
       this.mockClientAlerts();
@@ -167,6 +170,18 @@ class App extends React.Component {
     Tracking.alertModeOnEvent();
   };
 
+  /*
+   * Processes all advance notices by showing it in the UI
+   */
+  processRealTimeAdvanceNotice = (advanceNotices) => {
+    const areas = advanceNotices.map(
+      (alert) => alert.areaNameEn || alert.areaNameHe
+    );
+    this.setState({
+      advanceNotices: areas,
+    });
+  };
+
   handleScroll = (e) => {
     const vh80 = window.innerHeight * 0.9;
     this.setState({
@@ -194,6 +209,7 @@ class App extends React.Component {
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
           realTimeAlertCache={this.state.realTimeAlertCache}
+          advanceNotices={this.state.advanceNotices}
           isLastAlertOfBatch={this.state.isLastAlertOfBatch}
           onTwitterShareText={this.handleOnTwitterShareText}
         />

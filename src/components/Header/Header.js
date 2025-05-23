@@ -7,6 +7,7 @@ import { Row, Col } from "antd";
 import AudioControls from "./AudioControls";
 import HeaderHero from "./HeaderHero";
 import AlertModeHeaderHero from "./AlertModeHeaderHero";
+import AdvanceNotice from "./AdvanceNotice";
 import Util from "../../util";
 import Tracking from "../../tracking";
 
@@ -14,6 +15,7 @@ const Header = ({
   isAlertMode,
   realTimeAlert,
   isLastAlertOfBatch,
+  advanceNotices,
   onTwitterShareText,
   todayAlertCount,
   yesterdayAlertCount,
@@ -223,21 +225,29 @@ const Header = ({
         <h2>Real-time red alerts in Israel</h2>
       </div>
       <div className="header-content">
-        {!isError && isAlertMode && (
-          <AlertModeHeaderHero
-            shouldRefresh={shouldRefresh}
-            alert={realTimeAlert}
-          />
+        {isError ? (
+          <h3 className="error">Data currently unavailable</h3>
+        ) : (
+          <>
+            {isAlertMode && (
+              <AlertModeHeaderHero
+                shouldRefresh={shouldRefresh}
+                alert={realTimeAlert}
+              />
+            )}
+            {!isAlertMode && advanceNotices.length > 0 && (
+              <AdvanceNotice advanceNotices={advanceNotices} />
+            )}
+            {!isAlertMode && advanceNotices.length === 0 && (
+              <HeaderHero
+                alertSummaryTitle={headerText.alertSummaryTitle}
+                alertSummaryText={headerText.alertSummaryText}
+                alertSummaryCount={headerText.alertSummaryCount}
+                isLoading={isLoading}
+              />
+            )}
+          </>
         )}
-        {!isError && !isAlertMode && (
-          <HeaderHero
-            alertSummaryTitle={headerText.alertSummaryTitle}
-            alertSummaryText={headerText.alertSummaryText}
-            alertSummaryCount={headerText.alertSummaryCount}
-            isLoading={isLoading}
-          />
-        )}
-        {isError && <h3 className="error">Data currently unavailable</h3>}
       </div>
       <div className="header-bottom">
         <Row gutter={[24, 24]} align="middle">
@@ -286,6 +296,7 @@ Header.propTypes = {
   realTimeAlert: PropTypes.object,
   onTwitterShareText: PropTypes.func,
   isLastAlertOfBatch: PropTypes.bool,
+  advanceNotices: PropTypes.array,
   todayAlertCount: PropTypes.number.isRequired,
   yesterdayAlertCount: PropTypes.number.isRequired,
   pastWeekAlertCount: PropTypes.number.isRequired,
@@ -300,6 +311,7 @@ Header.defaultProps = {
   realTimeAlert: {},
   onTwitterShareText: () => {},
   isLastAlertOfBatch: false,
+  advanceNotices: [],
   isError: false,
   isLoading: false,
 };
