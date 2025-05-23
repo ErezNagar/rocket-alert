@@ -318,7 +318,7 @@ describe("Header", () => {
     });
   });
 
-  describe("Most recent alert ", () => {
+  describe("Most recent alert", () => {
     it("was a month ago", () => {
       render(
         <Header
@@ -346,6 +346,32 @@ describe("Header", () => {
       expect(
         screen.getByText("Last red alert was 2 months ago")
       ).toBeInTheDocument();
+    });
+  });
+
+  describe("Advance Notice", () => {
+    it("Shows title and all locations", () => {
+      const areas = [
+        "Dan",
+        "Sharon",
+        "Shfela (Lowlands)",
+        "Yarkon",
+        "Lakhish",
+        "Shfelat Yehuda",
+        "Samaria",
+        "Judea",
+      ];
+      render(
+        <Header
+          todayAlertCount={1}
+          yesterdayAlertCount={0}
+          pastWeekAlertCount={0}
+          pastMonthAlertCount={0}
+          advanceNotices={areas}
+        />
+      );
+      expect(screen.getByText("Missile launches detected")).toBeInTheDocument();
+      expect(screen.getByText(areas.join(", "))).toBeInTheDocument();
     });
   });
 });
