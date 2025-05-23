@@ -1,0 +1,96 @@
+# --------------------------------------------------------------------------------------------- #
+#                                                                                               #
+#                                      _Editorconfig_                                           #
+#                                                                                               #
+# ____________________________ (☞ ヮﾟ)☞ _Documentations_ ☜(ﾟヮﾟ☜) ______________________________ #
+# Docu:........................ <https://editorconfig.org/>                                     #
+# Validator:................... <https://editorconfig.org/>                                     #
+# Maintainer:...................<David Chevallier David@Chevallier.in>                          #
+#                                                                                               #
+# --------------------------------------------------------------------------------------------- #
+
+# top-most EditorConfig file
+root = true
+
+#### == Global Settings ------------------------------------------------------ #
+[*]
+indent_style = space
+indent_size = 2
+tab_width = 2
+end_of_line = lf
+charset = utf-8
+insert_final_newline = false
+trim_trailing_whitespace = true
+
+#### == Markdown ------------------------------------------------------------- #
+[*.{md,markdown}]
+trim_trailing_whitespace = false
+max_line_length = 0
+
+#### == HTML ----------------------------------------------------------------- #
+[*.{html,htm}]
+trim_trailing_whitespace = false
+max_line_length = 0
+
+#### == CSS ------------------------------------------------------------------ #
+[*.{css,scss}]
+indent_style = space
+indent_size = 2
+
+#### == SQL ------------------------------------------------------------------ #
+[*.{ddl,sqt,sql}]
+indent_style = space
+indent_size = 2
+
+#### == Yaml ----------------------------------------------------------------- #
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+quote_type = single
+
+#### == JavaScript/TypeScript ------------------------------------------------ #
+[*.{js,jsx,ts,tsx}]
+indent_style = space
+indent_size = 2
+quote_type = single
+
+#### == JSON ----------------------------------------------------------------- #
+[*.json]
+indent_style = space
+indent_size = 2
+
+[package.json]
+indent_style = space
+indent_size = 2
+
+#### == Python --------------------------------------------------------------- #
+[*.{py}]
+indent_style = space
+indent_size = 4
+charset = utf-8
+
+#### == Dockerfile ----------------------------------------------------------- #
+[Dockerfile]
+indent_style = space
+indent_size = 2
+
+#### == Shell scripts -------------------------------------------------------- #
+[*.{sh,bash,zsh,zshrc}]
+end_of_line = lf
+indent_style = space
+
+#### == Other Config Files --------------------------------------------------- #
+[*.{xml,csproj,stylecop,resx,ruleset,msbuild,props,targets,config,nuspec}]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+
+#### == Makefile ------------------------------------------------------------- #
+[Makefile]
+indent_style = tab
+
+#### == Media files ---------------------------------------------------------- #
+[*.{png,jpg,jpeg,gif,svg,ico,mp3}]
+indent_style = space
+insert_final_newline = false
+trim_trailing_whitespace = false
