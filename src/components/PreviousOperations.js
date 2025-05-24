@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import withIsVisibleHook from "./withIsVisibleHook";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
-import { PREVIUOS_OPERATIONS, YEARS } from "../data/sparklines";
+import { PREVIUOS_OPERATIONS, YEARS } from "./Graphs/data/sparklines";
 
 const PreviousOperations = ({ isIntersectingRef }) => (
   <>

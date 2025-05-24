@@ -10,7 +10,7 @@ import { isBefore } from "date-fns";
 import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
-import { ALERTS_BY_SOURCE } from "../../data/graphs";
+import { ALERTS_BY_SOURCE } from "./data/graphs";
 import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 

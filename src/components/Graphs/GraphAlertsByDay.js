@@ -7,7 +7,7 @@ import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../../tracking";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
-import { ALERTS_BY_DAY } from "../../data/graphs";
+import { ALERTS_BY_DAY } from "./data/graphs";
 import graphUtils from "../../graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
