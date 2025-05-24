@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { alertTimeDisplayFormat, convertToLocalTime } from "../date_helper.js";
+import {
+  alertTimeDisplayFormat,
+  convertToLocalTime,
+} from "../utilities/date_helper.js";
 
 const FormattedAlertTime = ({ timeStamp }) => (
   <>{alertTimeDisplayFormat(convertToLocalTime(timeStamp))}</>

@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Row, Col } from "antd";
-import Util from "../util";
+import Utilities from "../utilities/utilities";
 import Tracking from "../tracking";
 
 const Social = () => {
   const ref = useRef();
-  const isVisible = Util.useIsVisible(ref);
+  const isVisible = Utilities.useIsVisible(ref);
 
   useEffect(() => {
     if (isVisible) {

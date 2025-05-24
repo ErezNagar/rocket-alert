@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Cache from "../cache";
 import Tracking from "../tracking";
-import Util from "../util";
+import Utilities from "../utilities/utilities";
 import RecentAlertsStaticMap from "./RecentAlertsStaticMap";
 import RecentAlertsInteractiveMap from "./RecentAlertsInteractiveMap";
 import withIsVisibleHook from "./withIsVisibleHook";
@@ -25,7 +25,10 @@ const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
   const loadPolygonsFromCache = () => {
     let polygons = Cache.getJSON("polygons");
     if (polygons) {
-      if (Cache.get(Util.POLYGON_VERSION_KEY) === Util.POLYGON_VERSION_VALUE) {
+      if (
+        Cache.get(Utilities.POLYGON_VERSION_KEY) ===
+        Utilities.POLYGON_VERSION_VALUE
+      ) {
         Tracking.polygonCache("hit");
         setPolygons(polygons);
       } else {
@@ -40,7 +43,7 @@ const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
 
   const setPolygonsToCache = (polygons) => {
     Cache.setJSON("polygons", polygons);
-    Cache.set(Util.POLYGON_VERSION_KEY, Util.POLYGON_VERSION_VALUE);
+    Cache.set(Utilities.POLYGON_VERSION_KEY, Utilities.POLYGON_VERSION_VALUE);
   };
 
   const loadPolygonsFromFile = ({ setToCache }) =>

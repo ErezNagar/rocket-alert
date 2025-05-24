@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import FadeInOut from "../FadeInOut";
-import Util from "../../util";
+import Utilities from "../../utilities/utilities";
 
 const AlertModeHeaderHero = ({ shouldRefresh, alert }) => (
   <>
-    <h3>{Util.getAlertTypeText(alert)}</h3>
+    <h3>{Utilities.getAlertTypeText(alert)}</h3>
     <div className="alert">
       <FadeInOut show={shouldRefresh}>
         {alert.englishName || alert.name}

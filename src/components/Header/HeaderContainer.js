@@ -8,8 +8,8 @@ import {
   getEndOfYesterday,
   getPastWeek,
   getPastMonth,
-} from "../../date_helper";
-import Util from "../../util";
+} from "../../utilities/date_helper";
+import Utilities from "../../utilities/utilities";
 import Tracking from "../../tracking";
 import { differenceInMonths } from "date-fns";
 
@@ -62,7 +62,7 @@ const HeaderContainer = (props) => {
       alertClient.getTotalAlerts(
         startOfYesterday,
         endOfYesterday,
-        Util.ALERT_TYPE_ALL
+        Utilities.ALERT_TYPE_ALL
       ),
       alertClient.getTotalAlerts(pastWeek, now),
       alertClient.getTotalAlerts(pastMonth, now),

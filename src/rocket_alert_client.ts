@@ -1,7 +1,7 @@
 import wretch from "wretch";
 import isValid from "date-fns/isValid";
-import { isoFormat, convertToServerTime } from "./date_helper";
-import Util from "./util";
+import { isoFormat, convertToServerTime } from "./utilities/date_helper";
+import Utilities from "./utilities/utilities";
 
 const SERVER_URL = "https://agg.rocketalert.live/api";
 const V1 = `${SERVER_URL}/v1`;
@@ -16,8 +16,8 @@ const filterRocketAndUAVAlerts = (res: any) => {
   res.payload.forEach((date: any) => {
     date.alerts = date.alerts.filter(
       (alert: any) =>
-        alert.alertTypeId === Util.ALERT_TYPE_ROCKETS ||
-        alert.alertTypeId === Util.ALERT_TYPE_UAV
+        alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS ||
+        alert.alertTypeId === Utilities.ALERT_TYPE_UAV
     );
   });
   return res;
@@ -33,7 +33,7 @@ const filterRocketAndUAVAlerts = (res: any) => {
 const getDetailedAlerts = (
   from: string,
   to: string,
-  alertTypeId: number = Util.ALERT_TYPE_ALL
+  alertTypeId: number = Utilities.ALERT_TYPE_ALL
 ) => {
   if (!from || !isValid(new Date(from))) {
     return Promise.reject(new Error("Invalid Date: from"));
@@ -77,7 +77,7 @@ const AlertClient = {
           res.payload.length > 1
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
-        return alerts.slice(-Util.MAX_RECENT_ALERTS);
+        return alerts.slice(-Utilities.MAX_RECENT_ALERTS);
       })
       .catch((e) => {
         console.log("e", e);
@@ -94,7 +94,7 @@ const AlertClient = {
   getTotalAlertsByDay: (
     from: string,
     to: string,
-    alertTypeId: number = Util.ALERT_TYPE_ALL
+    alertTypeId: number = Utilities.ALERT_TYPE_ALL
   ): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
@@ -162,7 +162,7 @@ const AlertClient = {
   getTotalAlerts: (
     from: string,
     to: string,
-    alertTypeId: number = Util.ALERT_TYPE_ALL
+    alertTypeId: number = Utilities.ALERT_TYPE_ALL
   ): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
@@ -248,9 +248,9 @@ const AlertClient = {
    *  @return {EventSource} the EventSource instance
    */
   getRealTimeAlertEventSource: (
-    url = Util.isAlertModeQueryString()
-      ? `${V2}/alerts/real-time-test?alertTypeId=${Util.ALERT_TYPE_ALL}`
-      : `${V2}/alerts/real-time?alertTypeId=${Util.ALERT_TYPE_ALL}`
+    url = Utilities.isAlertModeQueryString()
+      ? `${V2}/alerts/real-time-test?alertTypeId=${Utilities.ALERT_TYPE_ALL}`
+      : `${V2}/alerts/real-time?alertTypeId=${Utilities.ALERT_TYPE_ALL}`
   ) => new EventSource(url),
 };
 

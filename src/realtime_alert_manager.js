@@ -1,9 +1,9 @@
-import Util from "./util";
+import Utilities from "./utilities/utilities";
 
 /* Keep max of 30 most recent alerts.
  * In case of a single, relatively short barrage, this will most likely capture all or most of the alerts.
  * In case of multiple, long barrages, we'll only keep the MAX_QUEUE_SIZE most recent alerts,
- * which will allow us Util.REAL_TIME_ALERT_THROTTLE_DURATION * MAX_QUEUE_SIZE seconds to show all alerts, one after another
+ * which will allow us Utilities.REAL_TIME_ALERT_THROTTLE_DURATION * MAX_QUEUE_SIZE seconds to show all alerts, one after another
  */
 const MAX_QUEUE_SIZE = 30;
 
@@ -34,7 +34,7 @@ const RealTimeAlertManager = {
       }
 
       const advanceNoticeData = data.alerts.filter(
-        (alert) => alert.alertTypeId === Util.ALERT_TYPE_ADVANCE_NOTICE
+        (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_ADVANCE_NOTICE
       );
       if (advanceNoticeData.length > 0) {
         RealTimeAlertManager.advanceNoticeQueue = [
@@ -47,8 +47,8 @@ const RealTimeAlertManager = {
 
       const alertData = data.alerts.filter(
         (alert) =>
-          alert.alertTypeId === Util.ALERT_TYPE_ROCKETS ||
-          alert.alertTypeId === Util.ALERT_TYPE_UAV
+          alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS ||
+          alert.alertTypeId === Utilities.ALERT_TYPE_UAV
       );
       if (alertData.length === 0) {
         return;
@@ -67,7 +67,7 @@ const RealTimeAlertManager = {
   },
 
   /*
-   * Pulls real-time alerts from the queue in intervals of Util.REAL_TIME_ALERT_THROTTLE_DURATION ms,
+   * Pulls real-time alerts from the queue in intervals of Utilities.REAL_TIME_ALERT_THROTTLE_DURATION ms,
    * until there are no more alerts left in the queue
    *  @param {func} cb  Callback function to process the alerts
    */
@@ -86,7 +86,7 @@ const RealTimeAlertManager = {
           RealTimeAlertManager.advanceNoticeQueue = [];
         }
       }
-    }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
+    }, Utilities.REAL_TIME_ALERT_THROTTLE_DURATION);
   },
 
   /*

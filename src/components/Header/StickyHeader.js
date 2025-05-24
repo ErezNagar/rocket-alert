@@ -5,7 +5,7 @@ import FormattedAlertTime from "../FormattedAlertTime";
 import { ReactComponent as TwitterLogo } from "../../assets/twitter.svg";
 import logo from "../../assets/logo.svg";
 import Tracking from "../../tracking";
-import Util from "../../util";
+import Utilities from "../../utilities/utilities";
 
 const StickyHeader = ({
   showStickyHeader,
@@ -23,7 +23,7 @@ const StickyHeader = ({
     setShouldRefresh(true);
     setTimeout(() => {
       setShouldRefresh(false);
-    }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
+    }, Utilities.REAL_TIME_ALERT_DISPLAY_DURATION);
   };
 
   const setStickyHeaderStyle = () => {
@@ -45,10 +45,10 @@ const StickyHeader = ({
       <div className="alerts">
         {isAlertMode && realTimeAlert && (
           <FadeInOut show={shouldRefresh}>
-            {!Util.isSmallViewport() && (
+            {!Utilities.isSmallViewport() && (
               <>
                 <FormattedAlertTime timeStamp={realTimeAlert.timeStamp} />
-                {` ${Util.getAlertTypeText(realTimeAlert)}: `}
+                {` ${Utilities.getAlertTypeText(realTimeAlert)}: `}
               </>
             )}
             {realTimeAlert.englishName || realTimeAlert.name}

@@ -5,7 +5,7 @@ import { Row, Col, Statistic, Spin } from "antd";
 import { LoadingOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import FadeIn from "./FadeIn";
 import Tracking from "../tracking";
-import Util from "../util";
+import Utilities from "../utilities/utilities";
 import Sparkline from "./Sparkline";
 
 const LoadingSparkline = () => (
@@ -86,7 +86,7 @@ const Tile = ({
       .getTotalAlertsByDay(fromDate, toDate, alertTypeId)
       .then((res) => {
         const data = res.payload.map((date) => date.alerts);
-        if (alertTypeId === Util.ALERT_TYPE_ROCKETS) {
+        if (alertTypeId === Utilities.ALERT_TYPE_ROCKETS) {
           const sparklineData = [];
           let count = 0;
           for (let i = 0; i < data.length; i++) {
@@ -100,7 +100,7 @@ const Tile = ({
           setSparklineData(sparklineData);
           setIsSparkineLoading(false);
         }
-        if (alertTypeId === Util.ALERT_TYPE_UAV) {
+        if (alertTypeId === Utilities.ALERT_TYPE_UAV) {
           const sparklineData = data
             .filter((_, idx) => (idx + 1) % 2 !== 0)
             .filter((_, idx) => (idx + 1) % 2 !== 0)
@@ -214,7 +214,7 @@ Tile.defaultProps = {
   showAverage: false,
   isStatic: false,
   alertCount: 0,
-  alertTypeId: Util.ALERT_TYPE_ROCKETS,
+  alertTypeId: Utilities.ALERT_TYPE_ROCKETS,
 };
 
 export default Tile;

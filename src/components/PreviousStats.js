@@ -10,7 +10,7 @@ import {
   getPastMonth,
   // getPastYear,
   displayFormat,
-} from "../date_helper";
+} from "../utilities/date_helper";
 
 const PreviousStats = (props) => (
   <section className="section">

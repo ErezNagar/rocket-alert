@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { ReactComponent as TwitterLogo } from "../assets/twitter_black.svg";
 import Tracking from "../tracking";
 import { useEffect, useRef, useState } from "react";
-import Util from "../util";
+import Utilities from "../utilities/utilities";
 
 const TimeToShelter = ({ alerts }) => {
   const [showTimeToShelter, setShowTimeToShelter] = useState(false);
@@ -12,7 +12,7 @@ const TimeToShelter = ({ alerts }) => {
   const [timeToShelterShareText, setTimeToShelterShareText] = useState("");
 
   const ref = useRef();
-  const isVisible = Util.useIsVisible();
+  const isVisible = Utilities.useIsVisible();
 
   const KMToMiles = (km) => Math.round(km * 0.621371 * 10) / 10;
 
@@ -32,7 +32,9 @@ const TimeToShelter = ({ alerts }) => {
     }
     const alert = alertsWithCountdown[0];
 
-    const alertDistance = Util.getDistanceByTimeToShelter(alert.countdownSec);
+    const alertDistance = Utilities.getDistanceByTimeToShelter(
+      alert.countdownSec
+    );
     const alertDistanceInKM = KMToMiles(alertDistance);
     const title =
       alertDistance > 5

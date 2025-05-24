@@ -158,7 +158,7 @@ const buildxAxisLabel = () => {
   return xAxisLabel;
 };
 
-const Util = {
+const Utilities = {
   isDev: () =>
     process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test",
   isAlertModeQueryString,
@@ -180,4 +180,4 @@ const Util = {
   POLYGON_VERSION_VALUE,
 };
 
-export default Util;
+export default Utilities;

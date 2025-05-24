@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Tracking from "../tracking";
-import Util from "../util";
+import Utilities from "../utilities/utilities";
 
 const UserLocationMap = ({ alerts }) => {
   const [showMap, setShowMap] = useState(false);
@@ -41,7 +41,7 @@ const UserLocationMap = ({ alerts }) => {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
         };
-        const alertDistance = Util.getDistanceByTimeToShelter(
+        const alertDistance = Utilities.getDistanceByTimeToShelter(
           alert.countdownSec
         );
 

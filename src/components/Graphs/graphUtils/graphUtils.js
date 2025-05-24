@@ -3,8 +3,8 @@ import {
   isBiWeeklyDifference,
   weekRangeWithYearFormat,
   is5WeeksDifference,
-} from "../../../date_helper";
-import Util from "../../../util";
+} from "../../../utilities/date_helper";
+import Utilities from "../../../utilities/utilities";
 import { isAfter, isBefore } from "date-fns";
 
 // The date from which the new, non-hardcoded graph data starts.
@@ -195,7 +195,7 @@ const graphUtils = {
     let UAVAlertCount = 0;
     let currentDate = TOTAL_ALERTS_DYNAMIC_DATA_START_DATE;
     let weekDiffFunction = isBiWeeklyDifference;
-    if (Util.isSmallViewport()) {
+    if (Utilities.isSmallViewport()) {
       currentDate = TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE;
       weekDiffFunction = is5WeeksDifference;
     }
@@ -224,10 +224,10 @@ const graphUtils = {
           (alert) => !isConfirmedFalseAlert(alert.timeStamp)
         );
         const rocketAlerts = confirmedAlerts.filter(
-          (alert) => alert.alertTypeId === Util.ALERT_TYPE_ROCKETS
+          (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS
         );
         const UAVAlerts = confirmedAlerts.filter(
-          (alert) => alert.alertTypeId === Util.ALERT_TYPE_UAV
+          (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_UAV
         );
         rocketAlertCount += rocketAlerts.length;
         UAVAlertCount += UAVAlerts.length;

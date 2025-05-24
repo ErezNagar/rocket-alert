@@ -2,11 +2,11 @@ import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import { eachDayOfInterval, isSameDay } from "date-fns";
-import { getYesterday, dayOfMonthFormat } from "../../date_helper";
+import { getYesterday, dayOfMonthFormat } from "../../utilities/date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../../tracking";
 import withIsVisibleHook from "./../withIsVisibleHook";
-import Util from "../../util";
+import Utilities from "../../utilities/utilities";
 import { ALERTS_BY_DAY } from "./data/graphs";
 import graphUtils from "./graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -218,7 +218,7 @@ const GraphAlertsByDay = ({
   }, [alertData]);
 
   const updateGraphConfig = useCallback(() => {
-    const type = Util.isMediumViewport() ? "Bar" : "Column";
+    const type = Utilities.isMediumViewport() ? "Bar" : "Column";
     let height = 200;
 
     if (type === "Bar") {

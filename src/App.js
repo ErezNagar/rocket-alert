@@ -13,9 +13,9 @@ import Social from "./components/Social";
 import AlertClient from "./rocket_alert_client";
 import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
-import Util from "./util";
+import Utilities from "./utilities/utilities";
 import Tracking from "./tracking";
-import { getNow, get24HoursAgo } from "./date_helper";
+import { getNow, get24HoursAgo } from "./utilities/date_helper";
 import TimeToShelter from "./components/TimeToShelter";
 import SupportUs from "./components/SupportUs";
 
@@ -53,7 +53,7 @@ class App extends React.Component {
       this.processRealTimeAlert,
       this.processRealTimeAdvanceNotice
     );
-    if (Util.isDev() && Util.isAlertModeQueryString()) {
+    if (Utilities.isDev() && Utilities.isAlertModeQueryString()) {
       this.mockClientAlerts();
     }
 
@@ -90,7 +90,7 @@ class App extends React.Component {
         this.setState({
           mostRecentAlerts: mostRecentAlerts
             .concat(realTimeAlertCache.alerts)
-            .slice(-Util.MAX_RECENT_ALERTS)
+            .slice(-Utilities.MAX_RECENT_ALERTS)
             .reverse(),
           realTimeAlertCache,
         });
@@ -117,7 +117,7 @@ class App extends React.Component {
           areaNameHe: "areaNameHe",
           areaNameEn: "areaNameEn",
           timeStamp: "2023-11-06 17:20:33",
-          alertTypeId: Util.ALERT_TYPE_ROCKETS,
+          alertTypeId: Utilities.ALERT_TYPE_ROCKETS,
         },
         {
           name: "Test Eilat 2",
@@ -129,7 +129,7 @@ class App extends React.Component {
           areaNameHe: "areaNameHe",
           areaNameEn: "areaNameEn",
           timeStamp: "2023-11-06 17:20:33",
-          alertTypeId: Util.ALERT_TYPE_UAV,
+          alertTypeId: Utilities.ALERT_TYPE_UAV,
         },
       ],
     };
@@ -148,8 +148,8 @@ class App extends React.Component {
     const newMostRecentAlerts = [...this.state.mostRecentAlerts];
     // Add alert to top of alert list
     newMostRecentAlerts.unshift(alert);
-    // Maintain a max of Util.MAX_RECENT_ALERTS most recent alerts by removing the oldest
-    if (newMostRecentAlerts.length >= Util.MAX_RECENT_ALERTS) {
+    // Maintain a max of Utilities.MAX_RECENT_ALERTS most recent alerts by removing the oldest
+    if (newMostRecentAlerts.length >= Utilities.MAX_RECENT_ALERTS) {
       newMostRecentAlerts.pop();
     }
 
@@ -164,7 +164,7 @@ class App extends React.Component {
         this.setState({
           isAlertMode: false,
         });
-      }, Util.REAL_TIME_ALERT_THROTTLE_DURATION);
+      }, Utilities.REAL_TIME_ALERT_THROTTLE_DURATION);
     }
 
     Tracking.alertModeOnEvent();

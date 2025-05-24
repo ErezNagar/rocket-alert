@@ -8,7 +8,7 @@ import AudioControls from "./AudioControls";
 import HeaderHero from "./HeaderHero";
 import AlertModeHeaderHero from "./AlertModeHeaderHero";
 import AdvanceNotice from "./AdvanceNotice";
-import Util from "../../util";
+import Utilities from "../../utilities/utilities";
 import Tracking from "../../tracking";
 
 const Header = ({
@@ -201,7 +201,7 @@ const Header = ({
     }
     setTimeout(() => {
       setShouldRefresh(false);
-    }, Util.REAL_TIME_ALERT_DISPLAY_DURATION);
+    }, Utilities.REAL_TIME_ALERT_DISPLAY_DURATION);
   };
 
   /* eslint-disable react-hooks/exhaustive-deps */

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import { getNow } from "../../date_helper";
+import { getNow } from "../../utilities/date_helper";
 import Tracking from "../../tracking";
 import GraphTotalAlerts from "./GraphTotalAlerts";
 import GraphAlertsByDay from "./GraphAlertsByDay";

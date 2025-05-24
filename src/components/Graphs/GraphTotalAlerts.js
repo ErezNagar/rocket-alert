@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
-import Util from "../../util";
+import Utilities from "../../utilities/utilities";
 import { TOTAL_ALERTS, TOTAL_ALERTS_MOBILE } from "./data/graphs";
 import graphUtils from "./graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -19,7 +19,7 @@ const config = {
   appendPadding: [30, 0, 0, 0],
   label: false,
   xAxis: {
-    label: Util.buildxAxisLabel(),
+    label: Utilities.buildxAxisLabel(),
   },
   yAxis: false,
   legend: false,
@@ -38,11 +38,11 @@ const GraphTotalAlerts = ({
   const buildGraph = () => {
     const POSITION_OFFSET = 1 / 3;
     const POSITION_OFFSET_MOBILE = 1 / 2;
-    const offset = Util.isSmallViewport()
+    const offset = Utilities.isSmallViewport()
       ? POSITION_OFFSET_MOBILE
       : POSITION_OFFSET;
     const newData = graphUtils.buildNewData(alertData);
-    const existingData = Util.isSmallViewport()
+    const existingData = Utilities.isSmallViewport()
       ? TOTAL_ALERTS_MOBILE
       : TOTAL_ALERTS;
     const data = [...existingData, ...newData];

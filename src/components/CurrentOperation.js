@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
-import { getNow } from "../date_helper";
+import { getNow } from "../utilities/date_helper";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import AlertGraphs from "./Graphs/AlertGraphs";
-import Util from "./../util";
+import Utilities from "../utilities/utilities";
 
 const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
   const [mostTargetedLocations, setMostTargetedLocations] = useState(null);
@@ -58,7 +58,7 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
               fromDate={new Date("2023-10-07")}
               // toDate={new Date("2022-08-08T00:00")}
               alertsClient={alertsClient}
-              alertTypeId={Util.ALERT_TYPE_ROCKETS}
+              alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
               showAverage
             />
           </Col>
@@ -69,7 +69,7 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
               fromDate={new Date("2023-10-07")}
               // toDate={new Date("2022-08-08T00:00")}
               alertsClient={alertsClient}
-              alertTypeId={Util.ALERT_TYPE_UAV}
+              alertTypeId={Utilities.ALERT_TYPE_UAV}
               showAverage
             />
           </Col>

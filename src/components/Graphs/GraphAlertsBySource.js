@@ -5,11 +5,11 @@ import {
   getNow,
   is3WeeksDifference,
   weekRangeWithYearFormat,
-} from "../../date_helper";
+} from "../../utilities/date_helper";
 import { isBefore } from "date-fns";
 import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
-import Util from "../../util";
+import Utilities from "../../utilities/utilities";
 import { ALERTS_BY_SOURCE } from "./data/graphs";
 import graphUtils from "./graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -194,7 +194,7 @@ const GraphAlertBySource = ({
   }, [alertData]);
 
   const updateGraphConfig = () => {
-    const type = Util.isSmallViewport() ? "Bar" : "Column";
+    const type = Utilities.isSmallViewport() ? "Bar" : "Column";
     setGraphType(type);
     setConfig({
       ...(type === "Column" ? GRAPH_CONFIG.COLUMN : GRAPH_CONFIG.BAR),

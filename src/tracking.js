@@ -1,10 +1,10 @@
 /*
  A tracking module for Goole Analytics
 */
-import Util from "./util";
+import Utilities from "./utilities/utilities";
 
 const track = (type, name, options) => {
-  if (Util.isDev()) {
+  if (Utilities.isDev()) {
     return;
   }
 
