@@ -8,7 +8,7 @@ import Tracking from "../../tracking";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
 import { ALERTS_BY_DAY } from "./data/graphs";
-import graphUtils from "../../graphUtils/graphUtils";
+import graphUtils from "./graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -160,7 +160,7 @@ const GraphAlertsByDay = ({
 
         // If date has alerts, go over the alerts and categorize them by source
         if (isDateWithAlerts(date, alertData[alertDataIdx])) {
-          const alertOrigin = Util.determineAlertOrigin(
+          const alertOrigin = graphUtils.determineAlertOrigin(
             alertData[alertDataIdx].alerts
           );
 

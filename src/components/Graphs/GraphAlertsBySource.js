@@ -11,7 +11,7 @@ import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Util from "../../util";
 import { ALERTS_BY_SOURCE } from "./data/graphs";
-import graphUtils from "../../graphUtils/graphUtils";
+import graphUtils from "./graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const GRAPH_CONFIG = {
@@ -155,7 +155,7 @@ const GraphAlertBySource = ({
         originYemenCount = 0;
       }
 
-      const alertOrigin = Util.determineAlertOrigin(alerts);
+      const alertOrigin = graphUtils.determineAlertOrigin(alerts);
       originSouthCount += alertOrigin.originSouthCount;
       originNorthCount += alertOrigin.originNorthCount;
       originIranCount += alertOrigin.originIranCount;

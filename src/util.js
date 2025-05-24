@@ -1,10 +1,5 @@
 import queryString from "query-string";
 import { useEffect, useState } from "react";
-import {
-  isIranianMissileAttackTimeFrame,
-  isYemenMissileAttackTimeFrame,
-  isConfirmedFalseAlert,
-} from "./date_helper";
 
 /*
  * The duration in milliseconds of the css transition for real-time alert
@@ -121,48 +116,6 @@ const getDistanceByTimeToShelter = (timeToShelter) => {
   return TIME_TO_DISTANCE[timeToShelter];
 };
 
-const isRegionInSouth = (region) => {
-  const REGIONS_IN_SOUTH = [
-    "Gaza Envelope",
-    "Western Negev",
-    "Southern Negev",
-    "Central Negev",
-    "Shfelat Yehuda",
-    "Shfela (Lowlands)",
-    "Lakhish",
-    "Western Lakhish",
-  ];
-  return REGIONS_IN_SOUTH.includes(region);
-};
-
-const isRegionInNorth = (region) => {
-  const REGIONS_IN_NORTH = [
-    "Judea",
-    "Confrontation Line",
-    "Northern Golan",
-    "Southern Golan",
-    "Upper Galilee",
-    "Center Galilee",
-    "Lower Galilee",
-    "Wadi Ara",
-    "Menashe",
-    "HaAmakim",
-    "Samaria",
-    "HaMifratz",
-    "HaCarmel",
-    "Beit Sha'an Valley",
-    "Dead Sea",
-    "Eilat",
-    "Arabah",
-    "Bika'a",
-    "Jerusalem",
-    "Yarkon",
-    "Dan",
-    "Sharon",
-  ];
-  return REGIONS_IN_NORTH.includes(region);
-};
-
 const isSmallViewport = () =>
   Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) <
   768;
@@ -205,46 +158,6 @@ const buildxAxisLabel = () => {
   return xAxisLabel;
 };
 
-/*
-  Gets a list of alerts and determines the origin of each alert, based
-  on the timestamp and the region of the alert.
-*/
-const determineAlertOrigin = (alerts) => {
-  let originSouthCount = 0;
-  let originNorthCount = 0;
-  let originIranCount = 0;
-  let originYemenCount = 0;
-
-  alerts.forEach((alert) => {
-    if (isConfirmedFalseAlert(alert.timeStamp)) {
-      return;
-    } else if (isIranianMissileAttackTimeFrame(alert.timeStamp)) {
-      originIranCount += 1;
-    } else if (isYemenMissileAttackTimeFrame(alert.timeStamp)) {
-      originYemenCount += 1;
-    }
-    /*
-      As of March 22, 2025, Hezbollah still fires rockets and so
-      we can't just assume all alerts are from Hamas/Southv
-    */
-    // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
-    //   originSouthCount += 1;
-    // }
-    else if (isRegionInSouth(alert.areaNameEn)) {
-      originSouthCount += 1;
-    } else if (isRegionInNorth(alert.areaNameEn)) {
-      originNorthCount += 1;
-    }
-  });
-
-  return {
-    originSouthCount,
-    originNorthCount,
-    originIranCount,
-    originYemenCount,
-  };
-};
-
 const Util = {
   isDev: () =>
     process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test",
@@ -252,13 +165,10 @@ const Util = {
   isLocalStorageAvailable,
   useIsVisible,
   getDistanceByTimeToShelter,
-  isRegionInSouth,
-  isRegionInNorth,
   isSmallViewport,
   isMediumViewport,
   getAlertTypeText,
   buildxAxisLabel,
-  determineAlertOrigin,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
   MAX_RECENT_ALERTS,
