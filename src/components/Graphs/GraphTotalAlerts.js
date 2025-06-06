@@ -41,14 +41,15 @@ const GraphTotalAlerts = ({
     const offset = Utilities.isSmallViewport()
       ? POSITION_OFFSET_MOBILE
       : POSITION_OFFSET;
+
     const newData = graphUtils.buildNewData(alertData);
     const existingData = Utilities.isSmallViewport()
       ? TOTAL_ALERTS_MOBILE
       : TOTAL_ALERTS;
     const data = [...existingData, ...newData];
 
-    const groupByWeek = (array, key) => {
-      return array.reduce((result, obj) => {
+    const groupByWeek = (array, key) =>
+      array.reduce((result, obj) => {
         const value = obj[key];
         if (!result[value]) {
           result[value] = [];
@@ -56,7 +57,6 @@ const GraphTotalAlerts = ({
         result[value].push(obj);
         return result;
       }, {});
-    };
 
     const grouped = groupByWeek(data, "week");
     const annotations = [];

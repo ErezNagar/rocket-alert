@@ -213,13 +213,14 @@ const graphUtils = {
       const [year, month, day] = date.split("-");
       const alertDate = new Date(year, month - 1, day);
       if (weekDiffFunction(currentDate, alertDate)) {
+        const weekValue = weekRangeWithYearFormat(currentDate, alertDate);
         data.push({
-          week: weekRangeWithYearFormat(currentDate, alertDate),
+          week: weekValue,
           alerts: rocketAlertCount,
           type: "Rockets",
         });
         data.push({
-          week: weekRangeWithYearFormat(currentDate, alertDate),
+          week: weekValue,
           alerts: UAVAlertCount,
           type: "UAVs",
         });
@@ -243,13 +244,14 @@ const graphUtils = {
       }
     });
 
+    const week = weekRangeWithYearFormat(currentDate, getNow());
     data.push({
-      week: weekRangeWithYearFormat(currentDate, getNow()),
+      week,
       alerts: rocketAlertCount,
       type: "Rockets",
     });
     data.push({
-      week: weekRangeWithYearFormat(currentDate, getNow()),
+      week,
       alerts: UAVAlertCount,
       type: "UAVs",
     });
