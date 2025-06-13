@@ -78,16 +78,16 @@ const AlertClient = {
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
 
-        alerts.map((alert: any) => {
-          if (alert.name === "ברחבי הארץ") {
-            alert = {
-              ...alert,
-              englishName: "All over the country",
-              lat: 31.4061,
-              lon: 34.8516,
-            };
-          }
-        });
+        // alerts.map((alert: any) => {
+        //   if (alert.name === "ברחבי הארץ") {
+        //     alert = {
+        //       ...alert,
+        //       englishName: "All over the country",
+        //       lat: 31.4061,
+        //       lon: 34.8516,
+        //     };
+        //   }
+        // });
         return alerts.slice(-Utilities.MAX_RECENT_ALERTS);
       })
       .catch((e) => {
@@ -150,17 +150,8 @@ const AlertClient = {
           if (seenAlertLocations.includes(alert.englishName)) {
             return;
           } else {
-            // seenAlertLocations.push(alert.englishName);
-            if (alert.name === "ברחבי הארץ") {
-              payload.alerts.push({
-                ...alert,
-                englishName: "All over the country",
-                lat: 31.4061,
-                lon: 34.8516,
-              });
-            } else {
-              payload.alerts.push(alert);
-            }
+            seenAlertLocations.push(alert.englishName);
+            payload.alerts.push(alert);
           }
         });
 

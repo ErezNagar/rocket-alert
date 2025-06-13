@@ -30,7 +30,6 @@ class RecentAlertsInteractiveMap extends React.Component {
       style: "mapbox://styles/mapbox/dark-v11",
       center: [this.props.alerts[0].lon, this.props.alerts[0].lat],
       cooperativeGestures: true,
-      zoom: 6.8,
     });
 
     map.on("load", () => {
@@ -41,11 +40,6 @@ class RecentAlertsInteractiveMap extends React.Component {
   drawMapMarkersAndPolygons = (map, geojson) => {
     const alertNames = [];
     const bounds = new window.mapboxgl.LngLatBounds();
-
-    if (this.props.alerts[0].name === "ברחבי הארץ") {
-      bounds.extend([this.props.alerts[0].lon, this.props.alerts[0].lat]);
-      return bounds;
-    }
 
     this.props.alerts.forEach((alert) => {
       if (alertNames.includes(alert.name)) {
@@ -117,10 +111,10 @@ class RecentAlertsInteractiveMap extends React.Component {
       },
     });
 
-    // map.fitBounds(bounds, {
-    //   padding: { top: 50, bottom: 170, left: 50, right: 50 },
-    //   animate: false,
-    // });
+    map.fitBounds(bounds, {
+      padding: { top: 50, bottom: 170, left: 50, right: 50 },
+      animate: false,
+    });
 
     this.setState({ map, mapBounds: bounds });
   };
