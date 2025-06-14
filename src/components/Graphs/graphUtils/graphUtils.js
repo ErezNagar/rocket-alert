@@ -79,6 +79,7 @@ const isIranianMissileAttackTimeFrame = (date) => {
   const IranAttackTimeframes = [
     [new Date("2024-04-14 01:42:00"), new Date("2024-04-14 01:58:00")],
     [new Date("2024-10-01 18:37:00"), new Date("2024-10-01 19:59:00")],
+    [new Date("2025-06-13 21:10:00"), new Date("2025-06-14 04:41:00")],
   ];
 
   return (
@@ -147,7 +148,7 @@ const isYemenMissileAttackTimeFrame = (date) => {
     [new Date("2025-06-03 21:57:00"), new Date("2025-06-03 22:01:00")],
     [new Date("2025-06-05 21:47:00"), new Date("2025-06-05 21:49:00")],
     [new Date("2025-06-10 19:50:00"), new Date("2025-06-10 19:52:00")],
-
+    [new Date("2025-06-13 19:32:00"), new Date("2025-06-13 19:33:00")],
   ];
 
   return (
