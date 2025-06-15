@@ -249,7 +249,7 @@ class App extends React.Component {
                 </>
               )}
             </Row>
-            <TimeToShelter alerts={this.state.mostRecentAlerts} />
+            {/* <TimeToShelter alerts={this.state.mostRecentAlerts} /> */}
           </section>
         )}
         <CurrentOperation alertsClient={AlertClient} />
