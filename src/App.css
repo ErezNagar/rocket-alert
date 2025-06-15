@@ -268,12 +268,29 @@ h3 {
 /*
 * Current Operation
 */
-.current-operation .currentOperationTile {
+.current-operation .currentOperationTilesContainer {
   text-align: center;
   background-color: #5c0011;
-  padding: 3em 1em;
   margin-bottom: 2em;
 }
+
+.current-operation .currentOperationTile {
+  padding: 3em 1em;
+}
+
+.current-operation .currentOperationTile h3 {
+  color: white;
+  margin-bottom: 1%;
+}
+
+.current-operation .currentOperationTile.black {
+  background-color: black;
+}
+
+.current-operation .currentOperationTile.black h2 {
+  margin-bottom: 0.25em;
+}
+
 .current-operation h2 {
   color: white;
   text-align: center;

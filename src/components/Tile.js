@@ -51,6 +51,7 @@ const Tile = ({
   alertsClient,
   showAverage,
   sparklineData: propsSparklineData,
+  hideSparkline,
   isStatic,
   alertCount,
   alertTypeId,
@@ -130,7 +131,9 @@ const Tile = ({
       setAverage(showAverage ? getAverage(alertCount) : 0);
     } else {
       getAlerts();
-      getDailyAlerts();
+      if (!hideSparkline) {
+        getDailyAlerts();
+      }
     }
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
@@ -179,15 +182,17 @@ const Tile = ({
             {" Data unavailable"}
           </FadeIn>
         )}
-        {isSparklineLoading && <LoadingSparkline />}
-        {!isSparklineLoading && (propsSparklineData || sparklineData) && (
-          <Sparkline
-            id={title}
-            width={250}
-            height={50}
-            data={propsSparklineData || sparklineData}
-          />
-        )}
+        {!hideSparkline && isSparklineLoading && <LoadingSparkline />}
+        {!hideSparkline &&
+          !isSparklineLoading &&
+          (propsSparklineData || sparklineData) && (
+            <Sparkline
+              id={title}
+              width={250}
+              height={50}
+              data={propsSparklineData || sparklineData}
+            />
+          )}
       </div>
     </div>
   );
