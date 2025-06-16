@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7851b244.css",
-    "main.js": "/static/js/main.10627296.js",
+    "main.js": "/static/js/main.56317113.js",
     "static/js/686.06848f76.chunk.js": "/static/js/686.06848f76.chunk.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/jerusalem_distance.png": "/static/media/jerusalem_distance.bac81e957ebb29a6fb29.png",
@@ -16,11 +16,10 @@
     "static/media/telegram.svg": "/static/media/telegram.ec2459e84ea4ed19af879827455c94d9.svg",
     "static/media/mastodon.svg": "/static/media/mastodon.c5bdf3a936feb0716799a6686ed5ad0e.svg",
     "static/media/twitter.svg": "/static/media/twitter.c4236a95b1a54627edce47c20a871ef0.svg",
-    "static/media/twitter_black.svg": "/static/media/twitter_black.9a56ea57a5ed634cfbf9ae2b7de7cfda.svg",
     "static/media/email.svg": "/static/media/email.071535162611fb198c1012dac02b4d90.svg"
   },
   "entrypoints": [
     "static/css/main.7851b244.css",
-    "static/js/main.10627296.js"
+    "static/js/main.56317113.js"
   ]
 }
