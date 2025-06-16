@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.7851b244.css",
-    "main.js": "/static/js/main.56317113.js",
+    "main.css": "/static/css/main.79f82925.css",
+    "main.js": "/static/js/main.ba98e026.js",
     "static/js/686.06848f76.chunk.js": "/static/js/686.06848f76.chunk.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/jerusalem_distance.png": "/static/media/jerusalem_distance.bac81e957ebb29a6fb29.png",
@@ -19,7 +19,7 @@
     "static/media/email.svg": "/static/media/email.071535162611fb198c1012dac02b4d90.svg"
   },
   "entrypoints": [
-    "static/css/main.7851b244.css",
-    "static/js/main.56317113.js"
+    "static/css/main.79f82925.css",
+    "static/js/main.ba98e026.js"
   ]
 }
