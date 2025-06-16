@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import FadeInOut from "../FadeInOut";
-import FormattedAlertTime from "../FormattedAlertTime";
 import { ReactComponent as TwitterLogo } from "../../assets/twitter.svg";
 import logo from "../../assets/logo.svg";
 import Tracking from "../../tracking";
