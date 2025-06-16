@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.79f82925.css",
-    "main.js": "/static/js/main.ba98e026.js",
+    "main.js": "/static/js/main.ec8b49f2.js",
     "static/js/686.06848f76.chunk.js": "/static/js/686.06848f76.chunk.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/jerusalem_distance.png": "/static/media/jerusalem_distance.bac81e957ebb29a6fb29.png",
@@ -20,6 +20,6 @@
   },
   "entrypoints": [
     "static/css/main.79f82925.css",
-    "static/js/main.ba98e026.js"
+    "static/js/main.ec8b49f2.js"
   ]
 }
