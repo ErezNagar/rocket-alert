@@ -125,7 +125,7 @@ const HeaderContainer = (props) => {
 HeaderContainer.propTypes = {
   alertClient: PropTypes.object.isRequired,
   isAlertMode: PropTypes.bool,
-  realTimeAlert: PropTypes.object,
+  realTimeAlert: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   realTimeAlertCache: PropTypes.object.isRequired,
   onTwitterShareText: PropTypes.func.isRequired,
   isLastAlertOfBatch: PropTypes.bool.isRequired,

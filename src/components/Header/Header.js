@@ -293,7 +293,7 @@ const Header = ({
 
 Header.propTypes = {
   isAlertMode: PropTypes.bool,
-  realTimeAlert: PropTypes.object,
+  realTimeAlert: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onTwitterShareText: PropTypes.func,
   isLastAlertOfBatch: PropTypes.bool,
   advanceNotices: PropTypes.array,

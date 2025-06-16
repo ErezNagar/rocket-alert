@@ -145,7 +145,11 @@ class App extends React.Component {
   processRealTimeAlert = (alert, isLastAlert) => {
     const newMostRecentAlerts = [...this.state.mostRecentAlerts];
     // Add alert to top of alert list
-    newMostRecentAlerts.unshift(alert);
+    if (Array.isArray(alert)) {
+      alert.forEach((a) => newMostRecentAlerts.unshift(a));
+    } else {
+      newMostRecentAlerts.unshift(alert);
+    }
     // Maintain a max of Utilities.MAX_RECENT_ALERTS most recent alerts by removing the oldest
     if (newMostRecentAlerts.length >= Utilities.MAX_RECENT_ALERTS) {
       newMostRecentAlerts.pop();

@@ -71,6 +71,9 @@ h3 {
   width: 100%;
   font-size: 1.4em;
   margin-left: 1em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .sticky-header .right-container {

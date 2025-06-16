@@ -64,7 +64,12 @@ const RealTimeAlertManager = {
     }
     RealTimeAlertManager.alertInterval = setInterval(() => {
       if (RealTimeAlertManager.alertQueue.length > 0) {
-        const alert = RealTimeAlertManager.alertQueue.shift();
+        let alert;
+        if (RealTimeAlertManager.alertQueue.length > 30) {
+          alert = RealTimeAlertManager.alertQueue.splice(0, 10);
+        } else {
+          alert = RealTimeAlertManager.alertQueue.shift();
+        }
         const isLastAlert = RealTimeAlertManager.alertQueue.length === 0;
         cb(alert, isLastAlert);
       }

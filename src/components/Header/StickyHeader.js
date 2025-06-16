@@ -46,12 +46,13 @@ const StickyHeader = ({
         {isAlertMode && realTimeAlert && (
           <FadeInOut show={shouldRefresh}>
             {!Utilities.isSmallViewport() && (
-              <>
-                <FormattedAlertTime timeStamp={realTimeAlert.timeStamp} />
-                {` ${Utilities.getAlertTypeText(realTimeAlert)}: `}
-              </>
+              <>{`${Utilities.getAlertTypeText(realTimeAlert)}: `}</>
             )}
-            {realTimeAlert.englishName || realTimeAlert.name}
+            {Array.isArray(realTimeAlert)
+              ? realTimeAlert
+                  .map((alert) => alert.englishName || alert.name)
+                  .join(", ")
+              : realTimeAlert.englishName || realTimeAlert.name}
           </FadeInOut>
         )}
       </div>
@@ -74,7 +75,7 @@ const StickyHeader = ({
 StickyHeader.propTypes = {
   showStickyHeader: PropTypes.bool,
   isAlertMode: PropTypes.bool,
-  realTimeAlert: PropTypes.object,
+  realTimeAlert: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   // Text to share on twitter. Generated in Header
   twitterShareText: PropTypes.string,
 };

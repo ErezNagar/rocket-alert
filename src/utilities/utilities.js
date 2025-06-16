@@ -125,10 +125,11 @@ const isMediumViewport = () =>
   1024;
 
 const getAlertTypeText = (alert) => {
-  if (alert?.alertTypeId === ALERT_TYPE_ROCKETS) {
+  let theAlert = Array.isArray(alert) ? alert[0] : alert;
+  if (theAlert?.alertTypeId === ALERT_TYPE_ROCKETS) {
     return "Rocket alert";
   }
-  if (alert?.alertTypeId === ALERT_TYPE_UAV) {
+  if (theAlert?.alertTypeId === ALERT_TYPE_UAV) {
     return "Hostile UAV alert";
   }
   return "Red alert";
