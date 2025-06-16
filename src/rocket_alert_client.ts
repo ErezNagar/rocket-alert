@@ -78,16 +78,6 @@ const AlertClient = {
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
 
-        // alerts.map((alert: any) => {
-        //   if (alert.name === "ברחבי הארץ") {
-        //     alert = {
-        //       ...alert,
-        //       englishName: "All over the country",
-        //       lat: 31.4061,
-        //       lon: 34.8516,
-        //     };
-        //   }
-        // });
         return alerts.slice(-Utilities.MAX_RECENT_ALERTS);
       })
       .catch((e) => {

@@ -11,15 +11,13 @@ const RealTimeAlertManager = {
   alertEventSource: null,
   alertInterval: null,
   alertQueue: [],
-  advanceNoticeQueue: [],
 
   /*
    *  Connects to the real-time alert source and listens for incoming alerts
    *  @param {object}   alertClient     The alert client
    *  @param {func}     alertCB         Callback function to process incoming alerts
-   *  @param {func}     advanceNoticeCB Callback function to process incoming advance notices
    */
-  startRealTimeAlerts: (alertClient, alertCB, advanceNoticeCB) => {
+  startRealTimeAlerts: (alertClient, alertCB) => {
     RealTimeAlertManager.alertEventSource =
       alertClient.getRealTimeAlertEventSource();
 
@@ -30,18 +28,6 @@ const RealTimeAlertManager = {
     RealTimeAlertManager.alertEventSource.addEventListener("message", (e) => {
       const data = JSON.parse(e.data);
       if (data.alerts[0].name === "KEEP_ALIVE") {
-        return;
-      }
-
-      const advanceNoticeData = data.alerts.filter(
-        (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_ADVANCE_NOTICE
-      );
-      if (advanceNoticeData.length > 0) {
-        RealTimeAlertManager.advanceNoticeQueue = [
-          ...RealTimeAlertManager.advanceNoticeQueue,
-          ...advanceNoticeData,
-        ];
-        advanceNoticeCB(RealTimeAlertManager.advanceNoticeQueue);
         return;
       }
 
@@ -81,10 +67,6 @@ const RealTimeAlertManager = {
         const alert = RealTimeAlertManager.alertQueue.shift();
         const isLastAlert = RealTimeAlertManager.alertQueue.length === 0;
         cb(alert, isLastAlert);
-        // Reset advanceNticeQueue on last alert to be ready for the next time
-        if (isLastAlert) {
-          RealTimeAlertManager.advanceNoticeQueue = [];
-        }
       }
     }, Utilities.REAL_TIME_ALERT_THROTTLE_DURATION);
   },

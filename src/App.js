@@ -16,7 +16,7 @@ import RealTimeAlertManager from "./realtime_alert_manager";
 import Utilities from "./utilities/utilities";
 import Tracking from "./tracking";
 import { getNow, get24HoursAgo } from "./utilities/date_helper";
-import TimeToShelter from "./components/TimeToShelter";
+// import TimeToShelter from "./components/TimeToShelter";
 import SupportUs from "./components/SupportUs";
 
 class App extends React.Component {
@@ -37,8 +37,6 @@ class App extends React.Component {
     mostRecentAlerts: [],
     // Real-time alerts that have been triggred since the last history sync
     realTimeAlertCache: { alerts: [], count: null },
-    // real-time advance notices
-    advanceNotices: [],
     // Text when sharing on twitter. Generated in Header
     twitterShareText: "",
     // The location to focus on on the map
@@ -50,9 +48,9 @@ class App extends React.Component {
   componentDidMount() {
     RealTimeAlertManager.startRealTimeAlerts(
       AlertClient,
-      this.processRealTimeAlert,
-      this.processRealTimeAdvanceNotice
+      this.processRealTimeAlert
     );
+
     if (Utilities.isDev() && Utilities.isAlertModeQueryString()) {
       this.mockClientAlerts();
     }
@@ -170,18 +168,6 @@ class App extends React.Component {
     Tracking.alertModeOnEvent();
   };
 
-  /*
-   * Processes all advance notices by showing it in the UI
-   */
-  processRealTimeAdvanceNotice = (advanceNotices) => {
-    const areas = advanceNotices.map(
-      (alert) => alert.areaNameEn || alert.areaNameHe
-    );
-    this.setState({
-      advanceNotices: areas,
-    });
-  };
-
   handleScroll = (e) => {
     const vh80 = window.innerHeight * 0.9;
     this.setState({
@@ -209,7 +195,6 @@ class App extends React.Component {
           isAlertMode={this.state.isAlertMode}
           realTimeAlert={this.state.realTimeAlert}
           realTimeAlertCache={this.state.realTimeAlertCache}
-          advanceNotices={this.state.advanceNotices}
           isLastAlertOfBatch={this.state.isLastAlertOfBatch}
           onTwitterShareText={this.handleOnTwitterShareText}
         />
