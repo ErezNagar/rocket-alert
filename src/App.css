@@ -281,17 +281,18 @@ h3 {
   padding: 3em 1em;
 }
 
-.current-operation .currentOperationTile h3 {
-  color: white;
-  margin-bottom: 1%;
-}
-
-.current-operation .currentOperationTile.black {
+.current-operation .currentOperationTile.red {
   background-color: #be0023;
 }
 
-.current-operation .currentOperationTile.black h2 {
+.current-operation .currentOperationTile.red h2 {
   margin-bottom: 0.25em;
+}
+
+.current-operation .currentOperationTile.subtitle {
+  color: white;
+  padding: 0;
+  margin-bottom: 1em;
 }
 
 .current-operation h2 {

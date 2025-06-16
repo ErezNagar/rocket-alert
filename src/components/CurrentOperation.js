@@ -49,9 +49,11 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
   return (
     <section className="current-operation">
       <div ref={isIntersectingRef} className="currentOperationTilesContainer">
-        <div className="currentOperationTile black">
+        <div className="currentOperationTile red">
           <h2>Operation Rising Lion</h2>
-          <h3>Attack on Iran's nuclear facilities</h3>
+          <h3 className="currentOperationTile subtitle">
+            Attack on Iran's nuclear facilities
+          </h3>
           <Row gutter={[24, 24]} justify={"center"}>
             <Col xs={24} sm={12} md={8} lg={6}>
               <Tile
