@@ -84,7 +84,7 @@ const isIranianMissileAttackTimeFrame = (date) => {
     [new Date("2025-06-15 20:37:00"), new Date("2025-06-16 04:37:00")],
     [new Date("2025-06-16 10:45:00"), new Date("2025-06-19 07:36:00")],
     [new Date("2025-06-19 14:46:26"), new Date("2025-06-23 11:35:00")],
-    [new Date("2025-06-24 01:34:00"), new Date("2025-06-24 06:19:00")],
+    [new Date("2025-06-24 01:34:00"), new Date("2025-06-24 10:35:00")],
   ];
 
   return (
