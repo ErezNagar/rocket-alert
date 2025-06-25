@@ -7,8 +7,20 @@ import { PREVIUOS_OPERATIONS, YEARS } from "./Graphs/data/sparklines";
 const PreviousOperations = ({ isIntersectingRef }) => (
   <>
     <section ref={isIntersectingRef} className="section">
-      <h2>Rocket alerts in previous conflicts</h2>
+      <h2>Red alerts in previous conflicts</h2>
       <Row gutter={[24, 24]}>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Tile
+            title={"Operation Rising Lion"}
+            subtitle={"June 13 2025 - June 24 2025"}
+            fromDate={new Date("2025-06-13T00:00")}
+            toDate={new Date("2025-06-24T12:00")}
+            sparklineData={PREVIUOS_OPERATIONS.RISING_LION.SPARKLINE_DATA}
+            alertCount={PREVIUOS_OPERATIONS.RISING_LION.ALERT_COUNT}
+            isStatic
+            showAverage
+          />
+        </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
           <Tile
             title={"Operation Shield and Arrow"}

@@ -49,36 +49,6 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
   return (
     <section className="current-operation">
       <div ref={isIntersectingRef} className="currentOperationTilesContainer">
-        <div className="currentOperationTile red">
-          <h2>Operation Rising Lion</h2>
-          <h3 className="currentOperationTile subtitle">
-            Attack on Iran's nuclear facilities
-          </h3>
-          <Row gutter={[24, 24]} justify={"center"}>
-            <Col xs={24} sm={12} md={8} lg={6}>
-              <Tile
-                title={"Rocket Alerts"}
-                subtitle={"Since June 13, 2025"}
-                fromDate={new Date("2025-06-13")}
-                alertsClient={alertsClient}
-                alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
-                showAverage
-                hideSparkline
-              />
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={6}>
-              <Tile
-                title={"UAV Alerts"}
-                subtitle={"Since June 13, 2025"}
-                fromDate={new Date("2025-06-13")}
-                alertsClient={alertsClient}
-                alertTypeId={Utilities.ALERT_TYPE_UAV}
-                showAverage
-                hideSparkline
-              />
-            </Col>
-          </Row>
-        </div>
         <div className="currentOperationTile">
           <h2>Operation Swords of Iron</h2>
           <Row gutter={[24, 24]} justify={"center"}>

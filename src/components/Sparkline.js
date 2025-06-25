@@ -16,7 +16,8 @@ const Sparkline = ({ id, width, height, data }) => {
     <svg width={width} height={height+1}>
       <defs>
         <linearGradient id={`gradient_${id}`} x1="0" x2="0" y1="1" y2="0">
-          <stop offset="0%" stopColor="#5c0011"></stop>
+          <stop offset="1%" stopColor="#5c001110"></stop>
+          <stop offset="10%" stopColor="#5c0011"></stop>
           <stop offset="70%" stopColor="#f5222d"></stop>
         </linearGradient>
         <mask id={`mask_${id}`} x="0" y="0" width={width} height={height}>
