@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import {
   getNow,
-  is3WeeksDifference,
+  is4WeeksDifference,
   weekRangeWithYearFormat,
 } from "../../utilities/date_helper";
 import { isBefore } from "date-fns";
@@ -93,7 +93,7 @@ const GRAPH_CONFIG = {
 };
 
 // The date from which the new, non-hardcoded graph data starts.
-const DYNAMIC_DATA_START_DATE = new Date(2025, 0, 14);
+const DYNAMIC_DATA_START_DATE = new Date(2025, 0, 30);
 
 const GraphAlertBySource = ({
   alertData,
@@ -121,7 +121,7 @@ const GraphAlertBySource = ({
       if (isBefore(alertDate, currentDate)) {
         return;
       }
-      if (is3WeeksDifference(currentDate, alertDate)) {
+      if (is4WeeksDifference(currentDate, alertDate)) {
         const weekRange = weekRangeWithYearFormat(currentDate, alertDate);
         data.push({
           week: weekRange,

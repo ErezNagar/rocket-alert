@@ -39,14 +39,14 @@ export const isBiWeeklyDifference = (fromDate, toDate) => {
   return Math.abs(diff) >= 2 ? true : false;
 };
 
-export const is3WeeksDifference = (fromDate, toDate) => {
+export const is4WeeksDifference = (fromDate, toDate) => {
   const diff = differenceInWeeks(fromDate, toDate);
-  return Math.abs(diff) >= 3 ? true : false;
+  return Math.abs(diff) >= 4 ? true : false;
 };
 
-export const is5WeeksDifference = (fromDate, toDate) => {
+export const is8WeeksDifference = (fromDate, toDate) => {
   const diff = differenceInWeeks(fromDate, toDate);
-  return Math.abs(diff) >= 5 ? true : false;
+  return Math.abs(diff) >= 8 ? true : false;
 };
 
 export const weekRangeFormat = (fromDate, toDate) =>

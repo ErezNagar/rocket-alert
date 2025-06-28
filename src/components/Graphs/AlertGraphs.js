@@ -43,7 +43,6 @@ const AlertGraphs = ({ alertsClient }) => {
         alertData={alertData}
         isLoading={isLoading}
         isError={isError}
-        z
       />
       <GraphAlertsByDay
         alertData={alertData}

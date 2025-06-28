@@ -2,7 +2,7 @@ import {
   getNow,
   isBiWeeklyDifference,
   weekRangeWithYearFormat,
-  is5WeeksDifference,
+  is8WeeksDifference,
 } from "../../../utilities/date_helper";
 import Utilities from "../../../utilities/utilities";
 import { isAfter, isBefore } from "date-fns";
@@ -10,7 +10,7 @@ import { isAfter, isBefore } from "date-fns";
 // The date from which the new, non-hardcoded graph data starts.
 // Used for calculating alert count based on existing date intervals
 const TOTAL_ALERTS_DYNAMIC_DATA_START_DATE = new Date(2025, 0, 13);
-const TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE = new Date(2025, 0, 5);
+const TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE = new Date(2025, 1, 23);
 
 const ALERT_SOURCE = {
   HAMAS: {
@@ -219,7 +219,7 @@ const graphUtils = {
     let weekDiffFunction = isBiWeeklyDifference;
     if (Utilities.isSmallViewport()) {
       currentDate = TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE;
-      weekDiffFunction = is5WeeksDifference;
+      weekDiffFunction = is8WeeksDifference;
     }
 
     alertData.forEach(({ alerts, date }) => {

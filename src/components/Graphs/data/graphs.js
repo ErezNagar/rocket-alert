@@ -1,6 +1,10 @@
 /*
     Pre-compiled alert data in the shape the graph expects to receive.
-    Covers data from 2023-10-7 to 2024-12-31.
+
+    For TOTAL_ALERTS, covers data from 2023-10-7 to 2025-01-12.
+    For TOTAL_ALERTS_MOBILE, covers data from 2023-10-7 to 2025-02-22.
+    For ALERTS_BY_SOURCE, covers data from 2023-10-7 to 2025-01-29.
+    
 */
 export const TOTAL_ALERTS = [
   {
@@ -336,375 +340,295 @@ export const TOTAL_ALERTS = [
 ];
 export const TOTAL_ALERTS_MOBILE = [
   {
-    week: "10/7/23 - 11/10/23",
-    alerts: 8174,
+    week: "10/7/23 - 12/1/23",
+    alerts: 9021,
     type: "Rockets",
   },
   {
-    week: "11/11/23 - 12/15/23",
-    alerts: 1550,
-    type: "Rockets",
-  },
-  {
-    week: "12/16/23 - 1/19/24",
-    alerts: 671,
-    type: "Rockets",
-  },
-  {
-    week: "1/20/24 - 2/23/24",
-    alerts: 311,
-    type: "Rockets",
-  },
-  {
-    week: "2/24/24 - 3/29/24",
-    alerts: 449,
-    type: "Rockets",
-  },
-  {
-    week: "3/30/24 - 5/4/24",
-    alerts: 1049,
-    type: "Rockets",
-  },
-  {
-    week: "5/5/24 - 6/8/24",
-    alerts: 609,
-    type: "Rockets",
-  },
-  {
-    week: "6/9/24 - 7/13/24",
-    alerts: 779,
-    type: "Rockets",
-  },
-  {
-    week: "7/14/24 - 8/17/24",
-    alerts: 644,
-    type: "Rockets",
-  },
-  {
-    week: "8/18/24 - 9/21/24",
-    alerts: 1002,
-    type: "Rockets",
-  },
-  {
-    week: "9/22/24 - 10/26/24",
-    alerts: 10176,
-    type: "Rockets",
-  },
-  {
-    week: "10/27/24 - 11/30/24",
-    alerts: 4440,
-    type: "Rockets",
-  },
-  {
-    week: "12/1/24 - 1/4/25",
-    alerts: 1860,
-    type: "Rockets",
-  },
-  {
-    week: "10/7/23 - 11/10/23",
-    alerts: 231,
+    week: "10/7/23 - 12/1/23",
+    alerts: 347,
     type: "UAVs",
   },
   {
-    week: "11/11/23 - 12/15/23",
-    alerts: 160,
+    week: "12/2/23 - 1/26/24",
+    alerts: 1416,
+    type: "Rockets",
+  },
+  {
+    week: "12/2/23 - 1/26/24",
+    alerts: 594,
     type: "UAVs",
   },
   {
-    week: "12/16/23 - 1/19/24",
-    alerts: 535,
+    week: "1/27/24 - 3/22/24",
+    alerts: 631,
+    type: "Rockets",
+  },
+  {
+    week: "1/27/24 - 3/22/24",
+    alerts: 325,
     type: "UAVs",
   },
   {
-    week: "1/20/24 - 2/23/24",
-    alerts: 156,
+    week: "3/23/24 - 5/17/24",
+    alerts: 1396,
+    type: "Rockets",
+  },
+  {
+    week: "3/23/24 - 5/17/24",
+    alerts: 969,
     type: "UAVs",
   },
   {
-    week: "2/24/24 - 3/29/24",
-    alerts: 265,
+    week: "5/18/24 - 7/12/24",
+    alerts: 1110,
+    type: "Rockets",
+  },
+  {
+    week: "5/18/24 - 7/12/24",
+    alerts: 1723,
     type: "UAVs",
   },
   {
-    week: "3/30/24 - 5/4/24",
-    alerts: 388,
+    week: "7/13/24 - 9/6/24",
+    alerts: 1124,
+    type: "Rockets",
+  },
+  {
+    week: "7/13/24 - 9/6/24",
+    alerts: 738,
     type: "UAVs",
   },
   {
-    week: "5/5/24 - 6/8/24",
-    alerts: 1424,
+    week: "9/7/24 - 11/1/24",
+    alerts: 11544,
+    type: "Rockets",
+  },
+  {
+    week: "9/7/24 - 11/1/24",
+    alerts: 1146,
     type: "UAVs",
   },
   {
-    week: "6/9/24 - 7/13/24",
-    alerts: 799,
+    week: "11/2/24 - 12/27/24",
+    alerts: 4756,
+    type: "Rockets",
+  },
+  {
+    week: "11/2/24 - 12/27/24",
+    alerts: 951,
     type: "UAVs",
   },
   {
-    week: "7/14/24 - 8/17/24",
-    alerts: 442,
-    type: "UAVs",
+    week: "12/28/24 - 2/22/25",
+    alerts: 1312,
+    type: "Rockets",
   },
   {
-    week: "8/18/24 - 9/21/24",
-    alerts: 488,
-    type: "UAVs",
-  },
-  {
-    week: "9/22/24 - 10/26/24",
-    alerts: 648,
-    type: "UAVs",
-  },
-  {
-    week: "10/27/24 - 11/30/24",
-    alerts: 1233,
-    type: "UAVs",
-  },
-  {
-    week: "12/1/24 - 1/4/25",
-    alerts: 25,
+    week: "12/28/24 - 2/22/25",
+    alerts: 6,
     type: "UAVs",
   },
 ];
 export const ALERTS_BY_SOURCE = [
   {
-    week: "10/7/23 - 10/27/23",
-    alerts: 5876,
+    week: "10/7/23 - 11/3/23",
+    alerts: 6305,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "10/7/23 - 10/27/23",
-    alerts: 1146,
+    week: "10/7/23 - 11/3/23",
+    alerts: 1362,
     origin: "Hezbollah (Southern Lebanon)",
   },
   {
-    week: "10/28/23 - 11/17/23",
-    alerts: 849,
+    week: "11/4/23 - 12/1/23",
+    alerts: 815,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "10/28/23 - 11/17/23",
-    alerts: 530,
+    week: "11/4/23 - 12/1/23",
+    alerts: 556,
     origin: "Hezbollah (Southern Lebanon)",
   },
   {
-    week: "11/18/23 - 12/8/23",
-    alerts: 707,
+    week: "12/2/23 - 12/29/23",
+    alerts: 638,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "11/18/23 - 12/8/23",
-    alerts: 429,
+    week: "12/2/23 - 12/29/23",
+    alerts: 593,
     origin: "Hezbollah (Southern Lebanon)",
   },
   {
-    week: "12/9/23 - 12/29/23",
-    alerts: 326,
+    week: "12/30/23 - 1/26/24",
+    alerts: 193,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "12/9/23 - 12/29/23",
-    alerts: 406,
+    week: "12/30/23 - 1/26/24",
+    alerts: 521,
     origin: "Hezbollah (Southern Lebanon)",
   },
   {
-    week: "12/30/23 - 1/19/24",
-    alerts: 182,
+    week: "1/27/24 - 2/23/24",
+    alerts: 64,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "12/30/23 - 1/19/24",
-    alerts: 476,
+    week: "1/27/24 - 2/23/24",
+    alerts: 338,
     origin: "Hezbollah (Southern Lebanon)",
   },
   {
-    week: "1/20/24 - 2/9/24",
-    alerts: 60,
+    week: "2/24/24 - 3/22/24",
+    alerts: 28,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "1/20/24 - 2/9/24",
-    alerts: 206,
+    week: "2/24/24 - 3/22/24",
+    alerts: 509,
     origin: "Hezbollah (Southern Lebanon)",
   },
   {
-    week: "2/10/24 - 3/1/24",
-    alerts: 31,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "2/10/24 - 3/1/24",
-    alerts: 349,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "3/2/24 - 3/22/24",
-    alerts: 12,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "3/2/24 - 3/22/24",
-    alerts: 337,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "3/23/24 - 4/12/24",
-    alerts: 32,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "3/23/24 - 4/12/24",
-    alerts: 464,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "4/13/24 - 5/4/24",
-    alerts: 9,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "4/13/24 - 5/4/24",
-    alerts: 390,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "4/13/24 - 5/4/24",
-    alerts: 688,
-    origin: "Iran",
-  },
-  {
-    week: "5/5/24 - 5/25/24",
-    alerts: 80,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "5/5/24 - 5/25/24",
-    alerts: 1171,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "5/26/24 - 6/15/24",
-    alerts: 48,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "5/26/24 - 6/15/24",
-    alerts: 1382,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "6/16/24 - 7/6/24",
-    alerts: 67,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "6/16/24 - 7/6/24",
-    alerts: 600,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "7/7/24 - 7/27/24",
-    alerts: 44,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "7/7/24 - 7/27/24",
-    alerts: 660,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "7/28/24 - 8/17/24",
-    alerts: 37,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "7/28/24 - 8/17/24",
-    alerts: 494,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "8/18/24 - 9/7/24",
-    alerts: 9,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "8/18/24 - 9/7/24",
-    alerts: 762,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "9/8/24 - 9/28/24",
-    alerts: 12,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "9/8/24 - 9/28/24",
-    alerts: 2872,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "9/8/24 - 9/28/24",
-    alerts: 375,
-    origin: "Houthis (Yemen)",
-  },
-  {
-    week: "9/29/24 - 10/19/24",
-    alerts: 86,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "9/29/24 - 10/19/24",
-    alerts: 4295,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "9/29/24 - 10/19/24",
-    alerts: 1869,
-    origin: "Iran",
-  },
-  {
-    week: "9/29/24 - 10/19/24",
-    alerts: 223,
-    origin: "Houthis (Yemen)",
-  },
-  {
-    week: "10/20/24 - 11/9/24",
-    alerts: 63,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "10/20/24 - 11/9/24",
-    alerts: 4323,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "11/10/24 - 11/30/24",
-    alerts: 67,
-    origin: "Hamas (Gaza)",
-  },
-  {
-    week: "11/10/24 - 11/30/24",
-    alerts: 3017,
-    origin: "Hezbollah (Southern Lebanon)",
-  },
-  {
-    week: "12/1/24 - 12/23/24",
+    week: "3/23/24 - 4/19/24",
     alerts: 36,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "12/1/24 - 12/23/24",
-    alerts: 483,
-    origin: "Houthis (Yemen)",
+    week: "3/23/24 - 4/19/24",
+    alerts: 604,
+    origin: "Hezbollah (Southern Lebanon)",
   },
   {
-    week: "12/24/24 - 1/13/25",
-    alerts: 138,
+    week: "3/23/24 - 4/19/24",
+    alerts: 688,
+    origin: "Iran",
+  },
+  {
+    week: "4/20/24 - 5/17/24",
+    alerts: 67,
     origin: "Hamas (Gaza)",
   },
   {
-    week: "12/24/24 - 1/13/25",
-    alerts: 1306,
+    week: "4/20/24 - 5/17/24",
+    alerts: 926,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "5/18/24 - 6/14/24",
+    alerts: 59,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "5/18/24 - 6/14/24",
+    alerts: 1868,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "6/15/24 - 7/12/24",
+    alerts: 87,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "6/15/24 - 7/12/24",
+    alerts: 752,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "7/13/24 - 8/9/24",
+    alerts: 61,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "7/13/24 - 8/9/24",
+    alerts: 813,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "8/10/24 - 9/6/24",
+    alerts: 16,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "8/10/24 - 9/6/24",
+    alerts: 936,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "9/7/24 - 10/4/24",
+    alerts: 15,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "9/7/24 - 10/4/24",
+    alerts: 4030,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "9/7/24 - 10/4/24",
+    alerts: 1869,
+    origin: "Iran",
+  },
+  {
+    week: "9/7/24 - 10/4/24",
+    alerts: 375,
+    origin: "Houthis (Yemen)",
+  },
+  {
+    week: "10/5/24 - 11/1/24",
+    alerts: 101,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "10/5/24 - 11/1/24",
+    alerts: 6074,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "10/5/24 - 11/1/24",
+    alerts: 223,
+    origin: "Houthis (Yemen)",
+  },
+  {
+    week: "11/2/24 - 11/29/24",
+    alerts: 110,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "11/2/24 - 11/29/24",
+    alerts: 4428,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "11/30/24 - 12/27/24",
+    alerts: 32,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "11/30/24 - 12/27/24",
+    alerts: 8,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "11/30/24 - 12/27/24",
+    alerts: 1129,
+    origin: "Houthis (Yemen)",
+  },
+  {
+    week: "12/28/24 - 1/29/25",
+    alerts: 130,
+    origin: "Hamas (Gaza)",
+  },
+  {
+    week: "12/28/24 - 1/29/25",
+    alerts: 12,
+    origin: "Hezbollah (Southern Lebanon)",
+  },
+  {
+    week: "12/28/24 - 1/29/25",
+    alerts: 1176,
     origin: "Houthis (Yemen)",
   },
 ];
