@@ -23,8 +23,6 @@ class App extends React.Component {
   state = {
     alerts: {},
     showStickyHeader: false,
-    // Fade in effect when app loads
-    startfadeInEffect: false,
     // Whether query string alert mode param is set
     isAlertModeOverride: false,
     // Whether the app currently receives incoming alerts
@@ -58,9 +56,6 @@ class App extends React.Component {
     this.getMostRecentAlerts();
 
     window.addEventListener("scroll", this.handleScroll);
-    this.setState({
-      startfadeInEffect: true,
-    });
   }
 
   componentWillUnmount() {
@@ -187,13 +182,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div
-        className={
-          this.state.startfadeInEffect
-            ? "pageContainer active"
-            : "pageContainer"
-        }
-      >
+      <div className={"pageContainer"}>
         <HeaderContainer
           alertClient={AlertClient}
           isAlertMode={this.state.isAlertMode}

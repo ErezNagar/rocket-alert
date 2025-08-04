@@ -15,12 +15,7 @@ h3 {
 .pageContainer {
   background: #f4f6f7;
   width: 100%;
-  opacity: 0;
   transition: 0.5s opacity;
-}
-
-.pageContainer.active {
-  opacity: 1;
 }
 
 /*
