@@ -251,7 +251,7 @@ const AlertClient = {
   getRealTimeAlertEventSource: (
     url = Utilities.isAlertModeQueryString()
       ? `${V2}/alerts/real-time-test?alertTypeId=${Utilities.ALERT_TYPE_ALL}`
-      : `${V2}/alerts/real-time?alertTypeId=${Utilities.ALERT_TYPE_ALL}`
+      : `${V2}/alerts/real-time`
   ) => new EventSource(url),
 };
 
