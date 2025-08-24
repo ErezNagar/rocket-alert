@@ -27,6 +27,7 @@ const config = {
 
 const GraphTotalAlerts = ({
   alertData,
+  alertTimeframes,
   isLoading,
   isError,
   isIntersectingRef,
@@ -42,7 +43,7 @@ const GraphTotalAlerts = ({
       ? POSITION_OFFSET_MOBILE
       : POSITION_OFFSET;
 
-    const newData = graphUtils.buildNewData(alertData);
+    const newData = graphUtils.buildNewData(alertData, alertTimeframes);
     const existingData = Utilities.isSmallViewport()
       ? TOTAL_ALERTS_MOBILE
       : TOTAL_ALERTS;
@@ -122,6 +123,7 @@ const GraphTotalAlerts = ({
 
 GraphTotalAlerts.propTypes = {
   alertData: PropTypes.array,
+  alertTimeframes: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
   // For Tracking

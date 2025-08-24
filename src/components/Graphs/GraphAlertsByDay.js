@@ -98,6 +98,7 @@ const BEGINNING_DATE_INTERVAL = new Date("2025-01-01T00:00");
 
 const GraphAlertsByDay = ({
   alertData,
+  alertTimeframes,
   isLoading,
   isError,
   isIntersectingRef,
@@ -162,7 +163,7 @@ const GraphAlertsByDay = ({
         if (isDateWithAlerts(date, alertData[alertDataIdx])) {
           const alertOrigin = graphUtils.determineAlertOrigin(
             alertData[alertDataIdx].alerts,
-            []
+            alertTimeframes
           );
 
           data[year][monthName].push({
@@ -216,7 +217,7 @@ const GraphAlertsByDay = ({
     setSelectedYear(selectedYear);
     setSelectedMonth(selectedMonth);
     setSelectedMonthData(data[selectedYear][selectedMonth]);
-  }, [alertData]);
+  }, [alertData, alertTimeframes]);
 
   const updateGraphConfig = useCallback(() => {
     const type = Utilities.isMediumViewport() ? "Bar" : "Column";
@@ -353,6 +354,7 @@ const GraphAlertsByDay = ({
 
 GraphAlertsByDay.propTypes = {
   alertData: PropTypes.array,
+  alertTimeframes: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
   // For Tracking

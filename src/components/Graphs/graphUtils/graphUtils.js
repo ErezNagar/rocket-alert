@@ -73,35 +73,9 @@ const isRegionInNorth = (region) => {
   return REGIONS_IN_NORTH.includes(region);
 };
 
-const isIranianMissileAttackTimeFrame = (date) => {
+const isInsideTimeframe = (date, timeframe) => {
   const theDate = new Date(date);
-  // Rounded to the nearest minute
-  const IranAttackTimeframes = [
-    [new Date("2024-04-14 01:42:00"), new Date("2024-04-14 01:58:00")],
-    [new Date("2024-10-01 18:37:00"), new Date("2024-10-01 19:59:00")],
-    [new Date("2025-06-13 21:10:00"), new Date("2025-06-14 09:02:00")],
-    [new Date("2025-06-14 23:10:00"), new Date("2025-06-15 16:13:00")],
-    [new Date("2025-06-15 20:37:00"), new Date("2025-06-16 04:37:00")],
-    [new Date("2025-06-16 10:45:00"), new Date("2025-06-19 07:36:00")],
-    [new Date("2025-06-19 14:46:26"), new Date("2025-06-23 11:35:00")],
-    [new Date("2025-06-24 01:34:00"), new Date("2025-06-24 10:35:00")],
-  ];
-
-  return (
-    IranAttackTimeframes.filter(
-      ([start, end]) => isAfter(theDate, start) && isBefore(theDate, end)
-    ).length !== 0
-  );
-};
-
-const isYemenMissileAttackTimeFrame = (date, alertTimeframes) => {
-  if (!alertTimeframes) {
-    return false;
-  }
-  const theDate = new Date(date);
-  return alertTimeframes.some(
-    ([start, end]) => theDate >= start && theDate <= end
-  );
+  return timeframe.some(([start, end]) => theDate >= start && theDate <= end);
 };
 
 const isAfterCeaseFireInTheNorth = (date) => {
@@ -109,57 +83,18 @@ const isAfterCeaseFireInTheNorth = (date) => {
   return isAfter(new Date(date), ceaseFireDate);
 };
 
-const isConfirmedFalseAlert = (date) => {
-  const theDate = new Date(date);
-  // Rounded to the nearest minute
-  const confirmedFalseAlerts = [
-    [new Date("2025-01-30 08:35:00"), new Date("2025-01-30 08:37:00")],
-    [new Date("2025-02-08 15:53:00"), new Date("2025-02-08 15:54:00")],
-    [new Date("2025-02-25 08:39:00"), new Date("2025-02-25 08:41:00")],
-    [new Date("2025-03-08 06:58:00"), new Date("2025-03-08 06:59:00")],
-    [new Date("2025-03-24 11:55:00"), new Date("2025-03-24 11:56:00")],
-    [new Date("2025-04-03 08:37:00"), new Date("2025-04-03 08:38:00")],
-    [new Date("2025-04-03 23:49:00"), new Date("2025-04-03 23:50:00")],
-    [new Date("2025-04-22 23:42:00"), new Date("2025-04-22 23:43:00")],
-    [new Date("2025-05-06 08:39:00"), new Date("2025-05-06 08:40:00")],
-    [new Date("2025-05-23 19:11:00"), new Date("2025-05-23 19:12:00")],
-    [new Date("2025-05-27 07:15:00"), new Date("2025-05-27 07:16:00")],
-    [new Date("2025-05-30 20:14:00"), new Date("2025-05-30 20:22:00")],
-    [new Date("2025-06-19 12:15:00"), new Date("2025-06-19 12:16:00")],
-    [new Date("2025-06-23 19:36:00"), new Date("2025-06-23 19:37:00")],
-    [new Date("2025-06-26 17:42:00"), new Date("2025-06-26 17:43:00")],
-    [new Date("2025-07-04 07:24:00"), new Date("2025-07-04 07:25:00")],
-    [new Date("2025-07-07 23:39:00"), new Date("2025-07-07 23:40:00")],
-    [new Date("2025-07-20 00:12:00"), new Date("2025-07-20 00:13:00")],
-    [new Date("2025-07-21 18:37:00"), new Date("2025-07-21 18:38:00")],
-    [new Date("2025-07-25 01:28:00"), new Date("2025-07-25 01:29:00")],
-    [new Date("2025-07-26 03:15:00"), new Date("2025-07-26 03:16:00")],
-    [new Date("2025-08-01 10:17:00"), new Date("2025-08-01 10:18:00")],
-    [new Date("2025-08-09 04:43:00"), new Date("2025-08-09 04:44:00")],
-    [new Date("2025-08-22 20:59:00"), new Date("2025-08-22 21:01:00")],
-  ];
-
-  return (
-    confirmedFalseAlerts.filter(
-      ([start, end]) => isAfter(theDate, start) && isBefore(theDate, end)
-    ).length !== 0
-  );
-};
-
 const graphUtils = {
   ALERT_SOURCE,
   isRegionInSouth,
   isRegionInNorth,
-  isIranianMissileAttackTimeFrame,
-  isYemenMissileAttackTimeFrame,
+  isInsideTimeframe,
   isAfterCeaseFireInTheNorth,
-  isConfirmedFalseAlert,
 
   /*
     Build graph data from dynamic data pulled from server.
     Shared between total alerts, rockets and UAV graphs.
   */
-  buildNewData: (alertData) => {
+  buildNewData: (alertData, alertTimeframes) => {
     let data = [];
     let rocketAlertCount = 0;
     let UAVAlertCount = 0;
@@ -192,7 +127,8 @@ const graphUtils = {
 
       if (!isBefore(alertDate, currentDate)) {
         const confirmedAlerts = alerts.filter(
-          (alert) => !isConfirmedFalseAlert(alert.timeStamp)
+          (alert) =>
+            !isInsideTimeframe(alert.timeStamp, alertTimeframes.falseAlerts)
         );
         const rocketAlerts = confirmedAlerts.filter(
           (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS
@@ -260,15 +196,11 @@ const graphUtils = {
     let originYemenCount = 0;
 
     alerts.forEach((alert) => {
-      if (isConfirmedFalseAlert(alert.timeStamp)) {
+      if (isInsideTimeframe(alert.timeStamp, alertTimeframes.falseAlerts)) {
         return;
-      } else if (
-        isIranianMissileAttackTimeFrame(alert.timeStamp, alertTimeframes.iran)
-      ) {
+      } else if (isInsideTimeframe(alert.timeStamp, alertTimeframes.iran)) {
         originIranCount += 1;
-      } else if (
-        isYemenMissileAttackTimeFrame(alert.timeStamp, alertTimeframes.yemen)
-      ) {
+      } else if (isInsideTimeframe(alert.timeStamp, alertTimeframes.yemen)) {
         originYemenCount += 1;
       }
       /*

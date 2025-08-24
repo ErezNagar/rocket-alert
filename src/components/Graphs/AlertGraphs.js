@@ -9,6 +9,10 @@ import GraphAlertsBySource from "./GraphAlertsBySource";
 
 const YEMEN_ALERT_TIMEFRAMES_URL =
   "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/yemen_alerts.json";
+const IRAN_ALERT_TIMEFRAMES_URL =
+  "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/iran-alerts.json";
+const CONFIRMED_FALSE_ALERT_TIMEFRAMES_URL =
+  "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/confirmed_false_alerts.json";
 
 const AlertGraphs = ({ alertsClient }) => {
   const [alertData, setAlertData] = useState(null);
@@ -27,40 +31,61 @@ const AlertGraphs = ({ alertsClient }) => {
         .json((res) =>
           res.map(([start, end]) => [new Date(start), new Date(end)])
         );
+
+    const loadIranAlertTimeframes = () =>
+      wretch(IRAN_ALERT_TIMEFRAMES_URL)
+        .get()
+        .json((res) =>
+          res.map(([start, end]) => [new Date(start), new Date(end)])
+        );
+
+    const loadConfirmedFalseAlertTimeframes = () =>
+      wretch(CONFIRMED_FALSE_ALERT_TIMEFRAMES_URL)
+        .get()
+        .json((res) =>
+          res.map(([start, end]) => [new Date(start), new Date(end)])
+        );
     const getDetailedAlerts = () =>
       alertsClient
         .getDetailedAlerts(new Date("2025-01-01"), getNow())
-        .then((res) => res.payload)
-        .catch((error) => {
-          Tracking.detailedAlertsByDayError(error);
-          console.error(error);
-          return null;
-        });
+        .then((res) => res.payload);
 
-    Promise.all([getDetailedAlerts(), loadYemenAlertTimeframes()]).then(
-      (values) => {
+    Promise.all([
+      getDetailedAlerts(),
+      loadYemenAlertTimeframes(),
+      loadIranAlertTimeframes(),
+      loadConfirmedFalseAlertTimeframes(),
+    ])
+      .then((values) => {
         const alertData = values[0] || [];
         const yemenAlertTimeframes = values[1] || [];
+        const iranAlertTimeframes = values[2] || [];
+        const confirmedFalseAlertTimeframes = values[3] || [];
 
         setAlertTimeframes((state) => ({
           ...state,
           yemen: yemenAlertTimeframes,
+          iran: iranAlertTimeframes,
+          falseAlerts: confirmedFalseAlertTimeframes,
         }));
 
-        if (!alertData || alertData.length === 0) {
-          setIsLoading(false);
-          setIsError(true);
-        }
         setIsLoading(false);
         setAlertData(alertData);
-      }
-    );
+      })
+      .catch((error) => {
+        setIsError(true);
+        setIsLoading(false);
+        Tracking.detailedAlertsByDayError(error);
+        console.error(error);
+        return null;
+      });
   }, [alertsClient]);
 
   return (
     <>
       <GraphTotalAlerts
         alertData={alertData}
+        alertTimeframes={alertTimeframes}
         isLoading={isLoading}
         isError={isError}
       />
@@ -72,6 +97,7 @@ const AlertGraphs = ({ alertsClient }) => {
       />
       <GraphAlertsByDay
         alertData={alertData}
+        alertTimeframes={alertTimeframes}
         isLoading={isLoading}
         isError={isError}
       />
