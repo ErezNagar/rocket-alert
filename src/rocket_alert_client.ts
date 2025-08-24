@@ -62,8 +62,8 @@ const AlertClient = {
    *  @param {string} to    to date, inclusive.
    *  @return {object}
    */
-  getMostRecentAlerts: (from: string, to: string): any => {
-    return getDetailedAlerts(from, to)
+  getMostRecentAlerts: (from: string, to: string): any =>
+    getDetailedAlerts(from, to)
       .then((res) => {
         if (!res.success) {
           return null;
@@ -82,9 +82,7 @@ const AlertClient = {
       })
       .catch((e) => {
         console.log("e", e);
-      });
-  },
-
+      }),
   /*
    *  Gets total alert count by day for the given date range
    *
@@ -118,8 +116,8 @@ const AlertClient = {
    *
    *  @return {object}
    */
-  getRealTimeAlertCache: (): any => {
-    return APIv2.url("/real-time/cached")
+  getRealTimeAlertCache: (): any =>
+    APIv2.url("/real-time/cached")
       .get()
       .json()
       .then((res) => {
@@ -150,9 +148,7 @@ const AlertClient = {
       })
       .catch((err) => {
         console.log(err);
-      });
-  },
-
+      }),
   /*
    *  Gets total alert count for the given date range
    *
