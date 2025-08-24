@@ -97,6 +97,7 @@ const DYNAMIC_DATA_START_DATE = new Date(2025, 0, 30);
 
 const GraphAlertBySource = ({
   alertData,
+  alertTimeframes,
   isLoading,
   isError,
   isIntersectingRef,
@@ -155,7 +156,10 @@ const GraphAlertBySource = ({
         originYemenCount = 0;
       }
 
-      const alertOrigin = graphUtils.determineAlertOrigin(alerts);
+      const alertOrigin = graphUtils.determineAlertOrigin(
+        alerts,
+        alertTimeframes
+      );
       originSouthCount += alertOrigin.originSouthCount;
       originNorthCount += alertOrigin.originNorthCount;
       originIranCount += alertOrigin.originIranCount;
@@ -191,7 +195,7 @@ const GraphAlertBySource = ({
     }
 
     setData([...ALERTS_BY_SOURCE, ...data]);
-  }, [alertData]);
+  }, [alertData, alertTimeframes]);
 
   const updateGraphConfig = () => {
     const type = Utilities.isSmallViewport() ? "Bar" : "Column";
@@ -272,6 +276,7 @@ const GraphAlertBySource = ({
 
 GraphAlertBySource.propTypes = {
   alertData: PropTypes.array,
+  alertTimeframes: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
   // For Tracking

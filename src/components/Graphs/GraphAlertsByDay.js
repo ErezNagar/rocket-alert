@@ -161,7 +161,8 @@ const GraphAlertsByDay = ({
         // If date has alerts, go over the alerts and categorize them by source
         if (isDateWithAlerts(date, alertData[alertDataIdx])) {
           const alertOrigin = graphUtils.determineAlertOrigin(
-            alertData[alertDataIdx].alerts
+            alertData[alertDataIdx].alerts,
+            []
           );
 
           data[year][monthName].push({
