@@ -1,0 +1,114 @@
+---
+minimum_pre_commit_version: '3.7.1'
+exclude: '^(vscode/|node_modules/)'
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+        stages: [commit]
+      - id: trailing-whitespace
+        args: ['--markdown-linebreak-ext=md']
+        stages: [commit]
+      - id: forbid-new-submodules
+        stages: [commit]
+      - id: sort-simple-yaml
+        stages: [commit]
+      - id: double-quote-string-fixer
+        stages: [commit]
+      - id: requirements-txt-fixer
+        stages: [commit]
+      - id: file-contents-sorter
+        stages: [commit]
+      - id: check-xml
+        stages: [commit]
+      - id: check-added-large-files
+        args: ['--maxkb=128']
+        stages: [commit]
+      - id: check-ast
+        stages: [commit]
+      - id: check-byte-order-marker
+        stages: [commit]
+      - id: check-case-conflict
+        stages: [commit]
+      - id: check-docstring-first
+        stages: [commit]
+      - id: check-executables-have-shebangs
+        stages: [commit]
+      - id: check-json
+        stages: [commit]
+      - id: check-merge-conflict
+        stages: [commit]
+      - id: check-symlinks
+        stages: [commit]
+      - id: debug-statements
+        stages: [commit]
+      - id: detect-private-key
+        stages: [commit]
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+        stages: [commit]
+      - id: pretty-format-json
+        args: ['--autofix', '--indent=4']
+        stages: [commit]
+      - id: check-yaml
+        args:
+          - --allow-multiple-documents
+          - --unsafe
+        stages: [commit]
+
+  # ShellScripts
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+      - id: shellcheck
+        stages: [commit]
+
+  # Yaml Files
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        files: \.(yaml|yml)$
+        args: [--format, parsable, --strict]
+        stages: [commit]
+
+  # Editorconfig
+  - repo: https://github.com/skycaptain/pre-commit-editorconfig-checker
+    rev: v2.1.0
+    hooks:
+      - id: editorconfig-checker
+
+  # JavaScript/TypeScript Linting
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.6.0
+    hooks:
+      - id: eslint
+        files: \.(js|jsx|ts|tsx)$
+        stages: [commit]
+
+  # CSS Linting
+  - repo: https://github.com/Cielquan/mirrors-stylelint
+    rev: v16.6.1
+    hooks:
+      - id: stylelint
+        files: \.(css|scss|sass)$
+        stages: [commit]
+
+  # Markdown Linting
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.12.0
+    hooks:
+      - id: markdownlint
+        files: \.(md|markdown)$
+        stages: [commit]
+
+  # Docker Linting
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.13.0-beta
+    hooks:
+      - id: hadolint
+        files: Dockerfile
+        stages: [commit]
+...
