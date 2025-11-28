@@ -4,7 +4,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import StickyHeader from "./components/Header/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
-import CurrentOperation from "./components/CurrentOperation";
+import OperationSwordsOfIron from "./components/OperationSwordsOfIron";
 import RecentAlertsMap from "./components/RecentAlertsMap";
 // import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
@@ -230,7 +230,7 @@ class App extends React.Component {
             {/* <TimeToShelter alerts={this.state.mostRecentAlerts} /> */}
           </section>
         )}
-        <CurrentOperation alertsClient={AlertClient} />
+        <OperationSwordsOfIron alertsClient={AlertClient} />
         {/* <Social /> */}
         {/* <LocationDistance /> */}
         <PreviousOperations alertsClient={AlertClient} />

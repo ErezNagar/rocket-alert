@@ -8,7 +8,7 @@ import withIsVisibleHook from "./withIsVisibleHook";
 import AlertGraphs from "./Graphs/AlertGraphs";
 import Utilities from "../utilities/utilities";
 
-const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
+const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
   // const [mostTargetedLocations, setMostTargetedLocations] = useState(null);
   // const [mostTargetedRegions, setMostTargetedRegions] = useState(null);
 
@@ -51,13 +51,14 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
       <div ref={isIntersectingRef} className="currentOperationTilesContainer">
         <div className="currentOperationTile">
           <h2>Operation Swords of Iron</h2>
+          <div className="subtitle">Oct 7, 2023 - Oct 10, 2025</div>
           <Row gutter={[24, 24]} justify={"center"}>
             <Col xs={24} sm={12} md={8} lg={6}>
               <Tile
                 title={"Rocket Alerts"}
-                subtitle={"Since October 7, 2023"}
+                // subtitle={"Since October 7, 2023"}
                 fromDate={new Date("2023-10-07")}
-                // toDate={new Date("2022-08-08T00:00")}
+                toDate={new Date("2025-10-10")}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
                 showAverage
@@ -66,9 +67,9 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
             <Col xs={24} sm={12} md={8} lg={6}>
               <Tile
                 title={"UAV Alerts"}
-                subtitle={"Since October 7, 2023"}
+                // subtitle={"Since October 7, 2023"}
                 fromDate={new Date("2023-10-07")}
-                // toDate={new Date("2022-08-08T00:00")}
+                toDate={new Date("2025-10-10")}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_UAV}
                 showAverage
@@ -123,10 +124,13 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
   );
 };
 
-CurrentOperation.propTypes = {
+OperationSwordsOfIron.propTypes = {
   alertsClient: PropTypes.object.isRequired,
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
 };
 
-export default withIsVisibleHook(CurrentOperation, "CurrentOperation");
+export default withIsVisibleHook(
+  OperationSwordsOfIron,
+  "OperationSwordsOfIron"
+);

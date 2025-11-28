@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import wretch from "wretch";
-import { getNow } from "../../utilities/date_helper";
 import Tracking from "../../tracking";
 import GraphTotalAlerts from "./GraphTotalAlerts";
 import GraphAlertsByDay from "./GraphAlertsByDay";
@@ -47,7 +46,7 @@ const AlertGraphs = ({ alertsClient }) => {
         );
     const getDetailedAlerts = () =>
       alertsClient
-        .getDetailedAlerts(new Date("2025-01-01"), getNow())
+        .getDetailedAlerts(new Date("2025-01-01"), new Date("2025-10-10"))
         .then((res) => res.payload);
 
     Promise.all([

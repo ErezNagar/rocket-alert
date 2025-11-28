@@ -88,7 +88,8 @@ const GraphTotalAlerts = ({
     <section ref={isIntersectingRef} className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Total rocket and UAV alerts since Oct 7</h2>
+          <h2>Total rocket and UAV alerts</h2>
+          <div className="subtitle">Oct 7, 2023 - Oct 10, 2025</div>
           {isLoading && (
             <div className="center-flexbox">
               <Spin

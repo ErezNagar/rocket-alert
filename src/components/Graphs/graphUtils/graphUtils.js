@@ -1,5 +1,4 @@
 import {
-  getNow,
   isBiWeeklyDifference,
   weekRangeWithYearFormat,
   is8WeeksDifference,
@@ -141,7 +140,12 @@ const graphUtils = {
       }
     });
 
-    const week = weekRangeWithYearFormat(currentDate, getNow());
+    // Swords of Iron ended on Oct 10. Since the calculation doesn't include the last day, we need to add one more day
+    const EndOfOperationDate = "2025-10-11";
+    const week = weekRangeWithYearFormat(
+      currentDate,
+      new Date(EndOfOperationDate)
+    );
     data.push({
       week,
       alerts: rocketAlertCount,
@@ -157,8 +161,8 @@ const graphUtils = {
   },
 
   /*
-    Concatenate pre-compiled hardcoded graph data with dynamic data pulled server.
-    For Alerts By Day graph
+    Concatenate pre-compiled hardcoded graph data with dynamic data pulled from server.
+    For Alerts By Day graph.
   */
   concatAlertsByDayGraphData: (precompiledData, data) => {
     Object.keys(data).forEach((yearKey) => {

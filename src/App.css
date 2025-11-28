@@ -279,8 +279,13 @@ h3 {
 .current-operation h2 {
   color: white;
   text-align: center;
-  margin-bottom: 1em;
+  /* margin-bottom: 1em; */
   font-size: 2em;
+}
+
+.current-operation .subtitle {
+  color: white;
+  margin-bottom: 2em;
 }
 
 .most-targeted-location,
@@ -304,6 +309,11 @@ h3 {
 
 .graph h2 {
   color: black;
+}
+
+.graph .subtitle {
+  color: black;
+  text-align: center;
 }
 
 .graph .center-flexbox {

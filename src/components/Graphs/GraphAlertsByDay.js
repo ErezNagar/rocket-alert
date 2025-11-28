@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import { eachDayOfInterval, isSameDay } from "date-fns";
-import { getYesterday, dayOfMonthFormat } from "../../utilities/date_helper";
+import { dayOfMonthFormat } from "../../utilities/date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../../tracking";
 import withIsVisibleHook from "./../withIsVisibleHook";
@@ -95,6 +95,8 @@ const GRAPH_CONFIG = {
 
 // The date from which the graph date interval will start
 const BEGINNING_DATE_INTERVAL = new Date("2025-01-01T00:00");
+// Swords of Iron ended on Oct 10. Since the calculation doesn't include the last day, we need to add one more day
+const ENDING_DATE = new Date("2025-10-11");
 
 const GraphAlertsByDay = ({
   alertData,
@@ -126,7 +128,7 @@ const GraphAlertsByDay = ({
 
     const dates = eachDayOfInterval({
       start: BEGINNING_DATE_INTERVAL,
-      end: getYesterday(),
+      end: ENDING_DATE,
     });
 
     dates.forEach((date) => {
@@ -284,7 +286,8 @@ const GraphAlertsByDay = ({
     <section ref={isIntersectingRef} className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Alerts by day since Oct 7</h2>
+          <h2>Alerts by day</h2>
+          <div className="subtitle">Oct 7, 2023 - Oct 10, 2025</div>
           {isLoading && (
             <div className="center-flexbox">
               <Spin

@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import {
-  getNow,
   is4WeeksDifference,
   weekRangeWithYearFormat,
 } from "../../utilities/date_helper";
@@ -166,7 +165,12 @@ const GraphAlertBySource = ({
       originYemenCount += alertOrigin.originYemenCount;
     });
 
-    const weekFormat = weekRangeWithYearFormat(currentDate, getNow());
+    // Swords of Iron ended on Oct 10. Since the calculation doesn't include the last day, we need to add one more day
+    const EndOfOperationDate = "2025-10-11";
+    const weekFormat = weekRangeWithYearFormat(
+      currentDate,
+      new Date(EndOfOperationDate)
+    );
     data.push({
       week: weekFormat,
       alerts: originSouthCount,
@@ -222,7 +226,8 @@ const GraphAlertBySource = ({
     <section ref={isIntersectingRef} className="graph">
       <Row justify={"center"}>
         <Col span={24}>
-          <h2>Alerts by source since Oct 7</h2>
+          <h2>Alerts by source</h2>
+          <div className="subtitle">Oct 7, 2023 - Oct 10, 2025</div>
           {isLoading && (
             <div className="center-flexbox">
               <Spin
