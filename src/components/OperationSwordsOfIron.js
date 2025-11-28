@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
-// import { getNow } from "../utilities/date_helper";
-// import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import AlertGraphs from "./Graphs/AlertGraphs";
 import Utilities from "../utilities/utilities";
