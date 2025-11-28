@@ -6,10 +6,10 @@ import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import CurrentOperation from "./components/CurrentOperation";
 import RecentAlertsMap from "./components/RecentAlertsMap";
-import LocationDistance from "./components/LocationDistance";
+// import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
-import Social from "./components/Social";
+// import Social from "./components/Social";
 import AlertClient from "./rocket_alert_client";
 import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
@@ -231,8 +231,8 @@ class App extends React.Component {
           </section>
         )}
         <CurrentOperation alertsClient={AlertClient} />
-        <Social />
-        <LocationDistance />
+        {/* <Social /> */}
+        {/* <LocationDistance /> */}
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
         <SupportUs />

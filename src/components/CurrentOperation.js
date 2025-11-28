@@ -2,49 +2,49 @@ import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
-import { getNow } from "../utilities/date_helper";
-import Tracking from "../tracking";
+// import { getNow } from "../utilities/date_helper";
+// import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
 import AlertGraphs from "./Graphs/AlertGraphs";
 import Utilities from "../utilities/utilities";
 
 const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
-  const [mostTargetedLocations, setMostTargetedLocations] = useState(null);
-  const [mostTargetedRegions, setMostTargetedRegions] = useState(null);
+  // const [mostTargetedLocations, setMostTargetedLocations] = useState(null);
+  // const [mostTargetedRegions, setMostTargetedRegions] = useState(null);
 
-  useEffect(() => {
-    const getMostTargetedLocations = () =>
-      alertsClient
-        .getMostTargetedLocations(new Date("2023-10-07"), getNow())
-        .then((res) => res.payload)
-        .catch((error) => {
-          Tracking.mostTargetedLocationsError(error);
-          return null;
-        });
+  // useEffect(() => {
+  //   const getMostTargetedLocations = () =>
+  //     alertsClient
+  //       .getMostTargetedLocations(new Date("2023-10-07"), getNow())
+  //       .then((res) => res.payload)
+  //       .catch((error) => {
+  //         Tracking.mostTargetedLocationsError(error);
+  //         return null;
+  //       });
 
-    const getMostTargetedRegions = () =>
-      alertsClient
-        .getMostTargetedRegions(new Date("2023-10-07"), getNow())
-        .then((res) => res.payload)
-        .catch((error) => {
-          Tracking.mostTargetedRegionError(error);
-          return null;
-        });
+  //   const getMostTargetedRegions = () =>
+  //     alertsClient
+  //       .getMostTargetedRegions(new Date("2023-10-07"), getNow())
+  //       .then((res) => res.payload)
+  //       .catch((error) => {
+  //         Tracking.mostTargetedRegionError(error);
+  //         return null;
+  //       });
 
-    getMostTargetedLocations().then((res) => {
-      if (!res) {
-        return;
-      }
-      setMostTargetedLocations(res);
-    });
+  //   getMostTargetedLocations().then((res) => {
+  //     if (!res) {
+  //       return;
+  //     }
+  //     setMostTargetedLocations(res);
+  //   });
 
-    getMostTargetedRegions().then((res) => {
-      if (!res) {
-        return;
-      }
-      setMostTargetedRegions(res);
-    });
-  }, [alertsClient]);
+  //   getMostTargetedRegions().then((res) => {
+  //     if (!res) {
+  //       return;
+  //     }
+  //     setMostTargetedRegions(res);
+  //   });
+  // }, [alertsClient]);
 
   return (
     <section className="current-operation">
@@ -79,7 +79,7 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
       </div>
 
       <AlertGraphs alertsClient={alertsClient} />
-      <Row justify={"center"}>
+      {/* <Row justify={"center"}>
         {mostTargetedLocations && mostTargetedRegions && (
           <>
             <Col xs={24} lg={12} className="community">
@@ -118,7 +118,7 @@ const CurrentOperation = ({ alertsClient, isIntersectingRef }) => {
             </Col>
           </>
         )}
-      </Row>
+      </Row> */}
     </section>
   );
 };
