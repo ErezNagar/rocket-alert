@@ -93,7 +93,7 @@ const graphUtils = {
     Build graph data from dynamic data pulled from server.
     Shared between total alerts, rockets and UAV graphs.
   */
-  buildNewData: (alertData, alertTimeframes) => {
+  buildNewData: (alertData, falseAlerts) => {
     let data = [];
     let rocketAlertCount = 0;
     let UAVAlertCount = 0;
@@ -126,8 +126,7 @@ const graphUtils = {
 
       if (!isBefore(alertDate, currentDate)) {
         const confirmedAlerts = alerts.filter(
-          (alert) =>
-            !isInsideTimeframe(alert.timeStamp, alertTimeframes.falseAlerts)
+          (alert) => !isInsideTimeframe(alert.timeStamp, falseAlerts)
         );
         const rocketAlerts = confirmedAlerts.filter(
           (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS

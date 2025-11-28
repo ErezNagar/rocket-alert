@@ -43,7 +43,10 @@ const GraphTotalAlerts = ({
       ? POSITION_OFFSET_MOBILE
       : POSITION_OFFSET;
 
-    const newData = graphUtils.buildNewData(alertData, alertTimeframes);
+    const newData = graphUtils.buildNewData(
+      alertData,
+      alertTimeframes.falseAlerts
+    );
     const existingData = Utilities.isSmallViewport()
       ? TOTAL_ALERTS_MOBILE
       : TOTAL_ALERTS;

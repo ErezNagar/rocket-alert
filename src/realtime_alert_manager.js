@@ -65,6 +65,7 @@ const RealTimeAlertManager = {
     RealTimeAlertManager.alertInterval = setInterval(() => {
       if (RealTimeAlertManager.alertQueue.length > 0) {
         let alert;
+        // Process alerts in batches if there are too many
         if (RealTimeAlertManager.alertQueue.length > 30) {
           alert = RealTimeAlertManager.alertQueue.splice(0, 10);
         } else {
