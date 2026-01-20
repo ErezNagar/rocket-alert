@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: rocket-alert
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rocket-alert
+  template:
+    metadata:
+      labels:
+        app: rocket-alert
+    spec:
+      containers:
+        - env:
+            - name: NODE_ENV
+              value: production
+            - name: TZ
+              value: Europe/Zurich
+          image: 'dchevallier/rocket-alert:v1.7.1'
+          name: rocket-alert
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: '1'
+              memory: 512Mi
+            requests:
+              cpu: '0.5'
+              memory: 256Mi
+      restartPolicy: Always

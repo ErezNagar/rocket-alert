@@ -1,0 +1,93 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm install
+
+test:
+  stage: test
+  script:
+    - npm test
+  only:
+    - master
+
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+  environment:
+    name: production
+    url: https://rocketalert.live
+  only:
+    - master
+  variables:
+    REACT_APP_MAPBOX_ACCESS_TOKEN_ALERT_LOCATION: $MAPBOX_ACCESS_TOKEN_ALERT_LOCATION
+    REACT_APP_MAPBOX_ACCESS_TOKEN_USER_LOCATION: $MAPBOX_ACCESS_TOKEN_USER_LOCATION
+
+deploy:
+  stage: deploy
+  script:
+    - npm run predeploy
+    - npm run deploy
+  only:
+    - master
+
+docker_build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - apk add --update curl
+    - curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
+    - apk del curl
+    - rm -rf /var/cache/apk/*
+    - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PAT"
+  script:
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        tag=":latest"
+        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+      else
+        tag=":$CI_COMMIT_REF_SLUG"
+        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
+      fi
+    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}" .
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        docker scout cves "$CI_REGISTRY_IMAGE${tag}" --exit-code --only-severity critical,high
+      else
+        docker scout compare "$CI_REGISTRY_IMAGE${tag}" --to "$CI_REGISTRY_IMAGE:latest" --exit-code --only-severity critical,high --ignore-unchanged
+      fi
+    - docker push "$CI_REGISTRY_IMAGE${tag}"
+  only:
+    - master
+
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r build/* .public
+  artifacts:
+    paths:
+      - .public
+  only:
+    - master
+
+rules:
+  - if: $CI_COMMIT_BRANCH
+    exists:
+      - Dockerfile
