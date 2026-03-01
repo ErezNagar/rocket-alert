@@ -36,7 +36,9 @@ h3 {
   z-index: 1;
   overflow-x: hidden;
   transform: translateY(-100%);
-  transition: transform 200ms, background-color 1s linear;
+  transition:
+    transform 200ms,
+    background-color 1s linear;
 }
 
 .sticky-header.alert-mode {
@@ -272,6 +274,11 @@ h3 {
   margin-bottom: 2em;
 }
 
+.current-operation .currentOperationTilesContainer.newest {
+  background-color: #290008;
+  margin-bottom: 0;
+}
+
 .current-operation .currentOperationTile {
   padding: 3em 1em;
 }
@@ -439,8 +446,10 @@ select {
 .tile {
   padding: 10px;
   text-align: center;
-  box-shadow: rgba(45, 45, 45, 0.05) 0px 2px 2px,
-    rgba(49, 49, 49, 0.05) 0px 4px 4px, rgba(42, 42, 42, 0.05) 0px 8px 8px,
+  box-shadow:
+    rgba(45, 45, 45, 0.05) 0px 2px 2px,
+    rgba(49, 49, 49, 0.05) 0px 4px 4px,
+    rgba(42, 42, 42, 0.05) 0px 8px 8px,
     rgba(32, 32, 32, 0.05) 0px 16px 16px;
   background-color: white;
   border-radius: 10px;
@@ -477,8 +486,10 @@ select {
 }
 
 .faq .question {
-  box-shadow: rgba(45, 45, 45, 0.05) 0px 2px 2px,
-    rgba(49, 49, 49, 0.05) 0px 4px 4px, rgba(42, 42, 42, 0.05) 0px 8px 8px,
+  box-shadow:
+    rgba(45, 45, 45, 0.05) 0px 2px 2px,
+    rgba(49, 49, 49, 0.05) 0px 4px 4px,
+    rgba(42, 42, 42, 0.05) 0px 8px 8px,
     rgba(32, 32, 32, 0.05) 0px 16px 16px;
   background-color: white;
   border-radius: 10px;

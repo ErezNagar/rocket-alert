@@ -119,7 +119,9 @@ const Tile = ({
   };
 
   const getAverage = (total) => {
-    const dayCount = differenceInDays(new Date(toDate), new Date(fromDate));
+    const dayCount =
+      differenceInDays(new Date(toDate), new Date(fromDate)) || 1;
+
     return Math.round(total / dayCount);
   };
 

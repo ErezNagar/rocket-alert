@@ -5,6 +5,7 @@ import StickyHeader from "./components/Header/StickyHeader";
 import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import OperationSwordsOfIron from "./components/OperationSwordsOfIron";
+import OperationLionsRoar from "./components/OperationLionsRoar";
 import RecentAlertsMap from "./components/RecentAlertsMap";
 // import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
@@ -46,7 +47,7 @@ class App extends React.Component {
   componentDidMount() {
     RealTimeAlertManager.startRealTimeAlerts(
       AlertClient,
-      this.processRealTimeAlert
+      this.processRealTimeAlert,
     );
 
     if (Utilities.isDev() && Utilities.isAlertModeQueryString()) {
@@ -230,6 +231,7 @@ class App extends React.Component {
             {/* <TimeToShelter alerts={this.state.mostRecentAlerts} /> */}
           </section>
         )}
+        <OperationLionsRoar alertsClient={AlertClient} />
         <OperationSwordsOfIron alertsClient={AlertClient} />
         {/* <Social /> */}
         {/* <LocationDistance /> */}
