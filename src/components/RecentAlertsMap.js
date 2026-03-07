@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import Cache from "../cache";
 import Tracking from "../tracking";
 import Utilities from "../utilities/utilities";
-import RecentAlertsStaticMap from "./RecentAlertsStaticMap";
 import RecentAlertsInteractiveMap from "./RecentAlertsInteractiveMap";
+// import RecentAlertsStaticMap from "./RecentAlertsStaticMap";
 import withIsVisibleHook from "./withIsVisibleHook";
 
 const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
   const [polygons, setPolygons] = useState({});
   const shouldShowInteractiveMap =
     process.env.REACT_APP_IS_MAP_INTERACTIVE === "true";
-  const shouldShowStaticMap = process.env.REACT_APP_IS_MAP_STATIC === "true";
+  // const shouldShowStaticMap = process.env.REACT_APP_IS_MAP_STATIC === "true";
 
   const loadPolygons = () => {
     if (Cache.canUseCache()) {
@@ -71,9 +71,9 @@ const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
           mapFocus={mapFocus}
         />
       )}
-      {shouldShowStaticMap && (
+      {/* {shouldShowStaticMap && (
         <RecentAlertsStaticMap alerts={alerts} polygons={polygons} />
-      )}
+      )} */}
     </section>
   );
 };

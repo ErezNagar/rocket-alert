@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import MAP_STYLE from "../mapStyle";
 
 class RecentAlertsInteractiveMap extends React.Component {
   state = {
@@ -22,15 +23,17 @@ class RecentAlertsInteractiveMap extends React.Component {
   }
 
   async initMapWithAlertLocation() {
-    window.mapboxgl.accessToken =
-      process.env.REACT_APP_MAP_ALERT_LOCATION_TOKEN;
-
-    const map = new window.mapboxgl.Map({
+    const map = new window.maplibregl.Map({
       container: "alerts_map",
-      style: "mapbox://styles/mapbox/dark-v11",
+      style: MAP_STYLE,
       center: [this.props.alerts[0].lon, this.props.alerts[0].lat],
       cooperativeGestures: true,
-    });
+      attributionControl: false,
+    }).addControl(
+      new window.maplibregl.AttributionControl({
+        compact: true,
+      }),
+    );
 
     map.on("load", () => {
       this.initMap(map);
@@ -39,7 +42,7 @@ class RecentAlertsInteractiveMap extends React.Component {
 
   drawMapMarkersAndPolygons = (map, geojson) => {
     const alertNames = [];
-    const bounds = new window.mapboxgl.LngLatBounds();
+    const bounds = new window.maplibregl.LngLatBounds();
 
     this.props.alerts.forEach((alert) => {
       if (alertNames.includes(alert.name)) {
@@ -69,7 +72,7 @@ class RecentAlertsInteractiveMap extends React.Component {
       // Add a marker
       const el = document.createElement("div");
       el.className = "map-marker";
-      new window.mapboxgl.Marker(el)
+      new window.maplibregl.Marker({ element: el })
         .setLngLat([alert.lon, alert.lat])
         .addTo(map);
     });
