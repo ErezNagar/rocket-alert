@@ -51,7 +51,8 @@ const Tile = ({
   alertsClient,
   showAverage,
   sparklineData: propsSparklineData,
-  hideSparkline,
+  shouldShowSparkline = true,
+  shouldOptimizeSparkline = false,
   isStatic,
   alertCount,
   alertTypeId,
@@ -59,7 +60,7 @@ const Tile = ({
   const [alerts, setAlerts] = useState();
   const [average, setAverage] = useState(0);
   const [sparklineData, setSparklineData] = useState([]);
-  const [isSparklineLoading, setIsSparkineLoading] = useState(false);
+  const [isSparklineLoading, setIsSparklineLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -82,38 +83,47 @@ const Tile = ({
   };
 
   const getDailyAlerts = () => {
-    setIsSparkineLoading(true);
+    setIsSparklineLoading(true);
     alertsClient
       .getTotalAlertsByDay(fromDate, toDate, alertTypeId)
       .then((res) => {
         const data = res.payload.map((date) => date.alerts);
         if (alertTypeId === Utilities.ALERT_TYPE_ROCKETS) {
-          const sparklineData = [];
-          let count = 0;
-          for (let i = 0; i < data.length; i++) {
-            if ((i + 1) % 9 === 0) {
-              sparklineData.push(count);
-              count = 0;
+          //  For large dataset (i.e. Swords of Iron), group every 9 days together
+          //  (instead of showing daily data points) for better visualization.
+          if (shouldOptimizeSparkline) {
+            const groupedData = [];
+            let count = 0;
+            for (let i = 0; i < data.length; i++) {
+              if ((i + 1) % 9 === 0) {
+                groupedData.push(count);
+                count = 0;
+              }
+              count += data[i];
             }
-            count += data[i];
+            setSparklineData(groupedData);
+          } else {
+            setSparklineData(data);
           }
-          sparklineData.push(count);
-          setSparklineData(sparklineData);
-          setIsSparkineLoading(false);
         }
         if (alertTypeId === Utilities.ALERT_TYPE_UAV) {
-          const sparklineData = data
-            .filter((_, idx) => (idx + 1) % 2 !== 0)
-            .filter((_, idx) => (idx + 1) % 2 !== 0)
-            .filter((_, idx) => (idx + 1) % 2 !== 0);
-          setSparklineData(sparklineData);
-          setIsSparkineLoading(false);
+          if (shouldOptimizeSparkline) {
+            setSparklineData(
+              data
+                .filter((_, idx) => (idx + 1) % 2 !== 0)
+                .filter((_, idx) => (idx + 1) % 2 !== 0)
+                .filter((_, idx) => (idx + 1) % 2 !== 0),
+            );
+          } else {
+            setSparklineData(data);
+          }
         }
+        setIsSparklineLoading(false);
       })
       .catch((error) => {
         Tracking.tileError(error);
         console.error(error);
-        setIsSparkineLoading(false);
+        setIsSparklineLoading(false);
         setIsError(true);
       });
   };
@@ -133,7 +143,7 @@ const Tile = ({
       setAverage(showAverage ? getAverage(alertCount) : 0);
     } else {
       getAlerts();
-      if (!hideSparkline) {
+      if (shouldShowSparkline) {
         getDailyAlerts();
       }
     }
@@ -184,12 +194,12 @@ const Tile = ({
             {" Data unavailable"}
           </FadeIn>
         )}
-        {!hideSparkline && isSparklineLoading && <LoadingSparkline />}
-        {!hideSparkline &&
+        {shouldShowSparkline && isSparklineLoading && <LoadingSparkline />}
+        {shouldShowSparkline &&
           !isSparklineLoading &&
           (propsSparklineData || sparklineData) && (
             <Sparkline
-              id={title}
+              id={`${title}_${Math.random().toString(36)}`}
               width={250}
               height={50}
               data={propsSparklineData || sparklineData}
