@@ -28,7 +28,12 @@ class RecentAlertsInteractiveMap extends React.Component {
       style: MAP_STYLE,
       center: [this.props.alerts[0].lon, this.props.alerts[0].lat],
       cooperativeGestures: true,
-    });
+      attributionControl: false,
+    }).addControl(
+      new window.maplibregl.AttributionControl({
+        compact: true,
+      }),
+    );
 
     map.on("load", () => {
       this.initMap(map);
