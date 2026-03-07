@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Tracking from "../tracking";
 import Utilities from "../utilities/utilities";
+import MAP_STYLE from "../mapStyle";
 
 const UserLocationMap = ({ alerts }) => {
   const [showMap, setShowMap] = useState(false);
@@ -35,7 +36,6 @@ const UserLocationMap = ({ alerts }) => {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        // This needs to be first for Mapbox to render properly
         setShowMap(true);
         const pos = {
           lat: position.coords.latitude,
@@ -45,11 +45,9 @@ const UserLocationMap = ({ alerts }) => {
           alert.countdownSec
         );
 
-        window.mapboxgl.accessToken =
-          process.env.REACT_APP_MAP_USER_LOCATION_TOKEN;
-        const map = new window.mapboxgl.Map({
+        const map = new window.maplibregl.Map({
           container: "user_location_map",
-          style: "mapbox://styles/mapbox/dark-v11",
+          style: MAP_STYLE,
           center: [pos.lon, pos.lat],
           zoom: getMapZoomByDistance(alertDistance),
           cooperativeGestures: true,
@@ -61,7 +59,7 @@ const UserLocationMap = ({ alerts }) => {
           // Add a marker
           const el = document.createElement("div");
           el.className = "map-marker";
-          new window.mapboxgl.Marker(el)
+          new window.maplibregl.Marker(el)
             .setLngLat([pos.lon, pos.lat])
             .addTo(map);
 

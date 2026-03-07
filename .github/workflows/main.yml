@@ -20,9 +20,6 @@ jobs:
 
       - name: Build 🔧
         run: npm run build
-        env:
-          REACT_APP_MAPBOX_ACCESS_TOKEN_ALERT_LOCATION: ${{ secrets.MAPBOX_ACCESS_TOKEN_ALERT_LOCATION }}
-          REACT_APP_MAPBOX_ACCESS_TOKEN_USER_LOCATION: ${{ secrets.MAPBOX_ACCESS_TOKEN_USER_LOCATION }}
 
       # - name: Deploy 🚀
       #   uses: JamesIves/github-pages-deploy-action@v4
