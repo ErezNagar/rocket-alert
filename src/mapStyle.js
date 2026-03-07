@@ -20,6 +20,9 @@ const MAP_STYLE = {
       source: "carto-dark",
       minzoom: 0,
       maxzoom: 19,
+      paint: {
+        "raster-brightness-min": 0.08,
+      },
     },
   ],
 };
