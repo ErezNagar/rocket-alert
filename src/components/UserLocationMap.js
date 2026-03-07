@@ -59,7 +59,7 @@ const UserLocationMap = ({ alerts }) => {
           // Add a marker
           const el = document.createElement("div");
           el.className = "map-marker";
-          new window.maplibregl.Marker(el)
+          new window.maplibregl.Marker({ element: el })
             .setLngLat([pos.lon, pos.lat])
             .addTo(map);
 

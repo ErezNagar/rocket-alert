@@ -67,7 +67,7 @@ class RecentAlertsInteractiveMap extends React.Component {
       // Add a marker
       const el = document.createElement("div");
       el.className = "map-marker";
-      new window.maplibregl.Marker(el)
+      new window.maplibregl.Marker({ element: el })
         .setLngLat([alert.lon, alert.lat])
         .addTo(map);
     });
