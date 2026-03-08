@@ -36,7 +36,7 @@ const config = {
 const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [graphData, setGraphData] = useState(null);
-  const [annotations, setAnnotations] = useState([]);
+  // const [annotations, setAnnotations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -120,11 +120,11 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
   };
 
   const buildGraph = (payload) => {
-    const POSITION_OFFSET = 1 / 3;
-    const POSITION_OFFSET_MOBILE = 1 / 2;
-    const offset = Utilities.isSmallViewport()
-      ? POSITION_OFFSET_MOBILE
-      : POSITION_OFFSET;
+    // const POSITION_OFFSET = 1 / 3;
+    // const POSITION_OFFSET_MOBILE = 1 / 2;
+    // const offset = Utilities.isSmallViewport()
+    //   ? POSITION_OFFSET_MOBILE
+    //   : POSITION_OFFSET;
 
     const data = buildNewData(payload);
 
@@ -150,6 +150,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
     setShowGraph(true);
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     alertsClient
       .getDetailedAlerts(new Date("2026-02-28"), new Date(getNow()))
@@ -161,6 +162,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         setIsError(true);
       });
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <section className="current-operation">
