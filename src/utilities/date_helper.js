@@ -54,7 +54,7 @@ export const weekRangeFormat = (fromDate, toDate) =>
 
 export const weekRangeWithYearFormat = (fromDate, toDate) =>
   `${dayOfMonthWithYearFormat(fromDate)} - ${dayOfMonthWithYearFormat(
-    subDays(toDate, 1)
+    subDays(toDate, 1),
   )}`;
 
 export const getNow = () => new Date();
@@ -66,6 +66,8 @@ export const getStartOfYesterday = () => startOfYesterday();
 export const getEndOfYesterday = () => endOfYesterday();
 
 export const get24HoursAgo = () => subDays(new Date(), 1);
+
+export const get48HoursAgo = () => subDays(new Date(), 2);
 
 export const getYesterday = () => subDays(new Date(), 1);
 

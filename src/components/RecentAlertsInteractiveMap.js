@@ -40,11 +40,11 @@ class RecentAlertsInteractiveMap extends React.Component {
     });
   }
 
-  drawMapMarkersAndPolygons = (map, geojson) => {
+  drawMapMarkersAndPolygons = (alerts, map, geojson, { addMarker }) => {
     const alertNames = [];
     const bounds = new window.maplibregl.LngLatBounds();
 
-    this.props.alerts.forEach((alert) => {
+    alerts.forEach((alert) => {
       if (alertNames.includes(alert.name)) {
         return;
       }
@@ -70,29 +70,50 @@ class RecentAlertsInteractiveMap extends React.Component {
       }
 
       // Add a marker
-      const el = document.createElement("div");
-      el.className = "map-marker";
-      new window.maplibregl.Marker({ element: el })
-        .setLngLat([alert.lon, alert.lat])
-        .addTo(map);
+      if (addMarker) {
+        const el = document.createElement("div");
+        el.className = "map-marker";
+        new window.maplibregl.Marker({ element: el })
+          .setLngLat([alert.lon, alert.lat])
+          .addTo(map);
+      }
     });
 
     return bounds;
   };
 
   initMap = (map) => {
-    const geojson = {
+    const geojson1 = {
       type: "FeatureCollection",
       features: [],
     };
-    const bounds = this.drawMapMarkersAndPolygons(map, geojson);
+    const bounds1 = this.drawMapMarkersAndPolygons(
+      this.props.alerts,
+      map,
+      geojson1,
+      { addMarker: true },
+    );
+
+    const geojson2 = {
+      type: "FeatureCollection",
+      features: [],
+    };
+    const bounds2 = this.drawMapMarkersAndPolygons(
+      this.props.alerts48HrsAgo,
+      map,
+      geojson2,
+      {
+        addMarker: false,
+      },
+    );
+
     // Add a new layer to visualize the polygons.
     map.addLayer({
       id: `polygon1`,
       type: "fill",
       source: {
         type: "geojson",
-        data: geojson,
+        data: geojson1,
       },
       paint: {
         "fill-color": "red",
@@ -100,13 +121,27 @@ class RecentAlertsInteractiveMap extends React.Component {
       },
     });
 
-    // Add am outline around the polygon.
+    // Add a new layer to visualize 48hrsAgo polygons.
+    map.addLayer({
+      id: `polygon48HrsAgo`,
+      type: "fill",
+      source: {
+        type: "geojson",
+        data: geojson2,
+      },
+      paint: {
+        "fill-color": "#670000",
+        "fill-opacity": 0.3,
+      },
+    });
+
+    // Add an outline around the polygons.
     map.addLayer({
       id: `outline1`,
       type: "line",
       source: {
         type: "geojson",
-        data: geojson,
+        data: geojson1,
       },
       paint: {
         "line-color": "red",
@@ -114,12 +149,27 @@ class RecentAlertsInteractiveMap extends React.Component {
       },
     });
 
-    map.fitBounds(bounds, {
+    // Add an outline around 48hrsAgo polygons.
+    map.addLayer({
+      id: `outline48HrsAgo`,
+      type: "line",
+      source: {
+        type: "geojson",
+        data: geojson1,
+      },
+      paint: {
+        "line-color": "#670000",
+        "line-width": 1,
+      },
+    });
+
+    const overallBounds = bounds1.extend(bounds2);
+    map.fitBounds(overallBounds, {
       padding: { top: 50, bottom: 170, left: 50, right: 50 },
       animate: false,
     });
 
-    this.setState({ map, mapBounds: bounds });
+    this.setState({ map, mapBounds: overallBounds });
   };
 
   updateMap = (map) => {
@@ -163,6 +213,7 @@ class RecentAlertsInteractiveMap extends React.Component {
 }
 
 RecentAlertsInteractiveMap.propTypes = {
+  alerts48HrsAgo: PropTypes.array.isRequired,
   alerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   polygons: PropTypes.object,

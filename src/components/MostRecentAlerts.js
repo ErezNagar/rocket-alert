@@ -56,6 +56,9 @@ const MostRecentAlerts = (props) => {
           Show All
         </div>
       )}
+      <div style={{ marginTop: "2em", fontSize: "0.7em" }}>
+        Darker red areas indicate locations of alerts 48 hours ago.
+      </div>
     </div>
   );
 };

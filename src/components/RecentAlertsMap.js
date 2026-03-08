@@ -7,7 +7,12 @@ import RecentAlertsInteractiveMap from "./RecentAlertsInteractiveMap";
 // import RecentAlertsStaticMap from "./RecentAlertsStaticMap";
 import withIsVisibleHook from "./withIsVisibleHook";
 
-const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
+const RecentAlertsMap = ({
+  alerts48HrsAgo,
+  alerts,
+  mapFocus,
+  isIntersectingRef,
+}) => {
   const [polygons, setPolygons] = useState({});
   const shouldShowInteractiveMap =
     process.env.REACT_APP_IS_MAP_INTERACTIVE === "true";
@@ -66,6 +71,7 @@ const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
     <section ref={isIntersectingRef} className="section map">
       {shouldShowInteractiveMap && (
         <RecentAlertsInteractiveMap
+        alerts48HrsAgo={alerts48HrsAgo}
           alerts={alerts}
           polygons={polygons}
           mapFocus={mapFocus}
@@ -79,6 +85,7 @@ const RecentAlertsMap = ({ alerts, mapFocus, isIntersectingRef }) => {
 };
 
 RecentAlertsMap.propTypes = {
+  alerts48HrsAgo: PropTypes.array.isRequired,
   alerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   // For Tracking

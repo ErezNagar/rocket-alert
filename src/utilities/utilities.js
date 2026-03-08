@@ -19,7 +19,7 @@ const REAL_TIME_ALERT_DISPLAY_DURATION =
   REAL_TIME_ALERT_THROTTLE_DURATION - REAL_TIME_ALERT_TRANSITION_DURATION * 2;
 
 /*
- * The max amount of alerts to show in in Most Recent Alerts section
+ * The max amount of alerts to show in Most Recent Alerts section
  */
 const MAX_RECENT_ALERTS = 100;
 
