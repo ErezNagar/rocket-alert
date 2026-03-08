@@ -130,7 +130,7 @@ class RecentAlertsInteractiveMap extends React.Component {
         data: geojson2,
       },
       paint: {
-        "fill-color": "#670000",
+        "fill-color": "#800000",
         "fill-opacity": 0.3,
       },
     });
@@ -155,10 +155,10 @@ class RecentAlertsInteractiveMap extends React.Component {
       type: "line",
       source: {
         type: "geojson",
-        data: geojson1,
+        data: geojson2,
       },
       paint: {
-        "line-color": "#670000",
+        "line-color": "#800000",
         "line-width": 1,
       },
     });
