@@ -16,7 +16,7 @@ import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Utilities from "./utilities/utilities";
 import Tracking from "./tracking";
-import { getNow, get24HoursAgo, get48HoursAgo } from "./utilities/date_helper";
+import { getNow, get24HoursAgo } from "./utilities/date_helper";
 // import TimeToShelter from "./components/TimeToShelter";
 import SupportUs from "./components/SupportUs";
 
