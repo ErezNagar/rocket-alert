@@ -7,7 +7,6 @@ import MostRecentAlerts from "./components/MostRecentAlerts";
 import OperationSwordsOfIron from "./components/OperationSwordsOfIron";
 import OperationLionsRoar from "./components/OperationLionsRoar";
 import RecentAlertsMap from "./components/RecentAlertsMap";
-// import LocationDistance from "./components/LocationDistance";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 // import Social from "./components/Social";
@@ -33,7 +32,7 @@ class App extends React.Component {
     // The alert object
     realTimeAlert: null,
     // Alerts from 48 hours ago to 24 hours ago
-    alerts48HrsAgo: [],
+    // alerts48HrsAgo: [],
     // Most recent alerts (since the last history sync)
     mostRecentAlerts: [],
     // Real-time alerts that have been triggred since the last history sync
