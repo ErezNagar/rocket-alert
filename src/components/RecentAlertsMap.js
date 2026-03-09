@@ -64,6 +64,7 @@ const RecentAlertsMap = ({
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadPolygons();
+    console.log("here");
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
