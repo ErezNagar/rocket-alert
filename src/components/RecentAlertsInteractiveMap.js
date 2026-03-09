@@ -169,7 +169,7 @@ class RecentAlertsInteractiveMap extends React.Component {
       animate: false,
     });
 
-    this.setState({ map, mapBounds: overallBounds });
+    this.setState({ map, mapBounds: bounds1 });
   };
 
   updateMap = (map) => {
