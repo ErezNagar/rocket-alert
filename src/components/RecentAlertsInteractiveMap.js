@@ -94,18 +94,18 @@ class RecentAlertsInteractiveMap extends React.Component {
       { addMarker: true },
     );
 
-    const geojson2 = {
-      type: "FeatureCollection",
-      features: [],
-    };
-    const bounds2 = this.drawMapMarkersAndPolygons(
-      this.props.alerts48HrsAgo,
-      map,
-      geojson2,
-      {
-        addMarker: false,
-      },
-    );
+    // const geojson2 = {
+    //   type: "FeatureCollection",
+    //   features: [],
+    // };
+    // const bounds2 = this.drawMapMarkersAndPolygons(
+    //   this.props.alerts48HrsAgo,
+    //   map,
+    //   geojson2,
+    //   {
+    //     addMarker: false,
+    //   },
+    // );
 
     // Add a new layer to visualize the polygons.
     map.addLayer({
@@ -122,18 +122,18 @@ class RecentAlertsInteractiveMap extends React.Component {
     });
 
     // Add a new layer to visualize 48hrsAgo polygons.
-    map.addLayer({
-      id: `polygon48HrsAgo`,
-      type: "fill",
-      source: {
-        type: "geojson",
-        data: geojson2,
-      },
-      paint: {
-        "fill-color": "#800000",
-        "fill-opacity": 0.3,
-      },
-    });
+    // map.addLayer({
+    //   id: `polygon48HrsAgo`,
+    //   type: "fill",
+    //   source: {
+    //     type: "geojson",
+    //     data: geojson2,
+    //   },
+    //   paint: {
+    //     "fill-color": "#800000",
+    //     "fill-opacity": 0.3,
+    //   },
+    // });
 
     // Add an outline around the polygons.
     map.addLayer({
@@ -150,21 +150,21 @@ class RecentAlertsInteractiveMap extends React.Component {
     });
 
     // Add an outline around 48hrsAgo polygons.
-    map.addLayer({
-      id: `outline48HrsAgo`,
-      type: "line",
-      source: {
-        type: "geojson",
-        data: geojson2,
-      },
-      paint: {
-        "line-color": "#800000",
-        "line-width": 1,
-      },
-    });
+    // map.addLayer({
+    //   id: `outline48HrsAgo`,
+    //   type: "line",
+    //   source: {
+    //     type: "geojson",
+    //     data: geojson2,
+    //   },
+    //   paint: {
+    //     "line-color": "#800000",
+    //     "line-width": 1,
+    //   },
+    // });
 
-    const overallBounds = bounds1.extend(bounds2);
-    map.fitBounds(overallBounds, {
+    // const overallBounds = bounds1.extend(bounds2);
+    map.fitBounds(bounds1, {
       padding: { top: 50, bottom: 170, left: 50, right: 50 },
       animate: false,
     });
