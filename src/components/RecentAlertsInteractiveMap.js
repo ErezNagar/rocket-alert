@@ -40,11 +40,12 @@ class RecentAlertsInteractiveMap extends React.Component {
     });
   }
 
-  drawMapMarkersAndPolygons = (alerts, map, geojson, { addMarker }) => {
+  drawMapMarkersAndPolygons = (map, geojson) => {
     const alertNames = [];
     const bounds = new window.maplibregl.LngLatBounds();
+    // const addMarker = options?.addMarker ?? true;
 
-    alerts.forEach((alert) => {
+    this.props.alerts.forEach((alert) => {
       if (alertNames.includes(alert.name)) {
         return;
       }
@@ -70,13 +71,13 @@ class RecentAlertsInteractiveMap extends React.Component {
       }
 
       // Add a marker
-      if (addMarker) {
-        const el = document.createElement("div");
-        el.className = "map-marker";
-        new window.maplibregl.Marker({ element: el })
-          .setLngLat([alert.lon, alert.lat])
-          .addTo(map);
-      }
+      // if (addMarker) {
+      const el = document.createElement("div");
+      el.className = "map-marker";
+      new window.maplibregl.Marker({ element: el })
+        .setLngLat([alert.lon, alert.lat])
+        .addTo(map);
+      // }
     });
 
     return bounds;
@@ -87,12 +88,7 @@ class RecentAlertsInteractiveMap extends React.Component {
       type: "FeatureCollection",
       features: [],
     };
-    const bounds1 = this.drawMapMarkersAndPolygons(
-      this.props.alerts,
-      map,
-      geojson1,
-      { addMarker: true },
-    );
+    const bounds1 = this.drawMapMarkersAndPolygons(map, geojson1);
 
     // const geojson2 = {
     //   type: "FeatureCollection",
@@ -213,7 +209,7 @@ class RecentAlertsInteractiveMap extends React.Component {
 }
 
 RecentAlertsInteractiveMap.propTypes = {
-  alerts48HrsAgo: PropTypes.array.isRequired,
+  // alerts48HrsAgo: PropTypes.array.isRequired,
   alerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   polygons: PropTypes.object,

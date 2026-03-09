@@ -73,25 +73,22 @@ class App extends React.Component {
   getMostRecentAlerts = () => {
     const dateTime24HrsAgo = get24HoursAgo();
     Promise.all([
-      AlertClient.getMostRecentAlerts(get48HoursAgo(), dateTime24HrsAgo),
+      // AlertClient.getMostRecentAlerts(get48HoursAgo(), dateTime24HrsAgo),
       AlertClient.getMostRecentAlerts(dateTime24HrsAgo, getNow()),
       AlertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
-        const alerts48HrsAgo = values[0] ? values[0] : [];
-        const mostRecentAlerts = values[1] ? values[1] : [1];
-        const realTimeAlertCache = values[2] ? values[2] : [];
+        // const alerts48HrsAgo = values[0] ? values[0] : [];
+        // const mostRecentAlerts = values[1] ? values[1] : [1];
+        // const realTimeAlertCache = values[2] ? values[2] : [];
+        const mostRecentAlerts = values[0] ? values[0] : [1];
+        const realTimeAlertCache = values[1] ? values[1] : [];
 
-        if (
-          !alerts48HrsAgo &&
-          !mostRecentAlerts &&
-          realTimeAlertCache.count === 0
-        ) {
+        if (!mostRecentAlerts && realTimeAlertCache.count === 0) {
           return;
         }
 
         this.setState({
-          alerts48HrsAgo,
           mostRecentAlerts: mostRecentAlerts
             .concat(realTimeAlertCache.alerts)
             .slice(-Utilities.MAX_RECENT_ALERTS)
@@ -222,7 +219,7 @@ class App extends React.Component {
                   </Col>
                   <Col xs={24} lg={12}>
                     <RecentAlertsMap
-                      alerts48HrsAgo={this.state.alerts48HrsAgo}
+                      // alerts48HrsAgo={this.state.alerts48HrsAgo}
                       alerts={this.state.mostRecentAlerts}
                       mapFocus={this.state.mapFocus}
                     />

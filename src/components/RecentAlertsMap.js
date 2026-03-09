@@ -71,7 +71,7 @@ const RecentAlertsMap = ({
     <section ref={isIntersectingRef} className="section map">
       {shouldShowInteractiveMap && (
         <RecentAlertsInteractiveMap
-        alerts48HrsAgo={alerts48HrsAgo}
+          // alerts48HrsAgo={alerts48HrsAgo}
           alerts={alerts}
           polygons={polygons}
           mapFocus={mapFocus}
@@ -85,7 +85,7 @@ const RecentAlertsMap = ({
 };
 
 RecentAlertsMap.propTypes = {
-  alerts48HrsAgo: PropTypes.array.isRequired,
+  // alerts48HrsAgo: PropTypes.array.isRequired,
   alerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   // For Tracking
