@@ -9,7 +9,7 @@ import withIsVisibleHook from "./withIsVisibleHook";
 
 const RecentAlertsMap = ({
   alerts48HrsAgo,
-  alerts,
+  mostRecentAlerts,
   mapFocus,
   isIntersectingRef,
 }) => {
@@ -64,7 +64,6 @@ const RecentAlertsMap = ({
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     loadPolygons();
-    console.log("here");
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
@@ -72,22 +71,22 @@ const RecentAlertsMap = ({
     <section ref={isIntersectingRef} className="section map">
       {shouldShowInteractiveMap && (
         <RecentAlertsInteractiveMap
-          // alerts48HrsAgo={alerts48HrsAgo}
-          alerts={alerts}
+          alerts48HrsAgo={alerts48HrsAgo}
+          mostRecentAlerts={mostRecentAlerts}
           polygons={polygons}
           mapFocus={mapFocus}
         />
       )}
       {/* {shouldShowStaticMap && (
-        <RecentAlertsStaticMap alerts={alerts} polygons={polygons} />
+        <RecentAlertsStaticMap mostRecentAlerts={mostRecentAlerts} polygons={polygons} />
       )} */}
     </section>
   );
 };
 
 RecentAlertsMap.propTypes = {
-  // alerts48HrsAgo: PropTypes.array.isRequired,
-  alerts: PropTypes.array.isRequired,
+  alerts48HrsAgo: PropTypes.array.isRequired,
+  mostRecentAlerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,

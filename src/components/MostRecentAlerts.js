@@ -5,8 +5,13 @@ import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
+import Utilities from "../utilities/utilities";
 
-const MostRecentAlerts = (props) => {
+const MostRecentAlerts = ({
+  alerts,
+  onAlertLocationClick,
+  isIntersectingRef,
+}) => {
   const [showResetFocus, setShowResetFocus] = useState(false);
 
   const isClickable = (alert) =>
@@ -20,20 +25,20 @@ const MostRecentAlerts = (props) => {
     }
     Tracking.alertLocationClick(idx);
     setShowResetFocus(true);
-    props.onAlertLocationClick(alert);
+    onAlertLocationClick(alert);
   };
 
   const handleResetFocus = () => {
     setShowResetFocus(false);
-    props.onAlertLocationClick("reset");
+    onAlertLocationClick("reset");
   };
 
   return (
-    <div ref={props.isIntersectingRef} className="container">
+    <div ref={isIntersectingRef} className="container">
       <h2>{"Most recent alerts"}</h2>
 
-      <div className={props.alerts.length <= 15 ? "list" : "list scrollable"}>
-        {props.alerts.map((alert, idx) => (
+      <div className={alerts.length <= 15 ? "list" : "list scrollable"}>
+        {alerts.slice(0, Utilities.MAX_RECENT_ALERTS).map((alert, idx) => (
           <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
             <Row justify="center">
               <Col className="textRight" xs={10} md={10}>
@@ -57,7 +62,7 @@ const MostRecentAlerts = (props) => {
         </div>
       )}
       <div style={{ marginTop: "2em", fontSize: "0.7em" }}>
-        Areas without markers indicate locations of alerts 48 hours ago.
+        Areas without markers indicate locations of alerts 24 to 48 hours ago.
       </div>
     </div>
   );
