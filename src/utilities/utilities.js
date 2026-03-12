@@ -21,7 +21,7 @@ const REAL_TIME_ALERT_DISPLAY_DURATION =
 /*
  * The max amount of alerts to show in Most Recent Alerts section
  */
-const MAX_RECENT_ALERTS = 100;
+const MAX_RECENT_ALERTS = 300;
 
 /*
  * Alert Type Ids
@@ -86,7 +86,7 @@ const useIsVisible = (ref) => {
       ([entry]) => {
         setIntersecting(entry.isIntersecting);
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     observer.observe(ref.current);
