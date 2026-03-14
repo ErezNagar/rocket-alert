@@ -204,18 +204,25 @@ class RecentAlertsInteractiveMap extends React.Component {
   };
 
   updateMap = (map) => {
-    const geojson = {
+    const geojsonRockets = {
+      type: "FeatureCollection",
+      features: [],
+    };
+    const geojsonUAVs = {
       type: "FeatureCollection",
       features: [],
     };
     const bounds = this.drawMapMarkersAndPolygons(
       map,
-      geojson,
+      geojsonRockets,
+      geojsonUAVs,
       this.props.mostRecentAlerts,
     );
 
-    map.getSource("polygon1").setData(geojson);
-    map.getSource("outline1").setData(geojson);
+    map.getSource("p-f-recent-rockets").setData(geojsonRockets);
+    map.getSource("p-f-recent-uavs").setData(geojsonUAVs);
+    map.getSource("p-l-recent-rockets").setData(geojsonRockets);
+    map.getSource("p-l-recent-uavs").setData(geojsonUAVs);
 
     map.fitBounds(bounds, {
       padding: { top: 50, bottom: 170 },
