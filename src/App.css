@@ -260,6 +260,11 @@ h3 {
   width: 26px;
   height: 37px;
 }
+.map-marker-yellow {
+  background-image: url("./assets/marker_yellow.png");
+  width: 26px;
+  height: 37px;
+}
 .section.map {
   text-align: center;
   padding: 0;

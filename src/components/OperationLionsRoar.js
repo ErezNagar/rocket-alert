@@ -224,8 +224,8 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
             )}
           </Col>
           <Col className="footer">
-            Unavailable data for 3/1 - 3/3 due to technical issues with alert
-            collection on those days.
+            Some days have missing data due to technical issues with alert
+            collection.
           </Col>
         </Row>
       </section>
