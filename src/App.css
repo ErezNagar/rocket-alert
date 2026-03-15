@@ -264,8 +264,8 @@ h3 {
 }
 .map-marker-orange {
   background-image: url("./assets/marker-orange.png");
-  width: 26px;
-  height: 37px;
+  width: 35px;
+  height: 46px;
   background-size: contain;
   background-repeat: no-repeat;
 }
