@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MAP_STYLE from "../mapStyle";
+import Utilities from "../utilities/utilities";
 
 class RecentAlertsInteractiveMap extends React.Component {
   state = {
@@ -64,9 +65,22 @@ class RecentAlertsInteractiveMap extends React.Component {
     });
   }
 
+  addGeoJsonFeature = (geojson, alert) => {
+    geojson.features.push({
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          this.props.polygons[alert.taCityId]?.map(([lat, lon]) => [lon, lat]),
+        ],
+      },
+    });
+  };
+
   drawMapMarkersAndPolygons = (
     map,
-    geojson,
+    geojsonRockets,
+    geojsonUAVs,
     alerts,
     shouldAddMarkers = true,
   ) => {
@@ -84,25 +98,21 @@ class RecentAlertsInteractiveMap extends React.Component {
       });
 
       if (alert.taCityId) {
-        geojson.features.push({
-          type: "Feature",
-          geometry: {
-            type: "Polygon",
-            coordinates: [
-              this.props.polygons[alert.taCityId]?.map(([lat, lon]) => [
-                lon,
-                lat,
-              ]),
-            ],
-          },
-        });
+        if (alert.alertTypeId === Utilities.ALERT_TYPE_UAV) {
+          this.addGeoJsonFeature(geojsonUAVs, alert);
+        } else {
+          this.addGeoJsonFeature(geojsonRockets, alert);
+        }
       }
 
       // Add a marker
       if (shouldAddMarkers) {
         const el = document.createElement("div");
         el.className = "map-marker";
-        new window.maplibregl.Marker({ element: el })
+        if (alert.alertTypeId === Utilities.ALERT_TYPE_UAV) {
+          el.className = "map-marker-orange";
+        }
+        new window.maplibregl.Marker({ element: el, anchor: "bottom" })
           .setLngLat([alert.lon, alert.lat])
           .addTo(map);
       }
@@ -142,33 +152,47 @@ class RecentAlertsInteractiveMap extends React.Component {
   };
 
   initMap = (map) => {
-    const geojson1 = {
+    const geojsonRecentRockets = {
       type: "FeatureCollection",
       features: [],
     };
-    const geojson2 = {
+    const geojsonRecentUAVs = {
+      type: "FeatureCollection",
+      features: [],
+    };
+    const geojson48HrsRockets = {
+      type: "FeatureCollection",
+      features: [],
+    };
+    const geojson48HrsUAVs = {
       type: "FeatureCollection",
       features: [],
     };
     const bounds1 = this.drawMapMarkersAndPolygons(
       map,
-      geojson1,
+      geojsonRecentRockets,
+      geojsonRecentUAVs,
       this.props.mostRecentAlerts,
     );
     const bounds2 = this.drawMapMarkersAndPolygons(
       map,
-      geojson2,
+      geojson48HrsRockets,
+      geojson48HrsUAVs,
       this.props.alerts48HrsAgo,
       false,
     );
 
-    // Add a layer to visualize the polygons.
-    this.addFillLayer(map, "polygon1", geojson1, "red");
-    this.addFillLayer(map, "polygon2", geojson2, "#800000");
+    // Add a layer to visualize polygons.
+    this.addFillLayer(map, "p-f-recent-rockets", geojsonRecentRockets, "red");
+    this.addFillLayer(map, "p-f-recent-uavs", geojsonRecentUAVs, "#EAA365");
+    this.addFillLayer(map, "p-f-48hrs-rockets", geojson48HrsRockets, "red");
+    this.addFillLayer(map, "p-f-48hrs-uavs", geojson48HrsUAVs, "#EAA365");
 
-    // Add an outline around the polygons.
-    this.addLineLayer(map, "outline1", geojson2, "red");
-    this.addLineLayer(map, "outline2", geojson2, "#800000");
+    // Add an outline around polygons.
+    this.addLineLayer(map, "p-l-recent-rockets", geojsonRecentRockets, "red");
+    this.addLineLayer(map, "p-l-recent-uavs", geojsonRecentUAVs, "#EAA365");
+    this.addLineLayer(map, "p-l-48hrs-rockets", geojson48HrsRockets, "red");
+    this.addLineLayer(map, "p-l-48hrs-uavs", geojson48HrsUAVs, "#EAA365");
 
     const overallBounds = bounds1.extend(bounds2);
     map.fitBounds(overallBounds, {
@@ -180,18 +204,23 @@ class RecentAlertsInteractiveMap extends React.Component {
   };
 
   updateMap = (map) => {
-    const geojson = {
+    const geojsonRockets = {
+      type: "FeatureCollection",
+      features: [],
+    };
+    const geojsonUAVs = {
       type: "FeatureCollection",
       features: [],
     };
     const bounds = this.drawMapMarkersAndPolygons(
       map,
-      geojson,
+      geojsonRockets,
+      geojsonUAVs,
       this.props.mostRecentAlerts,
     );
 
-    map.getSource("polygon1").setData(geojson);
-    map.getSource("outline1").setData(geojson);
+    map.getSource("p-f-recent-rockets").setData(geojsonRockets);
+    map.getSource("p-f-recent-uavs").setData(geojsonUAVs);
 
     map.fitBounds(bounds, {
       padding: { top: 50, bottom: 170 },

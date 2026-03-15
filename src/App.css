@@ -259,11 +259,15 @@ h3 {
   background-image: url("./assets/marker.png");
   width: 26px;
   height: 37px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
-.map-marker-yellow {
-  background-image: url("./assets/marker_yellow.png");
+.map-marker-orange {
+  background-image: url("./assets/marker-orange.png");
   width: 26px;
   height: 37px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .section.map {
   text-align: center;
