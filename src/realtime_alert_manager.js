@@ -34,7 +34,7 @@ const RealTimeAlertManager = {
       const alertData = data.alerts.filter(
         (alert) =>
           alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS ||
-          alert.alertTypeId === Utilities.ALERT_TYPE_UAV
+          alert.alertTypeId === Utilities.ALERT_TYPE_UAV,
       );
       if (alertData.length === 0) {
         return;
@@ -64,15 +64,15 @@ const RealTimeAlertManager = {
     }
     RealTimeAlertManager.alertInterval = setInterval(() => {
       if (RealTimeAlertManager.alertQueue.length > 0) {
-        let alert;
+        let alerts;
         // Process alerts in batches if there are too many
-        if (RealTimeAlertManager.alertQueue.length > 30) {
-          alert = RealTimeAlertManager.alertQueue.splice(0, 10);
+        if (RealTimeAlertManager.alertQueue.length > 10) {
+          alerts = RealTimeAlertManager.alertQueue.splice(0, 20);
         } else {
-          alert = RealTimeAlertManager.alertQueue.shift();
+          alerts = [RealTimeAlertManager.alertQueue.shift()];
         }
         const isLastAlert = RealTimeAlertManager.alertQueue.length === 0;
-        cb(alert, isLastAlert);
+        cb(alerts, isLastAlert);
       }
     }, Utilities.REAL_TIME_ALERT_THROTTLE_DURATION);
   },

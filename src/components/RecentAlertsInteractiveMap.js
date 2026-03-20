@@ -7,6 +7,7 @@ class RecentAlertsInteractiveMap extends React.Component {
   state = {
     map: null,
     mapBounds: null,
+    allRenderedLocations: [],
   };
 
   componentDidMount() {
@@ -14,11 +15,10 @@ class RecentAlertsInteractiveMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.mostRecentAlerts?.length > 0 &&
-      this.props.mostRecentAlerts?.length > 0 &&
-      prevProps.mostRecentAlerts[0].name !== this.props.mostRecentAlerts[0].name
-    ) {
+    const prevAlert = prevProps.mostRecentAlerts?.[0];
+    const currentAlert = this.props.mostRecentAlerts?.[0];
+
+    if (currentAlert && prevAlert?.name !== currentAlert.name) {
       this.updateMap(this.state.map);
     }
 
@@ -84,15 +84,18 @@ class RecentAlertsInteractiveMap extends React.Component {
     alerts,
     shouldAddMarkers = true,
   ) => {
-    const alertNames = [];
+    const renderedLocationsInBatch = [];
     const bounds = new window.maplibregl.LngLatBounds();
 
     alerts.forEach((alert) => {
-      if (alertNames.includes(alert.name)) {
+      // Skip locations that are already rendered
+      if (
+        renderedLocationsInBatch.includes(alert.name) ||
+        this.state.allRenderedLocations.includes(alert.name)
+      ) {
         return;
       }
-      alertNames.push(alert.name);
-
+      renderedLocationsInBatch.push(alert.name);
       this.props.polygons[alert.taCityId]?.forEach(([lat, lon]) => {
         bounds.extend([lon, lat]);
       });
@@ -118,16 +121,23 @@ class RecentAlertsInteractiveMap extends React.Component {
       }
     });
 
+    this.setState({
+      allRenderedLocations: [
+        ...this.state.allRenderedLocations,
+        ...renderedLocationsInBatch,
+      ],
+    });
+
     return bounds;
   };
 
-  addFillLayer = (map, id, geojson, fillColor) => {
+  addFillLayer = (map, id, source, fillColor) => {
     map.addLayer({
       id,
       type: "fill",
       source: {
         type: "geojson",
-        data: geojson,
+        data: source,
       },
       paint: {
         "fill-color": fillColor,
@@ -136,13 +146,13 @@ class RecentAlertsInteractiveMap extends React.Component {
     });
   };
 
-  addLineLayer = (map, id, geojson, lineColor) => {
+  addLineLayer = (map, id, source, lineColor) => {
     map.addLayer({
       id,
       type: "line",
       source: {
         type: "geojson",
-        data: geojson,
+        data: source,
       },
       paint: {
         "line-color": lineColor,
@@ -182,17 +192,17 @@ class RecentAlertsInteractiveMap extends React.Component {
       false,
     );
 
-    // Add a layer to visualize polygons.
+    // Add polygons fill and outline layers for recent alerts
     this.addFillLayer(map, "p-f-recent-rockets", geojsonRecentRockets, "red");
     this.addFillLayer(map, "p-f-recent-uavs", geojsonRecentUAVs, "#EAA365");
-    this.addFillLayer(map, "p-f-48hrs-rockets", geojson48HrsRockets, "red");
-    this.addFillLayer(map, "p-f-48hrs-uavs", geojson48HrsUAVs, "#EAA365");
-
-    // Add an outline around polygons.
     this.addLineLayer(map, "p-l-recent-rockets", geojsonRecentRockets, "red");
     this.addLineLayer(map, "p-l-recent-uavs", geojsonRecentUAVs, "#EAA365");
-    this.addLineLayer(map, "p-l-48hrs-rockets", geojson48HrsRockets, "red");
-    this.addLineLayer(map, "p-l-48hrs-uavs", geojson48HrsUAVs, "#EAA365");
+
+    // Add polygons fill and outline layers for 48hrs alerts
+    this.addFillLayer(map, "p-f-48hrs-rockets", geojson48HrsRockets, "#b20000");
+    this.addFillLayer(map, "p-f-48hrs-uavs", geojson48HrsUAVs, "#EAA365");
+    this.addLineLayer(map, "p-l-48hrs-rockets", geojson48HrsRockets, "#b20000");
+    this.addLineLayer(map, "p-l-48hrs-uavs", geojson48HrsUAVs, "#bb8250");
 
     const overallBounds = bounds1.extend(bounds2);
     map.fitBounds(overallBounds, {
@@ -204,6 +214,9 @@ class RecentAlertsInteractiveMap extends React.Component {
   };
 
   updateMap = (map) => {
+    if (!map) {
+      return;
+    }
     const geojsonRockets = {
       type: "FeatureCollection",
       features: [],
@@ -212,6 +225,7 @@ class RecentAlertsInteractiveMap extends React.Component {
       type: "FeatureCollection",
       features: [],
     };
+
     const bounds = this.drawMapMarkersAndPolygons(
       map,
       geojsonRockets,
@@ -219,15 +233,35 @@ class RecentAlertsInteractiveMap extends React.Component {
       this.props.mostRecentAlerts,
     );
 
-    map.getSource("p-f-recent-rockets").setData(geojsonRockets);
-    map.getSource("p-f-recent-uavs").setData(geojsonUAVs);
+    const id1 = `${Math.random().toString(36)}`;
+    const id2 = `${Math.random().toString(36)}`;
+    map.addSource(id1, {
+      type: "geojson",
+      data: geojsonRockets,
+    });
+    map.addSource(id2, {
+      type: "geojson",
+      data: geojsonUAVs,
+    });
 
-    map.fitBounds(bounds, {
+    // Add a layer to visualize polygons.
+    this.addFillLayer(map, `p-f-rt-rockets-${id1}`, geojsonRockets, "red");
+    this.addFillLayer(map, `p-f-rt-uavs-${id2}`, geojsonUAVs, "#EAA365");
+
+    // Add an outline around polygons.
+    this.addLineLayer(map, `p-l-rt-rockets-${id1}`, geojsonRockets, "red");
+    this.addLineLayer(map, `p-l-rt-uavs-${id2}`, geojsonUAVs, "#EAA365");
+
+    // const overallBounds = bounds1.extend(bounds2);
+
+    const newBounds = this.state.mapBounds.extend(bounds);
+
+    map.fitBounds(newBounds, {
       padding: { top: 50, bottom: 170 },
       animate: true,
     });
 
-    this.setState({ map, mapBounds: bounds });
+    this.setState({ map, mapBounds: newBounds });
   };
 
   updateMapFocus = () => {
