@@ -9,7 +9,6 @@ import {
   getPastWeek,
   getPastMonth,
 } from "../../utilities/date_helper";
-import Utilities from "../../utilities/utilities";
 import Tracking from "../../tracking";
 import { differenceInMonths } from "date-fns";
 
@@ -29,7 +28,7 @@ const HeaderContainer = (props) => {
         if (res.success) {
           const monthsAgo = differenceInMonths(
             getNow(),
-            new Date(res.payload.date)
+            new Date(res.payload.date),
           );
           setMostRcentAlertAge(monthsAgo);
           setIsLoading(false);
@@ -59,11 +58,7 @@ const HeaderContainer = (props) => {
 
     Promise.all([
       alertClient.getTotalAlerts(startOfToday, now),
-      alertClient.getTotalAlerts(
-        startOfYesterday,
-        endOfYesterday,
-        Utilities.ALERT_TYPE_ALL
-      ),
+      alertClient.getTotalAlerts(startOfYesterday, endOfYesterday),
       alertClient.getTotalAlerts(pastWeek, now),
       alertClient.getTotalAlerts(pastMonth, now),
     ])
