@@ -229,6 +229,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
                 toDate={new Date(getNow())}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
+                shouldShowSparkline={false}
                 showAverage
               />
             </Col>
@@ -240,6 +241,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
                 toDate={new Date(getNow())}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_UAV}
+                shouldShowSparkline={false}
                 showAverage
               />
             </Col>
