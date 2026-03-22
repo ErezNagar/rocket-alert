@@ -29,7 +29,6 @@ const MAX_RECENT_ALERTS = 200;
 const ALERT_TYPE_ALL = -1;
 const ALERT_TYPE_ROCKETS = 1;
 const ALERT_TYPE_UAV = 2;
-const ALERT_TYPE_ADVANCE_NOTICE = 10000;
 
 /*
  * Cache Key for retrieving polygons.json
@@ -176,7 +175,6 @@ const Utilities = {
   ALERT_TYPE_ALL,
   ALERT_TYPE_ROCKETS,
   ALERT_TYPE_UAV,
-  ALERT_TYPE_ADVANCE_NOTICE,
   POLYGON_VERSION_KEY,
   POLYGON_VERSION_VALUE,
 };

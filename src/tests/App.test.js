@@ -30,26 +30,26 @@ describe("AlertClient", () => {
     it("should throw when 'from' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlertsByDay(null, DATE_RANGE.to).catch(
-        (error) => expect(error).toMatchObject(new Error("Invalid Date: from"))
+        (error) => expect(error).toMatchObject(new Error("Invalid Date: from")),
       );
       await AlertClient.getTotalAlertsByDay("", DATE_RANGE.to).catch((error) =>
-        expect(error).toMatchObject(new Error("Invalid Date: from"))
+        expect(error).toMatchObject(new Error("Invalid Date: from")),
       );
     });
     it("should throw when 'to' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlertsByDay(DATE_RANGE.from, null).catch(
-        (error) => expect(error).toMatchObject(new Error("Invalid Date: to"))
+        (error) => expect(error).toMatchObject(new Error("Invalid Date: to")),
       );
       await AlertClient.getTotalAlertsByDay(DATE_RANGE.from, "").catch(
-        (error) => expect(error).toMatchObject(new Error("Invalid Date: to"))
+        (error) => expect(error).toMatchObject(new Error("Invalid Date: to")),
       );
     });
     it("should return a valid response", async () => {
       expect.assertions(1);
       await AlertClient.getTotalAlertsByDay(
         DATE_RANGE.from,
-        DATE_RANGE.to
+        DATE_RANGE.to,
       ).then((res) => {
         expect(res).toMatchObject({
           success: true,
@@ -64,19 +64,19 @@ describe("AlertClient", () => {
     it("should throw when 'from' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlerts(null, DATE_RANGE.to).catch((error) =>
-        expect(error).toMatchObject(new Error("Invalid Date: from"))
+        expect(error).toMatchObject(new Error("Invalid Date: from")),
       );
       await AlertClient.getTotalAlerts("", DATE_RANGE.to).catch((error) =>
-        expect(error).toMatchObject(new Error("Invalid Date: from"))
+        expect(error).toMatchObject(new Error("Invalid Date: from")),
       );
     });
     it("should throw when 'to' is invalid", async () => {
       expect.assertions(2);
       await AlertClient.getTotalAlerts(DATE_RANGE.from, null).catch((error) =>
-        expect(error).toMatchObject(new Error("Invalid Date: to"))
+        expect(error).toMatchObject(new Error("Invalid Date: to")),
       );
       await AlertClient.getTotalAlerts(DATE_RANGE.from, "").catch((error) =>
-        expect(error).toMatchObject(new Error("Invalid Date: to"))
+        expect(error).toMatchObject(new Error("Invalid Date: to")),
       );
     });
 
@@ -89,7 +89,7 @@ describe("AlertClient", () => {
             error: null,
             payload: [{ timeStamp: "2021-05-10", alerts: 225 }],
           });
-        }
+        },
       );
     });
   });
@@ -103,7 +103,7 @@ describe("Header", () => {
         yesterdayAlertCount={0}
         pastWeekAlertCount={0}
         pastMonthAlertCount={0}
-      />
+      />,
     );
     expect(getByText("Real-time red alerts in Israel")).toBeInTheDocument();
   });
@@ -116,7 +116,7 @@ describe("Header", () => {
           yesterdayAlertCount={0}
           pastWeekAlertCount={0}
           pastMonthAlertCount={0}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts today")).toBeInTheDocument();
     });
@@ -127,11 +127,11 @@ describe("Header", () => {
           yesterdayAlertCount={2}
           pastWeekAlertCount={0}
           pastMonthAlertCount={0}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts today")).toBeInTheDocument();
       expect(
-        screen.getByText("Yesterday, there were 2 red alerts")
+        screen.getByText("Yesterday, there were 2 red alerts"),
       ).toBeInTheDocument();
     });
     it("should show today, yesterday and past week", () => {
@@ -141,13 +141,13 @@ describe("Header", () => {
           yesterdayAlertCount={2}
           pastWeekAlertCount={3}
           pastMonthAlertCount={0}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts today")).toBeInTheDocument();
       expect(
         screen.getByText(
-          "Yesterday, there were 2 red alerts, and a total of 3 in the past week"
-        )
+          "Yesterday, there were 2 red alerts, and a total of 3 in the past week",
+        ),
       ).toBeInTheDocument();
     });
     it("should show today, yesterday and past month", () => {
@@ -157,13 +157,13 @@ describe("Header", () => {
           yesterdayAlertCount={2}
           pastWeekAlertCount={0}
           pastMonthAlertCount={3}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts today")).toBeInTheDocument();
       expect(
         screen.getByText(
-          "Yesterday, there were 2 red alerts, and a total of 3 in the past month"
-        )
+          "Yesterday, there were 2 red alerts, and a total of 3 in the past month",
+        ),
       ).toBeInTheDocument();
     });
     it("should show today and past week", () => {
@@ -173,11 +173,11 @@ describe("Header", () => {
           yesterdayAlertCount={0}
           pastWeekAlertCount={2}
           pastMonthAlertCount={0}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts today")).toBeInTheDocument();
       expect(
-        screen.getByText("In the past week, there were 2 red alerts")
+        screen.getByText("In the past week, there were 2 red alerts"),
       ).toBeInTheDocument();
     });
     it("should show today, past week and past month", () => {
@@ -187,13 +187,13 @@ describe("Header", () => {
           yesterdayAlertCount={0}
           pastWeekAlertCount={2}
           pastMonthAlertCount={3}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts today")).toBeInTheDocument();
       expect(
         screen.getByText(
-          "In the past week, there were 2 red alerts, and a total of 3 in the past month"
-        )
+          "In the past week, there were 2 red alerts, and a total of 3 in the past month",
+        ),
       ).toBeInTheDocument();
     });
     it("should show today and past month", () => {
@@ -203,11 +203,11 @@ describe("Header", () => {
           yesterdayAlertCount={0}
           pastWeekAlertCount={0}
           pastMonthAlertCount={2}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts today")).toBeInTheDocument();
       expect(
-        screen.getByText("In the past month, there were 2 red alerts")
+        screen.getByText("In the past month, there were 2 red alerts"),
       ).toBeInTheDocument();
     });
   });
@@ -220,7 +220,7 @@ describe("Header", () => {
           yesterdayAlertCount={1}
           pastWeekAlertCount={0}
           pastMonthAlertCount={0}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts yesterday")).toBeInTheDocument();
     });
@@ -231,11 +231,11 @@ describe("Header", () => {
           yesterdayAlertCount={1}
           pastWeekAlertCount={2}
           pastMonthAlertCount={0}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts yesterday")).toBeInTheDocument();
       expect(
-        screen.getByText("In the past week, there were 2 red alerts")
+        screen.getByText("In the past week, there were 2 red alerts"),
       ).toBeInTheDocument();
     });
     it("should show yeserday, past week and past month", () => {
@@ -245,13 +245,13 @@ describe("Header", () => {
           yesterdayAlertCount={1}
           pastWeekAlertCount={2}
           pastMonthAlertCount={3}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts yesterday")).toBeInTheDocument();
       expect(
         screen.getByText(
-          "In the past week, there were 2 red alerts, and a total of 3 in the past month"
-        )
+          "In the past week, there were 2 red alerts, and a total of 3 in the past month",
+        ),
       ).toBeInTheDocument();
     });
     it("should show yeserday and past month", () => {
@@ -261,11 +261,11 @@ describe("Header", () => {
           yesterdayAlertCount={1}
           pastWeekAlertCount={0}
           pastMonthAlertCount={2}
-        />
+        />,
       );
       expect(screen.getByText("Red alerts yesterday")).toBeInTheDocument();
       expect(
-        screen.getByText("In the past month, there were 2 red alerts")
+        screen.getByText("In the past month, there were 2 red alerts"),
       ).toBeInTheDocument();
     });
   });
@@ -278,10 +278,10 @@ describe("Header", () => {
           yesterdayAlertCount={0}
           pastWeekAlertCount={1}
           pastMonthAlertCount={0}
-        />
+        />,
       );
       expect(
-        screen.getByText("Red alerts in the past week")
+        screen.getByText("Red alerts in the past week"),
       ).toBeInTheDocument();
     });
     it("should show past week and past month", () => {
@@ -291,13 +291,13 @@ describe("Header", () => {
           yesterdayAlertCount={0}
           pastWeekAlertCount={1}
           pastMonthAlertCount={2}
-        />
+        />,
       );
       expect(
-        screen.getByText("Red alerts in the past week")
+        screen.getByText("Red alerts in the past week"),
       ).toBeInTheDocument();
       expect(
-        screen.getByText("In the past month, there were 2 red alerts")
+        screen.getByText("In the past month, there were 2 red alerts"),
       ).toBeInTheDocument();
     });
   });
@@ -310,10 +310,10 @@ describe("Header", () => {
           yesterdayAlertCount={0}
           pastWeekAlertCount={0}
           pastMonthAlertCount={1}
-        />
+        />,
       );
       expect(
-        screen.getByText("Red alerts in the last month")
+        screen.getByText("Red alerts in the last month"),
       ).toBeInTheDocument();
     });
   });
@@ -327,10 +327,10 @@ describe("Header", () => {
           pastWeekAlertCount={0}
           pastMonthAlertCount={0}
           mostRcentAlertAge={1}
-        />
+        />,
       );
       expect(
-        screen.getByText("Last red alert was a month ago")
+        screen.getByText("Last red alert was a month ago"),
       ).toBeInTheDocument();
     });
     it("was X months ago", () => {
@@ -341,37 +341,11 @@ describe("Header", () => {
           pastWeekAlertCount={0}
           pastMonthAlertCount={0}
           mostRcentAlertAge={2}
-        />
+        />,
       );
       expect(
-        screen.getByText("Last red alert was 2 months ago")
+        screen.getByText("Last red alert was 2 months ago"),
       ).toBeInTheDocument();
-    });
-  });
-
-  describe("Advance Notice", () => {
-    it("Shows title and all locations", () => {
-      const areas = [
-        "Dan",
-        "Sharon",
-        "Shfela (Lowlands)",
-        "Yarkon",
-        "Lakhish",
-        "Shfelat Yehuda",
-        "Samaria",
-        "Judea",
-      ];
-      render(
-        <Header
-          todayAlertCount={1}
-          yesterdayAlertCount={0}
-          pastWeekAlertCount={0}
-          pastMonthAlertCount={0}
-          advanceNotices={areas}
-        />
-      );
-      expect(screen.getByText("Missile launches detected")).toBeInTheDocument();
-      expect(screen.getByText(areas.join(", "))).toBeInTheDocument();
     });
   });
 });

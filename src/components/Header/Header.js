@@ -7,7 +7,6 @@ import { Row, Col } from "antd";
 import AudioControls from "./AudioControls";
 import HeaderHero from "./HeaderHero";
 import AlertModeHeaderHero from "./AlertModeHeaderHero";
-import AdvanceNotice from "./AdvanceNotice";
 import Utilities from "../../utilities/utilities";
 import Tracking from "../../tracking";
 
@@ -15,7 +14,6 @@ const Header = ({
   isAlertMode,
   realTimeAlert,
   isLastAlertOfBatch,
-  advanceNotices,
   onTwitterShareText,
   todayAlertCount,
   yesterdayAlertCount,
@@ -53,7 +51,7 @@ const Header = ({
     yesterdayAlertCount,
     pastWeekAlertCount,
     pastMonthAlertCount,
-    mostRcentAlertAge
+    mostRcentAlertAge,
   ) => {
     let alertSummaryTitle = "";
     let alertSummaryText = "";
@@ -66,7 +64,7 @@ const Header = ({
       if (yesterdayAlertCount > 0) {
         alertSummaryText = getAlertSummaryText(
           "Yesterday",
-          yesterdayAlertCount
+          yesterdayAlertCount,
         );
         if (
           pastWeekAlertCount > 0 &&
@@ -74,7 +72,7 @@ const Header = ({
         ) {
           alertSummaryText += appendAlertSummaryText(
             "in the past week",
-            pastWeekAlertCount
+            pastWeekAlertCount,
           );
         } else if (
           pastMonthAlertCount > 0 &&
@@ -82,24 +80,24 @@ const Header = ({
         ) {
           alertSummaryText += appendAlertSummaryText(
             "in the past month",
-            pastMonthAlertCount
+            pastMonthAlertCount,
           );
         }
       } else if (pastWeekAlertCount > 0) {
         alertSummaryText = getAlertSummaryText(
           "In the past week",
-          pastWeekAlertCount
+          pastWeekAlertCount,
         );
         if (pastMonthAlertCount > 0) {
           alertSummaryText += appendAlertSummaryText(
             "in the past month",
-            pastMonthAlertCount
+            pastMonthAlertCount,
           );
         }
       } else if (pastMonthAlertCount > 0) {
         alertSummaryText = getAlertSummaryText(
           "In the past month",
-          pastMonthAlertCount
+          pastMonthAlertCount,
         );
       }
     } else if (yesterdayAlertCount > 0) {
@@ -111,7 +109,7 @@ const Header = ({
       ) {
         alertSummaryText = getAlertSummaryText(
           "In the past week",
-          pastWeekAlertCount
+          pastWeekAlertCount,
         );
         if (
           pastMonthAlertCount > 0 &&
@@ -119,13 +117,13 @@ const Header = ({
         ) {
           alertSummaryText += appendAlertSummaryText(
             "in the past month",
-            pastMonthAlertCount
+            pastMonthAlertCount,
           );
         }
       } else if (pastMonthAlertCount > 0) {
         alertSummaryText = getAlertSummaryText(
           "In the past month",
-          pastMonthAlertCount
+          pastMonthAlertCount,
         );
       }
     } else if (pastWeekAlertCount > 0) {
@@ -137,7 +135,7 @@ const Header = ({
       ) {
         alertSummaryText += getAlertSummaryText(
           "In the past month",
-          pastMonthAlertCount
+          pastMonthAlertCount,
         );
       }
     } else if (pastMonthAlertCount > 0) {
@@ -170,7 +168,7 @@ const Header = ({
       yesterdayAlertCount,
       pastWeekAlertCount,
       pastMonthAlertCount,
-      mostRcentAlertAge
+      mostRcentAlertAge,
     );
   }, [
     todayAlertCount,
@@ -235,10 +233,7 @@ const Header = ({
                 alert={realTimeAlert}
               />
             )}
-            {!isAlertMode && advanceNotices.length > 0 && (
-              <AdvanceNotice advanceNotices={advanceNotices} />
-            )}
-            {!isAlertMode && advanceNotices.length === 0 && (
+            {!isAlertMode && (
               <HeaderHero
                 alertSummaryTitle={headerText.alertSummaryTitle}
                 alertSummaryText={headerText.alertSummaryText}
@@ -296,7 +291,6 @@ Header.propTypes = {
   realTimeAlert: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onTwitterShareText: PropTypes.func,
   isLastAlertOfBatch: PropTypes.bool,
-  advanceNotices: PropTypes.array,
   todayAlertCount: PropTypes.number.isRequired,
   yesterdayAlertCount: PropTypes.number.isRequired,
   pastWeekAlertCount: PropTypes.number.isRequired,
@@ -311,7 +305,6 @@ Header.defaultProps = {
   realTimeAlert: {},
   onTwitterShareText: () => {},
   isLastAlertOfBatch: false,
-  advanceNotices: [],
   isError: false,
   isLoading: false,
 };
