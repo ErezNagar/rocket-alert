@@ -9,6 +9,11 @@ const V2 = `${SERVER_URL}/v2`;
 const APIv1 = wretch(`${V1}/alerts`);
 const APIv2 = wretch(`${V2}/alerts`);
 
+const SECONDARY_URL = process.env.REACT_APP_FALLBACK_SERVER;
+const secondaryAPI = wretch(`${SECONDARY_URL}`).auth(
+  `Bearer ${process.env.REACT_APP_FALLBACK_SERVER_KEY}`,
+);
+
 /*
   Utility function to filter only rocket and UAV alerts
 */
@@ -17,7 +22,7 @@ const filterRocketAndUAVAlerts = (res: any) => {
     date.alerts = date.alerts.filter(
       (alert: any) =>
         alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS ||
-        alert.alertTypeId === Utilities.ALERT_TYPE_UAV
+        alert.alertTypeId === Utilities.ALERT_TYPE_UAV,
     );
   });
   return res;
@@ -33,7 +38,7 @@ const filterRocketAndUAVAlerts = (res: any) => {
 const getDetailedAlerts = (
   from: string,
   to: string,
-  alertTypeId: number = Utilities.ALERT_TYPE_ALL
+  alertTypeId: number = Utilities.ALERT_TYPE_ALL,
 ) => {
   if (!from || !isValid(new Date(from))) {
     return Promise.reject(new Error("Invalid Date: from"));
@@ -52,8 +57,57 @@ const getDetailedAlerts = (
     .then((res) => filterRocketAndUAVAlerts(res));
 };
 
+const getFallbackData = async (from: string, to: string, category: string) => {
+  let offset = 0;
+  let hasMore = true;
+  let allData: any[] = [];
+
+  while (hasMore) {
+    const res = await secondaryAPI
+      .url("/api/stats/history")
+      .query({
+        startDate: `${isoFormat(convertToServerTime(from))}Z`,
+        endDate: `${isoFormat(convertToServerTime(to))}Z`,
+        category,
+        limit: 100,
+        offset,
+      })
+      .get()
+      .unauthorized((error: any) => {
+        console.log("Error getFallbackData()", error);
+        return { data: [], pagination: { hasMore: false } };
+      })
+      .json();
+
+    const { data, pagination } = res;
+
+    allData = allData.concat(data);
+    hasMore = pagination.hasMore;
+    offset += pagination.limit;
+  }
+
+  return allData;
+};
+
+const getDetailedAlertsFallback = async (from: string, to: string) => {
+  if (!from || !isValid(new Date(from))) {
+    throw new Error("Invalid Date: from");
+  }
+  if (!to || !isValid(new Date(to))) {
+    throw new Error("Invalid Date: to");
+  }
+
+  const rockets = await getFallbackData(from, to, "missiles");
+  const UAVs = await getFallbackData(from, to, "hostileAircraftIntrusion");
+
+  return {
+    payload: [...rockets, ...UAVs],
+  };
+};
+
 const AlertClient = {
   getDetailedAlerts,
+  getDetailedAlertsFallback,
 
   /*
    *  Gets the MAX_RECENT_ALERTS most recent alerts in the past 24 hours.
@@ -93,7 +147,7 @@ const AlertClient = {
   getTotalAlertsByDay: (
     from: string,
     to: string,
-    alertTypeId: number = Utilities.ALERT_TYPE_ALL
+    alertTypeId: number = Utilities.ALERT_TYPE_ALL,
   ): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
@@ -159,7 +213,7 @@ const AlertClient = {
   getTotalAlerts: (
     from: string,
     to: string,
-    alertTypeId: number = Utilities.ALERT_TYPE_ALL
+    alertTypeId: number = Utilities.ALERT_TYPE_ALL,
   ): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
@@ -195,7 +249,7 @@ const AlertClient = {
   getMostTargetedLocations: (
     from: string,
     to: string,
-    max: number = 10
+    max: number = 10,
   ): any => {
     if (!from || !isValid(new Date(from))) {
       return Promise.reject(new Error("Invalid Date: from"));
@@ -247,7 +301,7 @@ const AlertClient = {
   getRealTimeAlertEventSource: (
     url = Utilities.isAlertModeQueryString()
       ? `${V2}/alerts/real-time-test?alertTypeId=${Utilities.ALERT_TYPE_ALL}`
-      : `${V2}/alerts/real-time`
+      : `${V2}/alerts/real-time`,
   ) => new EventSource(url),
 };
 

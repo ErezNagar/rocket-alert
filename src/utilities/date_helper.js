@@ -71,6 +71,8 @@ export const get48HoursAgo = () => subDays(new Date(), 2);
 
 export const getYesterday = () => subDays(new Date(), 1);
 
+export const getTwoDaysAgo = () => subDays(new Date(), 2);
+
 export const getPastWeek = () => subWeeks(new Date(), 1);
 
 export const getPastMonth = () => subMonths(new Date(), 1);
