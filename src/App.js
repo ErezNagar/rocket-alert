@@ -2444,6 +2444,17 @@ class App extends React.Component {
         <PreviousOperations alertsClient={AlertClient} />
         <FAQ />
         <SupportUs />
+        <div className="fallbackCredit">
+          Fallback data provided by
+          <a
+            href="https://redalert.orielhaim.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {" "}
+            redalert.orielhaim.com
+          </a>
+        </div>
         <Footer twitterShareText={this.state.twitterShareText} />
       </div>
     );

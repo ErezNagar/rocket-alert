@@ -199,10 +199,10 @@ class RecentAlertsInteractiveMap extends React.Component {
     this.addLineLayer(map, "p-l-recent-uavs", geojsonRecentUAVs, "#EAA365");
 
     // Add polygons fill and outline layers for 48hrs alerts
-    this.addFillLayer(map, "p-f-48hrs-rockets", geojson48HrsRockets, "#b20000");
-    this.addFillLayer(map, "p-f-48hrs-uavs", geojson48HrsUAVs, "#EAA365");
-    this.addLineLayer(map, "p-l-48hrs-rockets", geojson48HrsRockets, "#b20000");
-    this.addLineLayer(map, "p-l-48hrs-uavs", geojson48HrsUAVs, "#bb8250");
+    this.addFillLayer(map, "p-f-48hrs-rockets", geojson48HrsRockets, "#7f0000");
+    this.addFillLayer(map, "p-f-48hrs-uavs", geojson48HrsUAVs, "#a87548");
+    this.addLineLayer(map, "p-l-48hrs-rockets", geojson48HrsRockets, "#7f0000");
+    this.addLineLayer(map, "p-l-48hrs-uavs", geojson48HrsUAVs, "#a87548");
 
     const overallBounds = bounds1.extend(bounds2);
     map.fitBounds(overallBounds, {
