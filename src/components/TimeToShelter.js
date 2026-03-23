@@ -13,7 +13,7 @@ const TimeToShelter = ({ alerts, onToggleMapFocus }) => {
   const [shareText, setShareText] = useState("");
 
   const ref = useRef();
-  const isVisible = Utilities.useIsVisible();
+  const isVisible = Utilities.useIsVisible(ref);
 
   const KMToMiles = (km) => Math.round(km * 0.621371 * 10) / 10;
 
