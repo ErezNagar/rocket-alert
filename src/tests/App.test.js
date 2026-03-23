@@ -17,7 +17,8 @@ jest.mock("wretch", () => {
   const get = () => ({ json });
   const query = (query) => ({ get });
   const url = (url) => ({ query });
-  return () => ({ url });
+  const auth = () => ({});
+  return () => ({ url, auth });
 });
 
 const DATE_RANGE = {
