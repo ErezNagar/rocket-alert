@@ -4,7 +4,6 @@ import Cache from "../cache";
 import Tracking from "../tracking";
 import Utilities from "../utilities/utilities";
 import RecentAlertsInteractiveMap from "./RecentAlertsInteractiveMap";
-// import RecentAlertsStaticMap from "./RecentAlertsStaticMap";
 import withIsVisibleHook from "./withIsVisibleHook";
 
 const RecentAlertsMap = ({
@@ -16,7 +15,6 @@ const RecentAlertsMap = ({
   const [polygons, setPolygons] = useState({});
   const shouldShowInteractiveMap =
     process.env.REACT_APP_IS_MAP_INTERACTIVE === "true";
-  // const shouldShowStaticMap = process.env.REACT_APP_IS_MAP_STATIC === "true";
 
   const loadPolygons = () => {
     if (Cache.canUseCache()) {
@@ -77,9 +75,6 @@ const RecentAlertsMap = ({
           mapFocus={mapFocus}
         />
       )}
-      {/* {shouldShowStaticMap && (
-        <RecentAlertsStaticMap mostRecentAlerts={mostRecentAlerts} polygons={polygons} />
-      )} */}
     </section>
   );
 };
