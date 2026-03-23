@@ -232,7 +232,8 @@ h3 {
   text-align: left;
 }
 .section.mostRecentAlerts .location,
-.showAll {
+.showAll,
+.time-to-shelter .location {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -246,6 +247,7 @@ h3 {
 */
 .time-to-shelter {
   padding: 1em 1em;
+  background-color: #f2f2f2;
 }
 .time-to-shelter h2 {
   margin-top: 1em;

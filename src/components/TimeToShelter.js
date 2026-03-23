@@ -4,12 +4,13 @@ import Tracking from "../tracking";
 import { useEffect, useRef, useState } from "react";
 import Utilities from "../utilities/utilities";
 
-const TimeToShelter = ({ alerts }) => {
-  const [showTimeToShelter, setShowTimeToShelter] = useState(false);
-  const [timeToShelterTitle, setTimeToShelterTitle] = useState("");
-  const [timeToShelterText, setTimeToShelterText] = useState("");
-  const [timeToShelterShareTitle, setTimeToShelterShareTitle] = useState("");
-  const [timeToShelterShareText, setTimeToShelterShareText] = useState("");
+const TimeToShelter = ({ alerts, onToggleMapFocus }) => {
+  const [alert, setAlert] = useState(null);
+  const [shouldShowTimeToShelter, setShouldShowTimeToShelter] = useState(false);
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [shareTitle, setShareTitle] = useState("");
+  const [shareText, setShareText] = useState("");
 
   const ref = useRef();
   const isVisible = Utilities.useIsVisible();
@@ -23,79 +24,99 @@ const TimeToShelter = ({ alerts }) => {
   }, [isVisible]);
 
   useEffect(() => {
-    // Filters alerts with countdown data and use the first one
-    const alertsWithCountdown = alerts?.filter(
-      (alert) => alert.countdownSec === 0 || alert.countdownSec > 0
+    /*
+        Get the first alert that with countdown data.
+        Since Lion's Roar (Feb 28, 2026), this focuses on alerts near the border with Lebanon or Gaza,
+        Since alerts in other locations are most likly due to missiles from Iran.
+    */
+    // const alert = alerts?.find((alert) => alert.countdownSec >= 0);
+    const alert = alerts?.find(
+      (alert) =>
+        alert.countdownSec >= 0 &&
+        (alert.areaNameEn === "Confrontation Line" ||
+          alert.areaNameEn === "Gaza Envelope"),
     );
-    if (alertsWithCountdown.length === 0) {
+    if (!alert) {
       return;
     }
-    const alert = alertsWithCountdown[0];
-
-    const alertDistance = Utilities.getDistanceByTimeToShelter(
-      alert.countdownSec
-    );
-    const alertDistanceInKM = KMToMiles(alertDistance);
+    const distance = Utilities.getDistanceByTimeToShelter(alert.countdownSec);
+    const distanceInMiles = KMToMiles(distance);
     const title =
-      alertDistance > 5
+      distance > 5
         ? `You have ${alert.countdownSec} seconds to get to shelter!`
         : `Get to shelter immediately!`;
 
-    const text =
-      alertDistance > 5
-        ? `If this was happening in your area, this means a rocket targeting you was fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
-        : `If this was happening in your area, this means a rocket targeting you was fired less than 5 km (${alertDistanceInKM} miles) away`;
+    const text = `, a rocket targeting you was fired just ${distance} km (${distanceInMiles} miles) away.`;
 
-    const timeToShelterShareTitle =
-      alertDistance > 5
+    const shareTitle =
+      distance > 5
         ? `I'd have ${alert.countdownSec} seconds to get to shelter!`
         : `I'd have to get to shelter immediately!`;
 
-    const timeToShelterShareText =
-      alertDistance > 5
-        ? `If this was happening in MY area, this means a rocket targeting me would've been fired roughly ${alertDistance} km (${alertDistanceInKM} miles) away`
-        : `If this was happening in MY area, this means a rocket targeting me would've been fired less than 5 km (${alertDistanceInKM} miles) away`;
+    const shareText =
+      distance > 5
+        ? `If I lived in ${alert.englishName || alert.name}, a rocket targeting me was fired just ${distance} km (${distanceInMiles} miles) away.`
+        : `If I lived in ${alert.englishName || alert.name}, a rocket targeting me was fired just less than 5 km (${distanceInMiles} miles) away.`;
 
-    setTimeToShelterTitle(title);
-    setTimeToShelterText(text);
-    setTimeToShelterShareTitle(timeToShelterShareTitle);
-    setTimeToShelterShareText(timeToShelterShareText);
-    setShowTimeToShelter(true);
+    setAlert(alert);
+    setTitle(title);
+    setText(text);
+    setShareTitle(shareTitle);
+    setShareText(shareText);
+    setShouldShowTimeToShelter(true);
   }, [alerts]);
 
-  return showTimeToShelter ? (
-    <div ref={ref} className="time-to-shelter">
-      <h2>{timeToShelterTitle}</h2>
-      <h3>{timeToShelterText}</h3>
-      <div>
-        <a
-          href={`https://twitter.com/share?text=${timeToShelterShareTitle} ${timeToShelterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
-          target="_blank"
-          rel="noreferrer"
-          style={{ color: "black" }}
-          onClick={Tracking.shareTimetoShelterClick}
-        >
-          <TwitterLogo style={{ height: "36px" }} />
-        </a>
+  const handleLocationClick = () => {
+    Tracking.timeToShelterLocationClick();
+    onToggleMapFocus(alert);
+  };
+
+  return (
+    shouldShowTimeToShelter && (
+      <div ref={ref} className="time-to-shelter">
+        <h2>{title}</h2>
+        <h3>
+          If you lived in{" "}
+          {alert.lat && alert.lon ? (
+            <span onClick={handleLocationClick} className="location">
+              {alert.englishName || alert.name}
+            </span>
+          ) : (
+            alert.englishName || alert.name
+          )}
+          {text}
+        </h3>
         <div>
           <a
-            style={{ color: "black" }}
-            href={`https://twitter.com/share?text=${timeToShelterShareTitle} ${timeToShelterShareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+            href={`https://twitter.com/share?text=${shareTitle} ${shareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
             target="_blank"
             rel="noreferrer"
+            style={{ color: "black" }}
             onClick={Tracking.shareTimetoShelterClick}
           >
-            Share this
+            <TwitterLogo style={{ height: "36px" }} />
           </a>
+          <div>
+            <a
+              style={{ color: "black" }}
+              href={`https://twitter.com/share?text=${shareTitle} ${shareText}&url=RocketAlert.live&hashtags=RocketAlert,IsraelUnderAttack`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={Tracking.shareTimetoShelterClick}
+            >
+              Share this
+            </a>
+          </div>
         </div>
+        <p>Based on recent alerts in that area</p>
       </div>
-      <p>Based on the last rocket alert</p>
-    </div>
-  ) : null;
+    )
+  );
 };
 
 TimeToShelter.propTypes = {
   alerts: PropTypes.array.isRequired,
+  onToggleMapFocus: PropTypes.func,
 };
 
 export default TimeToShelter;

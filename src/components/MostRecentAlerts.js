@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { Row, Col } from "antd";
 import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
@@ -9,11 +8,10 @@ import Utilities from "../utilities/utilities";
 
 const MostRecentAlerts = ({
   alerts,
-  onAlertLocationClick,
+  onToggleMapFocus,
   isIntersectingRef,
+  showResetFocus,
 }) => {
-  const [showResetFocus, setShowResetFocus] = useState(false);
-
   const isClickable = (alert) =>
     alert.lon &&
     alert.lat &&
@@ -24,13 +22,11 @@ const MostRecentAlerts = ({
       return;
     }
     Tracking.alertLocationClick(idx);
-    setShowResetFocus(true);
-    onAlertLocationClick(alert);
+    onToggleMapFocus(alert);
   };
 
   const handleResetFocus = () => {
-    setShowResetFocus(false);
-    onAlertLocationClick("reset");
+    onToggleMapFocus("reset");
   };
 
   return (
@@ -57,7 +53,7 @@ const MostRecentAlerts = ({
         ))}
       </div>
       {showResetFocus && (
-        <div className="showAll" onClick={() => handleResetFocus()}>
+        <div className="showAll" onClick={handleResetFocus}>
           Show All
         </div>
       )}
@@ -70,7 +66,8 @@ const MostRecentAlerts = ({
 
 MostRecentAlerts.propTypes = {
   alerts: PropTypes.array.isRequired,
-  onAlertLocationClick: PropTypes.func,
+  onToggleMapFocus: PropTypes.func,
+  showResetFocus: PropTypes.bool.isRequired,
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
 };

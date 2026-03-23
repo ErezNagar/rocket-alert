@@ -16,7 +16,7 @@ import RealTimeAlertManager from "./realtime_alert_manager";
 import Utilities from "./utilities/utilities";
 import Tracking from "./tracking";
 import { getNow, get24HoursAgo, get48HoursAgo } from "./utilities/date_helper";
-// import TimeToShelter from "./components/TimeToShelter";
+import TimeToShelter from "./components/TimeToShelter";
 import SupportUs from "./components/SupportUs";
 
 class App extends React.Component {
@@ -41,6 +41,8 @@ class App extends React.Component {
     twitterShareText: "",
     // The location to focus on on the map
     mapFocus: null,
+    // Whether to show reset map focus. Used when map is focused to a location
+    showResetFocus: false,
   };
 
   alertEventSource = null;
@@ -184,7 +186,8 @@ class App extends React.Component {
     this.setState({ twitterShareText });
   };
 
-  handleOnAlertLocationClick = (alert) => this.setState({ mapFocus: alert });
+  handleToggleMapFocus = (alert) =>
+    this.setState({ mapFocus: alert, showResetFocus: alert !== "reset" });
 
   render() {
     return (
@@ -216,7 +219,8 @@ class App extends React.Component {
                         ...this.state.mostRecentAlerts,
                         ...this.state.alerts48HrsAgo,
                       ]}
-                      onAlertLocationClick={this.handleOnAlertLocationClick}
+                      showResetFocus={this.state.showResetFocus}
+                      onToggleMapFocus={this.handleToggleMapFocus}
                     />
                   </Col>
                   <Col xs={24} lg={12}>
@@ -231,14 +235,21 @@ class App extends React.Component {
                 <>
                   <Col xs={24}>
                     <MostRecentAlerts
-                      alerts={this.state.mostRecentAlerts}
-                      onAlertLocationClick={this.handleOnAlertLocationClick}
+                      alerts={[
+                        ...this.state.mostRecentAlerts,
+                        ...this.state.alerts48HrsAgo,
+                      ]}
+                      showResetFocus={this.state.showResetFocus}
+                      onToggleMapFocus={this.handleToggleMapFocus}
                     />
                   </Col>
                 </>
               )}
             </Row>
-            {/* <TimeToShelter alerts={this.state.mostRecentAlerts} /> */}
+            <TimeToShelter
+              alerts={this.state.mostRecentAlerts}
+              onToggleMapFocus={this.handleToggleMapFocus}
+            />
           </section>
         )}
         <OperationLionsRoar alertsClient={AlertClient} />
