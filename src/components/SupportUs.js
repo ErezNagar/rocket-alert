@@ -30,7 +30,7 @@ const SupportUs = () => (
     </Row>
     <Row>
       <Col>
-        {"Your donation helps cover the costs of maintaining the site."}
+        {"Your contribution helps cover the costs of maintaining the app."}
       </Col>
     </Row>
   </Row>
