@@ -10,6 +10,8 @@ class RecentAlertsInteractiveMap extends React.Component {
     allRenderedLocations: [],
   };
 
+  MAP_PADDING = { top: 50, bottom: 50, left: 50, right: 50 };
+
   componentDidMount() {
     this.initMapWithAlertLocation();
   }
@@ -206,7 +208,7 @@ class RecentAlertsInteractiveMap extends React.Component {
 
     const overallBounds = bounds1.extend(bounds2);
     map.fitBounds(overallBounds, {
-      padding: { top: 50, bottom: 50, left: 50, right: 50 },
+      padding: this.MAP_PADDING,
       animate: false,
     });
 
@@ -257,7 +259,7 @@ class RecentAlertsInteractiveMap extends React.Component {
     const newBounds = this.state.mapBounds.extend(bounds);
 
     map.fitBounds(newBounds, {
-      padding: { top: 50, bottom: 50 },
+      padding: this.MAP_PADDING,
       animate: true,
     });
 
@@ -268,7 +270,7 @@ class RecentAlertsInteractiveMap extends React.Component {
     const alert = this.props.mapFocus;
     if (alert === "reset") {
       this.state.map.fitBounds(this.state.mapBounds, {
-        padding: { top: 50, bottom: 170 },
+        padding: this.MAP_PADDING,
         pitch: 0,
         animate: true,
       });
