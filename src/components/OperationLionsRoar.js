@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Column } from "@ant-design/plots";
-import { dayOfMonthFormat } from "../utilities/date_helper";
+import { dayOfMonthFormat, getYesterday } from "../utilities/date_helper";
 import Tile from "./Tile";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Utilities from "../utilities/utilities";
-import { getNow } from "../utilities/date_helper";
 
 const config = {
   isStack: true,
@@ -68,14 +67,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
   };
 
   const buildGraph = (payload) => {
-    // const POSITION_OFFSET = 1 / 3;
-    // const POSITION_OFFSET_MOBILE = 1 / 2;
-    // const offset = Utilities.isSmallViewport()
-    //   ? POSITION_OFFSET_MOBILE
-    //   : POSITION_OFFSET;
-
     const data = buildNewData(payload);
-
     setGraphData(data);
     setIsLoading(false);
     setShowGraph(true);
@@ -84,7 +76,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     alertsClient
-      .getDetailedAlerts(new Date("2026-02-28"), new Date(getNow()))
+      .getDetailedAlerts(new Date("2026-02-28"), new Date(getYesterday()))
       .then((res) => {
         buildGraph(res.payload);
       })
@@ -110,7 +102,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
                 title={"Rocket Alerts"}
                 subtitle={"Since February 28, 2026"}
                 fromDate={new Date("2026-02-28")}
-                toDate={new Date(getNow())}
+                toDate={new Date(getYesterday())}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
                 showAverage
@@ -121,7 +113,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
                 title={"UAV Alerts"}
                 subtitle={"Since February 28, 2026"}
                 fromDate={new Date("2026-02-28")}
-                toDate={new Date(getNow())}
+                toDate={new Date(getYesterday())}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_UAV}
                 showAverage
