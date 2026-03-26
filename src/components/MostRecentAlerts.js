@@ -4,7 +4,6 @@ import FormattedAlertTime from "./FormattedAlertTime";
 import FadeIn from "./FadeIn";
 import Tracking from "../tracking";
 import withIsVisibleHook from "./withIsVisibleHook";
-import Utilities from "../utilities/utilities";
 
 const MostRecentAlerts = ({
   alerts,
@@ -34,7 +33,7 @@ const MostRecentAlerts = ({
       <h2>{"Most recent alerts"}</h2>
 
       <div className={alerts.length <= 15 ? "list" : "list scrollable"}>
-        {alerts.slice(0, Utilities.MAX_RECENT_ALERTS).map((alert, idx) => (
+        {alerts.map((alert, idx) => (
           <FadeIn show={true} key={`${alert.name}_${alert.timeStamp}_${idx}`}>
             <Row justify="center">
               <Col className="textRight" xs={10} md={10}>
