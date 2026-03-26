@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "@ant-design/charts": "^1.4.3",
+    "@sentry/react": "^10.46.0",
     "ajv": "^8.17.1",
     "date-fns": "^2.22.1",
     "query-string": "^7.0.1",
