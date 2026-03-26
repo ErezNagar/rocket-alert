@@ -47,8 +47,8 @@ const RealTimeAlertManager = {
         ...data.alerts,
       ];
     });
-    RealTimeAlertManager.alertEventSource.onerror = () => {
-      console.error("EventSource failed.");
+    RealTimeAlertManager.alertEventSource.onerror = (error) => {
+      console.error("EventSource failed", error);
     };
   },
 

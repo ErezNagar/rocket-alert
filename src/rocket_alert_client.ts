@@ -137,7 +137,7 @@ const AlertClient = {
           .slice(-Utilities.MAX_RECENT_ALERTS);
       })
       .catch((e) => {
-        console.log("e", e);
+        console.error("Error getMostRecentAlerts", e);
       }),
   /*
    *  Gets total alert count by day for the given date range

@@ -14,7 +14,7 @@ Sentry.init({
     Sentry.consoleLoggingIntegration({ levels: ["log", "error"] }),
   ],
   // Tracing
-  tracesSampleRate: 1.0, // Capture 100% of the transactions
+  tracesSampleRate: process.env.NODE_ENV === "development" ? 1.0 : 0.2,
   // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: ["localhost", /^https:\/\/rocketalert\.live/],
 
