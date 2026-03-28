@@ -259,15 +259,15 @@ h3 {
 
 .map-marker {
   background-image: url("./assets/marker.png");
-  width: 26px;
-  height: 37px;
+  width: 18px;
+  height: 26px;
   background-size: contain;
   background-repeat: no-repeat;
 }
 .map-marker-orange {
   background-image: url("./assets/marker-orange.png");
-  width: 35px;
-  height: 46px;
+  width: 24px;
+  height: 32px;
   background-size: contain;
   background-repeat: no-repeat;
 }
