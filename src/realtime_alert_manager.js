@@ -1,54 +1,66 @@
 import Utilities from "./utilities/utilities";
 
-/* Keep max of 30 most recent alerts.
- * In case of a single, relatively short barrage, this will most likely capture all or most of the alerts.
- * In case of multiple, long barrages, we'll only keep the MAX_QUEUE_SIZE most recent alerts,
- * which will allow us Utilities.REAL_TIME_ALERT_THROTTLE_DURATION * MAX_QUEUE_SIZE seconds to show all alerts, one after another
- */
-const MAX_QUEUE_SIZE = 30;
-
 const RealTimeAlertManager = {
-  alertEventSource: null,
-  alertInterval: null,
+  eventSource: null,
+  interval: null,
   alertQueue: [],
+  alertClient: null,
+  callback: null,
+  retryDelay: 1000,
 
   /*
    *  Connects to the real-time alert source and listens for incoming alerts
    *  @param {object}   alertClient     The alert client
-   *  @param {func}     alertCB         Callback function to process incoming alerts
+   *  @param {func}     callback         Callback function to process incoming alerts
    */
-  startRealTimeAlerts: (alertClient, alertCB) => {
-    RealTimeAlertManager.alertEventSource =
-      alertClient.getRealTimeAlertEventSource();
+  startRealTimeAlerts: (alertClient, callback) => {
+    if (RealTimeAlertManager.eventSource) {
+      RealTimeAlertManager.eventSource.close();
+    }
+    RealTimeAlertManager.callback = callback;
+    RealTimeAlertManager.alertClient = alertClient;
+    RealTimeAlertManager.eventSource =
+      RealTimeAlertManager.alertClient.getRealTimeAlertEventSource();
 
-    RealTimeAlertManager.alertEventSource.onopen = () => {
-      RealTimeAlertManager.processAlert(alertCB);
+    RealTimeAlertManager.eventSource.onopen = () => {
+      RealTimeAlertManager.processAlert(callback);
+      RealTimeAlertManager.retryDelay = 1000;
     };
 
-    RealTimeAlertManager.alertEventSource.addEventListener("message", (e) => {
-      const data = JSON.parse(e.data);
-      if (data.alerts[0].name === "KEEP_ALIVE") {
-        return;
-      }
+    RealTimeAlertManager.eventSource.addEventListener("message", (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        if (data.alerts?.[0]?.name === "KEEP_ALIVE") {
+          return;
+        }
 
-      const alertData = data.alerts.filter(
-        (alert) =>
-          alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS ||
-          alert.alertTypeId === Utilities.ALERT_TYPE_UAV,
-      );
-      if (alertData.length === 0) {
-        return;
+        const alertData = data.alerts.filter(
+          (alert) =>
+            alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS ||
+            alert.alertTypeId === Utilities.ALERT_TYPE_UAV,
+        );
+        if (alertData.length === 0) {
+          return;
+        }
+        RealTimeAlertManager.alertQueue = [
+          ...RealTimeAlertManager.alertQueue,
+          ...alertData,
+        ];
+      } catch (e) {
+        console.error("Failed to parse SSE message", e.data);
       }
-      if (RealTimeAlertManager.alertQueue.length === MAX_QUEUE_SIZE) {
-        RealTimeAlertManager.alertQueue.shift();
-      }
-      RealTimeAlertManager.alertQueue = [
-        ...RealTimeAlertManager.alertQueue,
-        ...data.alerts,
-      ];
     });
-    RealTimeAlertManager.alertEventSource.onerror = (error) => {
-      console.error("EventSource failed", error);
+
+    RealTimeAlertManager.eventSource.onerror = () => {
+      RealTimeAlertManager.eventSource.close();
+      setTimeout(() => {
+        const newDelay = Math.min(RealTimeAlertManager.retryDelay * 2, 10000);
+        RealTimeAlertManager.retryDelay = newDelay;
+        RealTimeAlertManager.startRealTimeAlerts(
+          RealTimeAlertManager.alertClient,
+          RealTimeAlertManager.callback,
+        );
+      }, RealTimeAlertManager.retryDelay);
     };
   },
 
@@ -59,10 +71,10 @@ const RealTimeAlertManager = {
    */
   processAlert: (cb) => {
     // Set an interval only once
-    if (RealTimeAlertManager.alertInterval) {
+    if (RealTimeAlertManager.interval) {
       return;
     }
-    RealTimeAlertManager.alertInterval = setInterval(() => {
+    RealTimeAlertManager.interval = setInterval(() => {
       if (RealTimeAlertManager.alertQueue.length > 0) {
         let alerts;
         // Process alerts in batches if there are too many
@@ -81,9 +93,10 @@ const RealTimeAlertManager = {
    * Closes the real-time alert source
    */
   stopRealTimeAlerts: () => {
-    if (RealTimeAlertManager.alertEventSource) {
-      RealTimeAlertManager.alertEventSource.close();
-      clearInterval(RealTimeAlertManager.alertInterval);
+    if (RealTimeAlertManager.eventSource) {
+      RealTimeAlertManager.eventSource.close();
+      clearInterval(RealTimeAlertManager.interval);
+      RealTimeAlertManager.interval = null;
     }
   },
 };
