@@ -57,7 +57,8 @@ const MostRecentAlerts = ({
         </div>
       )}
       <div style={{ marginTop: "2em", fontSize: "0.7em" }}>
-        Areas without markers indicate locations of alerts 24 to 48 hours ago.
+        Yellow markers indicate UAV alerts. Areas without markers indicate
+        alerts 24 to 48 hours ago.
       </div>
     </div>
   );
