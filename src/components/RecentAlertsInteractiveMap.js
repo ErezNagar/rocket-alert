@@ -50,17 +50,23 @@ class RecentAlertsInteractiveMap extends React.Component {
   };
 
   async initMapWithAlertLocation() {
-    const map = new window.maplibregl.Map({
-      container: "alerts_map",
-      style: MAP_STYLE,
-      center: this.getCenterMap(),
-      cooperativeGestures: true,
-      attributionControl: false,
-    }).addControl(
-      new window.maplibregl.AttributionControl({
-        compact: true,
-      }),
-    );
+    let map;
+    try {
+      map = new window.maplibregl.Map({
+        container: "alerts_map",
+        style: MAP_STYLE,
+        center: this.getCenterMap(),
+        cooperativeGestures: true,
+        attributionControl: false,
+      }).addControl(
+        new window.maplibregl.AttributionControl({
+          compact: true,
+        }),
+      );
+    } catch (e) {
+      console.error("initMapWithAlertLocation: Failed to initialize map:", e);
+      return;
+    }
 
     map.on("load", () => {
       this.initMap(map);
