@@ -159,8 +159,6 @@ const GraphAlertsByDay = ({
           origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
         });
       } else {
-        const [year] = alertData[alertDataIdx].date.split("-");
-
         // If date has alerts, go over the alerts and categorize them by source
         if (isDateWithAlerts(date, alertData[alertDataIdx])) {
           const alertOrigin = graphUtils.determineAlertOrigin(
