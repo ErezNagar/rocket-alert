@@ -56,13 +56,13 @@ const isAlertModeQueryString = () => {
 };
 
 const isLocalStorageAvailable = () => {
-  if (typeof localStorage === "undefined") {
-    return false;
-  }
-
-  // localStorage is defined, check if it's not turned off
-  const test = "test";
   try {
+    if (typeof localStorage === "undefined" || localStorage === null) {
+      return false;
+    }
+
+    // localStorage is defined, check if it's not turned off
+    const test = "test";
     localStorage.setItem(test, test);
     localStorage.removeItem(test);
     return true;
