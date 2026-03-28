@@ -10,17 +10,19 @@ Sentry.init({
   enableLogs: true,
   integrations: [
     Sentry.browserTracingIntegration(),
-    Sentry.replayIntegration(),
+    Sentry.replayIntegration({
+      maskAllText: false,
+      blockAllMedia: false,
+    }),
     Sentry.consoleLoggingIntegration({ levels: ["log", "error"] }),
   ],
   // Tracing
-  tracesSampleRate: process.env.NODE_ENV === "development" ? 1.0 : 0.2,
+  tracesSampleRate: process.env.NODE_ENV === "development" ? 1.0 : 0.05,
   // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: ["localhost", /^https:\/\/rocketalert\.live/],
 
   // Session Replay
-  // Sets rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
-  replaysSessionSampleRate: 0.1,
+  replaysSessionSampleRate: process.env.NODE_ENV === "development" ? 1.0 : 0.05,
   // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
   replaysOnErrorSampleRate: 1.0,
 });
