@@ -13,6 +13,7 @@ Sentry.init({
     Sentry.replayIntegration({
       maskAllText: false,
       blockAllMedia: false,
+      block: ["iframe"],
     }),
     Sentry.consoleLoggingIntegration({ levels: ["log", "error"] }),
   ],
