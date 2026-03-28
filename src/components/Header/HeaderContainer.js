@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react";
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Header from "./Header";
@@ -82,6 +83,10 @@ const HeaderContainer = (props) => {
         } else {
           setIsLoading(false);
         }
+        const perfTime = performance.now() - props.perfStartTime;
+        Sentry.metrics.distribution("header", perfTime, {
+          unit: "millisecond",
+        });
       })
       .catch((error) => {
         Tracking.headerDataError(error);
@@ -123,6 +128,7 @@ HeaderContainer.propTypes = {
   realTimeAlertCache: PropTypes.object.isRequired,
   onTwitterShareText: PropTypes.func.isRequired,
   isLastAlertOfBatch: PropTypes.bool.isRequired,
+  perfStartTime: PropTypes.number.isRequired,
 };
 
 HeaderContainer.defaultProps = {

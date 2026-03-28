@@ -46,6 +46,7 @@ class App extends React.Component {
   };
 
   alertEventSource = null;
+  startPerformanceTime = performance.now();
 
   componentDidMount() {
     RealTimeAlertManager.startRealTimeAlerts(
@@ -199,6 +200,7 @@ class App extends React.Component {
           realTimeAlertCache={this.state.realTimeAlertCache}
           isLastAlertOfBatch={this.state.isLastAlertOfBatch}
           onTwitterShareText={this.handleOnTwitterShareText}
+          perfStartTime={this.startPerformanceTime}
         />
         <StickyHeader
           showStickyHeader={this.state.showStickyHeader}
