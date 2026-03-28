@@ -132,10 +132,10 @@ const GraphAlertsByDay = ({
     });
 
     dates.forEach((date) => {
-      const year = date.toLocaleString("default", {
+      const year = date.toLocaleString("en-US", {
         year: "numeric",
       });
-      const monthName = date.toLocaleString("default", {
+      const monthName = date.toLocaleString("en-US", {
         month: "long",
       });
       if (!data.years.includes(year)) {
@@ -165,7 +165,7 @@ const GraphAlertsByDay = ({
         if (isDateWithAlerts(date, alertData[alertDataIdx])) {
           const alertOrigin = graphUtils.determineAlertOrigin(
             alertData[alertDataIdx].alerts,
-            alertTimeframes
+            alertTimeframes,
           );
 
           data[year][monthName].push({
