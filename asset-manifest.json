@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.c85f28de.css",
-    "main.js": "/static/js/main.d52b32dd.js",
+    "main.js": "/static/js/main.532a924a.js",
     "static/js/686.917a2453.chunk.js": "/static/js/686.917a2453.chunk.js",
     "static/media/alarm.mp3": "/static/media/alarm.eb830775dc3c75635202.mp3",
     "static/media/coffeecup.svg": "/static/media/coffeecup.2749e5d777448d4b2f3dce41467e93de.svg",
@@ -16,6 +16,6 @@
   },
   "entrypoints": [
     "static/css/main.c85f28de.css",
-    "static/js/main.d52b32dd.js"
+    "static/js/main.532a924a.js"
   ]
 }
