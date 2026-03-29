@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Cache from "../cache";
-import Tracking from "../tracking";
-import Utilities from "../utilities/utilities";
+import { loadPolygons } from "../polygonService";
 import RecentAlertsInteractiveMap from "./RecentAlertsInteractiveMap";
 import withIsVisibleHook from "./withIsVisibleHook";
 
@@ -16,54 +14,9 @@ const RecentAlertsMap = ({
   const shouldShowInteractiveMap =
     process.env.REACT_APP_IS_MAP_INTERACTIVE === "true";
 
-  const loadPolygons = () => {
-    if (Cache.canUseCache()) {
-      loadPolygonsFromCache();
-    } else {
-      Tracking.polygonCache("cant_use_cache");
-      loadPolygonsFromFile();
-    }
-  };
-
-  const loadPolygonsFromCache = () => {
-    let polygons = Cache.getJSON("polygons");
-    if (polygons) {
-      if (
-        Cache.get(Utilities.POLYGON_VERSION_KEY) ===
-        Utilities.POLYGON_VERSION_VALUE
-      ) {
-        Tracking.polygonCache("hit");
-        setPolygons(polygons);
-      } else {
-        Tracking.polygonCache("older_version");
-        loadPolygonsFromFile({ setToCache: true });
-      }
-    } else {
-      Tracking.polygonCache("miss");
-      loadPolygonsFromFile({ setToCache: true });
-    }
-  };
-
-  const setPolygonsToCache = (polygons) => {
-    Cache.setJSON("polygons", polygons);
-    Cache.set(Utilities.POLYGON_VERSION_KEY, Utilities.POLYGON_VERSION_VALUE);
-  };
-
-  const loadPolygonsFromFile = ({ setToCache }) =>
-    import("../polygons.json")
-      .then((json) => json.default || json)
-      .then((polygons) => {
-        setPolygons(polygons);
-        if (setToCache) {
-          setPolygonsToCache(polygons);
-        }
-      });
-
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    loadPolygons();
+    loadPolygons().then(setPolygons);
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <section ref={isIntersectingRef} className="section map">
