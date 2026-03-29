@@ -13,19 +13,23 @@ const TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE = new Date(2025, 1, 23);
 
 const ALERT_SOURCE = {
   HAMAS: {
-    LABEL: "Hamas (Gaza)",
+    LABEL: ["Hamas (Gaza)"],
     COLOR: "#008000",
   },
   HEZBOLLAH: {
-    LABEL: "Hezbollah (Southern Lebanon)",
+    LABEL: [
+      "Hezbollah (Southern Lebanon)",
+      "Rockets - Hezbollah",
+      "UAVs - Hezbollah",
+    ],
     COLOR: "#F7E210",
   },
   IRAN: {
-    LABEL: "Iran",
+    LABEL: ["Iran", "Missiles - Iran", "UAVs - Iran"],
     COLOR: "#DA0000",
   },
   HOUTHIS: {
-    LABEL: "Houthis (Yemen)",
+    LABEL: ["Houthis (Yemen)", "Missiles - Houthis", "UAVs - Houthis"],
     COLOR: "black",
   },
 };
@@ -126,13 +130,13 @@ const graphUtils = {
 
       if (!isBefore(alertDate, currentDate)) {
         const confirmedAlerts = alerts.filter(
-          (alert) => !isInsideTimeframe(alert.timeStamp, falseAlerts)
+          (alert) => !isInsideTimeframe(alert.timeStamp, falseAlerts),
         );
         const rocketAlerts = confirmedAlerts.filter(
-          (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS
+          (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_ROCKETS,
         );
         const UAVAlerts = confirmedAlerts.filter(
-          (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_UAV
+          (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_UAV,
         );
         rocketAlertCount += rocketAlerts.length;
         UAVAlertCount += UAVAlerts.length;
@@ -143,7 +147,7 @@ const graphUtils = {
     const EndOfOperationDate = "2025-10-11";
     const week = weekRangeWithYearFormat(
       currentDate,
-      new Date(EndOfOperationDate)
+      new Date(EndOfOperationDate),
     );
     data.push({
       week,
@@ -174,16 +178,16 @@ const graphUtils = {
   },
 
   getColorByOrigin: ({ origin }) => {
-    if (origin === ALERT_SOURCE.HAMAS.LABEL) {
+    if (ALERT_SOURCE.HAMAS.LABEL.includes(origin)) {
       return ALERT_SOURCE.HAMAS.COLOR;
     }
-    if (origin === ALERT_SOURCE.HEZBOLLAH.LABEL) {
+    if (ALERT_SOURCE.HEZBOLLAH.LABEL.includes(origin)) {
       return ALERT_SOURCE.HEZBOLLAH.COLOR;
     }
-    if (origin === ALERT_SOURCE.IRAN.LABEL) {
+    if (ALERT_SOURCE.IRAN.LABEL.includes(origin)) {
       return ALERT_SOURCE.IRAN.COLOR;
     }
-    if (origin === ALERT_SOURCE.HOUTHIS.LABEL) {
+    if (ALERT_SOURCE.HOUTHIS.LABEL.includes(origin)) {
       return ALERT_SOURCE.HOUTHIS.COLOR;
     }
   },
@@ -197,29 +201,31 @@ const graphUtils = {
     let originNorthCount = 0;
     let originIranCount = 0;
     let originYemenCount = 0;
-
-    alerts.forEach((alert) => {
-      if (isInsideTimeframe(alert.timeStamp, alertTimeframes.falseAlerts)) {
-        return;
-      } else if (isInsideTimeframe(alert.timeStamp, alertTimeframes.iran)) {
-        originIranCount += 1;
-      } else if (isInsideTimeframe(alert.timeStamp, alertTimeframes.yemen)) {
-        originYemenCount += 1;
-      }
-      /*
+    try {
+      alerts.forEach((alert) => {
+        if (isInsideTimeframe(alert.timeStamp, alertTimeframes.falseAlerts)) {
+          return;
+        } else if (isInsideTimeframe(alert.timeStamp, alertTimeframes.iran)) {
+          originIranCount += 1;
+        } else if (isInsideTimeframe(alert.timeStamp, alertTimeframes.yemen)) {
+          originYemenCount += 1;
+        }
+        /*
       As of March 22, 2025, Hezbollah still fires rockets and so
       we can't just assume all alerts are from Hamas/Southv
     */
-      // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
-      //   originSouthCount += 1;
-      // }
-      else if (isRegionInSouth(alert.areaNameEn)) {
-        originSouthCount += 1;
-      } else if (isRegionInNorth(alert.areaNameEn)) {
-        originNorthCount += 1;
-      }
-    });
-
+        // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
+        //   originSouthCount += 1;
+        // }
+        else if (isRegionInSouth(alert.areaNameEn)) {
+          originSouthCount += 1;
+        } else if (isRegionInNorth(alert.areaNameEn)) {
+          originNorthCount += 1;
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
     return {
       originSouthCount,
       originNorthCount,

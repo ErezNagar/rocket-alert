@@ -151,12 +151,12 @@ const GraphAlertsByDay = ({
         data[year][monthName].push({
           day: dayOfMonthFormat(date),
           alerts: 0,
-          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
+          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
         });
         data[year][monthName].push({
           day: dayOfMonthFormat(date),
           alerts: 0,
-          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
+          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
         });
       } else {
         // If date has alerts, go over the alerts and categorize them by source
@@ -169,25 +169,25 @@ const GraphAlertsByDay = ({
           data[year][monthName].push({
             day: dayOfMonthFormat(date),
             alerts: alertOrigin.originSouthCount,
-            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
+            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
           });
           data[year][monthName].push({
             day: dayOfMonthFormat(date),
             alerts: alertOrigin.originNorthCount,
-            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
+            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
           });
           if (alertOrigin.originIranCount) {
             data[year][monthName].push({
               day: dayOfMonthFormat(date),
               alerts: alertOrigin.originIranCount,
-              origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
+              origin: graphUtils.ALERT_SOURCE.IRAN.LABEL[0],
             });
           }
           if (alertOrigin.originYemenCount) {
             data[year][monthName].push({
               day: dayOfMonthFormat(date),
               alerts: alertOrigin.originYemenCount,
-              origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
+              origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL[0],
             });
           }
 
@@ -198,12 +198,12 @@ const GraphAlertsByDay = ({
           data[year][monthName].push({
             day: dayOfMonthFormat(date),
             alerts: 0,
-            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
+            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
           });
           data[year][monthName].push({
             day: dayOfMonthFormat(date),
             alerts: 0,
-            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
+            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
           });
         }
       }

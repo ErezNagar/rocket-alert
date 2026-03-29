@@ -126,25 +126,25 @@ const GraphAlertBySource = ({
         data.push({
           week: weekRange,
           alerts: originSouthCount,
-          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
+          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
         });
         data.push({
           week: weekRange,
           alerts: originNorthCount,
-          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
+          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
         });
         if (originIranCount) {
           data.push({
             week: weekRange,
             alerts: originIranCount,
-            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
+            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL[0],
           });
         }
         if (originYemenCount) {
           data.push({
             week: weekRange,
             alerts: originYemenCount,
-            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
+            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL[0],
           });
         }
 
@@ -174,27 +174,27 @@ const GraphAlertBySource = ({
     data.push({
       week: weekFormat,
       alerts: originSouthCount,
-      origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL,
+      origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
     });
     if (originNorthCount) {
       data.push({
         week: weekFormat,
         alerts: originNorthCount,
-        origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL,
+        origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
       });
     }
     if (originIranCount) {
       data.push({
         week: weekFormat,
         alerts: originIranCount,
-        origin: graphUtils.ALERT_SOURCE.IRAN.LABEL,
+        origin: graphUtils.ALERT_SOURCE.IRAN.LABEL[0],
       });
     }
     if (originYemenCount) {
       data.push({
         week: weekFormat,
         alerts: originYemenCount,
-        origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL,
+        origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL[0],
       });
     }
 

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
+import wretch from "wretch";
 import { Row, Col, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Column } from "@ant-design/plots";
@@ -7,15 +8,23 @@ import { dayOfMonthFormat, getYesterday } from "../utilities/date_helper";
 import Tile from "./Tile";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Utilities from "../utilities/utilities";
+import graphUtils from "./Graphs/graphUtils/graphUtils";
+
+const YEMEN_ALERT_TIMEFRAMES_URL =
+  "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/yemen_alerts.json";
+const IRAN_ALERT_TIMEFRAMES_URL =
+  "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/iran-alerts.json";
 
 const config = {
   isStack: true,
   xField: "date",
   yField: "alerts",
-  seriesField: "type",
+  seriesField: "origin",
   columnStyle: (item) =>
-    item.type === "Rockets" ? { radius: [20, 20, 0, 0] } : { radius: 0 },
-  color: ["#DA0000", "#5c0011"],
+    item.origin === "Missiles - Iran"
+      ? { radius: [20, 20, 0, 0] }
+      : { radius: 0 },
+  color: graphUtils.getColorByOrigin,
   appendPadding: Utilities.isSmallViewport()
     ? [30, 0, 0, 0]
     : [30, 200, 0, 200],
@@ -33,6 +42,12 @@ const config = {
 };
 
 const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
+  const [alertData, setAlertData] = useState([]);
+  const [alertTimeframes, setAlertTimeframes] = useState({
+    yemen: [],
+    iran: [],
+    falseAlerts: [],
+  });
   const [showGraph, setShowGraph] = useState(false);
   const [graphData, setGraphData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,16 +66,59 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_UAV,
       );
 
-      data.push({
-        date: dayOfMonthFormat(alertDate),
-        alerts: rocketAlerts.length,
-        type: "Rockets",
-      });
-      data.push({
-        date: dayOfMonthFormat(alertDate),
-        alerts: UAVAlerts.length,
-        type: "UAVs",
-      });
+      const rocketsOrigin = graphUtils.determineAlertOrigin(
+        rocketAlerts,
+        alertTimeframes,
+      );
+
+      const UAVOrigin = graphUtils.determineAlertOrigin(
+        UAVAlerts,
+        alertTimeframes,
+      );
+
+      const formatedDate = dayOfMonthFormat(alertDate);
+      if (rocketsOrigin.originIranCount) {
+        data.push({
+          date: formatedDate,
+          alerts: rocketsOrigin.originIranCount,
+          origin: "Missiles - Iran",
+        });
+      }
+      if (UAVOrigin.originIranCount) {
+        data.push({
+          date: formatedDate,
+          alerts: UAVOrigin.originIranCount,
+          origin: "UAVs - Iran",
+        });
+      }
+      if (rocketsOrigin.originNorthCount) {
+        data.push({
+          date: formatedDate,
+          alerts: rocketsOrigin.originNorthCount,
+          origin: "Rockets - Hezbollah",
+        });
+      }
+      if (UAVOrigin.originNorthCount) {
+        data.push({
+          date: formatedDate,
+          alerts: UAVOrigin.originNorthCount,
+          origin: "UAVs - Hezbollah",
+        });
+      }
+      if (rocketsOrigin.originYemenCount) {
+        data.push({
+          date: formatedDate,
+          alerts: rocketsOrigin.originYemenCount,
+          origin: "Missiles - Houthis",
+        });
+      }
+      if (UAVOrigin.originYemenCount) {
+        data.push({
+          date: formatedDate,
+          alerts: UAVOrigin.originYemenCount,
+          origin: "UAVs - Houthis",
+        });
+      }
     });
 
     return data;
@@ -75,16 +133,53 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    alertsClient
-      .getDetailedAlerts(new Date("2026-02-28"), new Date(getYesterday()))
-      .then((res) => {
-        buildGraph(res.payload);
+    const loadYemenAlertTimeframes = () =>
+      wretch(YEMEN_ALERT_TIMEFRAMES_URL)
+        .get()
+        .json((res) =>
+          res.map(([start, end]) => [new Date(start), new Date(end)]),
+        );
+
+    const loadIranAlertTimeframes = () =>
+      wretch(IRAN_ALERT_TIMEFRAMES_URL)
+        .get()
+        .json((res) =>
+          res.map(([start, end]) => [new Date(start), new Date(end)]),
+        );
+
+    Promise.all([
+      loadYemenAlertTimeframes(),
+      loadIranAlertTimeframes(),
+      alertsClient.getDetailedAlerts(
+        new Date("2026-02-28"),
+        new Date(getYesterday()),
+      ),
+    ])
+      .then((values) => {
+        const yemenAlertTimeframes = values[0] || [];
+        const iranAlertTimeframes = values[1] || [];
+        const alertData = values[2] || [];
+
+        setAlertTimeframes({
+          yemen: yemenAlertTimeframes,
+          iran: iranAlertTimeframes,
+          falseAlerts: [],
+        });
+        setAlertData(alertData.payload);
       })
       .catch((res) => {
         setIsLoading(false);
         setIsError(true);
       });
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (alertData.length > 0) {
+      buildGraph(alertData);
+    }
+  }, [alertData]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
