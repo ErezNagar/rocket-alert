@@ -137,14 +137,14 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
       wretch(YEMEN_ALERT_TIMEFRAMES_URL)
         .get()
         .json((res) =>
-          res.map(([start, end]) => [new Date(start), new Date(end)]),
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
         );
 
     const loadIranAlertTimeframes = () =>
       wretch(IRAN_ALERT_TIMEFRAMES_URL)
         .get()
         .json((res) =>
-          res.map(([start, end]) => [new Date(start), new Date(end)]),
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
         );
 
     Promise.all([

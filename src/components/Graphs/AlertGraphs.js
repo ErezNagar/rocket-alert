@@ -28,21 +28,21 @@ const AlertGraphs = ({ alertsClient }) => {
       wretch(YEMEN_ALERT_TIMEFRAMES_URL)
         .get()
         .json((res) =>
-          res.map(([start, end]) => [new Date(start), new Date(end)])
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
         );
 
     const loadIranAlertTimeframes = () =>
       wretch(IRAN_ALERT_TIMEFRAMES_URL)
         .get()
         .json((res) =>
-          res.map(([start, end]) => [new Date(start), new Date(end)])
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
         );
 
     const loadConfirmedFalseAlertTimeframes = () =>
       wretch(CONFIRMED_FALSE_ALERT_TIMEFRAMES_URL)
         .get()
         .json((res) =>
-          res.map(([start, end]) => [new Date(start), new Date(end)])
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
         );
     const getDetailedAlerts = () =>
       alertsClient

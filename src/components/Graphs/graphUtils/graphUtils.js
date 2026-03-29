@@ -77,8 +77,8 @@ const isRegionInNorth = (region) => {
 };
 
 const isInsideTimeframe = (date, timeframe) => {
-  const theDate = new Date(date);
-  return timeframe.some(([start, end]) => theDate >= start && theDate <= end);
+  const t = typeof date === "number" ? date : Date.parse(date);
+  return timeframe.some(([start, end]) => start <= t && t <= end);
 };
 
 const isAfterCeaseFireInTheNorth = (date) => {
