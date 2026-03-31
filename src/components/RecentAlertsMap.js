@@ -12,7 +12,6 @@ const RecentAlertsMap = ({
 }) => {
   const [polygons, setPolygons] = useState({});
   const shouldShowInteractiveMap = true;
-  // process.env.REACT_APP_IS_MAP_INTERACTIVE === "true";
 
   useEffect(() => {
     loadPolygons().then(setPolygons);

@@ -11,10 +11,7 @@ const MostRecentAlerts = ({
   isIntersectingRef,
   showResetFocus,
 }) => {
-  const isClickable = (alert) =>
-    alert.lon &&
-    alert.lat &&
-    process.env.REACT_APP_IS_MAP_INTERACTIVE === "true";
+  const isClickable = (alert) => alert.lon && alert.lat;
 
   const handleAlertLocationClick = (alert, idx) => {
     if (!isClickable(alert)) {
