@@ -3,7 +3,6 @@
 ![Screenshot of a real-time alert count.](/readme_alert_count.png)
 ![Screenshot of alert map.](/readme_alert_map.png)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://github.com/ErezNagar/rocket-alert/actions/workflows/main.yml/badge.svg)
 
 Real-time red alerts in Israel: http://rocketalert.live.
@@ -27,8 +26,4 @@ Support us by [buying us coffee](https://buymeacoffee.com/rocketalertlive). Your
 
 ## CHANGELOG
 
-See [CHANGELOG.md](https://github.com/ErezNagar/code-red/blob/master/CHANGELOG.md)
-
-## License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+See [Releases](https://github.com/ErezNagar/rocket-alert/releases)
