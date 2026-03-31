@@ -213,40 +213,25 @@ class App extends React.Component {
           this.state.mostRecentAlerts.length > 0) && (
           <section className="section mostRecentAlerts">
             <Row justify="space-around" align="middle">
-              {process.env.REACT_APP_SHOULD_SHOW_MAP === "true" ? (
-                <>
-                  <Col xs={24} lg={12}>
-                    <MostRecentAlerts
-                      alerts={[
-                        ...this.state.mostRecentAlerts,
-                        ...this.state.alerts48HrsAgo,
-                      ]}
-                      showResetFocus={this.state.showResetFocus}
-                      onToggleMapFocus={this.handleToggleMapFocus}
-                    />
-                  </Col>
-                  <Col xs={24} lg={12}>
-                    <RecentAlertsMap
-                      alerts48HrsAgo={this.state.alerts48HrsAgo}
-                      mostRecentAlerts={this.state.mostRecentAlerts}
-                      mapFocus={this.state.mapFocus}
-                    />
-                  </Col>
-                </>
-              ) : (
-                <>
-                  <Col xs={24}>
-                    <MostRecentAlerts
-                      alerts={[
-                        ...this.state.mostRecentAlerts,
-                        ...this.state.alerts48HrsAgo,
-                      ]}
-                      showResetFocus={this.state.showResetFocus}
-                      onToggleMapFocus={this.handleToggleMapFocus}
-                    />
-                  </Col>
-                </>
-              )}
+              <>
+                <Col xs={24} lg={12}>
+                  <MostRecentAlerts
+                    alerts={[
+                      ...this.state.mostRecentAlerts,
+                      ...this.state.alerts48HrsAgo,
+                    ]}
+                    showResetFocus={this.state.showResetFocus}
+                    onToggleMapFocus={this.handleToggleMapFocus}
+                  />
+                </Col>
+                <Col xs={24} lg={12}>
+                  <RecentAlertsMap
+                    alerts48HrsAgo={this.state.alerts48HrsAgo}
+                    mostRecentAlerts={this.state.mostRecentAlerts}
+                    mapFocus={this.state.mapFocus}
+                  />
+                </Col>
+              </>
             </Row>
             <TimeToShelter
               alerts={this.state.mostRecentAlerts}
