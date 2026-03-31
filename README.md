@@ -19,7 +19,6 @@ Real-time red alerts in Israel: http://rocketalert.live.
 ## Stay Connected
 
 Twitter: https://x.com/rocketalertlive
-
 Instagram: https://www.instagram.com/RocketAlertLive/
 
 ## Support Us
