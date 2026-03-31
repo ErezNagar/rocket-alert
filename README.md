@@ -7,16 +7,18 @@
 
 Real-time red alerts in Israel: http://rocketalert.live.
 
-- Real-time "Code Red" alerts, including rocket and UAV alerts.
-- Interactive map for showing alert location.
-- Information on alert distance and time to find shelter (requires enabling location services).
-- Red alert data and charts including total rocket alerts, total UAV alerts, alert breakdown by month & source and more.
-- Live alert feeds for Telegram and Mastodon:
-  - Telegram: https://t.me/RocketAlert
-  - Mastodon: https://mastodon.social/@rocketalert
+- Real-time "Code Red" Rocket/Missile and UAV alerts.
+- Interactive map showing alert location.
+- Alert timeline including total rocket alerts, total UAV alerts, alert breakdown by month & source and more.
+
+## Live Alert Feeds
+
+- Telegram: https://t.me/RocketAlert
+- Mastodon: https://mastodon.social/@rocketalert
 
 ## Stay Connected
 
+Follow us on:
 Twitter: https://x.com/rocketalertlive
 Instagram: https://www.instagram.com/RocketAlertLive/
 
