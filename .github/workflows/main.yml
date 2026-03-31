@@ -67,6 +67,7 @@ jobs:
       - name: Deploy 🚀
         run: |
           npm install -g gh-pages
-          gh-pages -d build
+          gh-pages -d build \
+            -r https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
