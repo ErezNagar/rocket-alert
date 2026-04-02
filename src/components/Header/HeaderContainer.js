@@ -84,9 +84,11 @@ const HeaderContainer = (props) => {
           setIsLoading(false);
         }
         const perfTime = performance.now() - props.perfStartTime;
-        Sentry.metrics.distribution("header", perfTime, {
-          unit: "millisecond",
-        });
+        if (perfTime && !Number.isNaN(perfTime)) {
+          Sentry.metrics.distribution("header", perfTime, {
+            unit: "millisecond",
+          });
+        }
       })
       .catch((error) => {
         Tracking.headerDataError(error);
