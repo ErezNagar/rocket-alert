@@ -13,15 +13,11 @@ const TOTAL_ALERTS_MOBILE_DYNAMIC_DATA_START_DATE = new Date(2025, 1, 23);
 
 const ALERT_SOURCE = {
   HAMAS: {
-    LABEL: ["Hamas (Gaza)"],
+    LABEL: ["Hamas"],
     COLOR: "#008000",
   },
   HEZBOLLAH: {
-    LABEL: [
-      "Hezbollah (Southern Lebanon)",
-      "Rockets - Hezbollah",
-      "UAVs - Hezbollah",
-    ],
+    LABEL: ["Hezbollah", "Rockets - Hezbollah", "UAVs - Hezbollah"],
     COLOR: "#F7E210",
   },
   IRAN: {
@@ -29,7 +25,7 @@ const ALERT_SOURCE = {
     COLOR: "#DA0000",
   },
   HOUTHIS: {
-    LABEL: ["Houthis (Yemen)", "Missiles - Houthis", "UAVs - Houthis"],
+    LABEL: ["Yemen", "Missiles - Houthis", "UAVs - Houthis"],
     COLOR: "black",
   },
 };
@@ -163,20 +159,6 @@ const graphUtils = {
     return data;
   },
 
-  /*
-    Concatenate pre-compiled hardcoded graph data with dynamic data pulled from server.
-    For Alerts By Day graph.
-  */
-  concatAlertsByDayGraphData: (precompiledData, data) => {
-    Object.keys(data).forEach((yearKey) => {
-      if (yearKey !== "years") {
-        precompiledData[yearKey] = data[yearKey];
-      }
-    });
-    precompiledData.years.push(...data.years);
-    return precompiledData;
-  },
-
   getColorByOrigin: ({ origin }) => {
     if (ALERT_SOURCE.HAMAS.LABEL.includes(origin)) {
       return ALERT_SOURCE.HAMAS.COLOR;
@@ -211,9 +193,9 @@ const graphUtils = {
           originYemenCount += 1;
         }
         /*
-      As of March 22, 2025, Hezbollah still fires rockets and so
-      we can't just assume all alerts are from Hamas/Southv
-    */
+          As of March 22, 2025, Hezbollah still fires rockets and so
+          we can't just assume all alerts are from Hamas/Southv
+        */
         // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
         //   originSouthCount += 1;
         // }

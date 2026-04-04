@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
-import { eachDayOfInterval, isSameDay } from "date-fns";
-import { dayOfMonthFormat } from "../../utilities/date_helper";
 import { Column, Bar } from "@ant-design/plots";
 import Tracking from "../../tracking";
 import withIsVisibleHook from "./../withIsVisibleHook";
@@ -93,18 +91,7 @@ const GRAPH_CONFIG = {
   },
 };
 
-// The date from which the graph date interval will start
-const BEGINNING_DATE_INTERVAL = new Date("2025-01-01T00:00");
-// Swords of Iron ended on Oct 10. Since the calculation doesn't include the last day, we need to add one more day
-const ENDING_DATE = new Date("2025-10-11");
-
-const GraphAlertsByDay = ({
-  alertData,
-  alertTimeframes,
-  isLoading,
-  isError,
-  isIntersectingRef,
-}) => {
+const GraphAlertsByDay = ({ isLoading, isError, isIntersectingRef }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [data, setData] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
@@ -113,111 +100,16 @@ const GraphAlertsByDay = ({
   const [graphType, setGraphType] = useState("Column");
   const [config, setConfig] = useState(null);
 
-  /*
-    Returns whether there are alerts for that date
-  */
-  const isDateWithAlerts = (date, alertData) => {
-    const [year, month, day] = alertData.date.split("-");
-    const dateOfAlerts = new Date(year, month - 1, day);
-    return isSameDay(date, dateOfAlerts);
-  };
+  const buildGraph = () => {
+    const selectedYear = ALERTS_BY_DAY.years[0];
+    const selectedMonth = ALERTS_BY_DAY[selectedYear].months[0];
+    const selectedData = ALERTS_BY_DAY[selectedYear][selectedMonth];
 
-  const buildGraph = useCallback(() => {
-    let alertDataIdx = 0;
-    const data = { years: [] };
-
-    const dates = eachDayOfInterval({
-      start: BEGINNING_DATE_INTERVAL,
-      end: ENDING_DATE,
-    });
-
-    dates.forEach((date) => {
-      const year = date.toLocaleString("en-US", {
-        year: "numeric",
-      });
-      const monthName = date.toLocaleString("en-US", {
-        month: "long",
-      });
-      if (!data.years.includes(year)) {
-        data.years.push(year);
-        data[year] = { months: [] };
-      }
-      if (!data[year].months.includes(monthName)) {
-        data[year].months.push(monthName);
-        data[year][monthName] = [];
-      }
-
-      if (alertDataIdx >= alertData.length) {
-        data[year][monthName].push({
-          day: dayOfMonthFormat(date),
-          alerts: 0,
-          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
-        });
-        data[year][monthName].push({
-          day: dayOfMonthFormat(date),
-          alerts: 0,
-          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
-        });
-      } else {
-        // If date has alerts, go over the alerts and categorize them by source
-        if (isDateWithAlerts(date, alertData[alertDataIdx])) {
-          const alertOrigin = graphUtils.determineAlertOrigin(
-            alertData[alertDataIdx].alerts,
-            alertTimeframes,
-          );
-
-          data[year][monthName].push({
-            day: dayOfMonthFormat(date),
-            alerts: alertOrigin.originSouthCount,
-            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
-          });
-          data[year][monthName].push({
-            day: dayOfMonthFormat(date),
-            alerts: alertOrigin.originNorthCount,
-            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
-          });
-          if (alertOrigin.originIranCount) {
-            data[year][monthName].push({
-              day: dayOfMonthFormat(date),
-              alerts: alertOrigin.originIranCount,
-              origin: graphUtils.ALERT_SOURCE.IRAN.LABEL[0],
-            });
-          }
-          if (alertOrigin.originYemenCount) {
-            data[year][monthName].push({
-              day: dayOfMonthFormat(date),
-              alerts: alertOrigin.originYemenCount,
-              origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL[0],
-            });
-          }
-
-          alertDataIdx += 1;
-        } else {
-          // If date doesn't have alerts, add 0 to each source
-
-          data[year][monthName].push({
-            day: dayOfMonthFormat(date),
-            alerts: 0,
-            origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
-          });
-          data[year][monthName].push({
-            day: dayOfMonthFormat(date),
-            alerts: 0,
-            origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
-          });
-        }
-      }
-    });
-
-    const selectedYear = data.years[data.years.length - 1];
-    const selectedMonth =
-      data[selectedYear].months[data[selectedYear].months.length - 1];
-
-    setData(graphUtils.concatAlertsByDayGraphData(ALERTS_BY_DAY, data));
+    setData(ALERTS_BY_DAY);
     setSelectedYear(selectedYear);
     setSelectedMonth(selectedMonth);
-    setSelectedMonthData(data[selectedYear][selectedMonth]);
-  }, [alertData, alertTimeframes]);
+    setSelectedMonthData(selectedData);
+  };
 
   const updateGraphConfig = useCallback(() => {
     const type = Utilities.isMediumViewport() ? "Bar" : "Column";
@@ -248,10 +140,8 @@ const GraphAlertsByDay = ({
   }, [selectedData]);
 
   useEffect(() => {
-    if (alertData) {
-      buildGraph();
-    }
-  }, [alertData, buildGraph]);
+    buildGraph();
+  }, []);
 
   useEffect(() => {
     if (selectedMonth) {
@@ -354,15 +244,8 @@ const GraphAlertsByDay = ({
 };
 
 GraphAlertsByDay.propTypes = {
-  alertData: PropTypes.array,
-  alertTimeframes: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
-};
-GraphAlertsByDay.defaultProps = {
-  alertData: [],
 };
 
 export default withIsVisibleHook(GraphAlertsByDay, "GraphAlertsByDay");

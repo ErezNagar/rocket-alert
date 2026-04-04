@@ -3,10 +3,12 @@ import React from "react";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
 import withIsVisibleHook from "./withIsVisibleHook";
-import AlertGraphs from "./Graphs/AlertGraphs";
 import { SWORDS_OF_IRON } from "./Graphs/data/sparklines";
+import GraphTotalAlerts from "./Graphs/GraphTotalAlerts";
+import GraphAlertsByDay from "./Graphs/GraphAlertsByDay";
+import GraphAlertsBySource from "./Graphs/GraphAlertsBySource";
 
-const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
+const OperationSwordsOfIron = ({ isIntersectingRef }) => {
   return (
     <section className="current-operation">
       <div ref={isIntersectingRef} className="currentOperationTilesContainer">
@@ -42,13 +44,14 @@ const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
         </div>
       </div>
 
-      <AlertGraphs alertsClient={alertsClient} />
+      <GraphTotalAlerts />
+      <GraphAlertsBySource />
+      <GraphAlertsByDay />
     </section>
   );
 };
 
 OperationSwordsOfIron.propTypes = {
-  alertsClient: PropTypes.object.isRequired,
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
 };

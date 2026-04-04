@@ -240,7 +240,7 @@ class App extends React.Component {
           </section>
         )}
         <OperationLionsRoar alertsClient={AlertClient} />
-        <OperationSwordsOfIron alertsClient={AlertClient} />
+        <OperationSwordsOfIron />
         {/* <Social /> */}
         {/* <LocationDistance /> */}
         <PreviousOperations alertsClient={AlertClient} />
