@@ -54,18 +54,21 @@ const HeaderContainer = (props) => {
     props.alertClient
       .getHeaderData(getTimezone())
       .then((res) => {
-        const { today, yesterday, lastWeek, lastMonth } = res.payload;
+        if (!res.success) {
+          throw new Error("Failed to get header data");
+        }
 
+        const { today, yesterday, pastWeek, pastMonth } = res.payload;
         setTodayAlertCount(today + props.realTimeAlertCache.count);
         setYesterdayAlertCount(yesterday);
-        setPastWeekAlertCount(lastWeek);
-        setPastMonthAlertCount(lastMonth);
+        setPastWeekAlertCount(pastWeek);
+        setPastMonthAlertCount(pastMonth);
 
         if (
           today === 0 &&
           yesterday === 0 &&
-          lastWeek === 0 &&
-          lastMonth === 0
+          pastWeek === 0 &&
+          pastMonth === 0
         ) {
           getMostRecentAlert();
         } else {
