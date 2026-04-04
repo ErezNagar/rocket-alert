@@ -18,13 +18,16 @@ Real-time red alerts in Israel: http://rocketalert.live.
 
 ## Stay Connected
 
-Follow us on:
-Twitter: https://x.com/rocketalertlive
-Instagram: https://www.instagram.com/RocketAlertLive/
+Follow us:
+
+- Twitter: https://x.com/rocketalertlive
+- Instagram: https://www.instagram.com/RocketAlertLive/
 
 ## Support Us
 
-Support us by [buying us coffee](https://buymeacoffee.com/rocketalertlive). Your donation helps cover the costs of maintaining the site.
+If you find our app useful, please consider supporting us. Your donation helps cover the costs of maintaining the site.
+
+<a href="https://www.buymeacoffee.com/RocketAlertLive" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Us a Coffee" style="height: 40px !important;width: 162px !important;" ></a>
 
 ## CHANGELOG
 
