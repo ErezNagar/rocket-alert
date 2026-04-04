@@ -29,6 +29,12 @@ class RecentAlertsInteractiveMap extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.state.map) {
+      this.state.map.remove();
+    }
+  }
+
   getCenterMap = (mostRecentAlerts, alerts48HrsAgo) => {
     const DEFAULT_CENTER = [31.7683, 35.2433]; // Jerusalem
     if (!mostRecentAlerts || !alerts48HrsAgo) {
@@ -213,11 +219,12 @@ class RecentAlertsInteractiveMap extends React.Component {
     this.addLineLayer(map, "p-l-48hrs-uavs", geojson48HrsUAVs, "#a87548");
 
     const overallBounds = bounds1.extend(bounds2);
-    map.fitBounds(overallBounds, {
-      padding: this.MAP_PADDING,
-      animate: false,
-    });
-
+    if (!overallBounds.isEmpty()) {
+      map.fitBounds(overallBounds, {
+        padding: this.MAP_PADDING,
+        animate: false,
+      });
+    }
     this.setState({ map, mapBounds: overallBounds });
   };
 
@@ -263,12 +270,12 @@ class RecentAlertsInteractiveMap extends React.Component {
     // const overallBounds = bounds1.extend(bounds2);
 
     const newBounds = this.state.mapBounds.extend(bounds);
-
-    map.fitBounds(newBounds, {
-      padding: this.MAP_PADDING,
-      animate: true,
-    });
-
+    if (!newBounds.isEmpty()) {
+      map.fitBounds(newBounds, {
+        padding: this.MAP_PADDING,
+        animate: true,
+      });
+    }
     this.setState({ map, mapBounds: newBounds });
   };
 
