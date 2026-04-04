@@ -4,46 +4,9 @@ import { Row, Col } from "antd";
 import Tile from "./Tile";
 import withIsVisibleHook from "./withIsVisibleHook";
 import AlertGraphs from "./Graphs/AlertGraphs";
-import Utilities from "../utilities/utilities";
+import { SWORDS_OF_IRON } from "./Graphs/data/sparklines";
 
 const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
-  // const [mostTargetedLocations, setMostTargetedLocations] = useState(null);
-  // const [mostTargetedRegions, setMostTargetedRegions] = useState(null);
-
-  // useEffect(() => {
-  //   const getMostTargetedLocations = () =>
-  //     alertsClient
-  //       .getMostTargetedLocations(new Date("2023-10-07"), getNow())
-  //       .then((res) => res.payload)
-  //       .catch((error) => {
-  //         Tracking.mostTargetedLocationsError(error);
-  //         return null;
-  //       });
-
-  //   const getMostTargetedRegions = () =>
-  //     alertsClient
-  //       .getMostTargetedRegions(new Date("2023-10-07"), getNow())
-  //       .then((res) => res.payload)
-  //       .catch((error) => {
-  //         Tracking.mostTargetedRegionError(error);
-  //         return null;
-  //       });
-
-  //   getMostTargetedLocations().then((res) => {
-  //     if (!res) {
-  //       return;
-  //     }
-  //     setMostTargetedLocations(res);
-  //   });
-
-  //   getMostTargetedRegions().then((res) => {
-  //     if (!res) {
-  //       return;
-  //     }
-  //     setMostTargetedRegions(res);
-  //   });
-  // }, [alertsClient]);
-
   return (
     <section className="current-operation">
       <div ref={isIntersectingRef} className="currentOperationTilesContainer">
@@ -57,10 +20,10 @@ const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
                 subtitle={"Oct 7, 2023 - Oct 10, 2025"}
                 fromDate={new Date("2023-10-07")}
                 toDate={new Date("2025-10-10")}
-                alertsClient={alertsClient}
-                alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
+                sparklineData={SWORDS_OF_IRON.ROCKETS.SPARKLINE_DATA}
+                alertCount={SWORDS_OF_IRON.ROCKETS.ALERT_COUNT}
+                isStatic
                 showAverage
-                shouldOptimizeSparkline
               />
             </Col>
             <Col xs={24} sm={12} md={8} lg={6}>
@@ -69,10 +32,10 @@ const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
                 subtitle={"Oct 7, 2023 - Oct 10, 2025"}
                 fromDate={new Date("2023-10-07")}
                 toDate={new Date("2025-10-10")}
-                alertsClient={alertsClient}
-                alertTypeId={Utilities.ALERT_TYPE_UAV}
+                sparklineData={SWORDS_OF_IRON.UAVS.SPARKLINE_DATA}
+                alertCount={SWORDS_OF_IRON.UAVS.ALERT_COUNT}
+                isStatic
                 showAverage
-                shouldOptimizeSparkline
               />
             </Col>
           </Row>
