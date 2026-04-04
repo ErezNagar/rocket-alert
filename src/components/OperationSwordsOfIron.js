@@ -3,47 +3,12 @@ import React from "react";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
 import withIsVisibleHook from "./withIsVisibleHook";
-import AlertGraphs from "./Graphs/AlertGraphs";
 import Utilities from "../utilities/utilities";
+import GraphTotalAlerts from "./Graphs/GraphTotalAlerts";
+import GraphAlertsByDay from "./Graphs/GraphAlertsByDay";
+import GraphAlertsBySource from "./Graphs/GraphAlertsBySource";
 
 const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
-  // const [mostTargetedLocations, setMostTargetedLocations] = useState(null);
-  // const [mostTargetedRegions, setMostTargetedRegions] = useState(null);
-
-  // useEffect(() => {
-  //   const getMostTargetedLocations = () =>
-  //     alertsClient
-  //       .getMostTargetedLocations(new Date("2023-10-07"), getNow())
-  //       .then((res) => res.payload)
-  //       .catch((error) => {
-  //         Tracking.mostTargetedLocationsError(error);
-  //         return null;
-  //       });
-
-  //   const getMostTargetedRegions = () =>
-  //     alertsClient
-  //       .getMostTargetedRegions(new Date("2023-10-07"), getNow())
-  //       .then((res) => res.payload)
-  //       .catch((error) => {
-  //         Tracking.mostTargetedRegionError(error);
-  //         return null;
-  //       });
-
-  //   getMostTargetedLocations().then((res) => {
-  //     if (!res) {
-  //       return;
-  //     }
-  //     setMostTargetedLocations(res);
-  //   });
-
-  //   getMostTargetedRegions().then((res) => {
-  //     if (!res) {
-  //       return;
-  //     }
-  //     setMostTargetedRegions(res);
-  //   });
-  // }, [alertsClient]);
-
   return (
     <section className="current-operation">
       <div ref={isIntersectingRef} className="currentOperationTilesContainer">
@@ -79,7 +44,9 @@ const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
         </div>
       </div>
 
-      <AlertGraphs alertsClient={alertsClient} />
+      <GraphTotalAlerts />
+      <GraphAlertsBySource />
+      <GraphAlertsByDay />
     </section>
   );
 };
