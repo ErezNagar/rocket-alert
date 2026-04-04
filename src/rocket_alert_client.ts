@@ -132,9 +132,9 @@ const AlertClient = {
             ? res.payload[0].alerts.concat(res.payload[1].alerts)
             : res.payload[0].alerts;
 
-        return alerts
-          .filter((alert: any) => alert.lon !== null || alert.lat !== null)
-          .slice(-Utilities.MAX_RECENT_ALERTS);
+        return alerts.filter(
+          (alert: any) => alert.lon !== null || alert.lat !== null,
+        );
       })
       .catch((e) => {
         console.error("Error getMostRecentAlerts", e);
