@@ -3,12 +3,12 @@ import React from "react";
 import { Row, Col } from "antd";
 import Tile from "./Tile";
 import withIsVisibleHook from "./withIsVisibleHook";
-import Utilities from "../utilities/utilities";
+import { SWORDS_OF_IRON } from "./Graphs/data/sparklines";
 import GraphTotalAlerts from "./Graphs/GraphTotalAlerts";
 import GraphAlertsByDay from "./Graphs/GraphAlertsByDay";
 import GraphAlertsBySource from "./Graphs/GraphAlertsBySource";
 
-const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
+const OperationSwordsOfIron = ({ isIntersectingRef }) => {
   return (
     <section className="current-operation">
       <div ref={isIntersectingRef} className="currentOperationTilesContainer">
@@ -22,10 +22,10 @@ const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
                 subtitle={"Oct 7, 2023 - Oct 10, 2025"}
                 fromDate={new Date("2023-10-07")}
                 toDate={new Date("2025-10-10")}
-                alertsClient={alertsClient}
-                alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
+                sparklineData={SWORDS_OF_IRON.ROCKETS.SPARKLINE_DATA}
+                alertCount={SWORDS_OF_IRON.ROCKETS.ALERT_COUNT}
+                isStatic
                 showAverage
-                shouldOptimizeSparkline
               />
             </Col>
             <Col xs={24} sm={12} md={8} lg={6}>
@@ -34,10 +34,10 @@ const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
                 subtitle={"Oct 7, 2023 - Oct 10, 2025"}
                 fromDate={new Date("2023-10-07")}
                 toDate={new Date("2025-10-10")}
-                alertsClient={alertsClient}
-                alertTypeId={Utilities.ALERT_TYPE_UAV}
+                sparklineData={SWORDS_OF_IRON.UAVS.SPARKLINE_DATA}
+                alertCount={SWORDS_OF_IRON.UAVS.ALERT_COUNT}
+                isStatic
                 showAverage
-                shouldOptimizeSparkline
               />
             </Col>
           </Row>
@@ -52,7 +52,6 @@ const OperationSwordsOfIron = ({ alertsClient, isIntersectingRef }) => {
 };
 
 OperationSwordsOfIron.propTypes = {
-  alertsClient: PropTypes.object.isRequired,
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
 };
