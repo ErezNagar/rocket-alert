@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Utilities from "../../utilities/utilities";
 import { TOTAL_ALERTS, TOTAL_ALERTS_MOBILE } from "./data/graphs";
-import graphUtils from "./graphUtils/graphUtils";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const config = {
@@ -25,16 +24,21 @@ const config = {
   legend: false,
 };
 
-const GraphTotalAlerts = ({
-  alertData,
-  alertTimeframes,
-  isLoading,
-  isError,
-  isIntersectingRef,
-}) => {
-  const [showGraph, setShowGraph] = useState(false);
+const GraphTotalAlerts = ({ isLoading, isError, isIntersectingRef }) => {
   const [data, setData] = useState(null);
   const [annotations, setAnnotations] = useState([]);
+
+  const getWeeklyTotals = (data) => {
+    const totals = {};
+    for (const { week, alerts } of data) {
+      totals[week] = (totals[week] || 0) + alerts;
+    }
+
+    return Object.entries(totals).map(([week, total]) => ({
+      week,
+      total,
+    }));
+  };
 
   const buildGraph = () => {
     const POSITION_OFFSET = 1 / 3;
@@ -43,49 +47,28 @@ const GraphTotalAlerts = ({
       ? POSITION_OFFSET_MOBILE
       : POSITION_OFFSET;
 
-    const newData = graphUtils.buildNewData(
-      alertData,
-      alertTimeframes.falseAlerts
-    );
-    const existingData = Utilities.isSmallViewport()
+    const data = Utilities.isSmallViewport()
       ? TOTAL_ALERTS_MOBILE
       : TOTAL_ALERTS;
-    const data = [...existingData, ...newData];
 
-    const groupByWeek = (array, key) =>
-      array.reduce((result, obj) => {
-        const value = obj[key];
-        if (!result[value]) {
-          result[value] = [];
-        }
-        result[value].push(obj);
-        return result;
-      }, {});
-
-    const grouped = groupByWeek(data, "week");
-    const annotations = [];
-
-    Object.keys(grouped).forEach((key, i) => {
-      const totalValue = grouped[key].reduce((a, b) => a + b.alerts, 0);
-      annotations.push({
-        type: "text",
-        position: [i - offset, totalValue + 400],
-        content: `${totalValue}`,
-        style: {
-          fill: "black",
-          fontSize: 14,
-        },
-      });
-    });
+    const totals = getWeeklyTotals(data);
+    const annotations = totals.map((entry, i) => ({
+      type: "text",
+      position: [i - offset, entry.total + 400],
+      content: `${entry.total}`,
+      style: {
+        fill: "black",
+        fontSize: 14,
+      },
+    }));
 
     setData(data);
     setAnnotations(annotations);
-    setShowGraph(true);
   };
 
-  if (alertData && !showGraph) {
+  useEffect(() => {
     buildGraph();
-  }
+  }, []);
 
   return (
     <section ref={isIntersectingRef} className="graph">
@@ -105,7 +88,7 @@ const GraphTotalAlerts = ({
               />
             </div>
           )}
-          {showGraph && (
+          {data && (
             <Column
               {...{
                 data,
@@ -126,15 +109,8 @@ const GraphTotalAlerts = ({
 };
 
 GraphTotalAlerts.propTypes = {
-  alertData: PropTypes.array,
-  alertTimeframes: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
-};
-GraphTotalAlerts.defaultProps = {
-  alertData: [],
 };
 
 export default withIsVisibleHook(GraphTotalAlerts, "GraphTotalAlerts");

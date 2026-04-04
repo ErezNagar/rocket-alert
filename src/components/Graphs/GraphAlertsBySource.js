@@ -1,11 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Spin } from "antd";
-import {
-  is4WeeksDifference,
-  weekRangeWithYearFormat,
-} from "../../utilities/date_helper";
-import { isBefore } from "date-fns";
 import { Column, Bar } from "@ant-design/plots";
 import withIsVisibleHook from "./../withIsVisibleHook";
 import Utilities from "../../utilities/utilities";
@@ -91,136 +86,15 @@ const GRAPH_CONFIG = {
   },
 };
 
-// The date from which the new, non-hardcoded graph data starts.
-const DYNAMIC_DATA_START_DATE = new Date(2025, 0, 30);
-
-const GraphAlertBySource = ({
-  alertData,
-  alertTimeframes,
-  isLoading,
-  isError,
-  isIntersectingRef,
-}) => {
-  const [showGraph, setShowGraph] = useState(false);
+const GraphAlertBySource = ({ isLoading, isError, isIntersectingRef }) => {
   const [data, setData] = useState(null);
-  const [graphType, setGraphType] = useState("Column");
-  const [config, setConfig] = useState(null);
 
-  const buildGraph = useCallback(() => {
-    let data = [];
-    let originSouthCount = 0;
-    let originNorthCount = 0;
-    let originIranCount = 0;
-    let originYemenCount = 0;
-    let currentDate = DYNAMIC_DATA_START_DATE;
-
-    alertData.forEach(({ alerts, date }) => {
-      const [year, month, day] = date.split("-");
-      const alertDate = new Date(year, month - 1, day);
-      // Skip dates before the relevant date starts
-      if (isBefore(alertDate, currentDate)) {
-        return;
-      }
-      if (is4WeeksDifference(currentDate, alertDate)) {
-        const weekRange = weekRangeWithYearFormat(currentDate, alertDate);
-        data.push({
-          week: weekRange,
-          alerts: originSouthCount,
-          origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
-        });
-        data.push({
-          week: weekRange,
-          alerts: originNorthCount,
-          origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
-        });
-        if (originIranCount) {
-          data.push({
-            week: weekRange,
-            alerts: originIranCount,
-            origin: graphUtils.ALERT_SOURCE.IRAN.LABEL[0],
-          });
-        }
-        if (originYemenCount) {
-          data.push({
-            week: weekRange,
-            alerts: originYemenCount,
-            origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL[0],
-          });
-        }
-
-        currentDate = alertDate;
-        originSouthCount = 0;
-        originNorthCount = 0;
-        originIranCount = 0;
-        originYemenCount = 0;
-      }
-
-      const alertOrigin = graphUtils.determineAlertOrigin(
-        alerts,
-        alertTimeframes
-      );
-      originSouthCount += alertOrigin.originSouthCount;
-      originNorthCount += alertOrigin.originNorthCount;
-      originIranCount += alertOrigin.originIranCount;
-      originYemenCount += alertOrigin.originYemenCount;
-    });
-
-    // Swords of Iron ended on Oct 10. Since the calculation doesn't include the last day, we need to add one more day
-    const EndOfOperationDate = "2025-10-11";
-    const weekFormat = weekRangeWithYearFormat(
-      currentDate,
-      new Date(EndOfOperationDate)
-    );
-    data.push({
-      week: weekFormat,
-      alerts: originSouthCount,
-      origin: graphUtils.ALERT_SOURCE.HAMAS.LABEL[0],
-    });
-    if (originNorthCount) {
-      data.push({
-        week: weekFormat,
-        alerts: originNorthCount,
-        origin: graphUtils.ALERT_SOURCE.HEZBOLLAH.LABEL[0],
-      });
-    }
-    if (originIranCount) {
-      data.push({
-        week: weekFormat,
-        alerts: originIranCount,
-        origin: graphUtils.ALERT_SOURCE.IRAN.LABEL[0],
-      });
-    }
-    if (originYemenCount) {
-      data.push({
-        week: weekFormat,
-        alerts: originYemenCount,
-        origin: graphUtils.ALERT_SOURCE.HOUTHIS.LABEL[0],
-      });
-    }
-
-    setData([...ALERTS_BY_SOURCE, ...data]);
-  }, [alertData, alertTimeframes]);
-
-  const updateGraphConfig = () => {
-    const type = Utilities.isSmallViewport() ? "Bar" : "Column";
-    setGraphType(type);
-    setConfig({
-      ...(type === "Column" ? GRAPH_CONFIG.COLUMN : GRAPH_CONFIG.BAR),
-    });
-    setShowGraph(true);
-  };
+  const getConfig = () =>
+    Utilities.isSmallViewport() ? GRAPH_CONFIG.BAR : GRAPH_CONFIG.COLUMN;
 
   useEffect(() => {
-    if (alertData) {
-      buildGraph();
-    }
-  }, [alertData, buildGraph]);
-
-  useEffect(() => {
-    if (data) {
-      updateGraphConfig();
-    }
-  }, [data]);
+    setData(ALERTS_BY_SOURCE);
+  }, []);
 
   return (
     <section ref={isIntersectingRef} className="graph">
@@ -240,22 +114,21 @@ const GraphAlertBySource = ({
               />
             </div>
           )}
-          {showGraph && (
+          {data && (
             <>
               <Col>
-                {graphType === "Column" && (
-                  <Column
-                    {...{
-                      data,
-                      ...config,
-                    }}
-                  />
-                )}
-                {graphType === "Bar" && (
+                {Utilities.isSmallViewport() ? (
                   <Bar
                     {...{
                       data,
-                      ...config,
+                      ...getConfig(),
+                    }}
+                  />
+                ) : (
+                  <Column
+                    {...{
+                      data,
+                      ...getConfig(),
                     }}
                   />
                 )}
@@ -280,15 +153,8 @@ const GraphAlertBySource = ({
 };
 
 GraphAlertBySource.propTypes = {
-  alertData: PropTypes.array,
-  alertTimeframes: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   // For Tracking
   isIntersectingRef: PropTypes.object.isRequired,
-};
-GraphAlertBySource.defaultProps = {
-  alertData: [],
 };
 
 export default withIsVisibleHook(GraphAlertBySource, "GraphAlertBySource");
