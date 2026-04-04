@@ -66,9 +66,11 @@ const GraphTotalAlerts = ({ isLoading, isError, isIntersectingRef }) => {
     setAnnotations(annotations);
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     buildGraph();
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <section ref={isIntersectingRef} className="graph">
