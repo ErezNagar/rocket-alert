@@ -2,14 +2,7 @@ import * as Sentry from "@sentry/react";
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Header from "./Header";
-import {
-  getNow,
-  getStartOfToday,
-  getStartOfYesterday,
-  getEndOfYesterday,
-  getPastWeek,
-  getPastMonth,
-} from "../../utilities/date_helper";
+import { getNow } from "../../utilities/date_helper";
 import Tracking from "../../tracking";
 import { differenceInMonths } from "date-fns";
 
@@ -43,41 +36,36 @@ const HeaderContainer = (props) => {
       });
   };
 
+  // Gets the user's timezone, defaults to "Asia/Jerusalem".
+  const getTimezone = () => {
+    try {
+      const tz = Intl?.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz) {
+        return tz;
+      }
+    } catch (e) {}
+    return "Asia/Jerusalem";
+  };
+
   /*
-   * Queries the server to get alert data for the header alert summary.
-     Fetches today's, yesterday's, past week's and past month's data, in local time.
+   * Gets total alert count for today, yesterday, past week and past month.s
    */
   const getHeaderData = () => {
-    const alertClient = props.alertClient;
-    const now = getNow();
+    props.alertClient
+      .getHeaderData(getTimezone())
+      .then((res) => {
+        const { today, yesterday, lastWeek, lastMonth } = res.payload;
 
-    const startOfToday = getStartOfToday();
-    const startOfYesterday = getStartOfYesterday();
-    const endOfYesterday = getEndOfYesterday();
-    const pastWeek = getPastWeek();
-    const pastMonth = getPastMonth();
-
-    Promise.all([
-      alertClient.getTotalAlerts(startOfToday, now),
-      alertClient.getTotalAlerts(startOfYesterday, endOfYesterday),
-      alertClient.getTotalAlerts(pastWeek, now),
-      alertClient.getTotalAlerts(pastMonth, now),
-    ])
-      .then((values) => {
-        const todayAlertCount = values[0].success ? values[0].payload : 0;
-        const yesterdayAlertCount = values[1].success ? values[1].payload : 0;
-        const pastWeekAlertCount = values[2].success ? values[2].payload : 0;
-        const pastMonthAlertCount = values[3].success ? values[3].payload : 0;
-        setTodayAlertCount(todayAlertCount + props.realTimeAlertCache.count);
-        setYesterdayAlertCount(yesterdayAlertCount);
-        setPastWeekAlertCount(pastWeekAlertCount);
-        setPastMonthAlertCount(pastMonthAlertCount);
+        setTodayAlertCount(today + props.realTimeAlertCache.count);
+        setYesterdayAlertCount(yesterday);
+        setPastWeekAlertCount(lastWeek);
+        setPastMonthAlertCount(lastMonth);
 
         if (
-          todayAlertCount === 0 &&
-          yesterdayAlertCount === 0 &&
-          pastWeekAlertCount === 0 &&
-          pastMonthAlertCount === 0
+          today === 0 &&
+          yesterday === 0 &&
+          lastWeek === 0 &&
+          lastMonth === 0
         ) {
           getMostRecentAlert();
         } else {

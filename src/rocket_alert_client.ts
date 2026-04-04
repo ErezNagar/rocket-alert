@@ -295,6 +295,16 @@ const AlertClient = {
   },
 
   /*
+   *  Gets header data for the given timezone
+   *
+   *  @param {string} timezone  IANA timezone string. Defaults to "Asia/Jerusalem"
+   *  @return {object}
+   */
+  getHeaderData: (timezone: string = "Asia/Jerusalem"): any => {
+    return APIv1.url(`/header/${timezone}`).query({}).get().json();
+  },
+
+  /*
    *  Opens a persistent connection for interfacing with the server-sent events
    *
    *  @param {string} url   url of the event source
