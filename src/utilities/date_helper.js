@@ -1,14 +1,9 @@
 import {
   subDays,
-  subWeeks,
-  subMonths,
   subYears,
   formatISO,
   format,
   differenceInWeeks,
-  startOfToday,
-  startOfYesterday,
-  endOfYesterday,
 } from "date-fns";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 
@@ -59,20 +54,10 @@ export const weekRangeWithYearFormat = (fromDate, toDate) =>
 
 export const getNow = () => new Date();
 
-export const getStartOfToday = () => startOfToday();
-
-export const getStartOfYesterday = () => startOfYesterday();
-
-export const getEndOfYesterday = () => endOfYesterday();
-
 export const get24HoursAgo = () => subDays(new Date(), 1);
 
 export const get48HoursAgo = () => subDays(new Date(), 2);
 
 export const getYesterday = () => subDays(new Date(), 1);
-
-export const getPastWeek = () => subWeeks(new Date(), 1);
-
-export const getPastMonth = () => subMonths(new Date(), 1);
 
 export const getPastYear = () => subYears(new Date(), 1);
