@@ -27,7 +27,7 @@ const config = {
   color: graphUtils.getColorByOrigin,
   appendPadding: Utilities.isSmallViewport()
     ? [30, 0, 0, 0]
-    : [30, 200, 0, 200],
+    : [30, 100, 0, 100],
   label: false,
   xAxis: {
     label: {
