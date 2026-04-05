@@ -79,7 +79,9 @@ class App extends React.Component {
     ])
       .then((values) => {
         const recentAlerts = values[0] ? values[0] : [];
-        const realTimeAlertCache = values[1] ? values[1] : [];
+        const realTimeAlertCache = values[1]
+          ? values[1]
+          : { alerts: [], count: 0 };
 
         const grouped = Utilities.groupRecentAlerts([
           ...realTimeAlertCache.alerts,
