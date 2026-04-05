@@ -81,9 +81,12 @@ class App extends React.Component {
         const recentAlerts = values[0] ? values[0] : [];
         const realTimeAlertCache = values[1] ? values[1] : [];
 
-        const res = Utilities.groupRecentAlerts(recentAlerts);
-        const mostRecentAlerts = res.past24h;
-        const alerts48HrsAgo = res.past48h;
+        const grouped = Utilities.groupRecentAlerts([
+          ...realTimeAlertCache.alerts,
+          ...recentAlerts,
+        ]);
+        const mostRecentAlerts = grouped.past24h;
+        const alerts48HrsAgo = grouped.past48h;
 
         if (
           !alerts48HrsAgo &&
@@ -95,10 +98,7 @@ class App extends React.Component {
 
         this.setState({
           alerts48HrsAgo,
-          mostRecentAlerts: [
-            ...mostRecentAlerts,
-            ...realTimeAlertCache.alerts,
-          ].slice(-Utilities.MAX_RECENT_ALERTS),
+          mostRecentAlerts,
           realTimeAlertCache,
         });
       })
@@ -218,7 +218,7 @@ class App extends React.Component {
               <>
                 <Col xs={24} lg={12}>
                   <MostRecentAlerts
-                    alerts={[...this.state.mostRecentAlerts]}
+                    alerts={this.state.mostRecentAlerts}
                     showResetFocus={this.state.showResetFocus}
                     onToggleMapFocus={this.handleToggleMapFocus}
                   />
