@@ -81,7 +81,7 @@ class App extends React.Component {
         const recentAlerts = values[0] ? values[0] : [];
         const realTimeAlertCache = values[1] ? values[1] : [];
 
-        const res = Utilities.groupRecentAlerts(recentAlerts.reverse());
+        const res = Utilities.groupRecentAlerts(recentAlerts);
         const mostRecentAlerts = res.past24h;
         const alerts48HrsAgo = res.past48h;
 

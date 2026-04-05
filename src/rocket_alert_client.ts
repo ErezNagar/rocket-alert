@@ -127,10 +127,9 @@ const AlertClient = {
           return res.payload;
         }
 
-        const alerts =
-          res.payload.length > 1
-            ? res.payload[0].alerts.concat(res.payload[1].alerts)
-            : res.payload[0].alerts;
+        const alerts = res.payload.length
+          ? res.payload.flatMap((p: any) => p.alerts).reverse()
+          : [];
 
         return alerts.filter(
           (alert: any) => alert.lon !== null || alert.lat !== null,
