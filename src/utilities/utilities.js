@@ -158,6 +158,42 @@ const buildxAxisLabel = () => {
   return xAxisLabel;
 };
 
+/*
+ * Groups alerts from the past 48 hours into two arrays: past 24 hours and between 24 and 48 hours, capped at Utilities.MAX_RECENT_ALERTS.
+ */
+const groupRecentAlerts = (alerts, limit = Utilities.MAX_RECENT_ALERTS) => {
+  const now = Date.now();
+  const msInHour = 3600000;
+  const cutoff24 = now - 24 * msInHour;
+  const cutoff48 = now - 48 * msInHour;
+  const past24h = [];
+  const past48h = [];
+
+  for (const alert of alerts) {
+    if (past24h.length >= limit && past48h.length >= limit) {
+      break;
+    }
+
+    const ts = Date.parse(alert.timeStamp.replace(" ", "T"));
+    if (ts >= cutoff24) {
+      if (past24h.length < limit) {
+        past24h.push(alert);
+      }
+    } else if (ts >= cutoff48) {
+      if (past48h.length < limit) {
+        past48h.push(alert);
+      }
+    } else {
+      break;
+    }
+  }
+
+  return {
+    past24h,
+    past48h,
+  };
+};
+
 const Utilities = {
   isDev: () =>
     process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test",
@@ -169,6 +205,7 @@ const Utilities = {
   isMediumViewport,
   getAlertTypeText,
   buildxAxisLabel,
+  groupRecentAlerts,
   REAL_TIME_ALERT_DISPLAY_DURATION,
   REAL_TIME_ALERT_THROTTLE_DURATION,
   MAX_RECENT_ALERTS,

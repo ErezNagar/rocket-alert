@@ -15,7 +15,7 @@ import { Row, Col } from "antd";
 import RealTimeAlertManager from "./realtime_alert_manager";
 import Utilities from "./utilities/utilities";
 import Tracking from "./tracking";
-import { getNow, get24HoursAgo, get48HoursAgo } from "./utilities/date_helper";
+import { getNow, get48HoursAgo } from "./utilities/date_helper";
 import TimeToShelter from "./components/TimeToShelter";
 import SupportUs from "./components/SupportUs";
 
@@ -73,16 +73,22 @@ class App extends React.Component {
    * If there are no alerts, returns null.
    */
   getMostRecentAlerts = () => {
-    const dateTime24HrsAgo = get24HoursAgo();
     Promise.all([
-      AlertClient.getMostRecentAlerts(get48HoursAgo(), dateTime24HrsAgo),
-      AlertClient.getMostRecentAlerts(dateTime24HrsAgo, getNow()),
+      AlertClient.getMostRecentAlerts(get48HoursAgo(), getNow()),
       AlertClient.getRealTimeAlertCache(),
     ])
       .then((values) => {
-        const alerts48HrsAgo = values[0] ? values[0] : [];
-        const mostRecentAlerts = values[1] ? values[1] : [];
-        const realTimeAlertCache = values[2] ? values[2] : [];
+        const recentAlerts = values[0] ? values[0] : [];
+        const realTimeAlertCache = values[1]
+          ? values[1]
+          : { alerts: [], count: 0 };
+
+        const grouped = Utilities.groupRecentAlerts([
+          ...realTimeAlertCache.alerts,
+          ...recentAlerts,
+        ]);
+        const mostRecentAlerts = grouped.past24h;
+        const alerts48HrsAgo = grouped.past48h;
 
         if (
           !alerts48HrsAgo &&
@@ -93,10 +99,8 @@ class App extends React.Component {
         }
 
         this.setState({
-          alerts48HrsAgo: alerts48HrsAgo.reverse(),
-          mostRecentAlerts: [...mostRecentAlerts, ...realTimeAlertCache.alerts]
-            .slice(-Utilities.MAX_RECENT_ALERTS)
-            .reverse(),
+          alerts48HrsAgo,
+          mostRecentAlerts,
           realTimeAlertCache,
         });
       })
@@ -216,10 +220,7 @@ class App extends React.Component {
               <>
                 <Col xs={24} lg={12}>
                   <MostRecentAlerts
-                    alerts={[
-                      ...this.state.mostRecentAlerts,
-                      ...this.state.alerts48HrsAgo,
-                    ]}
+                    alerts={this.state.mostRecentAlerts}
                     showResetFocus={this.state.showResetFocus}
                     onToggleMapFocus={this.handleToggleMapFocus}
                   />
