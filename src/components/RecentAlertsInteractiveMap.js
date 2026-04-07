@@ -282,11 +282,13 @@ class RecentAlertsInteractiveMap extends React.Component {
   updateMapFocus = () => {
     const alert = this.props.mapFocus;
     if (alert === "reset") {
-      this.state.map?.fitBounds(this.state.mapBounds, {
-        padding: this.MAP_PADDING,
-        pitch: 0,
-        animate: true,
-      });
+      if (this.state.mapBounds && !this.state.mapBounds.isEmpty()) {
+        this.state.map?.fitBounds(this.state.mapBounds, {
+          padding: this.MAP_PADDING,
+          pitch: 0,
+          animate: true,
+        });
+      }
     } else {
       this.state.map?.panTo([alert.lon, alert.lat], {
         zoom: 13,
