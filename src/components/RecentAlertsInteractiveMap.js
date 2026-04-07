@@ -275,8 +275,8 @@ class RecentAlertsInteractiveMap extends React.Component {
         padding: this.MAP_PADDING,
         animate: true,
       });
+      this.setState({ map, mapBounds: newBounds });
     }
-    this.setState({ map, mapBounds: newBounds });
   };
 
   updateMapFocus = () => {
