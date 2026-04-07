@@ -160,19 +160,6 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         const iranAlertTimeframes = values[1] || [];
         const alertData = values[2] || [];
 
-        function countTimeframesPerDay(data) {
-          const counts = {};
-
-          for (const [start] of data) {
-            const day = new Date(start).toISOString().slice(0, 10);
-            counts[day] = (counts[  day] || 0) + 1;
-          }
-
-          return counts;
-        }
-
-        console.log(countTimeframesPerDay(iranAlertTimeframes));
-
         setAlertTimeframes({
           yemen: yemenAlertTimeframes,
           iran: iranAlertTimeframes,
