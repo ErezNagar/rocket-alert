@@ -269,8 +269,8 @@ class RecentAlertsInteractiveMap extends React.Component {
 
     // const overallBounds = bounds1.extend(bounds2);
 
-    const newBounds = this.state.mapBounds.extend(bounds);
-    if (!newBounds.isEmpty()) {
+    const newBounds = this.state.mapBounds?.extend(bounds);
+    if (newBounds && !newBounds.isEmpty()) {
       map.fitBounds(newBounds, {
         padding: this.MAP_PADDING,
         animate: true,
