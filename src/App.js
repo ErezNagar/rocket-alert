@@ -6,7 +6,7 @@ import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import OperationSwordsOfIron from "./components/OperationSwordsOfIron";
 import OperationLionsRoar from "./components/OperationLionsRoar";
-import RecentAlertsMap from "./components/RecentAlertsMap";
+import MostRecentAlertsMapContainer from "./components/MostRecentAlertsMapContainer";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
 // import Social from "./components/Social";
@@ -226,7 +226,7 @@ class App extends React.Component {
                   />
                 </Col>
                 <Col xs={24} lg={12}>
-                  <RecentAlertsMap
+                  <MostRecentAlertsMapContainer
                     alerts48HrsAgo={this.state.alerts48HrsAgo}
                     mostRecentAlerts={this.state.mostRecentAlerts}
                     mapFocus={this.state.mapFocus}
