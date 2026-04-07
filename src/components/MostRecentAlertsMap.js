@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MAP_STYLE from "../mapStyle";
 import Utilities from "../utilities/utilities";
 
-class RecentAlertsInteractiveMap extends React.Component {
+class MostRecentAlertsMap extends React.Component {
   state = {
     map: null,
     mapBounds: null,
@@ -303,16 +303,16 @@ class RecentAlertsInteractiveMap extends React.Component {
   }
 }
 
-RecentAlertsInteractiveMap.propTypes = {
+MostRecentAlertsMap.propTypes = {
   alerts48HrsAgo: PropTypes.array.isRequired,
   mostRecentAlerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   polygons: PropTypes.object,
 };
 
-RecentAlertsInteractiveMap.defaultProps = {
+MostRecentAlertsMap.defaultProps = {
   mapFocus: null,
   polygons: {},
 };
 
-export default RecentAlertsInteractiveMap;
+export default MostRecentAlertsMap;

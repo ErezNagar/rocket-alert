@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { loadPolygons } from "../polygonService";
-import RecentAlertsInteractiveMap from "./RecentAlertsInteractiveMap";
+import MostRecentAlertsMap from "./MostRecentAlertsMap";
 import withIsVisibleHook from "./withIsVisibleHook";
 
-const RecentAlertsMap = ({
+const MostRecentAlertsMapContainer = ({
   alerts48HrsAgo,
   mostRecentAlerts,
   mapFocus,
@@ -20,7 +20,7 @@ const RecentAlertsMap = ({
   return (
     <section ref={isIntersectingRef} className="section map">
       {shouldShowInteractiveMap && (
-        <RecentAlertsInteractiveMap
+        <MostRecentAlertsMap
           alerts48HrsAgo={alerts48HrsAgo}
           mostRecentAlerts={mostRecentAlerts}
           polygons={polygons}
@@ -31,7 +31,7 @@ const RecentAlertsMap = ({
   );
 };
 
-RecentAlertsMap.propTypes = {
+MostRecentAlertsMapContainer.propTypes = {
   alerts48HrsAgo: PropTypes.array.isRequired,
   mostRecentAlerts: PropTypes.array.isRequired,
   mapFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -39,8 +39,8 @@ RecentAlertsMap.propTypes = {
   isIntersectingRef: PropTypes.object.isRequired,
 };
 
-RecentAlertsMap.defaultProps = {
+MostRecentAlertsMapContainer.defaultProps = {
   mapFocus: null,
 };
 
-export default withIsVisibleHook(RecentAlertsMap, "RecentAlertsMap");
+export default withIsVisibleHook(MostRecentAlertsMapContainer, "MostRecentAlertsMapContainer");
