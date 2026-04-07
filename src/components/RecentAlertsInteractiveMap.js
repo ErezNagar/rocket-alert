@@ -269,24 +269,26 @@ class RecentAlertsInteractiveMap extends React.Component {
 
     // const overallBounds = bounds1.extend(bounds2);
 
-    const newBounds = this.state.mapBounds.extend(bounds);
-    if (!newBounds.isEmpty()) {
+    const newBounds = this.state.mapBounds?.extend(bounds);
+    if (newBounds && !newBounds.isEmpty()) {
       map.fitBounds(newBounds, {
         padding: this.MAP_PADDING,
         animate: true,
       });
+      this.setState({ map, mapBounds: newBounds });
     }
-    this.setState({ map, mapBounds: newBounds });
   };
 
   updateMapFocus = () => {
     const alert = this.props.mapFocus;
     if (alert === "reset") {
-      this.state.map?.fitBounds(this.state.mapBounds, {
-        padding: this.MAP_PADDING,
-        pitch: 0,
-        animate: true,
-      });
+      if (this.state.mapBounds && !this.state.mapBounds.isEmpty()) {
+        this.state.map?.fitBounds(this.state.mapBounds, {
+          padding: this.MAP_PADDING,
+          pitch: 0,
+          animate: true,
+        });
+      }
     } else {
       this.state.map?.panTo([alert.lon, alert.lat], {
         zoom: 13,
