@@ -51,6 +51,4 @@ export const getNow = () => new Date();
 
 export const get48HoursAgo = () => subDays(new Date(), 2);
 
-export const getYesterday = () => subDays(new Date(), 1);
-
 export const getPastYear = () => subYears(new Date(), 1);
