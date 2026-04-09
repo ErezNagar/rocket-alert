@@ -4,7 +4,7 @@ import wretch from "wretch";
 import { Row, Col, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Column } from "@ant-design/plots";
-import { dayOfMonthFormat, getYesterday } from "../utilities/date_helper";
+import { dayOfMonthFormat } from "../utilities/date_helper";
 import Tile from "./Tile";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Utilities from "../utilities/utilities";
@@ -152,7 +152,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
       loadIranAlertTimeframes(),
       alertsClient.getDetailedAlerts(
         new Date("2026-02-28"),
-        new Date(getYesterday()),
+        new Date("2026-04-08T00:00:00"),
       ),
     ])
       .then((values) => {
@@ -195,9 +195,9 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
             <Col xs={24} sm={12} md={8} lg={6}>
               <Tile
                 title={"Rocket Alerts"}
-                subtitle={"Since February 28, 2026"}
+                subtitle={"Feb 28, 2026 - Apr 08, 2026"}
                 fromDate={new Date("2026-02-28")}
-                toDate={new Date(getYesterday())}
+                toDate={new Date("2026-04-08")}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
                 showAverage
@@ -206,9 +206,9 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
             <Col xs={24} sm={12} md={8} lg={6}>
               <Tile
                 title={"UAV Alerts"}
-                subtitle={"Since February 28, 2026"}
+                subtitle={"Feb 28, 2026 - Apr 08, 2026"}
                 fromDate={new Date("2026-02-28")}
-                toDate={new Date(getYesterday())}
+                toDate={new Date("2026-04-08")}
                 alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_UAV}
                 showAverage
@@ -221,7 +221,7 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         <Row justify={"center"}>
           <Col span={24}>
             <h2>Total rocket and UAV alerts</h2>
-            <div className="subtitle">Since February 28, 2026</div>
+            <div className="subtitle">Feb 28, 2026 - Apr 08, 2026</div>
             {isLoading && (
               <div className="center-flexbox">
                 <Spin
