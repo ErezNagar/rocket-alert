@@ -4,15 +4,21 @@ import Tracking from "../tracking";
 import Utilities from "../utilities/utilities";
 
 // Mock dependencies
-jest.mock("../tracking", () => ({
-  visibleEvent: jest.fn(),
-  timeToShelterLocationClick: jest.fn(),
-  shareTimetoShelterClick: jest.fn(),
+vi.mock("../tracking", () => ({
+  __esModule: true,
+  default: {
+    visibleEvent: vi.fn(),
+    timeToShelterLocationClick: vi.fn(),
+    shareTimetoShelterClick: vi.fn(),
+  },
 }));
 
-jest.mock("../utilities/utilities", () => ({
-  useIsVisible: jest.fn(),
-  getDistanceByTimeToShelter: jest.fn(),
+vi.mock("../utilities/utilities", () => ({
+  __esModule: true,
+  default: {
+    useIsVisible: vi.fn(),
+    getDistanceByTimeToShelter: vi.fn(),
+  },
 }));
 
 describe("TimeToShelter", () => {
@@ -26,7 +32,7 @@ describe("TimeToShelter", () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     Utilities.useIsVisible.mockReturnValue(true);
     Utilities.getDistanceByTimeToShelter.mockReturnValue(10);
   });
@@ -55,7 +61,7 @@ describe("TimeToShelter", () => {
   });
 
   it("renders clickable location when lat/lon exist", () => {
-    const onToggleMapFocus = jest.fn();
+    const onToggleMapFocus = vi.fn();
 
     render(
       <TimeToShelter

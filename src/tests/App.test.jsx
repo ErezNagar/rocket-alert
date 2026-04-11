@@ -1,9 +1,8 @@
 import AlertClient from "../rocket_alert_client";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import Header from "../components/Header/Header";
 
-jest.mock("wretch", () => {
+vi.mock("wretch", () => {
   const catchFn = () => {
     return "catch";
   };
@@ -17,8 +16,14 @@ jest.mock("wretch", () => {
   const get = () => ({ json });
   const query = (query) => ({ get });
   const url = (url) => ({ query });
-  const auth = () => ({});
-  return () => ({ url, auth });
+  const auth = () => ({ url });
+  return {
+    __esModule: true,
+    default: () => ({
+      url,
+      auth,
+    }),
+  };
 });
 
 const DATE_RANGE = {

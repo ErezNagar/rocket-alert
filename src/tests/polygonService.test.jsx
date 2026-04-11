@@ -3,31 +3,40 @@ import Cache from "../cache";
 import Tracking from "../tracking";
 import Utilities from "../utilities/utilities";
 
-jest.mock("../cache", () => ({
-  canUseCache: jest.fn(),
-  getJSON: jest.fn(),
-  get: jest.fn(),
-  setJSON: jest.fn(),
-  set: jest.fn(),
+vi.mock("../cache", () => ({
+  __esModule: true,
+  default: {
+    canUseCache: vi.fn(),
+    getJSON: vi.fn(),
+    get: vi.fn(),
+    setJSON: vi.fn(),
+    set: vi.fn(),
+  },
 }));
 
-jest.mock("../tracking", () => ({
-  polygonCache: jest.fn(),
+vi.mock("../tracking", () => ({
+  __esModule: true,
+  default: {
+    polygonCache: vi.fn(),
+  },
 }));
 
-jest.mock("../utilities/utilities", () => ({
-  POLYGON_VERSION_KEY: "version_key",
-  POLYGON_VERSION_VALUE: "v1",
+vi.mock("../utilities/utilities", () => ({
+  __esModule: true,
+  default: {
+    POLYGON_VERSION_KEY: "version_key",
+    POLYGON_VERSION_VALUE: "v1",
+  },
 }));
 
-jest.mock("../polygons.json", () => ({
+vi.mock("../polygons.json", () => ({
   __esModule: true,
   default: { test: "polygon-data" },
 }));
 
 describe("polygonService - loadPolygons", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("Loads from file when cache cannot be used", async () => {
