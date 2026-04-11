@@ -3,9 +3,6 @@ import { render, screen } from "@testing-library/react";
 import Header from "../components/Header/Header";
 
 vi.mock("wretch", () => {
-  const catchFn = () => {
-    return "catch";
-  };
   const json = () => {
     return Promise.resolve({
       success: true,
