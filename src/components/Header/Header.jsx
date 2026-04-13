@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import TwitterLogo from "../../assets/twitter.svg?react";
 import AppLogo from "../../assets/logo.svg?react";
 import alarmAudio from "../../assets/alarm.mp3";
@@ -11,17 +10,17 @@ import Utilities from "../../utilities/utilities";
 import Tracking from "../../tracking";
 
 const Header = ({
-  isAlertMode,
-  realTimeAlert,
-  isLastAlertOfBatch,
-  onTwitterShareText,
-  todayAlertCount,
-  yesterdayAlertCount,
-  pastWeekAlertCount,
-  pastMonthAlertCount,
-  mostRcentAlertAge,
-  isLoading,
-  isError,
+  isAlertMode = false,
+  realTimeAlert = {},
+  isLastAlertOfBatch = false,
+  onTwitterShareText = () => {},
+  todayAlertCount = 0,
+  yesterdayAlertCount = 0,
+  pastWeekAlertCount = 0,
+  pastMonthAlertCount = 0,
+  mostRcentAlertAge = 0,
+  isLoading = false,
+  isError = false,
 }) => {
   const [headerText, setHeaderText] = useState({
     alertSummaryCount: 0,
@@ -284,29 +283,6 @@ const Header = ({
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  isAlertMode: PropTypes.bool,
-  realTimeAlert: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  onTwitterShareText: PropTypes.func,
-  isLastAlertOfBatch: PropTypes.bool,
-  todayAlertCount: PropTypes.number.isRequired,
-  yesterdayAlertCount: PropTypes.number.isRequired,
-  pastWeekAlertCount: PropTypes.number.isRequired,
-  pastMonthAlertCount: PropTypes.number.isRequired,
-  mostRcentAlertAge: PropTypes.number,
-  isError: PropTypes.bool,
-  isLoading: PropTypes.bool,
-};
-
-Header.defaultProps = {
-  isAlertMode: false,
-  realTimeAlert: {},
-  onTwitterShareText: () => {},
-  isLastAlertOfBatch: false,
-  isError: false,
-  isLoading: false,
 };
 
 export default Header;

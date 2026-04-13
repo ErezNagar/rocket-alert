@@ -7,16 +7,25 @@ import Tracking from "../../tracking";
 import { differenceInMonths } from "date-fns";
 
 const HeaderContainer = (props) => {
-  const [todayAlertCount, setTodayAlertCount] = useState(0);
-  const [yesterdayAlertCount, setYesterdayAlertCount] = useState(0);
-  const [pastWeekAlertCount, setPastWeekAlertCount] = useState(0);
-  const [pastMonthAlertCount, setPastMonthAlertCount] = useState(0);
-  const [mostRcentAlertAge, setMostRcentAlertAge] = useState(0);
+  const [todayAlertCount, setTodayAlertCount] = useState(null);
+  const [yesterdayAlertCount, setYesterdayAlertCount] = useState(null);
+  const [pastWeekAlertCount, setPastWeekAlertCount] = useState(null);
+  const [pastMonthAlertCount, setPastMonthAlertCount] = useState(null);
+  const [mostRcentAlertAge, setMostRcentAlertAge] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+  const logHeaderLoadingTime = (perfStartTime) => {
+    const perfTime = performance.now() - perfStartTime;
+    if (perfTime && !Number.isNaN(perfTime)) {
+      Sentry.metrics.distribution("header", perfTime, {
+        unit: "millisecond",
+      });
+    }
+  };
+
   const getMostRecentAlert = () => {
-    props.alertClient
+    return props.alertClient
       .getMostRecentAlert()
       .then((res) => {
         if (res.success) {
@@ -25,7 +34,6 @@ const HeaderContainer = (props) => {
             new Date(res.payload.date),
           );
           setMostRcentAlertAge(monthsAgo);
-          setIsLoading(false);
         }
       })
       .catch((err) => {
@@ -70,15 +78,11 @@ const HeaderContainer = (props) => {
           pastWeek === 0 &&
           pastMonth === 0
         ) {
-          getMostRecentAlert();
+          getMostRecentAlert().then(() =>
+            logHeaderLoadingTime(props.perfStartTime),
+          );
         } else {
-          setIsLoading(false);
-        }
-        const perfTime = performance.now() - props.perfStartTime;
-        if (perfTime && !Number.isNaN(perfTime)) {
-          Sentry.metrics.distribution("header", perfTime, {
-            unit: "millisecond",
-          });
+          logHeaderLoadingTime(props.perfStartTime);
         }
       })
       .catch((error) => {
@@ -96,6 +100,24 @@ const HeaderContainer = (props) => {
     }
   }, [props.realTimeAlertCache]);
   /* eslint-enable react-hooks/exhaustive-deps */
+
+  useEffect(() => {
+    if (
+      todayAlertCount ||
+      yesterdayAlertCount ||
+      pastWeekAlertCount ||
+      pastMonthAlertCount ||
+      mostRcentAlertAge
+    ) {
+      setIsLoading(false);
+    }
+  }, [
+    todayAlertCount,
+    yesterdayAlertCount,
+    pastWeekAlertCount,
+    pastMonthAlertCount,
+    mostRcentAlertAge,
+  ]);
 
   return (
     <Header

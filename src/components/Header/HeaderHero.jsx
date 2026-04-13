@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import FadeIn from "../FadeIn";
 import { Statistic, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -29,17 +28,5 @@ const HeaderHero = ({
     )}
   </>
 );
-
-HeaderHero.propTypes = {
-  alertSummaryTitle: PropTypes.string,
-  alertSummaryText: PropTypes.string,
-  alertSummaryCount: PropTypes.number,
-  isLoading: PropTypes.bool.isRequired,
-};
-HeaderHero.defaultProps = {
-  alertSummaryTitle: "",
-  alertSummaryText: "",
-  alertSummaryCount: 0,
-};
 
 export default HeaderHero;
