@@ -8,6 +8,7 @@ import withIsVisibleHook from "./withIsVisibleHook";
 import Utilities from "../utilities/utilities";
 import graphUtils from "./Graphs/graphUtils/graphUtils";
 import { OPERATION_LIONS_ROAR } from "./Graphs/data/graphs";
+import { LIONS_ROAR } from "./Graphs/data/sparklines";
 
 const config = {
   isStack: true,
@@ -65,8 +66,10 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
                 subtitle={"Feb 28, 2026 - Apr 08, 2026"}
                 fromDate={new Date("2026-02-28")}
                 toDate={new Date("2026-04-08")}
-                alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_ROCKETS}
+                sparklineData={LIONS_ROAR.ROCKETS.SPARKLINE_DATA}
+                alertCount={LIONS_ROAR.ROCKETS.ALERT_COUNT}
+                isStatic
                 showAverage
               />
             </Col>
@@ -76,8 +79,10 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
                 subtitle={"Feb 28, 2026 - Apr 08, 2026"}
                 fromDate={new Date("2026-02-28")}
                 toDate={new Date("2026-04-08")}
-                alertsClient={alertsClient}
                 alertTypeId={Utilities.ALERT_TYPE_UAV}
+                sparklineData={LIONS_ROAR.UAVS.SPARKLINE_DATA}
+                alertCount={LIONS_ROAR.UAVS.ALERT_COUNT}
+                isStatic
                 showAverage
               />
             </Col>
