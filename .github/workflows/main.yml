@@ -20,13 +20,13 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20.10.0
+          node-version: 22
 
       - name: Install
         run: npm ci
 
       - name: Run tests
-        run: npm test -- --watchAll=false
+        run: npm run test
 
       - name: Build 🔧
         run: npm run build
@@ -67,7 +67,7 @@ jobs:
       - name: Deploy 🚀
         run: |
           npm install -g gh-pages
-          gh-pages -d build \
+          gh-pages -d dist \
             -r https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
