@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "public/tests", "src/tests/App.test.js"  ]
+, "public/tests", "src/tests/App.test.jsx"  ]
 }
