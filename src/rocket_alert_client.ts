@@ -116,7 +116,7 @@ const AlertClient = {
         return payload;
       })
       .catch((err) => {
-        console.log("Error getRealTimeAlertCache", err);
+        console.error("Error getRealTimeAlertCache", err);
       }),
   /*
    *  Gets total alert count for the given date range

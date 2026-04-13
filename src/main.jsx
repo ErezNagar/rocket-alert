@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/react";
 import React from "react";
-import ReactDOM from "react-dom";
 import App from "./App";
+import { createRoot } from "react-dom/client";
 
 Sentry.init({
   dsn: "https://46a31ed8247cc2ff80a700a18a3b4b41@o4511108213637120.ingest.us.sentry.io/4511108215275520",
@@ -28,15 +28,8 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-ReactDOM.render(
+createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById("root"),
 );
-
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
