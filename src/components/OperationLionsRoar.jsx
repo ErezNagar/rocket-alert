@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { Row, Col, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -36,7 +35,7 @@ const config = {
   legend: false,
 };
 
-const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
+const OperationLionsRoar = ({ isIntersectingRef }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [graphData, setGraphData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -112,12 +111,6 @@ const OperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
       </section>
     </section>
   );
-};
-
-OperationLionsRoar.propTypes = {
-  alertsClient: PropTypes.object.isRequired,
-  // For Tracking
-  isIntersectingRef: PropTypes.object.isRequired,
 };
 
 export default withIsVisibleHook(OperationLionsRoar, "OperationLionsRoar");
