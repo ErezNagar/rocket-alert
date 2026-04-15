@@ -25,6 +25,18 @@ const filterRocketAndUAVAlerts = (res: any) => {
 
 const AlertClient = {
   /*
+    Gets detailed alerts for the predefined timeframe. Replaces /details for better caching
+  */
+  getAlertsSinceFixedDate: (): any =>
+    APIv1.url("/fixed")
+      .get()
+      .json()
+      .then(filterRocketAndUAVAlerts)
+      .catch((e) => {
+        console.error("Error getAlertsSinceFixedDate", e);
+      }),
+
+  /*
    *  Gets full alert data for all alerts in the past 48 hours.
    */
   getMostRecentAlerts: (): any =>

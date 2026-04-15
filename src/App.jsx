@@ -6,6 +6,7 @@ import PreviousOperations from "./components/PreviousOperations";
 import MostRecentAlerts from "./components/MostRecentAlerts";
 import OperationSwordsOfIron from "./components/OperationSwordsOfIron";
 import OperationLionsRoar from "./components/OperationLionsRoar";
+import AfterOperationLionsRoar from "./components/AfterOperationLionsRoar";
 import MostRecentAlertsMapContainer from "./components/MostRecentAlertsMapContainer";
 import Footer from "./components/Footer";
 import FAQ from "./components/FAQ";
@@ -217,22 +218,20 @@ class App extends React.Component {
           this.state.mostRecentAlerts.length > 0) && (
           <section className="section mostRecentAlerts">
             <Row justify="space-around" align="middle">
-              <>
-                <Col xs={24} lg={12}>
-                  <MostRecentAlerts
-                    alerts={this.state.mostRecentAlerts}
-                    showResetFocus={this.state.showResetFocus}
-                    onToggleMapFocus={this.handleToggleMapFocus}
-                  />
-                </Col>
-                <Col xs={24} lg={12}>
-                  <MostRecentAlertsMapContainer
-                    alerts48HrsAgo={this.state.alerts48HrsAgo}
-                    mostRecentAlerts={this.state.mostRecentAlerts}
-                    mapFocus={this.state.mapFocus}
-                  />
-                </Col>
-              </>
+              <Col xs={24} lg={12}>
+                <MostRecentAlerts
+                  alerts={this.state.mostRecentAlerts}
+                  showResetFocus={this.state.showResetFocus}
+                  onToggleMapFocus={this.handleToggleMapFocus}
+                />
+              </Col>
+              <Col xs={24} lg={12}>
+                <MostRecentAlertsMapContainer
+                  alerts48HrsAgo={this.state.alerts48HrsAgo}
+                  mostRecentAlerts={this.state.mostRecentAlerts}
+                  mapFocus={this.state.mapFocus}
+                />
+              </Col>
             </Row>
             <TimeToShelter
               alerts={this.state.mostRecentAlerts}
@@ -240,11 +239,12 @@ class App extends React.Component {
             />
           </section>
         )}
-        <OperationLionsRoar alertsClient={AlertClient} />
+        <AfterOperationLionsRoar alertsClient={AlertClient} />
+        <OperationLionsRoar />
         <OperationSwordsOfIron />
         {/* <Social /> */}
         {/* <LocationDistance /> */}
-        <PreviousOperations alertsClient={AlertClient} />
+        <PreviousOperations />
         <FAQ />
         <SupportUs />
         <Footer twitterShareText={this.state.twitterShareText} />
