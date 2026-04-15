@@ -47,7 +47,7 @@
     "vitest": "^4.1.4"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run --reporter=verbose",
