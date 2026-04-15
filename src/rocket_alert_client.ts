@@ -23,37 +23,19 @@ const filterRocketAndUAVAlerts = (res: any) => {
   return res;
 };
 
-/*
- *  Gets detailed alert data for alerts in the given date range
- *
- *  @param {string} from  from date, inclusive.
- *  @param {string} to    to date, inclusive.
- *  @return {object}
- */
-const getDetailedAlerts = (
-  from: string,
-  to: string,
-  alertTypeId: number = Utilities.ALERT_TYPE_ALL,
-) => {
-  if (!from || !isValid(new Date(from))) {
-    return Promise.reject(new Error("Invalid Date: from"));
-  }
-  if (!to || !isValid(new Date(to))) {
-    return Promise.reject(new Error("Invalid Date: to"));
-  }
-  return APIv1.url("/details")
-    .query({
-      from: isoFormat(convertToServerTime(from)),
-      to: isoFormat(convertToServerTime(to)),
-      alertTypeId,
-    })
-    .get()
-    .json()
-    .then((res) => filterRocketAndUAVAlerts(res));
-};
-
 const AlertClient = {
-  getDetailedAlerts,
+  /*
+    Gets detailed alerts for the predefined timeframe. Replaces /details for better caching
+  */
+  getAlertsSinceFixedDate: (): any =>
+    APIv1.url("/fixed")
+      .get()
+      .json()
+      .then(filterRocketAndUAVAlerts)
+      .catch((e) => {
+        console.error("Error getAlertsSinceFixedDate", e);
+      }),
+
   /*
    *  Gets full alert data for all alerts in the past 48 hours.
    */

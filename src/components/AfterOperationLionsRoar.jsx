@@ -4,7 +4,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Utilities from "../utilities/utilities";
-import { getYesterday, dayOfMonthFormat } from "../utilities/date_helper";
+import { dayOfMonthFormat } from "../utilities/date_helper";
 
 const config = {
   isStack: true,
@@ -18,7 +18,7 @@ const config = {
   color: ["#F7E210", "#a09205"],
   appendPadding: Utilities.isSmallViewport()
     ? [30, 0, 0, 0]
-    : [30, 250, 0, 250],
+    : [30, 500, 0, 500],
   label: false,
   xAxis: {
     label: {
@@ -37,7 +37,7 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const buildNewData = (alertData) => {
+  const buildData = (alertData) => {
     let data = [];
 
     alertData.forEach(({ alerts, date }) => {
@@ -68,15 +68,28 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
 
   useEffect(() => {
     alertsClient
-      .getDetailedAlerts(new Date("2026-04-08"), getYesterday())
+      .getAlertsSinceFixedDate()
       .then((res) => {
         if (!res.success) {
+          setIsLoading(false);
           setIsError(true);
           return;
         }
-        const data = buildNewData(res.payload);
-        setGraphData(data);
-        setIsLoading(false);
+
+        const filteredData = res.payload.filter(
+          (item) => item.date >= "2026-04-08",
+        );
+
+        if (filteredData && filteredData[0]) {
+          filteredData[0].alerts = filteredData[0].alerts.filter(
+            (alert) =>
+              Date.parse(alert.timeStamp) >= Date.parse("2026-04-08T03:00:00"),
+          );
+
+          const data = buildData(filteredData);
+          setGraphData(data);
+          setIsLoading(false);
+        }
       })
       .catch((res) => {
         setIsLoading(false);
@@ -96,7 +109,6 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         }}
       >
         <h2 style={{ fontSize: "2em" }}>Since ceasefire with Iran</h2>
-        {/* <div className="subtitle">Since April 8, 2026</div> */}
       </div>
       <section className="current-operation">
         <section ref={isIntersectingRef} className="graph">
