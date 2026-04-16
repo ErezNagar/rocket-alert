@@ -114,7 +114,7 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         <section ref={isIntersectingRef} className="graph">
           <Row justify={"center"}>
             <Col span={24}>
-              <h2>Test</h2>
+              <h2>Total rocket and UAV alerts</h2>
               <div className="subtitle">Since April 8, 2026</div>
               {isLoading && (
                 <div className="center-flexbox">
