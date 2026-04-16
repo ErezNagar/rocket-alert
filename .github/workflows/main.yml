@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - master
+    types: [opened, synchronize, reopened, closed]
 
   push:
     branches:
@@ -31,6 +32,90 @@ jobs:
       - name: Build 🔧
         run: npm run build
 
+  preview:
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+
+      - name: Install
+        run: npm ci
+
+      - name: Build Preview 🔧
+        run: BASE_PATH=/preview/ npm run build
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy Preview 🚧
+        run: |
+          npm install -g gh-pages
+
+          mkdir preview
+          cp -r dist/* preview/
+
+          gh-pages -d preview \
+            -r https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git \
+            -b gh-pages \
+            -m "Deploy preview from PR #${{ github.event.pull_request.number }}" \
+            --dest preview
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment PR with preview URL 💬
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = `https://${context.repo.owner}.github.io/${context.repo.repo}/preview/`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚧 Preview deployed: ${url}`
+            });
+
+  cleanup-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout gh-pages branch 🛎️
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Remove preview folder 🧹
+        run: |
+          if [ -d "preview" ]; then
+            rm -rf preview
+            git add -A
+            git commit -m "Remove preview after PR #${{ github.event.pull_request.number }} closed"
+          else
+            echo "No preview folder to remove"
+          fi
+
+      - name: Push changes 🚀
+        run: git push origin gh-pages
+
   release:
     needs: test-and-build
     if: github.event_name == 'push'
@@ -40,6 +125,10 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: true
 
     steps:
       - name: Checkout 🛎️
@@ -52,7 +141,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      - run: BASE_PATH=/ npm run build
 
       - name: Configure Git
         run: |

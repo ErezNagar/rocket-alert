@@ -4,7 +4,7 @@ import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [react(), svgr()],
-  base: process.env.PUBLIC_URL || "/", // IMPORTANT for GitHub Pages + PR previews
+  base: process.env.BASE_PATH || "/", // IMPORTANT for GitHub Pages + PR previews
   test: {
     environment: "jsdom",
     globals: true,
