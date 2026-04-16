@@ -54,6 +54,11 @@ jobs:
       - name: Build Preview 🔧
         run: BASE_PATH=/preview/ npm run build
 
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Deploy Preview 🚧
         run: |
           npm install -g gh-pages
