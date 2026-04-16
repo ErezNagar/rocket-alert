@@ -25,7 +25,6 @@ const Tracking = {
     }),
   timeToShelterLocationClick: () =>
     track("event", "time_to_shelter_location_click"),
-  userLocationMapLoadedEvent: () => track("event", "user_location_map_loaded"),
   graphYearClick: (year) =>
     track("event", "alert_by_day_graph_year_click", {
       year,
