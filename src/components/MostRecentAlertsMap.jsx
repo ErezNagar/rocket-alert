@@ -69,14 +69,14 @@ class MostRecentAlertsMap extends React.Component {
           compact: true,
         }),
       );
+
+      map.on("load", () => {
+        this.initMap(map);
+      });
     } catch (e) {
       console.error("initMapWithAlertLocation: Failed to initialize map:", e);
       return;
     }
-
-    map.on("load", () => {
-      this.initMap(map);
-    });
   }
 
   addGeoJsonFeature = (geojson, alert) => {
