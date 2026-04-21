@@ -62,7 +62,7 @@ const HeaderContainer = (props) => {
     props.alertClient
       .getHeaderData(getTimezone())
       .then((res) => {
-        if (!res.success) {
+        if (!res || !res.success) {
           throw new Error("Failed to get header data");
         }
 
