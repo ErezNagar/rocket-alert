@@ -6,6 +6,8 @@ const MAP_STYLE = {
     carto: {
       type: "vector",
       url: "https://tiles.basemaps.cartocdn.com/vector/carto.streets/v1/tiles.json",
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
     },
   },
   sprite: "https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/sprite",
