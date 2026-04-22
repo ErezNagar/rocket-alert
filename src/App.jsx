@@ -107,7 +107,9 @@ class App extends React.Component {
       })
       .catch((error) => {
         console.error(error);
-        this.setState({ isError: true });
+        this.setState({
+          realTimeAlertCache: 0,
+        });
       });
   };
 
