@@ -70,7 +70,7 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
     alertsClient
       .getAlertsSinceFixedDate()
       .then((res) => {
-        if (!res.success) {
+        if (!res || !res.success) {
           setIsLoading(false);
           setIsError(true);
           return;
@@ -91,7 +91,8 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
           setIsLoading(false);
         }
       })
-      .catch((res) => {
+      .catch((e) => {
+        console.error("Error LionsRoar - getAlertsSinceFixedDate", e);
         setIsLoading(false);
         setIsError(true);
       });
