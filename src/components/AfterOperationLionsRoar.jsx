@@ -18,7 +18,7 @@ const config = {
   color: ["#F7E210", "#a09205"],
   appendPadding: Utilities.isSmallViewport()
     ? [30, 0, 0, 0]
-    : [30, 500, 0, 500],
+    : [30, 250, 0, 250],
   label: false,
   xAxis: {
     label: {
