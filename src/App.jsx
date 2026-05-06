@@ -108,7 +108,7 @@ class App extends React.Component {
       .catch((error) => {
         console.error(error);
         this.setState({
-          realTimeAlertCache: 0,
+          realTimeAlertCache: { alerts: [], count: null },
         });
       });
   };
