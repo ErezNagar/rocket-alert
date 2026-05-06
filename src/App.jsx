@@ -215,7 +215,7 @@ class App extends React.Component {
           realTimeAlert={this.state.realTimeAlert}
           twitterShareText={this.state.twitterShareText}
         />
-        <SupportUs />
+        {/* <SupportUs /> */}
         {(this.state.alerts48HrsAgo.length > 0 ||
           this.state.mostRecentAlerts.length > 0) && (
           <section className="section mostRecentAlerts">
