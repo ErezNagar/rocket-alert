@@ -25,20 +25,20 @@ const TimeToShelter = ({ alerts, onToggleMapFocus }) => {
 
   useEffect(() => {
     /*
-        Get the first alert that with countdown data.
-        Since Lion's Roar (Feb 28, 2026), this focuses on alerts near the border with Lebanon or Gaza,
-        Since alerts in other locations are most likly due to missiles from Iran.
+        Get the first alert with countdown data.
+        Post Lion's Roar (April 8, 2026), this focuses on alerts near the border with Lebanon.
     */
-    // const alert = alerts?.find((alert) => alert.countdownSec >= 0);
     const alert = alerts?.find(
       (alert) =>
-        alert.countdownSec >= 0 &&
-        (alert.areaNameEn === "Confrontation Line" ||
-          alert.areaNameEn === "Gaza Envelope"),
+        alert.countdownSec >= 0 && alert.areaNameEn === "Confrontation Line",
     );
     if (!alert) {
       return;
     }
+    const threatType =
+      alert.alertTypeId === Utilities.ALERT_TYPE_UAV ? "UAV" : "rocket";
+    const actionType =
+      alert.alertTypeId === Utilities.ALERT_TYPE_UAV ? "launched" : "fired";
     const distance = Utilities.getDistanceByTimeToShelter(alert.countdownSec);
     const distanceInMiles = KMToMiles(distance);
     const title =
@@ -46,7 +46,7 @@ const TimeToShelter = ({ alerts, onToggleMapFocus }) => {
         ? `You have ${alert.countdownSec} seconds to get to shelter!`
         : `Get to shelter immediately!`;
 
-    const text = `, a rocket targeting you was fired just ${distance} km (${distanceInMiles} miles) away.`;
+    const text = `, a ${threatType} targeting you was ${actionType} just ${distance} km (${distanceInMiles} miles) away.`;
 
     const shareTitle =
       distance > 5
@@ -55,8 +55,8 @@ const TimeToShelter = ({ alerts, onToggleMapFocus }) => {
 
     const shareText =
       distance > 5
-        ? `If I lived in ${alert.englishName || alert.name}, a rocket targeting me was fired just ${distance} km (${distanceInMiles} miles) away.`
-        : `If I lived in ${alert.englishName || alert.name}, a rocket targeting me was fired just less than 5 km (${distanceInMiles} miles) away.`;
+        ? `If I lived in ${alert.englishName || alert.name}, a ${threatType} targeting me was ${actionType} just ${distance} km (${distanceInMiles} miles) away.`
+        : `If I lived in ${alert.englishName || alert.name}, a ${threatType} targeting me was ${actionType} just less than 5 km (${distanceInMiles} miles) away.`;
 
     setAlert(alert);
     setTitle(title);
