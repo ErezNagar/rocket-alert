@@ -77,13 +77,13 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         }
 
         const filteredData = res.payload.filter(
-          (item) => item.date >= "2026-04-08",
+          (item) => item.date >= "2026-04-17",
         );
 
         if (filteredData && filteredData[0]) {
           filteredData[0].alerts = filteredData[0].alerts.filter(
             (alert) =>
-              Date.parse(alert.timeStamp) >= Date.parse("2026-04-08T03:00:00"),
+              Date.parse(alert.timeStamp) >= Date.parse("2026-04-17T00:00:00"),
           );
 
           const data = buildData(filteredData);
@@ -109,14 +109,14 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
           paddingBottom: "2em",
         }}
       >
-        <h2 style={{ fontSize: "2em" }}>Since ceasefire with Iran</h2>
+        <h2 style={{ fontSize: "2em" }}>Since ceasefire with Lebanon</h2>
       </div>
       <section className="current-operation">
         <section ref={isIntersectingRef} className="graph">
           <Row justify={"center"}>
             <Col span={24}>
               <h2>Total rocket and UAV alerts</h2>
-              <div className="subtitle">Since April 8, 2026</div>
+              <div className="subtitle">Since April 17, 2026</div>
               {isLoading && (
                 <div className="center-flexbox">
                   <Spin
