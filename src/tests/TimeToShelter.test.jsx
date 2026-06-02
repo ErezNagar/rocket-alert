@@ -18,15 +18,18 @@ vi.mock("../utilities/utilities", () => ({
   default: {
     useIsVisible: vi.fn(),
     getDistanceByTimeToShelter: vi.fn(),
+    ALERT_TYPE_ROCKETS: 1,
+    ALERT_TYPE_UAV: 2,
   },
 }));
 
 describe("TimeToShelter", () => {
   const baseAlert = {
+    alertTypeId: Utilities.ALERT_TYPE_ROCKETS,
     countdownSec: 10,
-    areaNameEn: "Gaza Envelope",
-    englishName: "Sderot",
-    name: "שדרות",
+    areaNameEn: "Confrontation Line",
+    englishName: "Metula",
+    name: "מטולה",
     lat: 31.5,
     lon: 34.6,
   };
@@ -70,7 +73,7 @@ describe("TimeToShelter", () => {
       />,
     );
 
-    const location = screen.getByText("Sderot");
+    const location = screen.getByText("Metula");
     fireEvent.click(location);
 
     expect(Tracking.timeToShelterLocationClick).toHaveBeenCalled();
@@ -85,7 +88,7 @@ describe("TimeToShelter", () => {
     };
 
     render(<TimeToShelter alerts={[alertWithoutCoords]} />);
-    const spans = screen.queryAllByText("Sderot", { selector: "span" });
+    const spans = screen.queryAllByText("Metula", { selector: "span" });
     expect(spans.length).toBe(0);
   });
 
@@ -110,7 +113,7 @@ describe("TimeToShelter", () => {
     const link = screen.getAllByRole("link")[0];
 
     expect(link.href).toContain("twitter.com/share");
-    expect(link.href).toContain("Sderot");
+    expect(link.href).toContain("Metula");
   });
 
   it("fires tracking on share click", () => {
@@ -131,5 +134,21 @@ describe("TimeToShelter", () => {
 
     render(<TimeToShelter alerts={[alert]} />);
     expect(screen.getByText(/אשקלון/)).toBeInTheDocument();
+  });
+
+  it("renders rocket text for a rocket alert", () => {
+    render(<TimeToShelter alerts={[baseAlert]} />);
+    expect(screen.getByText(/rocket/i)).toBeInTheDocument();
+    expect(screen.getByText(/fired/i)).toBeInTheDocument();
+  });
+
+  it("renders UAV text for a UAV alert", () => {
+    const UAVAlert = {
+      ...baseAlert,
+      alertTypeId: Utilities.ALERT_TYPE_UAV,
+    };
+    render(<TimeToShelter alerts={[UAVAlert]} />);
+    expect(screen.getByText(/UAV/i)).toBeInTheDocument();
+    expect(screen.getByText(/launched/i)).toBeInTheDocument();
   });
 });
