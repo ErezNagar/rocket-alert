@@ -16,9 +16,13 @@ const ALERT_SOURCE = {
     LABEL: ["Hamas"],
     COLOR: "#008000",
   },
-  HEZBOLLAH: {
-    LABEL: ["Hezbollah", "Rockets - Hezbollah", "UAVs - Hezbollah"],
+  HEZBOLLAH_ROCKET: {
+    LABEL: ["Hezbollah", "Rockets - Hezbollah"],
     COLOR: "#F7E210",
+  },
+  HEZBOLLAH_UAV: {
+    LABEL: ["Hezbollah", "UAVs - Hezbollah"],
+    COLOR: "#a09205",
   },
   IRAN: {
     LABEL: ["Iran", "Missiles - Iran", "UAVs - Iran"],
@@ -163,8 +167,11 @@ const graphUtils = {
     if (ALERT_SOURCE.HAMAS.LABEL.includes(origin)) {
       return ALERT_SOURCE.HAMAS.COLOR;
     }
-    if (ALERT_SOURCE.HEZBOLLAH.LABEL.includes(origin)) {
-      return ALERT_SOURCE.HEZBOLLAH.COLOR;
+    if (ALERT_SOURCE.HEZBOLLAH_ROCKET.LABEL.includes(origin)) {
+      return ALERT_SOURCE.HEZBOLLAH_ROCKET.COLOR;
+    }
+    if (ALERT_SOURCE.HEZBOLLAH_UAV.LABEL.includes(origin)) {
+      return ALERT_SOURCE.HEZBOLLAH_UAV.COLOR;
     }
     if (ALERT_SOURCE.IRAN.LABEL.includes(origin)) {
       return ALERT_SOURCE.IRAN.COLOR;
@@ -194,7 +201,7 @@ const graphUtils = {
         }
         /*
           As of March 22, 2025, Hezbollah still fires rockets and so
-          we can't just assume all alerts are from Hamas/Southv
+          we can't just assume all alerts are from Hamas/South
         */
         // else if (isAfterCeaseFireInTheNorth(alert.timeStamp)) {
         //   originSouthCount += 1;
