@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Spin } from "antd";
+import wretch from "wretch";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Column } from "@ant-design/plots";
 import withIsVisibleHook from "./withIsVisibleHook";
 import Utilities from "../utilities/utilities";
 import { dayOfMonthFormat } from "../utilities/date_helper";
+import graphUtils from "./Graphs/graphUtils/graphUtils";
+
+const YEMEN_ALERT_TIMEFRAMES_URL =
+  "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/yemen_alerts.json";
+const IRAN_ALERT_TIMEFRAMES_URL =
+  "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/iran-alerts.json";
 
 const config = {
   isStack: true,
@@ -15,7 +22,7 @@ const config = {
     item.origin === "Rockets - Hezbollah"
       ? { radius: [20, 20, 0, 0] }
       : { radius: 0 },
-  color: ["#F7E210", "#a09205"],
+  color: graphUtils.getColorByOrigin,
   appendPadding: Utilities.isSmallViewport()
     ? [30, 0, 0, 0]
     : [30, 250, 0, 250],
@@ -37,7 +44,7 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const buildData = (alertData) => {
+  const buildData = (alertData, alertTimeframes) => {
     let data = [];
 
     alertData.forEach(({ alerts, date }) => {
@@ -50,26 +57,88 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         (alert) => alert.alertTypeId === Utilities.ALERT_TYPE_UAV,
       );
 
+      const missilesOrigin = graphUtils.determineAlertOrigin(
+        rocketAlerts,
+        alertTimeframes,
+      );
+      const UAVsOrigin = graphUtils.determineAlertOrigin(
+        UAVAlerts,
+        alertTimeframes,
+      );
       const formatedDate = dayOfMonthFormat(alertDate);
-      data.push({
-        date: formatedDate,
-        alerts: rocketAlerts.length,
-        origin: "Rockets - Hezbollah",
-      });
-      data.push({
-        date: formatedDate,
-        alerts: UAVAlerts.length,
-        origin: "UAVs - Hezbollah",
-      });
+
+      if (missilesOrigin.originIranCount) {
+        data.push({
+          date: formatedDate,
+          alerts: missilesOrigin.originIranCount,
+          origin: "Missiles - Iran",
+        });
+      }
+      if (UAVsOrigin.originIranCount) {
+        data.push({
+          date: formatedDate,
+          alerts: UAVsOrigin.originIranCount,
+          origin: "UAVs - Iran",
+        });
+      }
+      if (missilesOrigin.originNorthCount) {
+        data.push({
+          date: formatedDate,
+          alerts: missilesOrigin.originNorthCount,
+          origin: "Rockets - Hezbollah",
+        });
+      }
+      if (UAVsOrigin.originNorthCount) {
+        data.push({
+          date: formatedDate,
+          alerts: UAVsOrigin.originNorthCount,
+          origin: "UAVs - Hezbollah",
+        });
+      }
+      if (missilesOrigin.originYemenCount) {
+        data.push({
+          date: formatedDate,
+          alerts: missilesOrigin.originYemenCount,
+          origin: "Missiles - Houthis",
+        });
+      }
+      if (UAVsOrigin.originYemenCount) {
+        data.push({
+          date: formatedDate,
+          alerts: UAVsOrigin.originYemenCount,
+          origin: "UAVs - Houthis",
+        });
+      }
     });
 
     return data;
   };
 
   useEffect(() => {
-    alertsClient
-      .getAlertsSinceFixedDate()
-      .then((res) => {
+    const loadYemenAlertTimeframes = () =>
+      wretch(YEMEN_ALERT_TIMEFRAMES_URL)
+        .get()
+        .json((res) =>
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
+        );
+
+    const loadIranAlertTimeframes = () =>
+      wretch(IRAN_ALERT_TIMEFRAMES_URL)
+        .get()
+        .json((res) =>
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
+        );
+
+    Promise.all([
+      loadYemenAlertTimeframes(),
+      loadIranAlertTimeframes(),
+      alertsClient.getAlertsSinceFixedDate(),
+    ])
+      .then((values) => {
+        const yemenAlertTimeframes = values[0] || [];
+        const iranAlertTimeframes = values[1] || [];
+        const res = values[2] || [];
+
         if (!res || !res.success) {
           setIsLoading(false);
           setIsError(true);
@@ -86,7 +155,11 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
               Date.parse(alert.timeStamp) >= Date.parse("2026-04-17T00:00:00"),
           );
 
-          const data = buildData(filteredData);
+          const data = buildData(filteredData, {
+            yemen: yemenAlertTimeframes,
+            iran: iranAlertTimeframes,
+            falseAlerts: [],
+          });
           setGraphData(data);
           setIsLoading(false);
         }
