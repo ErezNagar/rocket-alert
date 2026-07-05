@@ -12,6 +12,8 @@ const YEMEN_ALERT_TIMEFRAMES_URL =
   "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/yemen_alerts.json";
 const IRAN_ALERT_TIMEFRAMES_URL =
   "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/iran-alerts.json";
+const FALSE_ALERT_TIMEFRAMES_URL =
+  "https://raw.githubusercontent.com/ErezNagar/rocket-alert/refs/heads/master/src/data/confirmed_false_alerts.json";
 
 const config = {
   isStack: true,
@@ -128,16 +130,24 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
         .json((res) =>
           res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
         );
+    const loadFalseAlertTimeframes = () =>
+      wretch(FALSE_ALERT_TIMEFRAMES_URL)
+        .get()
+        .json((res) =>
+          res.map(([start, end]) => [Date.parse(start), Date.parse(end)]),
+        );
 
     Promise.all([
       loadYemenAlertTimeframes(),
       loadIranAlertTimeframes(),
+      loadFalseAlertTimeframes(),
       alertsClient.getAlertsSinceFixedDate(),
     ])
       .then((values) => {
         const yemenAlertTimeframes = values[0] || [];
         const iranAlertTimeframes = values[1] || [];
-        const res = values[2] || [];
+        const falseAlertTimeframes = values[2] || [];
+        const res = values[3] || [];
 
         if (!res || !res.success) {
           setIsLoading(false);
@@ -158,7 +168,7 @@ const AfterOperationLionsRoar = ({ alertsClient, isIntersectingRef }) => {
           const data = buildData(filteredData, {
             yemen: yemenAlertTimeframes,
             iran: iranAlertTimeframes,
-            falseAlerts: [],
+            falseAlerts: falseAlertTimeframes,
           });
           setGraphData(data);
           setIsLoading(false);
